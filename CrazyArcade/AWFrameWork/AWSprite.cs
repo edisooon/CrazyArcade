@@ -1,16 +1,19 @@
 ﻿using System;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
 
-namespace AWFrameWork
+namespace CrazyArcade.AWFrameWork
 {
-	public abstract class AWSprite: Sprite
+	public abstract class AWSprite: ISprite
 	{
 		public AWSprite()
 		{
 
 		}
 
-        private Scene scene = null;
-        public Scene Scene {
+        private IScene scene = null;
+        public IScene Scene {
             get
             {
                 return scene;
@@ -44,8 +47,8 @@ namespace AWFrameWork
                 return inputFrame;
             }
         }
-        private Scene superScene = null;
-        public Scene SuperScene
+        private IScene superScene = null;
+        public IScene SuperScene
         {
             get
             {
@@ -77,7 +80,10 @@ namespace AWFrameWork
             }
         }
 
-        public abstract void Load();
+        public virtual void Load()
+        {
+
+        }
 
         public virtual void Update(GameTime time)
         {
@@ -89,11 +95,6 @@ namespace AWFrameWork
             if (superScene != null) {
                 superScene.Remove(this);
             }
-        }
-
-        public virtual void click(MouseState state)
-        {
-            
         }
     }
 }

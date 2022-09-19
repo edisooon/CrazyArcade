@@ -1,5 +1,7 @@
 ﻿using System;
-namespace AWFrameWork
+using Microsoft.Xna.Framework.Graphics;
+
+namespace CrazyArcade.AWFrameWork
 {
 	public class TextSprite: AWSprite
 	{

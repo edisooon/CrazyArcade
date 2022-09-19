@@ -1,10 +1,14 @@
 ﻿using System;
+using System.Collections.Generic;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
 
-namespace AWFrameWork
+namespace CrazyArcade.AWFrameWork
 {
-	public class AWScene : Scene
+	public class AWScene : IScene
 	{
-        private List<Sprite> sprites = new List<Sprite>();
+        protected List<ISprite> sprites = new List<ISprite>();
         private bool mouseDown = false;
         public AWScene()
 		{
@@ -21,21 +25,21 @@ namespace AWFrameWork
             }
         }
 
-        public void AddSprite(Sprite sprite)
+        public void AddSprite(ISprite ISprite)
         {
-            sprites.Add(sprite);
-            sprite.SuperScene = this;
-            sprite.Load();
+            sprites.Add(ISprite);
+            ISprite.SuperScene = this;
+            ISprite.Load();
         }
 
         public virtual void Draw(GameTime time)
         {
-            foreach (Sprite sprite in sprites)
+            foreach (ISprite ISprite in sprites)
             {
-                if (sprite is TextSprite)
+                if (ISprite is TextSprite)
                 {
                     
-                    TextSprite text = sprite as TextSprite;
+                    TextSprite text = ISprite as TextSprite;
                     Batch.DrawString(
                         text.Font,
                         text.Text,
@@ -43,22 +47,22 @@ namespace AWFrameWork
                         text.Tint);
                 } else
                 {
-                    Batch.Draw(sprite.Graphics, sprite.Frame, sprite.InputFrame, sprite.Tint);
+                    Batch.Draw(ISprite.Graphics, ISprite.Frame, ISprite.InputFrame, ISprite.Tint);
                 }
             }
         }
 
         public virtual void Load()
         {
-            foreach (Sprite sprite in sprites)
+            foreach (ISprite ISprite in sprites)
             {
-                sprite.Load();
+                ISprite.Load();
             }
         }
 
-        public void Remove(Sprite sprite)
+        public void Remove(ISprite ISprite)
         {
-            sprites.Remove(sprite);
+            sprites.Remove(ISprite);
         }
 
         public void RemoveAllSprite()
@@ -71,23 +75,9 @@ namespace AWFrameWork
 
         public virtual void Update(GameTime time, KeyboardState kstate, MouseState mstate)
         {
-            foreach (Sprite sprite in sprites)
+            foreach (ISprite ISprite in sprites)
             {
-                sprite.Update(time);
-            }
-            if (mouseDown && mstate.LeftButton == ButtonState.Released)
-            {
-                click(mstate);
-            }
-            mouseDown = mstate.LeftButton == ButtonState.Pressed;
-        }
-        public virtual void click(MouseState state)
-        {
-            foreach (Sprite sprite in sprites)
-            {
-                if (sprite.Frame.Contains(state.Position.X, state.Position.Y)) {
-                    sprite.click(state);
-                }
+                ISprite.Update(time);
             }
         }
     }

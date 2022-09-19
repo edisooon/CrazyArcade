@@ -1,11 +1,13 @@
 ﻿using System;
 namespace CrazyArcade.CAFrameWork.Controller
 {
-	public class IControllerDelegate
+	public interface IControllerDelegate
 	{
-		public IControllerDelegate()
-		{
-		}
-	}
+        public void Up();
+        public void Down();
+        public void Left();
+        public void Right();
+        public void Space();
+    }
 }
 

@@ -1,11 +1,9 @@
 ﻿using System;
 namespace CrazyArcade.CAFrameWork.EntityBehaviors
 {
-	public class IEntity
+	public interface IEntity
 	{
-		public IEntity()
-		{
-		}
+		void SomeEntityBehavior();
 	}
 }
 
