@@ -10,73 +10,59 @@ using System.Linq;
 
 namespace CrazyArcade.CAFrameWork
 {
-	public class Stage: AWScene, IControllerDelegate
+    //this should be the base class for all Stages
+	public abstract class Stage: AWScene
 	{
-        private IController controller => throw new NotImplementedException();
         public override void Load()
         {
-            controller.Delegate = this;
+            base.Load();
+            loadBackground();
+            loadCharacters();
         }
+        public abstract void loadBackground();
+        public abstract void loadCharacters();
         public override void Update(GameTime time, KeyboardState kstate, MouseState mstate)
         {
             base.Update(time, kstate, mstate);
+            updateControllable();
+            updateBlock();
+            updateMovable();
+            updateItems();
+            updateProjectile();
         }
-        private void updateTile()
+        private void updateBlock()
         {
-            foreach (var sprite in sprites.Where(s => s is ITile))
+            foreach (var sprite in sprites.Where(s => s is IBlock))
             {
-                (sprite as ITile).TileBehavior.UpdateTile();
-            }
-        }
-        private void updateDetectable()
-        {
-            foreach (var sprite in sprites.Where(s => s is IDetectable))
-            {
-                (sprite as IDetectable).Behavior.Detect();
+                (sprite as IBlock).BlockBehavior.UpdateBlock();
             }
         }
         private void updateControllable()
         {
-            controller.Update();
-        }
-
-        public void Up()
-        {
             foreach (var sprite in sprites.Where(s => s is IControllable))
             {
-                (sprite as IControllable).Behavior.Up();
+                (sprite as IControllable).Controller.Update();
             }
         }
-
-        public void Down()
+        private void updateMovable()
         {
-            foreach (var sprite in sprites.Where(s => s is IControllable))
+            foreach (var sprite in sprites.Where(s => s is IBlock))
             {
-                (sprite as IControllable).Behavior.Down();
+                (sprite as IMovable).MovableBehavior.move();
             }
         }
-
-        public void Left()
+        private void updateProjectile()
         {
-            foreach (var sprite in sprites.Where(s => s is IControllable))
+            foreach (var sprite in sprites.Where(s => s is IProjectile))
             {
-                (sprite as IControllable).Behavior.Left();
+                (sprite as IProjectile).ProjectileBehavior.updateProjectile();
             }
         }
-
-        public void Right()
+        private void updateItems()
         {
-            foreach (var sprite in sprites.Where(s => s is IControllable))
+            foreach (var sprite in sprites.Where(s => s is IItem))
             {
-                (sprite as IControllable).Behavior.Right();
-            }
-        }
 
-        public void Space()
-        {
-            foreach (var sprite in sprites.Where(s => s is IControllable))
-            {
-                (sprite as IControllable).Behavior.Space();
             }
         }
 

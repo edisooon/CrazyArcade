@@ -5,6 +5,7 @@ namespace CrazyArcade.CAFrameWork.Controller
     {
         IControllerDelegate Delegate { set; }
         void Update();
+        //
     }
 }
 

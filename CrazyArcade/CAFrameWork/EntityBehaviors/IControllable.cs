@@ -4,7 +4,7 @@ namespace CrazyArcade.CAFrameWork.EntityBehaviors
 {
 	public interface IControllable
 	{
-		IControllerDelegate Behavior { get; }
+		IController Controller { get; }
 	}
 }
 

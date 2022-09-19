@@ -59,14 +59,7 @@ namespace CrazyArcade.AWFrameWork
                 superScene = value;
             }
         }
-        protected Texture2D graphics;
-        public Texture2D Graphics
-        {
-            get
-            {
-                return graphics;
-            }
-        }
+        public abstract Texture2D Graphics { get; }
         private Color tint = Color.White;
         public Color Tint
         {

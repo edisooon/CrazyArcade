@@ -25,7 +25,10 @@ namespace CrazyArcade.AWFrameWork
                 return font;
             }
         }
-		public TextSprite(String text, SpriteFont font)
+
+        public override Texture2D Graphics => throw new NotImplementedException();
+
+        public TextSprite(String text, SpriteFont font)
 		{
             this.text = text;
             this.font = font;

@@ -1,12 +1,9 @@
 ﻿using System;
 namespace CrazyArcade.CAFrameWork.EntityBehaviors
 {
-	public interface ITileBehavior
+	public interface IProjectileBehavior
 	{
-		public void UpdateTile()
-		{
-
-		}
+		void updateProjectile();
 	}
 }
 

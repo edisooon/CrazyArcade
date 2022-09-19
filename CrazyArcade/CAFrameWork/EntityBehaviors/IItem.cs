@@ -1,9 +1,9 @@
 ﻿using System;
 namespace CrazyArcade.CAFrameWork.EntityBehaviors
 {
-	public interface IDetectableBehavior
+	public interface IItem : IEntity
 	{
-		public void Detect();
+		Entity addBuffTo(Entity entity);
 	}
 }
 

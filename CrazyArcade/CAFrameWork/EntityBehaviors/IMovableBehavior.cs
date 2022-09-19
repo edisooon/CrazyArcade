@@ -1,9 +1,9 @@
 ﻿using System;
 namespace CrazyArcade.CAFrameWork.EntityBehaviors
 {
-	public interface ITile: IEntity
+	public interface IMovableBehavior
 	{
-		public ITileBehavior TileBehavior { get; }
+        public void move();
     }
 }
 
