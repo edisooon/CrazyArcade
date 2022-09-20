@@ -9,7 +9,6 @@ namespace CrazyArcade.Content
     //Texture2D texture = TextureSingleton.GetPlayer1Death();
     public class TextureSingleton
     {
-        private static Texture2D player1Sheet;
         public static string[] fileNames;
         public static Texture2D[] spriteSheets;
         private static TextureSingleton instance = new TextureSingleton();

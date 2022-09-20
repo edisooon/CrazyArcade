@@ -145,7 +145,7 @@
 /processorParam:TextureFormat=Color
 /build:Player1.png
 
-#begin Player1Death.png
+#begin Player1.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -155,7 +155,7 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:Player1Death.png
+/build:Player1.png
 
 #begin Player1Death.png
 /importer:TextureImporter
