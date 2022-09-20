@@ -34,9 +34,10 @@ namespace CrazyArcade.AWFrameWork
             this.font = font;
 		}
 
+
         public override void Load()
         {
-            
+            throw new NotImplementedException();
         }
     }
 }

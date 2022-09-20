@@ -73,11 +73,6 @@ namespace CrazyArcade.AWFrameWork
             }
         }
 
-        public virtual void Load()
-        {
-
-        }
-
         public virtual void Update(GameTime time)
         {
             
@@ -89,6 +84,8 @@ namespace CrazyArcade.AWFrameWork
                 superScene.Remove(this);
             }
         }
+
+        public abstract void Load();
     }
 }
 

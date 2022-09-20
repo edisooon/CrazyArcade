@@ -5,7 +5,7 @@ namespace CrazyArcade.CAFrameWork.EntityBehaviors
 {
 	public interface IGridTransform
 	{
-		public Rectangle Trans(Point p);
+		public Rectangle Trans(double x, double y);
 	}
 }
 

@@ -27,6 +27,7 @@ namespace CrazyArcade.AWFrameWork
 
         public void AddSprite(ISprite ISprite)
         {
+            Console.Out.Write("added");
             sprites.Add(ISprite);
             ISprite.SuperScene = this;
             ISprite.Load();

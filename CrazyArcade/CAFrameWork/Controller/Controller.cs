@@ -2,7 +2,7 @@
 
 namespace CrazyArcade.CAFrameWork.Controller
 {
-	public class Controller
+	public abstract class Controller: IController
 	{
         public Controller()
         {
@@ -15,11 +15,17 @@ namespace CrazyArcade.CAFrameWork.Controller
         private IControllerDelegate reciever;
         public IControllerDelegate Delegate
         {
+            get
+            {
+                return reciever;
+            }
             set
             {
                 reciever = value;
             }
         }
+
+        public abstract void Update();
     }
 }
 

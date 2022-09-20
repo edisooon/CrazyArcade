@@ -18,6 +18,7 @@ namespace CrazyArcade.CAFrameWork
             base.Load();
             loadBackground();
             loadCharacters();
+            Console.Out.Write("Loading Stage");
         }
         private List<Entity> newEntities = new List<Entity>();
         private List<Entity> removeEntities = new List<Entity>();
@@ -26,22 +27,31 @@ namespace CrazyArcade.CAFrameWork
         public override void Update(GameTime time)
         {
             base.Update(time);
+            updateGridEntities();
             updateControllable();
             updateBlock();
             updateMovable();
             updateItems();
             updateProjectile();
+            updateEnities();
+        }
+        private void updateGridEntities()
+        {
+
         }
         private void updateEnities()
         {
             foreach (Entity entity in newEntities)
             {
                 this.AddSprite(entity);
+                Console.Out.Write("Added new sprite");
             }
             foreach (Entity entity in removeEntities)
             {
                 this.Remove(entity);
             }
+            newEntities = new List<Entity>();
+            removeEntities = new List<Entity>();
         }
         private void updateBlock()
         {

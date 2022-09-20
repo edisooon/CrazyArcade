@@ -2,7 +2,7 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-using CrazyArcade.DemoStage1;
+using CrazyArcade.DemoStage;
 using CrazyArcade.CAFrameWork.Singleton;
 
 namespace CrazyArcade;
@@ -17,8 +17,9 @@ public class Game1 : Game
     {
         _graphics = new GraphicsDeviceManager(this);
         Content.RootDirectory = "Content";
+        Graphics.Content = Content;
         IsMouseVisible = true;
-        currentStage = new DemoStage();
+        currentStage = new MyDemoStage();
     }
 
     protected override void Initialize()
@@ -50,7 +51,10 @@ public class Game1 : Game
 
     protected override void Draw(GameTime gameTime)
     {
+        GraphicsDevice.Clear(Color.CornflowerBlue);
+        _spriteBatch.Begin();
         currentStage.Draw(gameTime);
+        _spriteBatch.End();
         base.Draw(gameTime);
     }
 }
