@@ -1,4 +1,4 @@
-﻿
+
 #----------------------------- Global Properties ----------------------------#
 
 /outputDir:bin/$(Platform)
@@ -13,4 +13,15 @@
 
 #---------------------------------- Content ---------------------------------#
 
+#begin Mario_Walk_Fall.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Mario_Walk_Fall.png;TEST_IMAGE.png
 
