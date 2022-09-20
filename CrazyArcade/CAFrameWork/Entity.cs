@@ -11,11 +11,15 @@ namespace CrazyArcade.CAFrameWork
 		public Entity()
 		{
 		}
+		private IStageModifyProxy stage;
+        public IStageModifyProxy Stage
+		{
+			set
+			{
+				stage = value;
+			}
+		}
 
-        public void SomeEntityBehavior()
-        {
-            throw new NotImplementedException();
-        }
     }
 }
 

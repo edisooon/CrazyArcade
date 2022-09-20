@@ -10,7 +10,7 @@ namespace CrazyArcade.AWFrameWork
 	{
 		SpriteBatch Batch { get; set; }
         public void Load();
-		public void Update(GameTime time, KeyboardState kstate, MouseState mstate);
+		public void Update(GameTime time);
         public void Draw(GameTime time);
 		public void AddSprite(ISprite s);
 		public void Remove(ISprite s);

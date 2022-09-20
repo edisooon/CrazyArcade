@@ -73,7 +73,7 @@ namespace CrazyArcade.AWFrameWork
             } 
         }
 
-        public virtual void Update(GameTime time, KeyboardState kstate, MouseState mstate)
+        public virtual void Update(GameTime time)
         {
             foreach (ISprite ISprite in sprites)
             {
