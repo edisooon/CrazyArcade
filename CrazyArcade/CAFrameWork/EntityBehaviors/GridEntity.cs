@@ -13,8 +13,8 @@ namespace CrazyArcade.CAFrameWork.EntityBehaviors
         public abstract IGridTransform Transform { get; }
         double gridX;
         double gridY;
-        public double GridX { get => gridX; set => gridX = value; }
-        public double GridY { get => gridY; set => gridY = value; }
+        public virtual double GridX { get => gridX; set => gridX = value; }
+        public virtual double GridY { get => gridY; set => gridY = value; }
     }
 }
 

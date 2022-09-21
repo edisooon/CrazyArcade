@@ -29,6 +29,15 @@ namespace CrazyArcade.DemoStage
         {
             inputFrame = new Rectangle(0, 2 * 64, 48, 64);
         }
+        public override double GridY
+        {
+            get => base.GridY;
+            set => base.GridY = value > 9 ? 9 : (value < 0 ? 0 : value);
+        }
+        public override double GridX {
+            get => base.GridX;
+            set => base.GridX = value > 9 ? 9 : (value < 0 ? 0 : value);
+        }
 
         public void KeyUp()
         {
