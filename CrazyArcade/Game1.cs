@@ -21,7 +21,7 @@ public class Game1 : Game
     protected override void Initialize()
     {
         // TODO: Add your initialization logic here
-        
+        TextureSingleton.LoadAllTextures(this.Content);
         base.Initialize();
 
     }
@@ -44,8 +44,6 @@ public class Game1 : Game
     }
 
     protected override void Draw(GameTime gameTime) { 
-    
-        GraphicsDevice.Clear(Color.CornflowerBlue);
         
         // TODO: Add your drawing code here
 
