@@ -33,7 +33,7 @@ namespace CrazyArcade.Demo1
 
         public override Rectangle OutputFrame => new Rectangle(position.X, position.Y, 56, 67);
 
-        public override Color Tint => throw new NotImplementedException();
+        public override Color Tint => Color.White;
 
         public void KeyDown()
         {

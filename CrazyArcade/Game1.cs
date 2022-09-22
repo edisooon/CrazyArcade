@@ -4,6 +4,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using CrazyArcade.Demo1;
+using CrazyArcade.Singletons;
 
 namespace CrazyArcade;
 
@@ -30,7 +31,7 @@ public class Game1 : Game
     protected override void LoadContent()
     {
         _spriteBatch = new SpriteBatch(GraphicsDevice);
-        TestTextureSingleton.LoadAllTextures(Content);
+        SpriteSheet.LoadAllTextures(Content);
         scene = new DemoScene();
         //scene1.AddEntity(new TestBlock());
         scene.Load();
