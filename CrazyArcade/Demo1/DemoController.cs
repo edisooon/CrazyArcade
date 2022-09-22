@@ -12,7 +12,7 @@ namespace CrazyArcade.Demo1
 {
     public class DemoController : IController
     {
-        public IControllerDelegate Delegate { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        public IControllerDelegate Delegate { get; set; }
 
         public void Update(GameTime time)
         {

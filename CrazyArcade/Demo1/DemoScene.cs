@@ -20,7 +20,7 @@ namespace CrazyArcade.Demo1
         public override void Load()
         {
             base.Load();
-            AddSprite(new DemoCharacter());
+            AddSprite(new DemoCharacter(new DemoController()));
         }
     }
 }
