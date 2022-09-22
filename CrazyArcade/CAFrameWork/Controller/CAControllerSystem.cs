@@ -9,7 +9,8 @@ namespace CrazyArcade.CAFramework.Controller
         List<IControllable> sprites = new List<IControllable>();
 		public CAControllerSystem()
 		{
-		}
+            sprites = new List<IControllable>();
+        }
 
         public void AddSprite(ISprite sprite)
         {

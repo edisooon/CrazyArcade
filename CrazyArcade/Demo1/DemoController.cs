@@ -14,12 +14,7 @@ namespace CrazyArcade.Demo1
     {
         public IControllerDelegate Delegate { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
 
-        public void Update()
-        {
-            throw new NotImplementedException();
-        }
-
-        void Update(GameTime time)
+        public void Update(GameTime time)
         {
             if (Keyboard.GetState().IsKeyDown(Keys.W))
             {

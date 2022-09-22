@@ -27,7 +27,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="CAFramework\" />
-    <Folder Include="Demo1\" />
     <Folder Include="CAFramework\Controller\" />
     <Folder Include="Singletons\" />
   </ItemGroup>

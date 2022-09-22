@@ -1,9 +1,9 @@
 ﻿using CrazyArcade.CAFramework;
 using CrazyArcade.Content;
-using CrazyArcade.CAFramework;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using CrazyArcade.Demo1;
 
 namespace CrazyArcade;
 
@@ -31,7 +31,7 @@ public class Game1 : Game
     {
         _spriteBatch = new SpriteBatch(GraphicsDevice);
         TestTextureSingleton.LoadAllTextures(Content);
-        //scene1 = new Scene();
+        scene = new DemoScene();
         //scene1.AddEntity(new TestBlock());
         scene.Load();
     }
