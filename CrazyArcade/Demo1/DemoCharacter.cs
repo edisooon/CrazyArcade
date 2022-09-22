@@ -43,7 +43,7 @@ namespace CrazyArcade.Demo1
 
         public void KeyLeft()
         {
-            position.X += 1;
+            position.X -= 1;
             position.X = position.X < 0 ? 0 : position.X;
         }
 
