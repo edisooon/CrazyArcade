@@ -1,11 +1,9 @@
 ﻿using System;
 namespace CrazyArcade.CAFramework
 {
-	public class IEntity
+	public interface IEntity: ISprite
 	{
-		public IEntity()
-		{
-		}
+		void print();
 	}
 }
 

@@ -1,11 +1,16 @@
 ﻿using System;
 namespace CrazyArcade.CAFramework
 {
-	public class Entity
+	public abstract class CAEntity: CASprite, IEntity
 	{
-		public Entity()
+		public CAEntity()
 		{
 		}
-	}
+
+        public void print()
+        {
+            Console.Out.Write("This is an Enitity");
+        }
+    }
 }
 

@@ -1,6 +1,6 @@
-﻿using CrazyArcade.Content;
-using CrazyArcade.Entities;
-using CrazyArcade.Scenes;
+﻿using CrazyArcade.CAFramework;
+using CrazyArcade.Content;
+using CrazyArcade.CAFramework;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
@@ -11,7 +11,7 @@ public class Game1 : Game
 {
     private GraphicsDeviceManager _graphics;
     private SpriteBatch _spriteBatch;
-    private Scene scene1;
+    private IScene scene;
 
     public Game1()
     {
@@ -31,8 +31,9 @@ public class Game1 : Game
     {
         _spriteBatch = new SpriteBatch(GraphicsDevice);
         TestTextureSingleton.LoadAllTextures(Content);
-        scene1 = new Scene();
-        scene1.AddEntity(new TestBlock());
+        //scene1 = new Scene();
+        //scene1.AddEntity(new TestBlock());
+        scene.Load();
     }
 
     protected override void Update(GameTime gameTime)
@@ -40,7 +41,7 @@ public class Game1 : Game
         if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
             Exit();
 
-        scene1.Update(gameTime);
+        scene.Update(gameTime);
 
         base.Update(gameTime);
     }
@@ -51,7 +52,7 @@ public class Game1 : Game
 
         _spriteBatch.Begin();
 
-        scene1.Draw(_spriteBatch, gameTime);
+        scene.Draw(gameTime, _spriteBatch);
 
         _spriteBatch.End();
     }

@@ -1,11 +1,17 @@
 ﻿using System;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+
 namespace CrazyArcade.CAFramework
 {
-	public class IScene
-	{
-		public IScene()
-		{
-		}
-	}
+	public interface IScene
+    {
+        void Load();
+        void Update(GameTime time);
+        void Draw(GameTime time, SpriteBatch batch);
+        void AddSprite(ISprite sprite);
+        bool RemoveSprite(ISprite sprite);
+        void RemoveAllSprite();
+    }
 }
 
