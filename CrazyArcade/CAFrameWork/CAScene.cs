@@ -19,7 +19,7 @@ namespace CrazyArcade.CAFramework
             }
         }
 
-        public void Load()
+        public virtual void Load()
         {
             systems = LoadSystems();
         }
@@ -40,6 +40,7 @@ namespace CrazyArcade.CAFramework
             {
                 system.RemoveAll();
             }
+            sprites = new List<ISprite>();
         }
 
         public bool RemoveSprite(ISprite sprite)

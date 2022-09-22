@@ -1,11 +1,13 @@
 ﻿using System;
-namespace CrazyArcade.CAFramework
+namespace CrazyArcade.CAFramework.Controller
 {
-	public class ControllerDelegate
+	public interface IControllerDelegate
 	{
-		public ControllerDelegate()
-		{
-		}
-	}
+		void KeyUp();
+        void KeyDown();
+        void KeyLeft();
+        void KeyRight();
+        void KeySpace();
+    }
 }
 

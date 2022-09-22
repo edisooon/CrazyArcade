@@ -1,11 +1,9 @@
 ﻿using System;
 namespace CrazyArcade.CAFramework.Controller
 {
-	public class Controllable
+	public interface IControllable: IControllerDelegate
 	{
-		public Controllable()
-		{
-		}
+        IController controller { get; set; }
 	}
 }
 
