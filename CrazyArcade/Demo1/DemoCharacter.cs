@@ -9,8 +9,10 @@ namespace CrazyArcade.Demo1
 {
 	public class DemoCharacter: CAEntity, IControllable
 	{
-		public DemoCharacter()
+		public DemoCharacter(IController controller)
 		{
+            this.controller = controller;
+            controller.Delegate = this;
 		}
         private IController controller;
         public IController Controller
