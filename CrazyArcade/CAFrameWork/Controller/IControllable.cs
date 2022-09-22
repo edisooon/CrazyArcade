@@ -3,7 +3,7 @@ namespace CrazyArcade.CAFramework.Controller
 {
 	public interface IControllable: IControllerDelegate
 	{
-        IController controller { get; set; }
+        IController Controller { get; set; }
 	}
 }
 
