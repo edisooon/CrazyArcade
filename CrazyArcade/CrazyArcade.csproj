@@ -13,6 +13,7 @@
   <ItemGroup>
     <None Remove="Icon.ico" />
     <None Remove="Icon.bmp" />
+    <None Remove="CAFramework\" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Icon.ico" />
@@ -24,6 +25,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Singletons\" />
+    <Folder Include="CAFramework\" />
   </ItemGroup>
   <Target Name="RestoreDotnetTools" BeforeTargets="Restore">
     <Message Text="Restoring dotnet tools" Importance="High" />
