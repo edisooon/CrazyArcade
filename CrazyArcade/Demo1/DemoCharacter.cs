@@ -64,6 +64,14 @@ namespace CrazyArcade.Demo1
         {
             position.Y += 1;
         }
+        public void LeftClick()
+        {
+
+        }
+        public void RightClick()
+        {
+
+        }
 
         public override void Update(GameTime time)
         {
