@@ -1,5 +1,6 @@
 ﻿using CrazyArcade.CAFramework;
 using CrazyArcade.CAFramework.Controller;
+using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,12 +11,18 @@ namespace CrazyArcade.BombFeature
 {
     internal class TestScene : CAScene
     {
+        private BombManager bombManager = new(new BombTestController());
         public override List<IGameSystem> LoadSystems()
         {
-            List<IGameSystem> systemList = new List<IGameSystem>();
+            List<IGameSystem> systemList = new();
             systemList.Add(new CAControllerSystem());
             systemList.Add(new CAGameLogicSystem());
             return systemList;
+        }
+        public override void Update(GameTime time)
+        {
+            base.Update(time);
+            bombManager.Controller.Update(time);
         }
     }
 }

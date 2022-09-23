@@ -13,14 +13,17 @@ namespace CrazyArcade.BombFeature
     public class WaterBomb : CAEntity
     {
         Point position = new(100, 100);
-        int BlastLength = 1;
+        int BlastLength;
+        CAScene ParentScene;
         public override Texture2D Texture => TextureSingleton.GetBallons();
         public override Rectangle InputFrame => new Rectangle(0, 67, 56, 67);
         public override Rectangle OutputFrame => new Rectangle(position.X, position.Y, 56, 67);
         public override Color Tint => Color.White;
         private List<Rectangle> AnimationFrames;
-        public WaterBomb()
+        public WaterBomb(CAScene ParentScene, int BlastLength = 1)
         {
+            this.ParentScene = ParentScene;
+            this.BlastLength = BlastLength;
             AnimationFrames = GetAnimationFrames();
         }
         private static List<Rectangle> GetAnimationFrames()
@@ -33,7 +36,15 @@ namespace CrazyArcade.BombFeature
         }
         public override void Update(GameTime time)
         {
-            //Implemented
+            AnimateSprite(time);
+        }
+        private void AnimateSprite(GameTime time)
+        {
+
+        }
+        private void DeleteSelf()
+        {
+            ParentScene.RemoveSprite(this);
         }
     }
 }

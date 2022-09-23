@@ -52,7 +52,7 @@ namespace CrazyArcade.CAFramework
             return sprites.Remove(sprite);
         }
 
-        public void Update(GameTime time)
+        public virtual void Update(GameTime time)
         {
             foreach (IGameSystem system in systems)
             {
