@@ -93,6 +93,7 @@ namespace CrazyArcade.BombFeature
             int explosionTile = 40;
             Vector2 side = new Vector2(0, 0);
             //Perhaps an enumeration would be useful here
+            ParentScene.AddSprite(new WaterExplosionCenter(ParentScene, position.X, position.Y));
             for (int i = 0; i < 4; i++)
             {
                 switch (i)
