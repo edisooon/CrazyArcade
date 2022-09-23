@@ -1,7 +1,7 @@
 ﻿using CrazyArcade.CAFramework;
 using CrazyArcade.Content;
-using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace CrazyArcade.BombFeature
 {
-    public class WaterBomb : CAEntity
+    internal class WaterExplosionEdge : CAEntity
     {
         /*
          * One thing I want to change in the future is how sprite animation has to be handled on a case by case basis.
@@ -21,28 +21,27 @@ namespace CrazyArcade.BombFeature
         CAScene ParentScene;
         Rectangle InternalSprite;
         float FrameTimer;
-        float DetonateTimer;
-        float DetonateTime;
+        float Lifespan;
+        float AliveTime;
         float FrameSpeed;
         int CurrentFrame;
+        int Direction;
         public override Texture2D Texture => TestTextureSingleton.GetSpriteSheet();
         public override Rectangle InputFrame => InternalSprite;
-        public override Rectangle OutputFrame => new Rectangle(position.X, position.Y, 42, 42);
+        public override Rectangle OutputFrame => new Rectangle(position.X, position.Y, 40, 40);
         public override Color Tint => Color.White;
         private List<Rectangle> AnimationFrames;
-        public WaterBomb(CAScene ParentScene, int X = 0, int Y = 0, int BlastLength = 1)
+        public WaterExplosionEdge(CAScene ParentScene, int direction, int X = 0, int Y = 0)
         {
             position.X = X;
             position.Y = Y;
             this.ParentScene = ParentScene;
-            this.BlastLength = BlastLength;
             AnimationFrames = GetAnimationFrames();
             CurrentFrame = 0;
             InternalSprite = AnimationFrames[CurrentFrame];
             FrameTimer = 0;
-            DetonateTime = 0;
-            DetonateTimer = 1000;
-            FrameSpeed = 75;
+            FrameSpeed = 25;
+            Direction = direction;
         }
         private static List<Rectangle> GetAnimationFrames()
         {
@@ -54,38 +53,7 @@ namespace CrazyArcade.BombFeature
         }
         public override void Update(GameTime time)
         {
-            Detonate(time);
-            AnimateSprite(time);
-        }
-        private void AnimateSprite(GameTime time)
-        {
-            if (FrameTimer > FrameSpeed)
-            {
-                CurrentFrame++;
-                CurrentFrame = CurrentFrame % AnimationFrames.Count;
-                FrameTimer = 0;
-                InternalSprite = AnimationFrames[CurrentFrame];
-            }
-            else
-            {
-                FrameTimer += (float)time.ElapsedGameTime.TotalMilliseconds;
-            }
-        }
-        private void DeleteSelf()
-        {
-            ParentScene.RemoveSprite(this);
-            ParentScene.AddSprite(new WaterBomb(ParentScene, position.X + 10, position.Y + 10, BlastLength));
-        }
-        private void Detonate(GameTime time)
-        {
-            if(DetonateTime > DetonateTimer)
-            {
-                DeleteSelf();
-            }
-            else
-            {
-                DetonateTime += (float)time.ElapsedGameTime.TotalMilliseconds;
-            }
+            
         }
     }
 }

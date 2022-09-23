@@ -12,6 +12,7 @@ namespace CrazyArcade.CAFramework
     {
         List<ISprite> sprites = new List<ISprite>();
         List<ISprite> removeSpriteList = new List<ISprite>();
+        List<ISprite> addSpriteList = new List<ISprite>();
         public CAGameLogicSystem()
         {
             sprites = new List<ISprite>();
@@ -19,7 +20,8 @@ namespace CrazyArcade.CAFramework
 
         public void AddSprite(ISprite sprite)
         {
-            sprites.Add(sprite);
+            //sprites.Add(sprite);
+            QueueAdd(sprite);
         }
 
         public void RemoveAll()
@@ -44,10 +46,20 @@ namespace CrazyArcade.CAFramework
             {
                 sprites.Remove(removeSprite);
             }
+            foreach (ISprite addSprite in addSpriteList)
+            {
+                sprites.Add(addSprite);
+            }
+            removeSpriteList.Clear();
+            addSpriteList.Clear();
         }
-        public void QueueRemove(ISprite sprite)
+        private void QueueRemove(ISprite sprite)
         {
             removeSpriteList.Add(sprite);
+        }
+        private void QueueAdd(ISprite sprite)
+        {
+            addSpriteList.Add(sprite);
         }
     }
 }

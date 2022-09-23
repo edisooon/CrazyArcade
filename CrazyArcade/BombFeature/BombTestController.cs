@@ -20,7 +20,7 @@ namespace CrazyArcade.BombFeature
             var mState = Mouse.GetState();
             if (mState.LeftButton == ButtonState.Pressed && !m1PrevState)
             {
-                Delegate.LeftClick(mState.X, mState.Y);
+                Delegate.LeftClick(mState.X - 21, mState.Y - 21);
                 m1PrevState = true;
             }
             if (mState.LeftButton == ButtonState.Released && m1PrevState)
