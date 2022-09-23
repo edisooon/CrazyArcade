@@ -74,17 +74,46 @@ namespace CrazyArcade.BombFeature
         private void DeleteSelf()
         {
             ParentScene.RemoveSprite(this);
-            ParentScene.AddSprite(new WaterBomb(ParentScene, position.X + 10, position.Y + 10, BlastLength));
+            //ParentScene.AddSprite(new WaterBomb(ParentScene, position.X + 10, position.Y + 10, BlastLength));
         }
         private void Detonate(GameTime time)
         {
             if(DetonateTime > DetonateTimer)
             {
                 DeleteSelf();
+                CreateExplosion();
             }
             else
             {
                 DetonateTime += (float)time.ElapsedGameTime.TotalMilliseconds;
+            }
+        }
+        private void CreateExplosion()
+        {
+            int explosionTile = 40;
+            Vector2 side = new Vector2(0, 0);
+            //Perhaps an enumeration would be useful here
+            for (int i = 0; i < 4; i++)
+            {
+                switch (i)
+                {
+                    case 0:
+                        side = new Vector2(0, -1);
+                        break;
+                    case 1:
+                        side = new Vector2(0, 1);
+                        break;
+                    case 2:
+                        side = new Vector2(-1, 0);
+                        break;
+                    case 3:
+                        side = new Vector2(1, 0);
+                        break;
+                }
+                for (int j = 1; j <= BlastLength; j++)
+                {
+                    ParentScene.AddSprite(new WaterExplosionEdge(ParentScene, i, j == BlastLength, (int) (position.X + (j*side.X*explosionTile)), (int) (position.Y + (j*side.Y * explosionTile))));
+                }
             }
         }
     }

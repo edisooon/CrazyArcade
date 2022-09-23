@@ -17,7 +17,7 @@ namespace CrazyArcade.BombFeature
          * Perhaps another level of abstraction?
          */
         Point position = new(100, 100);
-        int BlastLength;
+        static int FrameLength = 40;
         CAScene ParentScene;
         Rectangle InternalSprite;
         float FrameTimer;
@@ -26,34 +26,58 @@ namespace CrazyArcade.BombFeature
         float FrameSpeed;
         int CurrentFrame;
         int Direction;
+        bool head;
         public override Texture2D Texture => TestTextureSingleton.GetSpriteSheet();
         public override Rectangle InputFrame => InternalSprite;
-        public override Rectangle OutputFrame => new Rectangle(position.X, position.Y, 40, 40);
+        public override Rectangle OutputFrame => new Rectangle(position.X, position.Y, FrameLength, FrameLength);
         public override Color Tint => Color.White;
         private List<Rectangle> AnimationFrames;
-        public WaterExplosionEdge(CAScene ParentScene, int direction, int X = 0, int Y = 0)
+        public WaterExplosionEdge(CAScene ParentScene, int direction, bool head, int X = 0, int Y = 0)
         {
             position.X = X;
             position.Y = Y;
-            this.ParentScene = ParentScene;
-            AnimationFrames = GetAnimationFrames();
-            CurrentFrame = 0;
-            InternalSprite = AnimationFrames[CurrentFrame];
             FrameTimer = 0;
             FrameSpeed = 25;
             Direction = direction;
+            this.head = head;
+            this.ParentScene = ParentScene;
+            AnimationFrames = GetAnimationFrames(Direction, head);
+            CurrentFrame = 0;
+            InternalSprite = AnimationFrames[CurrentFrame];
         }
-        private static List<Rectangle> GetAnimationFrames()
+        private static List<Rectangle> GetAnimationFrames(int dir, bool head)
         {
             List<Rectangle> NewFrames = new();
-            NewFrames.Add(new Rectangle(11, 10, 42, 42));
-            NewFrames.Add(new Rectangle(56, 10, 42, 42));
-            NewFrames.Add(new Rectangle(97, 10, 46, 42));
+            if (head)
+            {
+                NewFrames.Add(new Rectangle(5, 567 + (dir * FrameLength), FrameLength, FrameLength));
+                NewFrames.Add(new Rectangle(5 + FrameLength, 567 + (dir * FrameLength), FrameLength, FrameLength));
+                NewFrames.Add(new Rectangle(5 + (2 * FrameLength), 567 + (dir * FrameLength), FrameLength, FrameLength));
+            }
+            else
+            {
+                NewFrames.Add(new Rectangle(125, 567 + (dir * FrameLength), FrameLength, FrameLength));
+                NewFrames.Add(new Rectangle(125 + FrameLength, 567 + (dir * FrameLength), FrameLength, FrameLength));
+            }
             return NewFrames;
         }
         public override void Update(GameTime time)
         {
-            
+            Animate(time);
+        }
+        private void Animate(GameTime time)
+        {
+            if (FrameTimer > FrameSpeed)
+            {
+                CurrentFrame++;
+                CurrentFrame = CurrentFrame % AnimationFrames.Count;
+                FrameTimer = 0;
+                InternalSprite = AnimationFrames[CurrentFrame];
+            }
+            else
+            {
+                FrameTimer += (float)time.ElapsedGameTime.TotalMilliseconds;
+            }
         }
     }
 }
