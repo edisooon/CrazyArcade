@@ -14,7 +14,7 @@ namespace CrazyArcade.Content
 
         public static void LoadAllTextures(ContentManager content)
         {
-            spriteSheet = content.Load<Texture2D>("TEST_IMAGE");
+            spriteSheet = content.Load<Texture2D>("Balloons");
         }
 
         public static Texture2D GetSpriteSheet()

@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using System.Diagnostics;
 
 namespace CrazyArcade.BombFeature
 {
@@ -19,7 +20,7 @@ namespace CrazyArcade.BombFeature
             var mState = Mouse.GetState();
             if (mState.LeftButton == ButtonState.Pressed && !m1PrevState)
             {
-                Delegate.LeftClick();
+                Delegate.LeftClick(mState.X, mState.Y);
                 m1PrevState = true;
             }
             if (mState.LeftButton == ButtonState.Released && m1PrevState)

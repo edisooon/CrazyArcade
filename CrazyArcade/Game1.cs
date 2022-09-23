@@ -5,6 +5,10 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using CrazyArcade.Demo1;
 using CrazyArcade.Singletons;
+using CrazyArcade.BombFeature;
+using System;
+using Microsoft.Xna.Framework.Content;
+using System.Reflection.Metadata;
 
 namespace CrazyArcade;
 
@@ -32,9 +36,9 @@ public class Game1 : Game
     {
         _spriteBatch = new SpriteBatch(GraphicsDevice);
         SpriteSheet.LoadAllTextures(Content);
-        TextureSingleton.LoadAllTextures(this.Content);
-        scene = new DemoScene();
-        //scene1.AddEntity(new TestBlock());
+        TestTextureSingleton.LoadAllTextures(Content);
+        TextureSingleton.LoadAllTextures(Content);
+        scene = new TestScene();
         scene.Load();
     }
 

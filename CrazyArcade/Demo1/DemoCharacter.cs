@@ -29,7 +29,11 @@ namespace CrazyArcade.Demo1
 
         public override Texture2D Texture => Singletons.SpriteSheet.Character;
 
-        public override Rectangle InputFrame => new Rectangle(0, 67, 56, 67);
+        public override Rectangle InputFrame
+        {
+            get => new Rectangle(0, 67, 56, 67);
+            
+        } 
 
         public override Rectangle OutputFrame => new Rectangle(position.X, position.Y, 56, 67);
 
@@ -64,7 +68,7 @@ namespace CrazyArcade.Demo1
         {
             position.Y += 1;
         }
-        public void LeftClick()
+        public void LeftClick(int X, int Y)
         {
 
         }

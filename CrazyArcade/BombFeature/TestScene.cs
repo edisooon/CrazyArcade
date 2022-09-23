@@ -11,13 +11,22 @@ namespace CrazyArcade.BombFeature
 {
     internal class TestScene : CAScene
     {
-        private BombManager bombManager = new(new BombTestController());
+        private BombManager bombManager;
+        public TestScene()
+        {
+            bombManager = new(new BombTestController(), this);
+        }
         public override List<IGameSystem> LoadSystems()
         {
             List<IGameSystem> systemList = new();
             systemList.Add(new CAControllerSystem());
             systemList.Add(new CAGameLogicSystem());
             return systemList;
+        }
+        public override void Load()
+        {
+            base.Load();
+            AddSprite(new WaterBomb(this, 100, 100, 1));
         }
         public override void Update(GameTime time)
         {
