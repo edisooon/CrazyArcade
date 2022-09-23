@@ -25,7 +25,7 @@ namespace CrazyArcade.BombFeature
         float AliveTime;
         float FrameSpeed;
         int CurrentFrame;
-        public override Texture2D Texture => TestTextureSingleton.GetSpriteSheet();
+        public override Texture2D Texture => TextureSingleton.GetBallons();
         public override Rectangle InputFrame => InternalSprite;
         public override Rectangle OutputFrame => new Rectangle(position.X, position.Y, FrameLength, FrameLength);
         public override Color Tint => Color.White;

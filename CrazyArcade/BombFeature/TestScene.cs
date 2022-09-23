@@ -26,7 +26,6 @@ namespace CrazyArcade.BombFeature
         public override void Load()
         {
             base.Load();
-            AddSprite(new WaterBomb(this, 100, 100, 1));
         }
         public override void Update(GameTime time)
         {
