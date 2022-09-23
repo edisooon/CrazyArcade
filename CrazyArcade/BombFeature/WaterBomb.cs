@@ -12,12 +12,17 @@ namespace CrazyArcade.BombFeature
 {
     public class WaterBomb : CAEntity
     {
+        /*
+         * One thing I want to change in the future is how sprite animation has to be handled on a case by case basis.
+         * Perhaps another level of abstraction?
+         */
         Point position = new(100, 100);
         int BlastLength;
         CAScene ParentScene;
         Rectangle InternalSprite;
         float FrameTimer;
         float DetonateTimer;
+        float DetonateTime;
         float FrameSpeed;
         int CurrentFrame;
         public override Texture2D Texture => TestTextureSingleton.GetSpriteSheet();
@@ -35,6 +40,8 @@ namespace CrazyArcade.BombFeature
             CurrentFrame = 0;
             InternalSprite = AnimationFrames[CurrentFrame];
             FrameTimer = 0;
+            DetonateTime = 0;
+            DetonateTimer = 1000;
             FrameSpeed = 75;
         }
         private static List<Rectangle> GetAnimationFrames()
@@ -47,6 +54,7 @@ namespace CrazyArcade.BombFeature
         }
         public override void Update(GameTime time)
         {
+            Detonate(time);
             AnimateSprite(time);
         }
         private void AnimateSprite(GameTime time)
@@ -66,6 +74,17 @@ namespace CrazyArcade.BombFeature
         private void DeleteSelf()
         {
             ParentScene.RemoveSprite(this);
+        }
+        private void Detonate(GameTime time)
+        {
+            if(DetonateTime > DetonateTimer)
+            {
+                DeleteSelf();
+            }
+            else
+            {
+                DetonateTime += (float)time.ElapsedGameTime.TotalMilliseconds;
+            }
         }
     }
 }

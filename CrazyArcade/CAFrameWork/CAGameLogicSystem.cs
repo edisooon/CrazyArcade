@@ -11,6 +11,7 @@ namespace CrazyArcade.CAFramework
     public class CAGameLogicSystem : IGameSystem
     {
         List<ISprite> sprites = new List<ISprite>();
+        List<ISprite> removeSpriteList = new List<ISprite>();
         public CAGameLogicSystem()
         {
             sprites = new List<ISprite>();
@@ -28,7 +29,9 @@ namespace CrazyArcade.CAFramework
 
         public bool RemoveSprite(ISprite sprite)
         {
-            return sprites.Remove(sprite);
+            //return sprites.Remove(sprite);
+            QueueRemove(sprite);
+            return false;
         }
 
         public void Update(GameTime time)
@@ -37,6 +40,14 @@ namespace CrazyArcade.CAFramework
             {
                 sprite.Update(time);
             }
+            foreach (ISprite removeSprite in removeSpriteList)
+            {
+                sprites.Remove(removeSprite);
+            }
+        }
+        public void QueueRemove(ISprite sprite)
+        {
+            removeSpriteList.Add(sprite);
         }
     }
 }
