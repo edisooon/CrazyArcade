@@ -9,12 +9,8 @@ namespace CrazyArcade.Demo1
 {
 	public class DemoCharacter: CAEntity, IControllable
 	{
-		public DemoCharacter(IController controller)
-		{
-            this.controller = controller;
-            controller.Delegate = this;
-		}
         private IController controller;
+
         public IController Controller
         {
             get => controller;
@@ -25,15 +21,28 @@ namespace CrazyArcade.Demo1
             }
         }
 
-        Point position = new Point(100, 100);
-
-        public override Texture2D Texture => Singletons.SpriteSheet.Character;
-
+        public override Rectangle OutputFrame => new Rectangle(1, 2, 56, 67);
         public override Rectangle InputFrame => new Rectangle(0, 67, 56, 67);
 
-        public override Rectangle OutputFrame => new Rectangle(position.X, position.Y, 56, 67);
 
-        public override Color Tint => Color.White;
+        public DemoCharacter(IController controller)
+		{
+            this.position = new Point(100, 100);
+            this.tint = Color.White;
+
+            this.controller = controller;
+            controller.Delegate = this;
+		}
+
+        public override void Load()
+        {
+            this.texture = Singletons.SpriteSheet.Character;
+        }
+
+        public override void Update(GameTime time)
+        {
+
+        }
 
         public void KeyDown()
         {
@@ -65,10 +74,6 @@ namespace CrazyArcade.Demo1
             position.Y += 1;
         }
 
-        public override void Update(GameTime time)
-        {
-
-        }
     }
 }
 

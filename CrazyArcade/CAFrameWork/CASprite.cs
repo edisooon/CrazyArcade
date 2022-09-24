@@ -6,24 +6,18 @@ namespace CrazyArcade.CAFramework
 {
 	public abstract class CASprite: ISprite
 	{
-        public abstract Texture2D Texture { get; }
-        public abstract Rectangle InputFrame { get; } //frame on the sprite sheet
+        protected Point position;
+        protected Texture2D texture;
+        protected Color tint;
         public abstract Rectangle OutputFrame { get; } //frame on the screen
-        public abstract Color Tint { get; }
-        public CASprite()
-		{
-
-		}
+        public abstract Rectangle InputFrame { get; } //frame on the sprite sheet
 
         public void Draw(GameTime time, SpriteBatch batch)
         {
-            batch.Draw(Texture, OutputFrame, InputFrame, Tint);
+            batch.Draw(texture, OutputFrame, InputFrame, tint);
         }
 
-        public virtual void Load()
-        {
-
-        }
+        public abstract void Load();
 
         public abstract void Update(GameTime time);
     }

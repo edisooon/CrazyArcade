@@ -10,7 +10,7 @@ namespace CrazyArcade.CAFramework
         void Update(GameTime time);
         void Draw(GameTime time, SpriteBatch batch);
         void AddSprite(ISprite sprite);
-        bool RemoveSprite(ISprite sprite);
+        void RemoveSprite(ISprite sprite);
         void RemoveAllSprite();
     }
 }
