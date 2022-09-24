@@ -15,6 +15,13 @@ namespace CrazyArcade.CAFramework
         protected Rectangle[] Rectangles;
         protected int FrameIndex = 0;
 
+        public SpriteManager(Texture2D texture, Rectangle rectangle)
+        {
+            this.Texture = texture;
+            Rectangles = new Rectangle[1];
+            Rectangles[0] = rectangle;
+        }
+
         public SpriteManager(Texture2D texture, int frames) : this(texture, frames, 0, texture.Height) { }
 
         public SpriteManager(Texture2D Texture, int frames, int offset, int height)
