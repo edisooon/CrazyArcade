@@ -29,7 +29,6 @@ namespace CrazyArcade.CAFramework
             this.Texture = Texture;
             int width = Texture.Width / frames;
             Rectangles = new Rectangle[frames];
-
             for (int i = 0; i < frames; i++)
                 Rectangles[i] = new Rectangle(i * width, offset, width, height);
         }
@@ -47,9 +46,18 @@ namespace CrazyArcade.CAFramework
         private float timeToUpdate;
         public int FramesPerSecond { set { timeToUpdate = (1f / value); } }
 
-        public SpriteAnimation(Texture2D Texture, int frames, int fps) : base(Texture, frames) {
+        public SpriteAnimation(Texture2D texture, int frames, int fps = 5) : base(texture, frames) {
             FramesPerSecond = fps;
         }
+        public SpriteAnimation(Texture2D texture, int frames, int offset, int height, int fps = 5) : base(texture, frames, offset, height)
+        {
+            FramesPerSecond = fps;
+        }
+        public SpriteAnimation(Texture2D texture, Rectangle rectangle) : base (texture, rectangle)
+        {
+            FramesPerSecond = 1;
+        }
+
 
         public void Update(GameTime gameTime)
         {

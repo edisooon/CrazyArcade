@@ -43,10 +43,11 @@ namespace CrazyArcade.Demo1
 
         public override void Load()
         {
-            this.spriteAnims[0] = new SpriteAnimation(SpriteSheet.CharacterWalkUp, 6, 5);
-            this.spriteAnims[1] = new SpriteAnimation(SpriteSheet.CharacterWalkDown, 6, 5);
-            this.spriteAnims[2] = new SpriteAnimation(SpriteSheet.CharacterWalkLeft, 6, 5);
-            this.spriteAnims[3] = new SpriteAnimation(SpriteSheet.CharacterWalkRight, 6, 5);
+            //Texture2D texture, int frames, int offset, int height
+            this.spriteAnims[0] = new SpriteAnimation(SpriteSheet.Character, 6, 0, 66);
+            this.spriteAnims[1] = new SpriteAnimation(SpriteSheet.Character, 6, 67, 66);
+            this.spriteAnims[2] = new SpriteAnimation(SpriteSheet.Character, 6, 133, 66);
+            this.spriteAnims[3] = new SpriteAnimation(SpriteSheet.Character, 6, 199, 66);
         }
 
         public void KeyDown()
