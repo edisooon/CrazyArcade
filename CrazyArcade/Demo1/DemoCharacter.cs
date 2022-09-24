@@ -21,7 +21,7 @@ namespace CrazyArcade.Demo1
             }
         }
 
-        public override Rectangle OutputFrame => new Rectangle(1, 2, 56, 67);
+        public override Rectangle OutputFrame => new Rectangle(position.X, position.Y, 56, 67);
         public override Rectangle InputFrame => new Rectangle(0, 67, 56, 67);
 
 
