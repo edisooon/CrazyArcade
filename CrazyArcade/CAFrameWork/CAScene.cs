@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using CrazyArcade.CAFrameWork;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
@@ -40,7 +41,7 @@ namespace CrazyArcade.CAFramework
             LoadSprites();
         }
 
-        public void AddSprite(ISprite sprite)
+        public void AddSprite(IEntity sprite)
         {
             sprite.Load();
             foreach (IGameSystem system in systems)
@@ -57,7 +58,7 @@ namespace CrazyArcade.CAFramework
             }
         }
 
-        public void RemoveSprite(ISprite sprite)
+        public void RemoveSprite(IEntity sprite)
         {
             foreach (IGameSystem system in systems)
             {

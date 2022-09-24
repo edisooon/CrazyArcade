@@ -1,15 +1,24 @@
 ﻿using System;
-using CrazyArcade.CAFramework;
+using CrazyArcade.CAFrameWork;
 using CrazyArcade.CAFramework.Controller;
+using CrazyArcade.Singletons;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using CrazyArcade.CAFramework;
 
 namespace CrazyArcade.Demo1
 {
 	public class DemoCharacter: CAEntity, IControllable
 	{
         private IController controller;
+
+        // for the sprite that have multiple directions,
+        // we need to have a list of sprite animations combined with direction to handle its different states
+        private SpriteAnimation[] spriteAnims;
+        private Dir direction;
+
+        public override SpriteAnimation SpriteAnim => spriteAnims[(int)direction];
 
         public IController Controller
         {
@@ -21,14 +30,12 @@ namespace CrazyArcade.Demo1
             }
         }
 
-        public override Rectangle OutputFrame => new Rectangle(position.X, position.Y, 56, 67);
-        public override Rectangle InputFrame => new Rectangle(0, 67, 56, 67);
-
-
         public DemoCharacter(IController controller)
 		{
-            this.position = new Point(100, 100);
-            this.tint = Color.White;
+            this.spriteAnims = new SpriteAnimation[4];
+            direction = Dir.Down;
+            X = 100;
+            Y = 100;
 
             this.controller = controller;
             controller.Delegate = this;
@@ -36,42 +43,44 @@ namespace CrazyArcade.Demo1
 
         public override void Load()
         {
-            this.texture = Singletons.SpriteSheet.Character;
-        }
-
-        public override void Update(GameTime time)
-        {
-
+            this.spriteAnims[0] = new SpriteAnimation(SpriteSheet.CharacterWalkUp, 6, 5);
+            this.spriteAnims[1] = new SpriteAnimation(SpriteSheet.CharacterWalkDown, 6, 5);
+            this.spriteAnims[2] = new SpriteAnimation(SpriteSheet.CharacterWalkLeft, 6, 5);
+            this.spriteAnims[3] = new SpriteAnimation(SpriteSheet.CharacterWalkRight, 6, 5);
         }
 
         public void KeyDown()
         {
-            position.Y += 1;
-            position.Y = position.Y > 300 ? 300 : position.Y;
+            Y += 1;
+            Y = Y > 300 ? 300 : Y;
+            direction = Dir.Down;
         }
 
         public void KeyLeft()
         {
-            position.X -= 1;
-            position.X = position.X < 0 ? 0 : position.X;
+            X -= 1;
+            X = X < 0 ? 0 : X;
+            direction = Dir.Left;
         }
 
         public void KeyRight()
         {
-            position.X += 1;
-            position.X = position.X > 300 ? 300 : position.X;
+            X += 1;
+            X = X > 300 ? 300 : X;
+            direction = Dir.Right;
         }
 
 
         public void KeyUp()
         {
-            position.Y -= 1;
-            position.Y = position.Y < 0 ? 0 : position.Y;
+            Y -= 1;
+            Y = Y < 0 ? 0 : Y;
+            direction = Dir.Up;
         }
 
         public void KeySpace()
         {
-            position.Y += 1;
+            Y += 1;
         }
 
     }

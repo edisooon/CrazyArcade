@@ -3,21 +3,21 @@ using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using CrazyArcade.CAFramework;
-
+using CrazyArcade.CAFrameWork;
 
 namespace CrazyArcade.CAFramework.Controller
 {
 	public class CAControllerSystem: IGameSystem
 	{
-        List<ISprite> sprites;
+        List<IEntity> sprites;
 		public CAControllerSystem()
 		{
-            sprites = new List<ISprite>();
+            sprites = new List<IEntity>();
         }
 
         public void Draw(GameTime time, SpriteBatch batch)
         {
-            foreach (ISprite sprite in sprites)
+            foreach (IEntity sprite in sprites)
             {
                 sprite.Draw(time, batch);
             }
@@ -25,13 +25,14 @@ namespace CrazyArcade.CAFramework.Controller
 
         public void Update(GameTime time)
         {
-            foreach (IControllable sprite in sprites)
+            foreach (IEntity sprite in sprites)
             {
-                sprite.Controller.Update(time);
+                (sprite as IControllable).Controller.Update(time);
+                sprite.Update(time);
             }
         }
 
-        public void AddSprite(ISprite sprite)
+        public void AddSprite(IEntity sprite)
         {
             if (sprite is IControllable)
             {
@@ -44,7 +45,7 @@ namespace CrazyArcade.CAFramework.Controller
             sprites.Clear();
         }
 
-        public void RemoveSprite(ISprite sprite)
+        public void RemoveSprite(IEntity sprite)
         {
             if (sprite is IControllable)
             {
