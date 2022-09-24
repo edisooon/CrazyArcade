@@ -5,7 +5,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace CrazyArcade.CAFramework
 {
-	public abstract class CAEntity:IEntity
+	public abstract class CAEntity: IEntity
 	{
 
         // for each entity, it has to have a position and animations of sprite
