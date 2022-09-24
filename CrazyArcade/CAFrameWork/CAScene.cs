@@ -7,10 +7,11 @@ namespace CrazyArcade.CAFramework
 {
 	public abstract class CAScene: IScene
 	{
-        private List<ISprite> sprites = new List<ISprite>();
-        private List<IGameSystem> systems = new List<IGameSystem>();
+        protected List<ISprite> sprites;
+        protected List<IGameSystem> systems;
         
-        public abstract List<IGameSystem> LoadSystems();
+        public abstract void LoadSystems();
+
         public void Draw(GameTime time, SpriteBatch batch)
         {
             foreach(ISprite sprite in sprites)
@@ -21,7 +22,7 @@ namespace CrazyArcade.CAFramework
 
         public virtual void Load()
         {
-            systems = LoadSystems();
+            LoadSystems();
         }
 
         public void AddSprite(ISprite sprite)

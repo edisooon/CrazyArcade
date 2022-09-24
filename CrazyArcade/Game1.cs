@@ -23,7 +23,7 @@ public class Game1 : Game
 
     protected override void Initialize()
     {
-        // TODO: Add your initialization logic here
+        scene = new DemoScene();
 
         base.Initialize();
     }
@@ -32,7 +32,7 @@ public class Game1 : Game
     {
         _spriteBatch = new SpriteBatch(GraphicsDevice);
         SpriteSheet.LoadAllTextures(Content);
-        scene = new DemoScene();
+
         //scene1.AddEntity(new TestBlock());
         scene.Load();
     }

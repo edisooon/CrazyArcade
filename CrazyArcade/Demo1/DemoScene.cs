@@ -10,11 +10,15 @@ namespace CrazyArcade.Demo1
 {
     public class DemoScene : CAScene
     {
-        public override List<IGameSystem> LoadSystems()
+        public DemoScene()
         {
-            List<IGameSystem> systemList = new List<IGameSystem>();
-            systemList.Add(new CAControllerSystem());
-            return systemList;
+            this.sprites = new List<ISprite>();
+            this.systems = new List<IGameSystem>();
+        }
+
+        public override void LoadSystems()
+        {
+            this.systems.Add(new CAControllerSystem());
         }
 
         public override void Load()
@@ -22,5 +26,6 @@ namespace CrazyArcade.Demo1
             base.Load();
             AddSprite(new DemoCharacter(new DemoController()));
         }
+
     }
 }
