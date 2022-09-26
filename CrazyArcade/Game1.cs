@@ -27,7 +27,7 @@ public class Game1 : Game
 
     protected override void Initialize()
     {
-        // TODO: Add your initialization logic here
+        scene = new DemoScene();
 
         base.Initialize();
     }
