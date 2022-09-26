@@ -1,4 +1,5 @@
-﻿using CrazyArcade.CAFramework;
+﻿using CrazyArcade.Blocks;
+using CrazyArcade.CAFramework;
 using CrazyArcade.CAFramework.Controller;
 using System;
 using System.Collections.Generic;
@@ -14,6 +15,7 @@ namespace CrazyArcade.Demo1
         {
             List<IGameSystem> systemList = new List<IGameSystem>();
             systemList.Add(new CAControllerSystem());
+            systemList.Add(new DemoBlockController());
             return systemList;
         }
 
@@ -21,6 +23,7 @@ namespace CrazyArcade.Demo1
         {
             base.Load();
             AddSprite(new DemoCharacter(new DemoController()));
+            AddSprite(new DemoBlock(new Microsoft.Xna.Framework.Rectangle(200, 200, 100, 100)));
         }
     }
 }
