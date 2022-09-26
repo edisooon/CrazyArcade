@@ -27,7 +27,7 @@ namespace CrazyArcade.Items
         public override void Update(GameTime gameTime)
         {
             KeyboardState current = Keyboard.GetState();
-            if (current.IsKeyDown(Keys.Y) && !previousState.IsKeyDown(Keys.Y))
+            if (current.IsKeyDown(Keys.I) && !previousState.IsKeyDown(Keys.I))
             {
                 if (index == itemTypeList.Count - 1)
                 {
@@ -38,7 +38,7 @@ namespace CrazyArcade.Items
                     index++;
                 }
             }
-            if (current.IsKeyDown(Keys.T) && !previousState.IsKeyDown(Keys.T))
+            if (current.IsKeyDown(Keys.U) && !previousState.IsKeyDown(Keys.U))
             {
                 if (index == 0)
                 {
