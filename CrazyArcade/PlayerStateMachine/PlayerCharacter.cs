@@ -9,6 +9,7 @@ using CrazyArcade.CAFrameWork;
 using CrazyArcade.Demo1;
 using CrazyArcade.Singletons;
 using CrazyArcade.Content;
+using Microsoft.Xna.Framework;
 
 namespace CrazyArcade.PlayerStateMachine
 {
@@ -36,7 +37,19 @@ namespace CrazyArcade.PlayerStateMachine
             this.controller = controller;
             controller.Delegate = this;
         }
-
+        public override void Update(GameTime time)
+        {
+            base.Update(time);
+            if (CurrentSpeed.X == 0 && CurrentSpeed.Y == 0)
+            {
+                SpriteAnim.playing = false;
+                SpriteAnim.setFrame(0);
+            }
+            else
+            {
+                SpriteAnim.playing = true;
+            }
+        }
         public override void Load()
         {
             spriteAnims[0] = new SpriteAnimation(TextureSingleton.GetPlayer1(), 12, 14, 44, 56, 6, 4, 10);

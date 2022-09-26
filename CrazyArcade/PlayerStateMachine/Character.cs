@@ -34,8 +34,7 @@ namespace CrazyArcade.Demo1
 
         public void CalculateMovement()
         {
-            float inputDistance = Vector2.Distance(new Vector2(0, 0), moveInputs);
-            CurrentSpeed = moveInputs * DefaultSpeed * inputDistance;
+            CurrentSpeed = moveInputs * DefaultSpeed;
         }
     }
 }

@@ -13,6 +13,7 @@ namespace CrazyArcade.CAFramework
         public float Rotation = 0f;
         public float Scale = 1f;
         public SpriteEffects SpriteEffect;
+        public bool playing = true;
         protected Rectangle[] Rectangles;
         protected int FrameIndex = 0;
 
@@ -90,7 +91,7 @@ namespace CrazyArcade.CAFramework
 
         public void Update(GameTime gameTime)
         {
-            //if (!playing) return;
+            if (!playing) return;
             timeElapsed += (float)gameTime.ElapsedGameTime.TotalSeconds;
             if (timeElapsed > timeToUpdate)
             {
