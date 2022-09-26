@@ -15,7 +15,7 @@ namespace CrazyArcade.Demo1
         {
             List<IGameSystem> systemList = new List<IGameSystem>();
             systemList.Add(new CAControllerSystem());
-            systemList.Add(new DemoBlockController(this));
+            systemList.Add(new DemoBlockAndItemController(this));
             return systemList;
         }
 

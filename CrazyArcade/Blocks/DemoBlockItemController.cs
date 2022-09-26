@@ -9,14 +9,14 @@ using System.Threading.Tasks;
 
 namespace CrazyArcade.Blocks
 {
-    public class DemoBlockController : IGameSystem
+    public class DemoBlockAndItemController : IGameSystem
     {
         List<Block> blockList = new List<Block>();
         IScene currScene;
-        public DemoBlockController(IScene currScene)
+        public DemoBlockAndItemController(IScene currScene)
         {
-            blockList.Add(new DemoBlock(new Rectangle(200, 200, 100, 100)));
-            blockList.Add(new DemoItem(new Rectangle(400, 200, 100, 100)));
+            blockList.Add(new DemoBlock(new Rectangle(200, 200, 50, 50)));
+            blockList.Add(new DemoItem(new Rectangle(400, 200, 50, 50)));
             this.currScene = currScene;
         }
         public List<Block> BlockList => blockList;

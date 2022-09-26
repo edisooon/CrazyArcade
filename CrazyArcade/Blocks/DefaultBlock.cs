@@ -13,25 +13,48 @@ namespace CrazyArcade.Blocks
 {
     public abstract class DefaultBlock : Block, IBlock
     {
-        
-    }
-
-    public class BrickBlock : DefaultBlock
-    {
-        public BrickBlock(Rectangle destinationRectangle)
+        public DefaultBlock(Rectangle destinationRectangle, Rectangle sourceRectangle)
         {
             this.destinationRectangle = destinationRectangle;
             this.spriteTexture = Content.TextureSingleton.GetDesertBlocks();
-            this.sourceRectangle = new Rectangle(0, 0, 50, 50);
+            this.sourceRectangle = sourceRectangle;
+            GetNewDestination();
+        }
+    }
+
+    public class LightSandBlock : DefaultBlock
+    {
+        private static Rectangle source = new Rectangle(10, 10, 40, 44);
+        public LightSandBlock(Rectangle destinationRectangle) : base(destinationRectangle, source)
+        {
         }
     }
     public class SandBlock : DefaultBlock
     {
-        public SandBlock(Rectangle destinationRectangle)
+        private static Rectangle source = new Rectangle(60, 10, 40, 44);
+        public SandBlock(Rectangle destinationRectangle) : base(destinationRectangle, source)
         {
-            this.destinationRectangle = destinationRectangle;
-            this.spriteTexture = Content.TextureSingleton.GetDesertBlocks();
-            this.sourceRectangle = new Rectangle(0, 50, 100, 100);
+        }
+    }
+    public class Rock : DefaultBlock
+    {
+        private static Rectangle source = new Rectangle(110, 10, 40, 47);
+        public Rock(Rectangle destinationRectangle) : base(destinationRectangle, source)
+        {
+        }
+    }
+    public class Tree : DefaultBlock
+    {
+        private static Rectangle source = new Rectangle(10, 127, 63, 80);
+        public Tree(Rectangle destinationRectangle) : base(destinationRectangle, source)
+        {
+        }
+    }
+    public class DarkTree : DefaultBlock
+    {
+        private static Rectangle source = new Rectangle(83, 127, 63, 80);
+        public DarkTree(Rectangle destinationRectangle) : base(destinationRectangle, source)
+        {
         }
     }
 }

@@ -37,5 +37,13 @@ namespace CrazyArcade.Blocks
         {
 
         }
+        public void GetNewDestination()
+        {
+            double ratio = (double)this.sourceRectangle.Height / this.sourceRectangle.Width;
+            double newHeight = ratio * this.destinationRectangle.Height;
+            double oldHeight = this.destinationRectangle.Height;
+            this.destinationRectangle.Height = (int)newHeight;
+            this.destinationRectangle.Y = this.destinationRectangle.Y - (int)(newHeight - oldHeight);
+        }
     }
 }

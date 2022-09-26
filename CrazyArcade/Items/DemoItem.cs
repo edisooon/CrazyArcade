@@ -17,9 +17,12 @@ namespace CrazyArcade.Items
         KeyboardState previousState;
         public DemoItem(Rectangle destinationRectangle)
         {
-            itemTypeList.Add(new Coin(destinationRectangle));
+            itemTypeList.Add(new CoinBag(destinationRectangle));
             itemTypeList.Add(new Balloon(destinationRectangle));
-            this.destinationRectangle = destinationRectangle;
+            itemTypeList.Add(new Sneaker(destinationRectangle));
+            itemTypeList.Add(new Turtle(destinationRectangle));
+            itemTypeList.Add(new Potion(destinationRectangle));
+            this.destinationRectangle = itemTypeList[index].OutputFrame;
             this.sourceRectangle = itemTypeList[index].InputFrame;
             this.spriteTexture = itemTypeList[index].Texture;
         }
@@ -50,6 +53,7 @@ namespace CrazyArcade.Items
                 }
             }
             this.previousState = current;
+            this.destinationRectangle = itemTypeList[index].OutputFrame;
             this.sourceRectangle = itemTypeList[index].InputFrame;
             this.spriteTexture = itemTypeList[index].Texture;
         }

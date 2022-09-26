@@ -19,9 +19,14 @@ namespace CrazyArcade.Blocks
         KeyboardState previousState;
         public DemoBlock(Rectangle destinationRectangle)
         {
-            blockTypeList.Add(new BrickBlock(destinationRectangle));
+            blockTypeList.Add(new LightSandBlock(destinationRectangle));
             blockTypeList.Add(new SandBlock(destinationRectangle));
-            this.destinationRectangle = destinationRectangle;
+            blockTypeList.Add(new Rock(destinationRectangle));
+            blockTypeList.Add(new Tree(destinationRectangle));
+            blockTypeList.Add(new DarkTree(destinationRectangle));
+            blockTypeList.Add(new Cactus(destinationRectangle));
+
+            this.destinationRectangle = blockTypeList[index].OutputFrame;
             this.sourceRectangle = blockTypeList[index].InputFrame;
             this.spriteTexture = blockTypeList[index].Texture;
         }
@@ -52,6 +57,7 @@ namespace CrazyArcade.Blocks
                 }
             }
             this.previousState = current;
+            this.destinationRectangle = blockTypeList[index].OutputFrame;
             this.sourceRectangle = blockTypeList[index].InputFrame;
             this.spriteTexture = blockTypeList[index].Texture;
         }
