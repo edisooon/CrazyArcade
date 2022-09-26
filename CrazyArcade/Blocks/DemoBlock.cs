@@ -15,6 +15,7 @@ namespace CrazyArcade.Blocks
     {
         private List<Block> blockTypeList = new List<Block>();
         private int index = 0;
+        KeyboardState previousState;
         public DemoBlock(Rectangle destinationRectangle)
         {
             blockTypeList.Add(new BrickBlock(destinationRectangle));
@@ -23,15 +24,11 @@ namespace CrazyArcade.Blocks
             this.sourceRectangle = blockTypeList[index].InputFrame;
             this.spriteTexture = blockTypeList[index].Texture;
         }
-        public int Index
-        {
-            get { return index; }
-            set { index = value; }
-        }
         
         public void Update()
         {
-            if (Keyboard.GetState().IsKeyDown(Keys.Y))
+            KeyboardState current = Keyboard.GetState();
+            if (current.IsKeyDown(Keys.Y) && !previousState.IsKeyDown(Keys.Y))
             {
                 if (index == blockTypeList.Count - 1)
                 {
@@ -42,7 +39,7 @@ namespace CrazyArcade.Blocks
                     index++;
                 }
             }
-            if (Keyboard.GetState().IsKeyDown(Keys.T))
+            if (current.IsKeyDown(Keys.T) && !previousState.IsKeyDown(Keys.T))
             {
                 if (index == 0)
                 {
@@ -53,6 +50,7 @@ namespace CrazyArcade.Blocks
                     index--;
                 }
             }
+            this.previousState = current;
             this.sourceRectangle = blockTypeList[index].InputFrame;
             this.spriteTexture = blockTypeList[index].Texture;
         }
@@ -60,35 +58,31 @@ namespace CrazyArcade.Blocks
     public class DemoBlockController : IGameSystem
     {
         List<DemoBlock> blockList = new List<DemoBlock>();
-        List<ISprite> sprites = new List<ISprite>();
-        public DemoBlockController()
+        IScene currScene;
+        public DemoBlockController(IScene currScene)
         {
             blockList.Add(new DemoBlock(new Rectangle(200, 200, 100, 100)));
+            this.currScene = currScene;
         }
+        public List<DemoBlock> BlockList => blockList;
         public void AddSprite(ISprite sprite)
         {
-            foreach(DemoBlock block in blockList)
-            {
-                sprites.Add(block);
-            }
         }
 
         public void RemoveAll()
         {
-            foreach(ISprite block in sprites)
-            {
-                sprites.Remove(block);
-            }
         }
 
         public bool RemoveSprite(ISprite sprite)
         {
-            return sprites.Remove(sprite);
+            return false;
         }
 
         public void Update(GameTime time)
         {
+            currScene.RemoveSprite(blockList[0]);
             blockList[0].Update();
+            currScene.AddSprite(blockList[0]);
         }
     }
 }

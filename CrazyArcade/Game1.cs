@@ -1,5 +1,6 @@
 ﻿using CrazyArcade.CAFramework;
 using CrazyArcade.Content;
+using CrazyArcade.Demo1;
 using CrazyArcade.Graphics;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -18,6 +19,7 @@ public class Game1 : Game
     private ISprite sprite3;
     private ISprite sprite4;
     private ISprite sun;
+    private CAScene scene;
     
     
     public Game1()
@@ -31,23 +33,26 @@ public class Game1 : Game
     {
         // TODO: Add your initialization logic here
         TextureSingleton.LoadAllTextures(this.Content);
-        sun = new SunEnemySprite(150,150);
+        /*sun = new SunEnemySprite(150,150);*//*
         sprite1 = new StarProjectileSprite(100,100,1,1);
         sprite2 = new StarProjectileSprite(100,100,-1,1);
         sprite3 = new StarProjectileSprite(100,100,1,-1);
-        sprite4 = new StarProjectileSprite(100,100,-1,-1);
+        sprite4 = new StarProjectileSprite(100,100,-1,-1);*/
+        scene = new DemoScene();
+        
         base.Initialize();
     }
 
     protected override void LoadContent()
     {
         _spriteBatch = new SpriteBatch(GraphicsDevice);
+        scene.Load();
         
-        sun.Load();
+        /*sun.Load();
         sprite1.Load();
         sprite2.Load();
         sprite3.Load();
-        sprite4.Load();
+        sprite4.Load();*/
 
         //scene1.AddEntity(new TestBlock());
       
@@ -55,12 +60,13 @@ public class Game1 : Game
 
     protected override void Update(GameTime gameTime)
     {
-        sun.Update(gameTime);
+        /*sun.Update(gameTime);
         sprite1.Update(gameTime);
         sprite2.Update(gameTime);
         sprite3.Update(gameTime);
-        sprite4.Update(gameTime);
+        sprite4.Update(gameTime);*/
 
+        scene.Update(gameTime);
         base.Update(gameTime);
     }
 
@@ -69,11 +75,12 @@ public class Game1 : Game
         GraphicsDevice.Clear(Color.CornflowerBlue);
 
         _spriteBatch.Begin();
-        sun.Draw(gameTime, _spriteBatch);
+        scene.Draw(gameTime, _spriteBatch);
+        /*sun.Draw(gameTime, _spriteBatch);
         sprite1.Draw(gameTime, _spriteBatch);
         sprite2.Draw(gameTime, _spriteBatch);
         sprite3.Draw(gameTime, _spriteBatch);
-        sprite4.Draw(gameTime, _spriteBatch);
+        sprite4.Draw(gameTime, _spriteBatch);*/
         _spriteBatch.End();
     }
 }

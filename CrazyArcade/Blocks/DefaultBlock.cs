@@ -21,9 +21,8 @@ namespace CrazyArcade.Blocks
         public BrickBlock(Rectangle destinationRectangle)
         {
             this.destinationRectangle = destinationRectangle;
-            //Change to brick texture
-            this.spriteTexture = Singletons.SpriteSheet.Character;
-            this.sourceRectangle = new Rectangle(0, 0, 100, 100);
+            this.spriteTexture = Content.TextureSingleton.GetDesertBlocks();
+            this.sourceRectangle = new Rectangle(0, 0, 50, 50);
         }
     }
     public class SandBlock : DefaultBlock
@@ -31,8 +30,7 @@ namespace CrazyArcade.Blocks
         public SandBlock(Rectangle destinationRectangle)
         {
             this.destinationRectangle = destinationRectangle;
-            //Change to brick texture
-            this.spriteTexture = Singletons.SpriteSheet.Character;
+            this.spriteTexture = Content.TextureSingleton.GetDesertBlocks();
             this.sourceRectangle = new Rectangle(0, 50, 100, 100);
         }
     }

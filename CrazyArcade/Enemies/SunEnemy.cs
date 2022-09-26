@@ -123,11 +123,11 @@ namespace CrazyArcade.Graphics
         private Rectangle inputFrame;
         
         
-        public SunEnemySprite(int x, int y)
+        /*public SunEnemySprite(int x, int y)
         {
             X = x;
             Y = y;
-        }
+        }*/
         public override Texture2D Texture
         {
             get { return texture; }
