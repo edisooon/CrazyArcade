@@ -16,12 +16,11 @@ namespace CrazyArcade.BombFeature
         {
             bombManager = new(new BombTestController(), this);
         }
-        public override List<IGameSystem> LoadSystems()
+        public override void LoadSystems()
         {
             List<IGameSystem> systemList = new();
-            systemList.Add(new CAControllerSystem());
-            systemList.Add(new CAGameLogicSystem());
-            return systemList;
+            this.systems.Add(new CAControllerSystem());
+            this.systems.Add(new CAGameLogicSystem());
         }
         public override void Load()
         {
@@ -31,6 +30,11 @@ namespace CrazyArcade.BombFeature
         {
             base.Update(time);
             bombManager.Controller.Update(time);
+        }
+        public override void LoadSprites()
+        {
+            //unimplemented
+            return;
         }
     }
 }

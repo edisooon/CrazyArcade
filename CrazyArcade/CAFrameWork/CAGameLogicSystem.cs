@@ -1,4 +1,5 @@
 ﻿using CrazyArcade.CAFramework.Controller;
+using CrazyArcade.CAFrameWork;
 using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
@@ -10,15 +11,15 @@ namespace CrazyArcade.CAFramework
 {
     public class CAGameLogicSystem : IGameSystem
     {
-        List<ISprite> sprites = new List<ISprite>();
-        List<ISprite> removeSpriteList = new List<ISprite>();
-        List<ISprite> addSpriteList = new List<ISprite>();
+        List<IEntity> sprites = new List<IEntity>();
+        List<IEntity> removeSpriteList = new List<IEntity>();
+        List<IEntity> addSpriteList = new List<IEntity>();
         public CAGameLogicSystem()
         {
-            sprites = new List<ISprite>();
+            sprites = new List<IEntity>();
         }
 
-        public void AddSprite(ISprite sprite)
+        public void AddSprite(IEntity sprite)
         {
             //sprites.Add(sprite);
             QueueAdd(sprite);
@@ -26,38 +27,37 @@ namespace CrazyArcade.CAFramework
 
         public void RemoveAll()
         {
-            sprites = new List<ISprite>();
+            sprites = new List<IEntity>();
         }
 
-        public bool RemoveSprite(ISprite sprite)
+        public void RemoveSprite(IEntity sprite)
         {
             //return sprites.Remove(sprite);
             QueueRemove(sprite);
-            return false;
         }
 
         public void Update(GameTime time)
         {
-            foreach (ISprite sprite in sprites)
+            foreach (IEntity sprite in sprites)
             {
                 sprite.Update(time);
             }
-            foreach (ISprite removeSprite in removeSpriteList)
+            foreach (IEntity removeSprite in removeSpriteList)
             {
                 sprites.Remove(removeSprite);
             }
-            foreach (ISprite addSprite in addSpriteList)
+            foreach (IEntity addSprite in addSpriteList)
             {
                 sprites.Add(addSprite);
             }
             removeSpriteList.Clear();
             addSpriteList.Clear();
         }
-        private void QueueRemove(ISprite sprite)
+        private void QueueRemove(IEntity sprite)
         {
             removeSpriteList.Add(sprite);
         }
-        private void QueueAdd(ISprite sprite)
+        private void QueueAdd(IEntity sprite)
         {
             addSpriteList.Add(sprite);
         }

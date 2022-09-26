@@ -55,6 +55,7 @@ namespace CrazyArcade.BombFeature
         }
         public void LeftClick(int X, int Y)
         {
+            Debug.WriteLine(X + " " + Y);
             Scene.AddSprite(new WaterBomb(Scene, X, Y, random.Next(1, 7)));
         }
         public void RightClick()

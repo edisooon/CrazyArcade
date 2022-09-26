@@ -21,7 +21,10 @@ namespace CrazyArcade.CAFramework
         }
         public void Draw(GameTime time, SpriteBatch batch)
         {
+            SpriteAnim.Position.X = X;
+            SpriteAnim.Position.Y = Y;
             SpriteAnim.Draw(batch);
+            SpriteAnim.Update(time);
         }
     }
 }
