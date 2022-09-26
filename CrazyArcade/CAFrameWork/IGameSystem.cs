@@ -8,7 +8,6 @@ namespace CrazyArcade.CAFramework
 	public interface IGameSystem
 	{
         void Update(GameTime time);
-        void Draw(GameTime time, SpriteBatch batch);
         void AddSprite(IEntity sprite);
 		void RemoveSprite(IEntity sprite);
         void RemoveAll();
