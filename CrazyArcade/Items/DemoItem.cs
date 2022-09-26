@@ -1,37 +1,35 @@
-﻿using CrazyArcade.CAFramework;
-using CrazyArcade.Items;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Input;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
+using CrazyArcade.Blocks;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Input;
 
-namespace CrazyArcade.Blocks
+namespace CrazyArcade.Items
 {
-    public class DemoBlock : Block, IBlock
+    public class DemoItem : Item, IItem
     {
-        private List<Block> blockTypeList = new List<Block>();
+        private List<Block> itemTypeList = new List<Block>();
         private int index = 0;
         KeyboardState previousState;
-        public DemoBlock(Rectangle destinationRectangle)
+        public DemoItem(Rectangle destinationRectangle)
         {
-            blockTypeList.Add(new BrickBlock(destinationRectangle));
-            blockTypeList.Add(new SandBlock(destinationRectangle));
+            itemTypeList.Add(new Coin(destinationRectangle));
+            itemTypeList.Add(new Balloon(destinationRectangle));
             this.destinationRectangle = destinationRectangle;
-            this.sourceRectangle = blockTypeList[index].InputFrame;
-            this.spriteTexture = blockTypeList[index].Texture;
+            this.sourceRectangle = itemTypeList[index].InputFrame;
+            this.spriteTexture = itemTypeList[index].Texture;
         }
-        
+
         public override void Update(GameTime gameTime)
         {
             KeyboardState current = Keyboard.GetState();
             if (current.IsKeyDown(Keys.Y) && !previousState.IsKeyDown(Keys.Y))
             {
-                if (index == blockTypeList.Count - 1)
+                if (index == itemTypeList.Count - 1)
                 {
                     index = 0;
                 }
@@ -44,7 +42,7 @@ namespace CrazyArcade.Blocks
             {
                 if (index == 0)
                 {
-                    index = blockTypeList.Count - 1;
+                    index = itemTypeList.Count - 1;
                 }
                 else
                 {
@@ -52,8 +50,9 @@ namespace CrazyArcade.Blocks
                 }
             }
             this.previousState = current;
-            this.sourceRectangle = blockTypeList[index].InputFrame;
-            this.spriteTexture = blockTypeList[index].Texture;
+            this.sourceRectangle = itemTypeList[index].InputFrame;
+            this.spriteTexture = itemTypeList[index].Texture;
         }
     }
 }
+
