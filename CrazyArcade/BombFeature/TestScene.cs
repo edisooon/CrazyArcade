@@ -18,7 +18,7 @@ namespace CrazyArcade.BombFeature
         }
         public override void LoadSystems()
         {
-            List<IGameSystem> systemList = new();
+            //List<IGameSystem> systemList = new();
             this.systems.Add(new CAControllerSystem());
             this.systems.Add(new CAGameLogicSystem());
         }

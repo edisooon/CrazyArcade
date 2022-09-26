@@ -1,5 +1,6 @@
 ﻿using CrazyArcade.CAFramework;
 using CrazyArcade.CAFramework.Controller;
+using CrazyArcade.PlayerStateMachine;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,11 +14,12 @@ namespace CrazyArcade.Demo1
         public override void LoadSystems()
         {
             this.systems.Add(new CAControllerSystem());
+            this.systems.Add(new CAGameLogicSystem());
         }
 
         public override void LoadSprites()
         {
-            this.AddSprite(new DemoCharacter(new DemoController()));
+            this.AddSprite(new PlayerCharacter(new DemoController()));
         }
     }
 }
