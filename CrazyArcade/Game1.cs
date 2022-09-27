@@ -1,10 +1,14 @@
-﻿using CrazyArcade.CAFramework;
+using CrazyArcade.CAFramework;
 using CrazyArcade.Content;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using CrazyArcade.Demo1;
 using CrazyArcade.Singletons;
+using CrazyArcade.BombFeature;
+using System;
+using Microsoft.Xna.Framework.Content;
+using System.Reflection.Metadata;
 
 namespace CrazyArcade;
 
@@ -32,8 +36,9 @@ public class Game1 : Game
     {
         _spriteBatch = new SpriteBatch(GraphicsDevice);
         SpriteSheet.LoadAllTextures(Content);
-
-        //scene1.AddEntity(new TestBlock());
+        TestTextureSingleton.LoadAllTextures(Content);
+        TextureSingleton.LoadAllTextures(Content);
+        scene = new TestScene();
         scene.Load();
     }
 
@@ -47,7 +52,7 @@ public class Game1 : Game
 
     protected override void Draw(GameTime gameTime)
     {
-        GraphicsDevice.Clear(Color.CornflowerBlue);
+        GraphicsDevice.Clear(Color.Gray);
 
         _spriteBatch.Begin();
 

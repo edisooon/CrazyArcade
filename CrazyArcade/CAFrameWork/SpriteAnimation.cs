@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using System.Collections.Generic;
 
 namespace CrazyArcade.CAFramework
 {
@@ -22,6 +23,12 @@ namespace CrazyArcade.CAFramework
             Rectangles[0] = rectangle;
         }
 
+        public SpriteManager(Texture2D texture, Rectangle[] rectangleList)
+        {
+            Rectangles = rectangleList;
+            this.Texture = texture;
+        }
+
         public SpriteManager(Texture2D texture, int frames) : this(texture, frames, 0, texture.Height) { }
 
         public SpriteManager(Texture2D Texture, int frames, int offset, int height)
@@ -31,6 +38,14 @@ namespace CrazyArcade.CAFramework
             Rectangles = new Rectangle[frames];
             for (int i = 0; i < frames; i++)
                 Rectangles[i] = new Rectangle(i * width, offset, width, height);
+        }
+
+        public SpriteManager(Texture2D Texture, int startPositionX, int startPositionY, int frames, int width, int height)
+        {
+            this.Texture = Texture;
+            Rectangles = new Rectangle[frames];
+            for (int i = 0; i < frames; i++)
+                Rectangles[i] = new Rectangle(startPositionX, startPositionY, width, height);
         }
 
         public void Draw(SpriteBatch spriteBatch)
@@ -43,6 +58,7 @@ namespace CrazyArcade.CAFramework
     {
         private float timeElapsed;
         public bool IsLooping = true;
+        public bool playing = true;
         private float timeToUpdate;
         public int FramesPerSecond { set { timeToUpdate = (1f / value); } }
 
@@ -58,9 +74,14 @@ namespace CrazyArcade.CAFramework
             FramesPerSecond = 1;
         }
 
+        public SpriteAnimation(Texture2D texture, Rectangle[] rectangle, int fps = 5) : base(texture, rectangle)
+        {
+            FramesPerSecond = fps;
+        }
 
         public void Update(GameTime gameTime)
         {
+            //if (!playing) return;
             timeElapsed += (float)gameTime.ElapsedGameTime.TotalSeconds;
             if (timeElapsed > timeToUpdate)
             {
@@ -77,6 +98,14 @@ namespace CrazyArcade.CAFramework
         public void setFrame(int frame)
         {
             FrameIndex = frame;
+        }
+        public int getCurrentFrame()
+        {
+            return FrameIndex;
+        }
+        public int getTotalFrames()
+        {
+            return Rectangles.Length;
         }
     }
 }

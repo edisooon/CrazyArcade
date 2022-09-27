@@ -28,7 +28,7 @@ namespace CrazyArcade.CAFramework.Controller
             foreach (IEntity sprite in sprites)
             {
                 (sprite as IControllable).Controller.Update(time);
-                sprite.Update(time);
+                //sprite.Update(time);
             }
         }
 
