@@ -13,6 +13,7 @@ namespace CrazyArcade.Demo1
     public class DemoController : IController
     {
         public IControllerDelegate Delegate { get; set; }
+        bool spacePrevPressed = false;
 
         public void Update(GameTime time)
         {
@@ -32,9 +33,14 @@ namespace CrazyArcade.Demo1
             {
                 Delegate.KeyRight();
             }
-            if (Keyboard.GetState().IsKeyDown(Keys.Space))
+            if (Keyboard.GetState().IsKeyDown(Keys.Space) && !spacePrevPressed)
             {
                 Delegate.KeySpace();
+                spacePrevPressed = true;
+            }
+            if (!Keyboard.GetState().IsKeyDown(Keys.Space))
+            {
+                spacePrevPressed = false;
             }
         }
     }

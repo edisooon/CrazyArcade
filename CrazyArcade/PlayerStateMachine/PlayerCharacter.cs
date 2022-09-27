@@ -10,6 +10,7 @@ using CrazyArcade.Demo1;
 using CrazyArcade.Singletons;
 using CrazyArcade.Content;
 using Microsoft.Xna.Framework;
+using CrazyArcade.BombFeature;
 
 namespace CrazyArcade.PlayerStateMachine
 {
@@ -17,6 +18,7 @@ namespace CrazyArcade.PlayerStateMachine
     {
         private IController controller;
         private SpriteAnimation[] spriteAnims;
+        private CAScene parentScene;
         public override SpriteAnimation SpriteAnim => spriteAnims[(int)direction];
         public IController Controller
         {
@@ -27,10 +29,11 @@ namespace CrazyArcade.PlayerStateMachine
                 controller.Delegate = this;
             }
         }
-        public PlayerCharacter(IController controller)
+        public PlayerCharacter(IController controller, CAScene scene)
         {
             this.spriteAnims = new SpriteAnimation[4];
             direction = Dir.Down;
+            this.parentScene = scene;
             X = 100;
             Y = 100;
 
@@ -84,7 +87,7 @@ namespace CrazyArcade.PlayerStateMachine
 
         public void KeySpace()
         {
-
+            parentScene.AddSprite(new WaterBomb(parentScene, X, Y, 1));
         }
 
         public void RightClick()

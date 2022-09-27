@@ -1,4 +1,5 @@
-﻿using CrazyArcade.CAFramework;
+﻿using CrazyArcade.BombFeature;
+using CrazyArcade.CAFramework;
 using CrazyArcade.CAFramework.Controller;
 using CrazyArcade.PlayerStateMachine;
 using System;
@@ -11,6 +12,10 @@ namespace CrazyArcade.Demo1
 {
     public class DemoScene : CAScene
     {
+
+        public DemoScene()
+        {
+        }
         public override void LoadSystems()
         {
             this.systems.Add(new CAControllerSystem());
@@ -19,7 +24,7 @@ namespace CrazyArcade.Demo1
 
         public override void LoadSprites()
         {
-            this.AddSprite(new PlayerCharacter(new DemoController()));
+            this.AddSprite(new PlayerCharacter(new DemoController(), this));
         }
     }
 }
