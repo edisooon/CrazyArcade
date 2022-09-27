@@ -1,15 +1,27 @@
 ﻿using System;
+using CrazyArcade.CAFrameWork;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+
 namespace CrazyArcade.CAFramework
 {
-	public abstract class CAEntity: CASprite, IEntity
+	public abstract class CAEntity: IEntity
 	{
-		public CAEntity()
-		{
-		}
 
-        public void print()
+        // for each entity, it has to have a position and animations of sprite
+        protected int X, Y;
+        public abstract SpriteAnimation SpriteAnim { get; }
+
+        public abstract void Load();
+        public virtual void Update(GameTime time)
         {
-            Console.Out.Write("This is an Enitity");
+            // handled animation updated (position and frame) in abstract level
+            SpriteAnim.Position = new Vector2(X, Y);
+            SpriteAnim.Update(time);
+        }
+        public void Draw(GameTime time, SpriteBatch batch)
+        {
+            SpriteAnim.Draw(batch);
         }
     }
 }
