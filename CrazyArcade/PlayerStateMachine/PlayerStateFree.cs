@@ -27,6 +27,7 @@ namespace CrazyArcade.PlayerStateMachine
         }
         public void ProcessState(GameTime time)
         {
+            character.CalculateMovement();
             if (character.CurrentSpeed.X == 0 && character.CurrentSpeed.Y == 0)
             {
                 character.SpriteAnim.playing = false;
