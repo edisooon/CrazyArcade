@@ -13,6 +13,7 @@ namespace CrazyArcade.Demo1
 	{
 
         public float DefaultSpeed = 5;
+        public float ModifiedSpeed;
         public Vector2 CurrentSpeed = new(0,0);
         public Dir direction = Dir.Down;
         public int defaultBlastLength = 1;
@@ -21,8 +22,7 @@ namespace CrazyArcade.Demo1
 
         public override void Update(GameTime time)
         {
-            //CalculateMovement();
-            UpdatePosition();
+
             moveInputs = new(0,0);
             CurrentSpeed = new(0,0);
         }
@@ -35,7 +35,7 @@ namespace CrazyArcade.Demo1
 
         public void CalculateMovement()
         {
-            CurrentSpeed = moveInputs * DefaultSpeed;
+            CurrentSpeed = moveInputs * ModifiedSpeed;
         }
     }
 }

@@ -65,7 +65,7 @@ namespace CrazyArcade.CAFramework
     {
         private float timeElapsed;
         public bool IsLooping = true;
-        public bool playing = true;
+        //public bool playing = true;
         private float timeToUpdate;
         public int FramesPerSecond { set { timeToUpdate = (1f / value); } }
 

@@ -1,6 +1,8 @@
-﻿using CrazyArcade.CAFramework;
+﻿using CrazyArcade.BombFeature;
+using CrazyArcade.CAFramework;
 using CrazyArcade.Content;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Input;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,6 +17,7 @@ namespace CrazyArcade.PlayerStateMachine
         public SpriteAnimation[] spriteAnims;
         public PlayerStateFree(PlayerCharacter character)
         {
+            this.spriteAnims = new SpriteAnimation[4];
             this.character = character;
         }
         public SpriteAnimation[] SetSprites()
@@ -28,6 +31,8 @@ namespace CrazyArcade.PlayerStateMachine
         public void ProcessState(GameTime time)
         {
             character.CalculateMovement();
+            character.UpdatePosition();
+            character.animationHandleInt = (int)character.direction;
             if (character.CurrentSpeed.X == 0 && character.CurrentSpeed.Y == 0)
             {
                 character.SpriteAnim.playing = false;
@@ -37,6 +42,29 @@ namespace CrazyArcade.PlayerStateMachine
             {
                 character.SpriteAnim.playing = true;
             }
+            if (Keyboard.GetState().IsKeyDown(Keys.X))
+            {
+                character.playerState = new PlayerStateBubble(character);
+                character.spriteAnims = character.playerState.SetSprites();
+                character.playerState.SetSpeed();
+            }
+        }
+        public void ProcessItem()
+        {
+            //nothing yet
+        }
+        public void ProcessRide()
+        {
+            //nothing yet
+        }
+        public int SetSpeed()
+        {
+            character.ModifiedSpeed = character.DefaultSpeed;
+            return 1;
+        }
+        public void ProcessAttaction()
+        {
+            character.parentScene.AddSprite(new WaterBomb(character.parentScene, character.X, character.Y, character.currentBlastLength));
         }
     }
 }
