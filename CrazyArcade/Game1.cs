@@ -38,7 +38,7 @@ public class Game1 : Game
         SpriteSheet.LoadAllTextures(Content);
         TestTextureSingleton.LoadAllTextures(Content);
         TextureSingleton.LoadAllTextures(Content);
-        scene = new TestScene();
+        //scene = new TestScene();
         scene.Load();
     }
 
