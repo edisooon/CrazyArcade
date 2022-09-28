@@ -11,12 +11,8 @@ namespace CrazyArcade.Items
 {
     public abstract class Powerups : Item, IItem
     {
-        public Powerups(Rectangle destinationRectangle, Rectangle sourceRectangle)
+        public Powerups(Rectangle destinationRectangle, Rectangle sourceRectangle) : base(destinationRectangle, sourceRectangle, Content.TextureSingleton.GetPowerUps())
         {
-            this.destinationRectangle = destinationRectangle;
-            this.spriteTexture = Content.TextureSingleton.GetPowerUps();
-            this.sourceRectangle = sourceRectangle;
-            GetNewDestination();
         }
     }
     public class Balloon : Powerups, IItem

@@ -13,12 +13,8 @@ namespace CrazyArcade.Blocks
 {
     public abstract class DefaultBlock : Block, IBlock
     {
-        public DefaultBlock(Rectangle destinationRectangle, Rectangle sourceRectangle)
+        public DefaultBlock(Rectangle destinationRectangle, Rectangle sourceRectangle) : base(destinationRectangle, sourceRectangle, Content.TextureSingleton.GetDesertBlocks())
         {
-            this.destinationRectangle = destinationRectangle;
-            this.spriteTexture = Content.TextureSingleton.GetDesertBlocks();
-            this.sourceRectangle = sourceRectangle;
-            GetNewDestination();
         }
     }
 

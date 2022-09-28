@@ -9,12 +9,8 @@ namespace CrazyArcade.Blocks
 {
     public abstract class DamageBlock : Block, IBlock
     {
-        public DamageBlock(Rectangle destinationRectangle, Rectangle sourceRectangle)
+        public DamageBlock(Rectangle destinationRectangle, Rectangle sourceRectangle) : base(destinationRectangle, sourceRectangle, Content.TextureSingleton.GetDesertBlocks())
         {
-            this.spriteTexture = Content.TextureSingleton.GetDesertBlocks();
-            this.destinationRectangle = destinationRectangle;
-            this.sourceRectangle = sourceRectangle;
-            GetNewDestination();
         }
     }
     public class Cactus : DamageBlock
