@@ -12,18 +12,19 @@ namespace CrazyArcade.Demo1
 	public abstract class Character: CAEntity
 	{
 
-        protected float DefaultSpeed = 5;
-        protected Vector2 CurrentSpeed = new(0,0);
-        protected Dir direction = Dir.Down;
-        protected int defaultBlastLength = 1;
-        protected Vector2 moveInputs = new(0,0);
+        public float DefaultSpeed = 5;
+        public Vector2 CurrentSpeed = new(0,0);
+        public Dir direction = Dir.Down;
+        public int defaultBlastLength = 1;
+        public Vector2 moveInputs = new(0,0);
 
 
         public override void Update(GameTime time)
         {
-            CalculateMovement();
+            //CalculateMovement();
             UpdatePosition();
             moveInputs = new(0,0);
+            CurrentSpeed = new(0,0);
         }
 
         public void UpdatePosition()

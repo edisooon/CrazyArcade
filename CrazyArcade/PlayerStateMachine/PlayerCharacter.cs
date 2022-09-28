@@ -17,9 +17,14 @@ namespace CrazyArcade.PlayerStateMachine
     public class PlayerCharacter : Character, IControllable
     {
         private IController controller;
-        private SpriteAnimation[] spriteAnims;
+        public SpriteAnimation[] spriteAnims;
         private CAScene parentScene;
-        public override SpriteAnimation SpriteAnim => spriteAnims[(int)direction];
+        public ICharacterState playerState;
+
+        public override SpriteAnimation SpriteAnim
+        {
+            get => playerState.SetSprites()[(int)direction];
+        }
         public IController Controller
         {
             get => controller;
@@ -42,23 +47,12 @@ namespace CrazyArcade.PlayerStateMachine
         }
         public override void Update(GameTime time)
         {
+
             base.Update(time);
-            if (CurrentSpeed.X == 0 && CurrentSpeed.Y == 0)
-            {
-                SpriteAnim.playing = false;
-                SpriteAnim.setFrame(0);
-            }
-            else
-            {
-                SpriteAnim.playing = true;
-            }
         }
         public override void Load()
         {
-            spriteAnims[0] = new SpriteAnimation(TextureSingleton.GetPlayer1(), 12, 14, 44, 56, 6, 4, 10);
-            spriteAnims[1] = new SpriteAnimation(TextureSingleton.GetPlayer1(), 12, 78, 44, 56, 6, 4, 10);
-            spriteAnims[2] = new SpriteAnimation(TextureSingleton.GetPlayer1(), 12, 142, 44, 56, 6, 4, 10);
-            spriteAnims[3] = new SpriteAnimation(TextureSingleton.GetPlayer1(), 12, 206, 44, 56, 6, 4, 10);
+
         }
 
         public void KeyUp()
