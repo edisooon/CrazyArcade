@@ -1,5 +1,7 @@
 ﻿using CrazyArcade.CAFramework;
 using CrazyArcade.Content;
+using CrazyArcade.Demo1;
+using CrazyArcade.PlayerStateMachine;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
@@ -17,15 +19,16 @@ namespace CrazyArcade.BombFeature
         float DetonateTimer;
         float DetonateTime;
         private SpriteAnimation spriteAnims;
-
+        PlayerCharacter owner;
         public override SpriteAnimation SpriteAnim => spriteAnims;
         private Rectangle[] AnimationFrames;
-        public WaterBomb(CAScene ParentScene, int X = 0, int Y = 0, int BlastLength = 1)
+        public WaterBomb(CAScene ParentScene, int X, int Y, int BlastLength, PlayerCharacter character)
         {
             this.X = X;
             this.Y = Y;
             this.ParentScene = ParentScene;
             this.BlastLength = BlastLength;
+            this.owner = character;
             AnimationFrames = GetAnimationFrames();
             DetonateTime = 0;
             DetonateTimer = 1000;
@@ -47,30 +50,16 @@ namespace CrazyArcade.BombFeature
         {
             //Nothing
         }
-        //private void AnimateSprite(GameTime time)
-        //{
-        //    if (FrameTimer > FrameSpeed)
-        //    {
-        //        CurrentFrame++;
-        //        CurrentFrame = CurrentFrame % AnimationFrames.Count;
-        //        FrameTimer = 0;
-        //        InternalSprite = AnimationFrames[CurrentFrame];
-        //    }
-        //    else
-        //    {
-        //        FrameTimer += (float)time.ElapsedGameTime.TotalMilliseconds;
-        //    }
-        //}
         private void DeleteSelf()
         {
             ParentScene.RemoveSprite(this);
-            //ParentScene.AddSprite(new WaterBomb(ParentScene, position.X + 10, position.Y + 10, BlastLength));
         }
         private void Detonate(GameTime time)
         {
             if(DetonateTime > DetonateTimer)
             {
                 DeleteSelf();
+                owner.BombExplode();
                 CreateExplosion();
             }
             else
@@ -82,7 +71,6 @@ namespace CrazyArcade.BombFeature
         {
             int explosionTile = 40;
             Vector2 side = new Vector2(0, 0);
-            //Perhaps an enumeration would be useful here
             ParentScene.AddSprite(new WaterExplosionCenter(ParentScene, X, Y));
             for (int i = 0; i < 4; i++)
             {

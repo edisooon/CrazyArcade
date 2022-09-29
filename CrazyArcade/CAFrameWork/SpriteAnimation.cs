@@ -59,6 +59,10 @@ namespace CrazyArcade.CAFramework
         {
             spriteBatch.Draw(Texture, Position, Rectangles[FrameIndex], Color, Rotation, Origin, Scale, SpriteEffect, 0f);
         }
+        public void SetScale(float newScale)
+        {
+            this.Scale = newScale;
+        }
     }
 
     public class SpriteAnimation : SpriteManager

@@ -12,32 +12,20 @@ namespace CrazyArcade.BombFeature
 {
     internal class WaterExplosionEdge : CAEntity
     {
-        /*
-         * One thing I want to change in the future is how sprite animation has to be handled on a case by case basis.
-         * Perhaps another level of abstraction?
-         */
         static int FrameLength = 40;
         CAScene ParentScene;
-        //Rectangle InternalSprite;
-        float FrameTimer;
         float Lifespan;
         float AliveTime;
-        float FrameSpeed;
-        int CurrentFrame;
         int Direction;
         bool head;
         int living;
         private SpriteAnimation[] spriteAnims;
         public override SpriteAnimation SpriteAnim => spriteAnims[living];
-        //private List<Rectangle> ActiveAnimationFrames;
-        //private List<Rectangle> DecayAnimationFrames;
         public WaterExplosionEdge(CAScene ParentScene, int direction, bool head, int X = 0, int Y = 0)
         {
             spriteAnims = new SpriteAnimation[2];
             this.X = X;
             this.Y = Y;
-            FrameTimer = 0;
-            FrameSpeed = 25;
             Lifespan = 1000;
             AliveTime = 0;
             living = 0;
@@ -46,10 +34,8 @@ namespace CrazyArcade.BombFeature
             this.ParentScene = ParentScene;
             Rectangle[] activeFrames = GetActiveAnimationFrames();
             Rectangle[] decayFrames = GetDecayedAnimationFrames();
-            CurrentFrame = 0;
             this.spriteAnims[0] = new SpriteAnimation(TextureSingleton.GetBallons(), activeFrames, 15);
             this.spriteAnims[1] = new SpriteAnimation(TextureSingleton.GetBallons(), decayFrames, 15);
-            //InternalSprite = ActiveAnimationFrames[CurrentFrame];
         }
         private Rectangle[] GetActiveAnimationFrames()
         {
