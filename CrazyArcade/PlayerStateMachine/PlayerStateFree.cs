@@ -15,10 +15,14 @@ namespace CrazyArcade.PlayerStateMachine
     {
         private PlayerCharacter character;
         public SpriteAnimation[] spriteAnims;
+        private bool d1HeldDown;
+        private bool d2HeldDown;
         public PlayerStateFree(PlayerCharacter character)
         {
             this.spriteAnims = new SpriteAnimation[4];
             this.character = character;
+            d1HeldDown = false;
+            d2HeldDown = false;
         }
         public SpriteAnimation[] SetSprites()
         {
@@ -48,6 +52,18 @@ namespace CrazyArcade.PlayerStateMachine
                 character.spriteAnims = character.playerState.SetSprites();
                 character.playerState.SetSpeed();
             }
+            if (Keyboard.GetState().IsKeyDown(Keys.D1) && !d1HeldDown)
+            {
+                d1HeldDown = true;
+                character.currentBlastLength = character.currentBlastLength + 1 < 5 ? character.currentBlastLength + 1 : 5;
+            }
+            d1HeldDown = Keyboard.GetState().IsKeyDown(Keys.D1);
+            if (Keyboard.GetState().IsKeyDown(Keys.D2) && !d2HeldDown)
+            {
+                d2HeldDown = true;
+                character.bombCapacity = character.bombCapacity + 1 < 3 ? character.bombCapacity + 1 : 3;
+            }
+            d2HeldDown = Keyboard.GetState().IsKeyDown(Keys.D2);
         }
         public void ProcessItem()
         {
