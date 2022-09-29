@@ -1,11 +1,14 @@
-﻿using CrazyArcade.CAFramework;
+using CrazyArcade.CAFramework;
 using CrazyArcade.Content;
-using CrazyArcade.Graphics;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-
-
+using CrazyArcade.Demo1;
+using CrazyArcade.Singletons;
+using CrazyArcade.BombFeature;
+using System;
+using Microsoft.Xna.Framework.Content;
+using System.Reflection.Metadata;
 
 namespace CrazyArcade;
 
@@ -13,67 +16,48 @@ public class Game1 : Game
 {
     private GraphicsDeviceManager _graphics;
     private SpriteBatch _spriteBatch;
-    private ISprite sprite1;
-    private ISprite sprite2;
-    private ISprite sprite3;
-    private ISprite sprite4;
-    private ISprite sun;
-    
-    
+    private IScene scene;
+
     public Game1()
     {
         _graphics = new GraphicsDeviceManager(this);
-        Content.RootDirectory = "Content"; 
+        Content.RootDirectory = "Content";
         IsMouseVisible = true;
     }
 
     protected override void Initialize()
     {
-        // TODO: Add your initialization logic here
-        TextureSingleton.LoadAllTextures(this.Content);
-        sun = new SunEnemySprite(150,150);
-        sprite1 = new StarProjectileSprite(100,100,1,1);
-        sprite2 = new StarProjectileSprite(100,100,-1,1);
-        sprite3 = new StarProjectileSprite(100,100,1,-1);
-        sprite4 = new StarProjectileSprite(100,100,-1,-1);
+        scene = new DemoScene();
+
         base.Initialize();
     }
 
     protected override void LoadContent()
     {
         _spriteBatch = new SpriteBatch(GraphicsDevice);
-        
-        sun.Load();
-        sprite1.Load();
-        sprite2.Load();
-        sprite3.Load();
-        sprite4.Load();
-
-        //scene1.AddEntity(new TestBlock());
-      
+        SpriteSheet.LoadAllTextures(Content);
+        TestTextureSingleton.LoadAllTextures(Content);
+        TextureSingleton.LoadAllTextures(Content);
+        scene = new TestScene();
+        scene.Load();
     }
 
     protected override void Update(GameTime gameTime)
     {
-        sun.Update(gameTime);
-        sprite1.Update(gameTime);
-        sprite2.Update(gameTime);
-        sprite3.Update(gameTime);
-        sprite4.Update(gameTime);
+
+        scene.Update(gameTime);
 
         base.Update(gameTime);
     }
 
     protected override void Draw(GameTime gameTime)
     {
-        GraphicsDevice.Clear(Color.CornflowerBlue);
+        GraphicsDevice.Clear(Color.Gray);
 
         _spriteBatch.Begin();
-        sun.Draw(gameTime, _spriteBatch);
-        sprite1.Draw(gameTime, _spriteBatch);
-        sprite2.Draw(gameTime, _spriteBatch);
-        sprite3.Draw(gameTime, _spriteBatch);
-        sprite4.Draw(gameTime, _spriteBatch);
+
+        scene.Draw(gameTime, _spriteBatch);
+
         _spriteBatch.End();
     }
 }

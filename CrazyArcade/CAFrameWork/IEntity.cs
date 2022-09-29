@@ -1,9 +1,14 @@
 ﻿using System;
-namespace CrazyArcade.CAFramework
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+
+namespace CrazyArcade.CAFrameWork
 {
-	public interface IEntity: ISprite
-	{
-		void print();
-	}
+    public interface IEntity
+    {
+        void Load();
+        void Update(GameTime time);
+        void Draw(GameTime time, SpriteBatch batch);
+    }
 }
 

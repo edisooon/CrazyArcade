@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using CrazyArcade.CAFrameWork;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
@@ -7,31 +9,49 @@ namespace CrazyArcade.CAFramework
 {
 	public abstract class CAScene: IScene
 	{
-        private List<ISprite> sprites = new List<ISprite>();
-        private List<IGameSystem> systems = new List<IGameSystem>();
-        
-        public abstract List<IGameSystem> LoadSystems();
+        protected List<IGameSystem> systems;
+        //preserved for the purposes of having one draw per entity
+        protected List<IEntity> entities = new List<IEntity>();
+
+        public abstract void LoadSystems();
+
+        public abstract void LoadSprites();
+
+        public CAScene()
+        {
+            this.systems = new List<IGameSystem>();
+        }
+
+        public virtual void Update(GameTime time)
+        {
+            foreach (IGameSystem system in systems)
+            {
+                system.Update(time);
+            }
+        }
+
         public void Draw(GameTime time, SpriteBatch batch)
         {
-            foreach(ISprite sprite in sprites)
+            foreach(IEntity entity in entities)
             {
-                sprite.Draw(time, batch);
+                entity.Draw(time, batch);
             }
         }
 
         public virtual void Load()
         {
-            systems = LoadSystems();
+            LoadSystems();
+            LoadSprites();
         }
 
-        public void AddSprite(ISprite sprite)
+        public void AddSprite(IEntity sprite)
         {
-            foreach(IGameSystem system in systems)
+            sprite.Load();
+            foreach (IGameSystem system in systems)
             {
                 system.AddSprite(sprite);
             }
-            sprites.Add(sprite);
-            sprite.Load();
+            entities.Add(sprite);
         }
 
         public void RemoveAllSprite()
@@ -40,25 +60,18 @@ namespace CrazyArcade.CAFramework
             {
                 system.RemoveAll();
             }
-            sprites = new List<ISprite>();
+            entities = new List<IEntity> { };
         }
 
-        public bool RemoveSprite(ISprite sprite)
+        public void RemoveSprite(IEntity sprite)
         {
             foreach (IGameSystem system in systems)
             {
                 system.RemoveSprite(sprite);
             }
-            return sprites.Remove(sprite);
+            entities.Remove(sprite);
         }
 
-        public void Update(GameTime time)
-        {
-            foreach (IGameSystem system in systems)
-            {
-                system.Update(time);
-            }
-        }
     }
 }
 

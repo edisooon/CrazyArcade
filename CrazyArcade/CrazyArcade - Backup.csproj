@@ -13,9 +13,6 @@
   <ItemGroup>
     <None Remove="Icon.ico" />
     <None Remove="Icon.bmp" />
-    <None Remove="CAFramework\" />
-    <None Remove="Demo1\" />
-    <None Remove="CAFramework\Controller\" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Icon.ico" />
