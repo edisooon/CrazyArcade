@@ -30,12 +30,12 @@ namespace CrazyArcade.CAFramework
             this.Texture = texture;
         }
 
-        public SpriteManager(Texture2D texture, int frames) : this(texture, frames, 0, texture.Height) { }
-
-        public SpriteManager(Texture2D Texture, int frames, int offset, int height)
+        public SpriteManager(Texture2D texture, int frames) : this(texture, frames, 0, texture.Width, texture.Height) { }
+        public SpriteManager(Texture2D Texture, int frames, int offset, int height) : this(Texture, frames, offset, Texture.Width, height) { }
+        public SpriteManager(Texture2D Texture, int frames, int offset, int width, int height)
         {
             this.Texture = Texture;
-            int width = Texture.Width / frames;
+            width = width / frames;
             Rectangles = new Rectangle[frames];
             for (int i = 0; i < frames; i++)
                 Rectangles[i] = new Rectangle(i * width, offset, width, height);
@@ -68,6 +68,11 @@ namespace CrazyArcade.CAFramework
         public bool playing = true;
         private float timeToUpdate;
         public int FramesPerSecond { set { timeToUpdate = (1f / value); } }
+
+        public SpriteAnimation(Texture2D texture, int frames, int offset, int width, int height, int fps = 5) : base(texture, frames, offset, width, height)
+        {
+            FramesPerSecond = fps;
+        }
 
         public SpriteAnimation(Texture2D texture, int frames, int fps = 5) : base(texture, frames) {
             FramesPerSecond = fps;
