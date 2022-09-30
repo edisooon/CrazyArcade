@@ -6,10 +6,10 @@ using Microsoft.Xna.Framework.Input;
 using CrazyArcade.Demo1;
 using CrazyArcade.Singletons;
 using CrazyArcade.BombFeature;
+using CrazyArcade.Enemy;
 using System;
 using Microsoft.Xna.Framework.Content;
 using System.Reflection.Metadata;
-
 namespace CrazyArcade;
 
 public class Game1 : Game
@@ -27,8 +27,9 @@ public class Game1 : Game
 
     protected override void Initialize()
     {
-        scene = new DemoScene();
-
+        scene = new EnemyScene();
+        //scene = new DemoScene();
+        //scene = new TestScene();
         base.Initialize();
     }
 
@@ -38,7 +39,7 @@ public class Game1 : Game
         SpriteSheet.LoadAllTextures(Content);
         TestTextureSingleton.LoadAllTextures(Content);
         TextureSingleton.LoadAllTextures(Content);
-        scene = new TestScene();
+        
         scene.Load();
     }
 

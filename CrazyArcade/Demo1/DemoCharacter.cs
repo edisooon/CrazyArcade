@@ -1,11 +1,10 @@
 ﻿using System;
-using CrazyArcade.CAFrameWork;
+using CrazyArcade.CAFramework;
 using CrazyArcade.CAFramework.Controller;
 using CrazyArcade.Singletons;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-using CrazyArcade.CAFramework;
 
 namespace CrazyArcade.Demo1
 {
@@ -20,7 +19,7 @@ namespace CrazyArcade.Demo1
 
         public override SpriteAnimation SpriteAnim => spriteAnims[(int)direction];
 
-        public IController Controller
+        public IController Controller   
         {
             get => controller;
             set

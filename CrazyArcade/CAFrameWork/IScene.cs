@@ -1,5 +1,5 @@
 ﻿using System;
-using CrazyArcade.CAFrameWork;
+using CrazyArcade.CAFramework;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 

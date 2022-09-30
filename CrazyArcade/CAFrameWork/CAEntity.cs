@@ -1,5 +1,5 @@
 ﻿using System;
-using CrazyArcade.CAFrameWork;
+using CrazyArcade.CAFramework;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
@@ -24,7 +24,7 @@ namespace CrazyArcade.CAFramework
             SpriteAnim.Position.X = X;
             SpriteAnim.Position.Y = Y;
             SpriteAnim.Draw(batch);
-            SpriteAnim.Update(time);
+            SpriteAnim.Update(time); 
         }
     }
 }
