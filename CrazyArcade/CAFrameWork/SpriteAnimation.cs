@@ -30,15 +30,15 @@ namespace CrazyArcade.CAFramework
             this.Texture = texture;
         }
 
-        public SpriteManager(Texture2D texture, int frames) : this(texture, frames, 0, texture.Width, texture.Height) { }
-        public SpriteManager(Texture2D Texture, int frames, int offset, int height) : this(Texture, frames, offset, Texture.Width, height) { }
-        public SpriteManager(Texture2D Texture, int frames, int offset, int width, int height)
+        public SpriteManager(Texture2D texture, int frames) : this(texture, frames, 0, 0, texture.Width, texture.Height) { }
+        public SpriteManager(Texture2D Texture, int frames, int offsetY, int height) : this(Texture, frames, 0, offsetY, Texture.Width, height) { }
+        public SpriteManager(Texture2D Texture, int frames, int offsetX, int offsetY, int width, int height)
         {
             this.Texture = Texture;
             width = width / frames;
             Rectangles = new Rectangle[frames];
             for (int i = 0; i < frames; i++)
-                Rectangles[i] = new Rectangle(i * width, offset, width, height);
+                Rectangles[i] = new Rectangle(offsetX + i * width, offsetY, width, height);
         }
         public SpriteManager(Texture2D Texture, int startPositionX, int startPositionY, int frames, int width, int height, int offset)
         {
@@ -47,13 +47,13 @@ namespace CrazyArcade.CAFramework
             for (int i = 0; i < frames; i++)
                 Rectangles[i] = new Rectangle(startPositionX + (i * width) + (offset * i), startPositionY, width, height);
         }
-        public SpriteManager(Texture2D Texture, int startPositionX, int startPositionY, int frames, int width, int height)
-        {
-            this.Texture = Texture;
-            Rectangles = new Rectangle[frames];
-            for (int i = 0; i < frames; i++)
-                Rectangles[i] = new Rectangle(startPositionX, startPositionY, width, height);
-        }
+        //public SpriteManager(Texture2D Texture, int startPositionX, int startPositionY, int frames, int width, int height)
+        //{
+        //    this.Texture = Texture;
+        //    Rectangles = new Rectangle[frames];
+        //    for (int i = 0; i < frames; i++)
+        //        Rectangles[i] = new Rectangle(startPositionX, startPositionY, width, height);
+        //}
 
         public void Draw(SpriteBatch spriteBatch)
         {
@@ -69,7 +69,7 @@ namespace CrazyArcade.CAFramework
         private float timeToUpdate;
         public int FramesPerSecond { set { timeToUpdate = (1f / value); } }
 
-        public SpriteAnimation(Texture2D texture, int frames, int offset, int width, int height, int fps = 5) : base(texture, frames, offset, width, height)
+        public SpriteAnimation(Texture2D texture, int frames, int offsetX, int offsetY, int width, int height, int fps = 5) : base(texture, frames, offsetX, offsetY, width, height)
         {
             FramesPerSecond = fps;
         }
