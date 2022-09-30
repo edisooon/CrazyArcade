@@ -18,13 +18,15 @@ namespace CrazyArcade.PlayerStateMachine
     {
         private IController controller;
         public SpriteAnimation[] spriteAnims;
-        private CAScene parentScene;
+        public CAScene parentScene;
         public ICharacterState playerState;
+        public int animationHandleInt;
+        public int currentBlastLength;
+        public int bombCapacity = 1;
+        public int bombsOut;
 
-        public override SpriteAnimation SpriteAnim
-        {
-            get => playerState.SetSprites()[(int)direction];
-        }
+        public override SpriteAnimation SpriteAnim => spriteAnims[animationHandleInt];
+
         public IController Controller
         {
             get => controller;
@@ -36,19 +38,28 @@ namespace CrazyArcade.PlayerStateMachine
         }
         public PlayerCharacter(IController controller, CAScene scene)
         {
-            this.spriteAnims = new SpriteAnimation[4];
+            ModifiedSpeed = DefaultSpeed;
+            playerState = new PlayerStateFree(this);
+            spriteAnims = playerState.SetSprites();
+            playerState.SetSpeed();
             direction = Dir.Down;
             this.parentScene = scene;
+            bombsOut = 0;
             X = 100;
             Y = 100;
-
+            currentBlastLength = defaultBlastLength;
             this.controller = controller;
             controller.Delegate = this;
         }
         public override void Update(GameTime time)
         {
 
+            playerState.ProcessState(time);
             base.Update(time);
+        }
+        public void BombExplode()
+        {
+            bombsOut = bombsOut-- >= 0 ? bombsOut-- : 0;
         }
         public override void Load()
         {
@@ -81,7 +92,7 @@ namespace CrazyArcade.PlayerStateMachine
 
         public void KeySpace()
         {
-            parentScene.AddSprite(new WaterBomb(parentScene, X, Y, 1));
+            playerState.ProcessAttaction();
         }
 
         public void RightClick()

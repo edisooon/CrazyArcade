@@ -9,34 +9,33 @@ using CrazyArcade.CAFramework;
 
 namespace CrazyArcade.Demo1
 {
-	public abstract class Character: CAEntity
-	{
+    public abstract class Character : CAEntity
+    {
 
         public float DefaultSpeed = 5;
-        public Vector2 CurrentSpeed = new(0,0);
+        public float ModifiedSpeed;
+        public Vector2 CurrentSpeed = new(0, 0);
         public Dir direction = Dir.Down;
         public int defaultBlastLength = 1;
-        public Vector2 moveInputs = new(0,0);
+        public Vector2 moveInputs = new(0, 0);
 
 
         public override void Update(GameTime time)
         {
-            //CalculateMovement();
-            UpdatePosition();
-            moveInputs = new(0,0);
-            CurrentSpeed = new(0,0);
+
+            moveInputs = new(0, 0);
+            CurrentSpeed = new(0, 0);
         }
 
         public void UpdatePosition()
         {
-            X += (int) CurrentSpeed.X;
-            Y += (int) CurrentSpeed.Y;
+            X += (int)CurrentSpeed.X;
+            Y += (int)CurrentSpeed.Y;
         }
 
         public void CalculateMovement()
         {
-            CurrentSpeed = moveInputs * DefaultSpeed;
+            CurrentSpeed = moveInputs * ModifiedSpeed;
         }
     }
 }
-
