@@ -9,7 +9,7 @@ namespace CrazyArcade.CAFramework
 	{
 
         // for each entity, it has to have a position and animations of sprite
-        protected int X, Y;
+        public int X, Y;
         public abstract SpriteAnimation SpriteAnim { get; }
 
         public abstract void Load();

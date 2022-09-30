@@ -59,13 +59,17 @@ namespace CrazyArcade.CAFramework
         {
             spriteBatch.Draw(Texture, Position, Rectangles[FrameIndex], Color, Rotation, Origin, Scale, SpriteEffect, 0f);
         }
+        public void SetScale(float newScale)
+        {
+            this.Scale = newScale;
+        }
     }
 
     public class SpriteAnimation : SpriteManager
     {
         private float timeElapsed;
         public bool IsLooping = true;
-        public bool playing = true;
+        //public bool playing = true;
         private float timeToUpdate;
         public int FramesPerSecond { set { timeToUpdate = (1f / value); } }
 

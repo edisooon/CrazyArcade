@@ -53,7 +53,7 @@ namespace CrazyArcade.PlayerStateMachine
         }
         public override void Update(GameTime time)
         {
-
+            
             playerState.ProcessState(time);
             base.Update(time);
         }
