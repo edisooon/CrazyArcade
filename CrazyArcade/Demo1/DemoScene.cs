@@ -12,9 +12,9 @@ namespace CrazyArcade.Demo1
 {
     public class DemoScene : CAScene
     {
-
-        public DemoScene()
+        public DemoScene(Game1 game)
         {
+            gameRef = game;
         }
         public override void LoadSystems()
         {

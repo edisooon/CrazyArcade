@@ -12,6 +12,7 @@ namespace CrazyArcade.CAFramework
         protected List<IGameSystem> systems;
         //preserved for the purposes of having one draw per entity
         protected List<IEntity> entities = new List<IEntity>();
+        public Game1 gameRef;
 
         public abstract void LoadSystems();
 

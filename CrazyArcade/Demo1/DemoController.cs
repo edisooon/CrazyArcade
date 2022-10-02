@@ -38,7 +38,7 @@ namespace CrazyArcade.Demo1
                 Delegate.KeySpace();
                 spacePrevPressed = true;
             }
-            if (!Keyboard.GetState().IsKeyDown(Keys.Space))
+            if (!Keyboard.GetState().IsKeyDown(Keys.X))
             {
                 spacePrevPressed = false;
             }
