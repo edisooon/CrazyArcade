@@ -16,6 +16,8 @@ namespace CrazyArcade.PlayerStateMachine
     {
         private PlayerCharacter character;
         private PlayerBubble bubble;
+        private float elapsedTime = 0f;
+        private float popTime = 3000f;
         public PlayerStateBubble(PlayerCharacter character)
         {
             this.character = character;
@@ -42,13 +44,15 @@ namespace CrazyArcade.PlayerStateMachine
         {
             character.CalculateMovement();
             character.UpdatePosition();
-            if (Keyboard.GetState().IsKeyDown(Keys.C))
+            
+            if (elapsedTime > popTime)
             {
                 character.playerState = new PlayerStateFree(character);
                 character.spriteAnims = character.playerState.SetSprites();
                 bubble.bubbleInt = 2;
                 character.playerState.SetSpeed();
             }
+            elapsedTime += (float)time.ElapsedGameTime.TotalMilliseconds;
         }
 
         public int SetSpeed()

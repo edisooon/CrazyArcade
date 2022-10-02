@@ -46,7 +46,7 @@ namespace CrazyArcade.PlayerStateMachine
             {
                 character.SpriteAnim.playing = true;
             }
-            if (Keyboard.GetState().IsKeyDown(Keys.X))
+            if (Keyboard.GetState().IsKeyDown(Keys.E))
             {
                 character.playerState = new PlayerStateBubble(character);
                 character.spriteAnims = character.playerState.SetSprites();
