@@ -14,6 +14,7 @@ namespace CrazyArcade.Demo1
         public override void LoadSystems()
         {
             //this.systems.Add(new CAControllerSystem());
+            //this.systems.Add(new Blocks.Sprint2Manager(this));
         }
 
         public override void LoadSprites()
