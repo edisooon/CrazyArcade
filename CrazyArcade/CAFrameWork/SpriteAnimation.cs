@@ -16,6 +16,18 @@ namespace CrazyArcade.CAFramework
         protected Rectangle[] Rectangles;
         protected int FrameIndex = 0;
 
+        public virtual void CopyFrom(SpriteManager manager)
+        {
+            this.Texture = manager.Texture;
+            this.Position = manager.Position;
+            this.Color = manager.Color;
+            this.Rotation = manager.Rotation;
+            this.Scale = manager.Scale;
+            this.SpriteEffect = manager.SpriteEffect;
+            this.Rectangles = manager.Rectangles;
+            this.FrameIndex = manager.FrameIndex;
+        }
+
         public SpriteManager(Texture2D texture, Rectangle rectangle)
         {
             this.Texture = texture;
@@ -48,9 +60,10 @@ namespace CrazyArcade.CAFramework
                 Rectangles[i] = new Rectangle(startPositionX, startPositionY, width, height);
         }
 
-        public void Draw(SpriteBatch spriteBatch)
+        public void Draw(SpriteBatch spriteBatch, float xShift, float yShift)
         {
-            spriteBatch.Draw(Texture, Position, Rectangles[FrameIndex], Color, Rotation, Origin, Scale, SpriteEffect, 0f);
+            Vector2 drawPosition = new Vector2(Position.X + xShift, Position.Y + yShift);
+            spriteBatch.Draw(Texture, drawPosition, Rectangles[FrameIndex], Color, Rotation, Origin, Scale, SpriteEffect, 0f);
         }
     }
 
@@ -61,6 +74,19 @@ namespace CrazyArcade.CAFramework
         public bool playing = true;
         private float timeToUpdate;
         public int FramesPerSecond { set { timeToUpdate = (1f / value); } }
+
+        public override void CopyFrom(SpriteManager manager)
+        {
+            base.CopyFrom(manager);
+            if (manager is SpriteAnimation)
+            {
+                SpriteAnimation animation = manager as SpriteAnimation;
+                this.timeElapsed = animation.timeElapsed;
+                this.IsLooping = animation.IsLooping;
+                this.playing = animation.playing;
+                this.timeToUpdate = animation.timeToUpdate;
+            }
+        }
 
         public SpriteAnimation(Texture2D texture, int frames, int fps = 5) : base(texture, frames) {
             FramesPerSecond = fps;

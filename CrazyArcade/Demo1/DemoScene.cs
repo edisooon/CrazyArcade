@@ -1,4 +1,5 @@
-﻿using CrazyArcade.CAFramework;
+﻿using CrazyArcade.Boss;
+using CrazyArcade.CAFramework;
 using CrazyArcade.CAFramework.Controller;
 using System;
 using System.Collections.Generic;
@@ -12,12 +13,14 @@ namespace CrazyArcade.Demo1
     {
         public override void LoadSystems()
         {
-            this.systems.Add(new CAControllerSystem());
+            //this.systems.Add(new CAControllerSystem());
         }
 
         public override void LoadSprites()
         {
-            this.AddSprite(new DemoCharacter(new DemoController()));
+            this.AddSprite(new SunBoss(this));
+            Console.Out.Write("added Boss");
+            //this.AddSprite(new DemoCharacter(new DemoController()));
         }
     }
 }

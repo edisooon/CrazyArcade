@@ -33,7 +33,7 @@ namespace CrazyArcade.Content
             DefineArrays();
             for (int i = 0; i < fileNames.Length; i++)
             {
-                spriteSheets[i]= content.Load<Texture2D>(fileNames[i]);
+                spriteSheets[i] = content.Load<Texture2D>(fileNames[i]);
             }
         }
         
