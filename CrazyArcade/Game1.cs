@@ -16,7 +16,7 @@ public class Game1 : Game
 {
     private GraphicsDeviceManager _graphics;
     private SpriteBatch _spriteBatch;
-    private IScene scene;
+    public IScene scene;
 
     public Game1()
     {
@@ -28,7 +28,7 @@ public class Game1 : Game
 
     protected override void Initialize()
     {
-        scene = new DemoScene();
+        scene = new DemoScene(this);
 
         base.Initialize();
     }

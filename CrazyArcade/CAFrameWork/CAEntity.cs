@@ -21,6 +21,8 @@ namespace CrazyArcade.CAFramework
             }
         }
         public virtual SpriteAnimation SpriteAnim { get; }
+        public int X, Y;
+        public abstract SpriteAnimation SpriteAnim { get; }
 
         public abstract void Load();
         public virtual void Update(GameTime time)

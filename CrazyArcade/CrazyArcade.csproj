@@ -17,6 +17,7 @@
     <None Remove="Demo1\" />
     <None Remove="CAFramework\Controller\" />
     <None Remove="Boss\" />
+    <None Remove="PlayerStateMachine\" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Icon.ico" />
