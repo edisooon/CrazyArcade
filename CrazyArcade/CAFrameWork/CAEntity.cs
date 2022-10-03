@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using CrazyArcade.CAFrameWork;
+using CrazyArcade.CAFramework;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
@@ -26,16 +26,16 @@ namespace CrazyArcade.CAFramework
         public virtual void Update(GameTime time)
         {
             // handled animation updated (position and frame) in abstract level
-            foreach (SpriteAnimation Anim in SpriteAnimList)
-            {
+            foreach (SpriteAnimation Anim in SpriteAnimList)   {
                 Anim.Update(time);
+         
             }
         }
         public void Draw(GameTime time, SpriteBatch batch)
         {
             foreach (SpriteAnimation Anim in SpriteAnimList)
             {
-                Anim.Update(time);
+                //Anim.Update(time);
                 Anim.Draw(batch, this.X, this.Y);
             }
         }

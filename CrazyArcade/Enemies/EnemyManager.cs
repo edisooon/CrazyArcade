@@ -1,122 +1,116 @@
+using CrazyArcade.Demo1;
+using CrazyArcade.Enemy;
+using CrazyArcade.Boss;
 using CrazyArcade.CAFramework;
-using CrazyArcade.CAFramework.Controller;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
+using System.Reflection;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
-using CrazyArcade.Enemy;
-
 namespace CrazyArcade.Enemy
 {
-    public class EnemyManager : IControllable
+    public class EnemyManager : IGameSystem
 
     {
-        int i = 0;
-        int length;
-        int X;
-        int Y;
-        CAEntity[] CAEntityList;
-        CAEntity currentSprite;
-        CAEntity oldSprite;
+        private int i = 1;
+        private int length;
+        private int X;
+        private int Y;
+        private CAEntity[] CAEntityList;
+        private CAEntity currentSprite;
+        private CAEntity oldSprite;
+        private CAScene Scene;
 
-        public EnemyManager(IController controller, CAScene Scene)
+        KeyboardState currentState;
+        KeyboardState oldState;
+        public EnemyManager(CAScene scene)
         {
-            length = 4;
-            X = 100;
-            Y = 400;
+            length = 5;
+            this.Scene = scene;
+            X = 300;
+            Y = 100;
             CAEntityList = new CAEntity[length];
             CAEntityList[0] = new BombEnemySprite(X, Y);
             CAEntityList[1] = new SquidEnemySprite(X, Y);
             CAEntityList[2] = new BatEnemySprite(X, Y);
             CAEntityList[3] = new RobotEnemySprite(X, Y);
-            currentSprite = CAEntityList[i];
-
-            this.controller = controller;
-            controller.Delegate = this;
-            this.Scene = Scene;
-        }
-        private IController controller;
-        public IController Controller
-        {
-            get => controller;
-            set
-            {
-                controller = value;
-                controller.Delegate = this;
-            }
-        }
-        private CAScene Scene;
-        Random random = new();
-        public void Key_o()
-        {
-
-            if (oldSprite != null)
-            {
-  
-                Scene.RemoveSprite(oldSprite);
-            }
+            CAEntityList[4] = new SunBoss(scene);
+            currentSprite = CAEntityList[0];
             Scene.AddSprite(currentSprite);
             oldSprite = currentSprite;
-            currentSprite = CAEntityList[i];
-            i++;
-            if (i == CAEntityList.Length)
+
+
+        }
+
+        public void Update(GameTime time)
+        {
+            currentState = Keyboard.GetState();
+            Key_o();
+            Key_p();
+            oldState = currentState;
+        }
+        public void AddSprite(IEntity sprite)
+        {
+
+        }
+        public void RemoveSprite(IEntity sprite)
+        {
+
+        }
+        public void RemoveAll()
+        {
+
+        }
+        private void Key_p()
+        {
+            if (currentState.IsKeyDown(Keys.P) && !oldState.IsKeyDown(Keys.P))
             {
-                i = 0;
+                currentSprite = CAEntityList[i];
+                
+                if (oldSprite != null)
+                {
+                    Scene.RemoveSprite(oldSprite);
+                }
+                Scene.AddSprite(currentSprite);
+                oldSprite = currentSprite;
+                i++;
+                
+                
+                if (i == CAEntityList.Length)
+                {
+                    i = 0;
+                }
+                
             }
-
         }
-        public void Key_p()
+        private void Key_o()
         {
-
-            if (oldSprite != null)
+            if (currentState.IsKeyDown(Keys.O) && !oldState.IsKeyDown(Keys.O))
             {
 
-                Scene.RemoveSprite(oldSprite);
+                currentSprite = CAEntityList[i];
+                
+                if (oldSprite != null)
+                {
+                    Scene.RemoveSprite(oldSprite);
+                }
+                Scene.AddSprite(currentSprite);
+                oldSprite = currentSprite;
+                i--;
+                
+                
+                if (i == -1)
+                {
+                    i = CAEntityList.Length - 1;
+                }
+                currentSprite = CAEntityList[i];
             }
-            Scene.RemoveSprite(oldSprite);
-            Scene.AddSprite(currentSprite);
-            oldSprite = currentSprite;
-            currentSprite = CAEntityList[i];
-            i--;
-            if (i == -1)
-            {
-                i = CAEntityList.Length - 1;
-            }
         }
-        public void KeyUp()
-        {
-
-        }
-        public void KeyDown()
-        {
-
-        }
-        public void KeyLeft()
-        {
-
-        }
-        public void KeyRight()
-        {
-
-        }
-        public void KeySpace()
-        {
-
-        }
-        public void LeftClick()
-        {
-
-        }
-        public void LeftClick(int X, int Y)
-        {
-            
-        }
-        public void RightClick()
-        {
-
-        }
-
+       
     }
 }

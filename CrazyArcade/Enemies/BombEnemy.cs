@@ -17,7 +17,6 @@ namespace CrazyArcade.Enemy
         private Rectangle[] InputFramesLeft;
         private Rectangle[] InputFramesUp;
         private Rectangle[] InputFramesDown;
-        private Rectangle OutputRectangle;
         private Vector2 Start;
         private int xDifference;
         private int yDifference;
@@ -66,6 +65,7 @@ namespace CrazyArcade.Enemy
             foreach (SpriteAnimation anim in this.spriteAnims)
             {
                 anim.setWidthHeight(30,30);  
+                anim.Position = new Vector2(X, Y);
             }
         }
 
@@ -80,7 +80,7 @@ namespace CrazyArcade.Enemy
             xDifference = X-(int)Start.X;
             yDifference = Y-(int)Start.Y;
             
-            if (timer > fps/1f)
+            if (timer > 1f/fps)
             {
                 if (direction == Dir.Right)
                 {
@@ -89,7 +89,7 @@ namespace CrazyArcade.Enemy
                     {
                         
                         direction = Dir.Up;
-
+                        this.spriteAnims[(int)direction].Position = new Vector2(X, Y);
                     }
                     else
                     {
@@ -102,7 +102,7 @@ namespace CrazyArcade.Enemy
                     {
             
                         direction = Dir.Left;
-
+                        this.spriteAnims[(int)direction].Position = new Vector2(X, Y);
                     }
                     else
                     {
@@ -115,7 +115,7 @@ namespace CrazyArcade.Enemy
                     {
 
                         direction = Dir.Down;
-
+                        this.spriteAnims[(int)direction].Position = new Vector2(X, Y);
                     }
                     else
                     {
@@ -128,7 +128,7 @@ namespace CrazyArcade.Enemy
                     {
                         
                         direction = Dir.Right;
-                     
+                        this.spriteAnims[(int)direction].Position = new Vector2(X, Y);
                     }
                     else
                     {

@@ -10,8 +10,9 @@ using System.Threading.Tasks;
 
 namespace CrazyArcade.Enemy
 {
-    public class EnemyController : IController
-    {
+    public class EnemyController : IController {
+
+    
         public IControllerDelegate Delegate { get; set; }
 
         public void Update(GameTime time)
@@ -26,5 +27,6 @@ namespace CrazyArcade.Enemy
             }
          
         }
+
     }
 }

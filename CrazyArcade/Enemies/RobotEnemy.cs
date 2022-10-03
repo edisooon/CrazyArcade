@@ -69,6 +69,7 @@ namespace CrazyArcade.Enemy
             foreach (SpriteAnimation anim in this.spriteAnims)
             {
                 anim.setWidthHeight(30,30);
+                anim.Position = new Vector2(X, Y);
             }
         }
 
@@ -95,7 +96,7 @@ namespace CrazyArcade.Enemy
                         
                         direction = Dir.Up;
                         effect = SpriteEffects.None;
-
+                        this.spriteAnims[(int)direction].Position = new Vector2(X, Y);
 
 
                     }
@@ -111,6 +112,7 @@ namespace CrazyArcade.Enemy
 
                         direction = Dir.Left;
                         effect = SpriteEffects.None;
+                        this.spriteAnims[(int)direction].Position = new Vector2(X, Y);
                     }
                     else
                     {
@@ -124,6 +126,7 @@ namespace CrazyArcade.Enemy
 
                         direction = Dir.Down;
                         effect = SpriteEffects.None;
+                        this.spriteAnims[(int)direction].Position = new Vector2(X, Y);
                     }
                     else
                     {
@@ -137,6 +140,7 @@ namespace CrazyArcade.Enemy
 
                         direction = Dir.Right;
                         effect = SpriteEffects.FlipHorizontally;
+                        this.spriteAnims[(int)direction].Position = new Vector2(X, Y);
                     }
                     else
                     {

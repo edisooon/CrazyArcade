@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using CrazyArcade.CAFrameWork;
+
 using CrazyArcade.Demo1;
 using CrazyArcade.Singletons;
 using CrazyArcade.Content;
@@ -101,6 +101,14 @@ namespace CrazyArcade.PlayerStateMachine
         }
 
         public void LeftClick(int x, int y)
+        {
+
+        }
+        public void Key_o()
+        {
+
+        }
+        public void Key_p()
         {
 
         }
