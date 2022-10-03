@@ -68,7 +68,7 @@ namespace CrazyArcade.Enemy
             this.spriteAnims[(int)Dir.Right] = new SpriteAnimation(TextureSingleton.GetBombermanEnemies(), InputFramesRight, 6);
             foreach (SpriteAnimation anim in this.spriteAnims)
             {
-                anim.setWidthHeight(50, 50);
+                anim.setWidthHeight(30,30);
             }
         }
 

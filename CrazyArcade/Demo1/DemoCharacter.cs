@@ -90,6 +90,17 @@ namespace CrazyArcade.Demo1
         {
 
         }
+        public void Key_o()
+        {
+
+            
+
+        }
+        public void Key_p()
+        {
+
+            
+        }
 
     }
 }
