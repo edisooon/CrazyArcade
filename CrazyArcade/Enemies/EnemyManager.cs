@@ -30,7 +30,7 @@ namespace CrazyArcade.Enemy
         KeyboardState oldState;
         public EnemyManager(CAScene scene)
         {
-            length = 5;
+            length = 6;
             this.Scene = scene;
             X = 300;
             Y = 100;
@@ -40,6 +40,7 @@ namespace CrazyArcade.Enemy
             CAEntityList[2] = new BatEnemySprite(X, Y);
             CAEntityList[3] = new RobotEnemySprite(X, Y);
             CAEntityList[4] = new SunBoss(scene);
+            CAEntityList[5] = new OctopusEnemy(X, Y);
             currentSprite = CAEntityList[0];
             Scene.AddSprite(currentSprite);
             oldSprite = currentSprite;

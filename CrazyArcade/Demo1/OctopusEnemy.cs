@@ -9,28 +9,22 @@ namespace CrazyArcade.Demo1
 {
     public class OctopusEnemy : CAEntity
     {
-        //private int Xdirection;
-        //private int Ydirection;
-        //private int movingX;
-        //private int movingY;
         private int size;
         float timer;
         float threshold;
         private Texture2D texture;
         private Color tint;
         public Rectangle outputFrame1;
-        public SpriteAnimation spriteAnims;//change to array, add other directions
+        public SpriteAnimation spriteAnims;
         public override SpriteAnimation SpriteAnim => spriteAnims;
 
 
         public Rectangle inputFrame;
 
-        //public static Rectangle[] InputFramesLeft;
 
-        public OctopusEnemy(int x, int y, int x_direction, int y_direction)
+        public OctopusEnemy(int x, int y)
         {
             texture = TextureSingleton.GetOctoBoss();
-            //Texture2D Texture, int startPositionX, int startPositionY, int frames, int width, int height
             spriteAnims = new SpriteAnimation(texture,2,5);
             X = x;
             Y = y;
@@ -46,13 +40,7 @@ namespace CrazyArcade.Demo1
         }
 
 
-        public override void Update(GameTime time)
-        {
-            SpriteAnim.Position = new Vector2(475, 200);
-
-            spriteAnims.Update(time);
-
-        }
+        
 
     }
 }
