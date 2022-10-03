@@ -30,7 +30,6 @@ namespace CrazyArcade.Boss
         {
             base.Update(time);
             int diff = timer.FrameDiff.Milliseconds;
-            Console.Out.Write(timer.TotalMili);
             Vector2 distance = new Vector2((speed.X * diff / 8), (speed.Y * diff / 8));
             bossDelegate.Move(distance);
             if (bossDelegate.DidGetDemaged())
