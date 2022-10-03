@@ -37,7 +37,7 @@
 /processorParam:TextureFormat=Color
 /build:Balloons.png
 
-#begin bomb.png
+#begin Bomb.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -47,7 +47,7 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:bomb.png
+/build:Bomb.png
 
 #begin BombEnemy.png
 /importer:TextureImporter
@@ -73,7 +73,7 @@
 /processorParam:TextureFormat=Color
 /build:Bubble.png
 
-#begin coin.png
+#begin Coin.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -83,9 +83,9 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:coin.png
+/build:Coin.png
 
-#begin coinbag.png
+#begin Coinbag.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -95,7 +95,7 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:coinbag.png
+/build:Coinbag.png
 
 #begin DesertBlocks.png
 /importer:TextureImporter
@@ -145,7 +145,7 @@
 /processorParam:TextureFormat=Color
 /build:Player1.png
 
-#begin potion.png
+#begin Potion.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -155,7 +155,7 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:potion.png
+/build:Potion.png
 
 #begin Rides.png
 /importer:TextureImporter
@@ -169,18 +169,6 @@
 /processorParam:TextureFormat=Color
 /build:Rides.png
 
-#begin rollerskates.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:rollerskates.png
-
 #begin SandGround.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -193,7 +181,7 @@
 /processorParam:TextureFormat=Color
 /build:SandGround.png
 
-#begin turtle.png
+#begin Sneaker.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -203,7 +191,19 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:turtle.png
+/build:Sneaker.png
+
+#begin Turtle.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Turtle.png
 
 #begin walk.png
 /importer:TextureImporter

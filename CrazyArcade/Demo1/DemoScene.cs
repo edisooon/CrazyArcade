@@ -19,7 +19,7 @@ namespace CrazyArcade.Demo1
         public override void LoadSprites()
         {
             this.AddSprite(new DemoCharacter(new DemoController()));
-            this.AddSprite(new OctopusEnemy(100,100,1,1));
+            this.AddSprite(new OctopusEnemy(400,100,1,1));
         }
     }
 }
