@@ -47,7 +47,6 @@ public class Game1 : Game
     {
 
         scene.Update(gameTime);
-
         base.Update(gameTime);
     }
 
