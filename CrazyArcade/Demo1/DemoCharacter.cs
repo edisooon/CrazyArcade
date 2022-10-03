@@ -1,5 +1,5 @@
 ﻿using System;
-using CrazyArcade.CAFrameWork;
+
 using CrazyArcade.CAFramework.Controller;
 using CrazyArcade.Singletons;
 using Microsoft.Xna.Framework;
@@ -91,6 +91,16 @@ namespace CrazyArcade.Demo1
         {
 
         }
+        
+        public void Key_o()
+        {
+
+        }
+        public void Key_p()
+        {
+
+        }
+
 
     }
 }

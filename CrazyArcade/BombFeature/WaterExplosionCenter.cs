@@ -12,10 +12,6 @@ namespace CrazyArcade.BombFeature
 {
     internal class WaterExplosionCenter : CAEntity
     {
-        /*
-         * One thing I want to change in the future is how sprite animation has to be handled on a case by case basis.
-         * Perhaps another level of abstraction?
-         */
         static int FrameLength = 40;
         CAScene ParentScene;
         private SpriteAnimation spriteAnims;

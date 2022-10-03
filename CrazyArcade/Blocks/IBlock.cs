@@ -6,7 +6,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Runtime.CompilerServices;
-using CrazyArcade.CAFrameWork;
 using CrazyArcade.CAFramework;
 using CrazyArcade.Content;
 

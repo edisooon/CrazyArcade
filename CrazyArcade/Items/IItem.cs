@@ -4,7 +4,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using CrazyArcade.CAFramework;
-using CrazyArcade.CAFrameWork;
 using CrazyArcade.Blocks;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;

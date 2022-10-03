@@ -1,6 +1,6 @@
-﻿using CrazyArcade.CAFramework;
-using CrazyArcade.CAFrameWork;
+﻿using CrazyArcade.Demo1;
 using CrazyArcade.Items;
+using CrazyArcade.CAFramework;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
@@ -27,8 +27,8 @@ namespace CrazyArcade.Blocks
         KeyboardState previousState;
         Rectangle blockDestination = new(200, 200, 50, 50);
         Rectangle itemDestination = new(400, 200, 64, 64);
-        IScene scene;
-        public Sprint2Manager(IScene scene)
+        CAScene scene;
+        public Sprint2Manager(CAScene scene)
         {
             entities = new List<IEntity>();
             MakeBlockTypeList();
@@ -67,6 +67,7 @@ namespace CrazyArcade.Blocks
             current = Keyboard.GetState();
             UpdateBlock();
             UpdateItem();
+            QuitReset();
             previousState = current;
             foreach (IEntity entity in entities)
             {
@@ -98,6 +99,18 @@ namespace CrazyArcade.Blocks
             }
             entities[item] = itemTypeList[itemIndex];
             
+        }
+        public void QuitReset()
+        {
+            if (current.IsKeyDown(Keys.Q))
+            {
+                scene.gameRef.Exit();
+            }
+            if (current.IsKeyDown(Keys.R))
+            {
+                scene.gameRef.scene = new DemoScene(scene.gameRef);
+                scene.gameRef.scene.Load();
+            }
         }
         private void MakeBlockTypeList()
         {

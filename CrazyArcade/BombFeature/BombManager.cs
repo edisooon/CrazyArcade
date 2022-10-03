@@ -11,6 +11,7 @@ namespace CrazyArcade.BombFeature
 {
     public class BombManager : IControllable
     {
+        //depreciated test method, marked for deletion
         public BombManager(IController controller, CAScene Scene)
         {
             this.controller = controller;
@@ -56,11 +57,22 @@ namespace CrazyArcade.BombFeature
         public void LeftClick(int X, int Y)
         {
             Debug.WriteLine(X + " " + Y);
-            Scene.AddSprite(new WaterBomb(Scene, X, Y, random.Next(1, 7)));
+            //Scene.AddSprite(new WaterBomb(Scene, X, Y, random.Next(1, 7)));
         }
         public void RightClick()
         {
 
+        }
+        public void Key_o()
+        {
+
+            
+
+        }
+        public void Key_p()
+        {
+
+            
         }
     }
 }

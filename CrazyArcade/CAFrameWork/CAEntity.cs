@@ -1,5 +1,6 @@
 ﻿using System;
-using CrazyArcade.CAFrameWork;
+using System.Collections.Generic;
+using CrazyArcade.CAFramework;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
@@ -9,22 +10,34 @@ namespace CrazyArcade.CAFramework
 	{
 
         // for each entity, it has to have a position and animations of sprite
-        protected int X, Y;
-        public abstract SpriteAnimation SpriteAnim { get; }
+        List<SpriteAnimation> spriteAnimList;
+        public virtual List<SpriteAnimation> SpriteAnimList {
+            get
+            {
+                List<SpriteAnimation> list = new List<SpriteAnimation>();
+                list.Add(SpriteAnim);
+                return list;
+            }
+        }
+        public virtual SpriteAnimation SpriteAnim { get; }
+        public int X, Y;
 
         public abstract void Load();
         public virtual void Update(GameTime time)
         {
             // handled animation updated (position and frame) in abstract level
-            SpriteAnim.Position = new Vector2(X, Y);
-            SpriteAnim.Update(time);
+            foreach (SpriteAnimation Anim in SpriteAnimList)   {
+                Anim.Update(time);
+         
+            }
         }
         public void Draw(GameTime time, SpriteBatch batch)
         {
-            SpriteAnim.Position.X = X;
-            SpriteAnim.Position.Y = Y;
-            SpriteAnim.Draw(batch);
-            SpriteAnim.Update(time);
+            foreach (SpriteAnimation Anim in SpriteAnimList)
+            {
+                Anim.Update(time);
+                Anim.Draw(batch, this.X, this.Y);
+            }
         }
     }
 }
