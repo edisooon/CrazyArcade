@@ -7,11 +7,29 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace CrazyArcade.CAFramework
 {
-	public abstract class CAScene: IScene
-	{
+	public abstract class CAScene: IScene, ISceneDelegate
+    {
         protected List<IGameSystem> systems;
         //preserved for the purposes of having one draw per entity
         protected List<IEntity> entities = new List<IEntity>();
+        public Game1 gameRef;
+
+        private List<IEntity> newEntities = new List<IEntity>();
+        private List<IEntity> removeEntities = new List<IEntity>();
+
+        private void UpdateEnitities()
+        {
+            foreach (IEntity entity in newEntities)
+            {
+                this.AddSprite(entity);
+            }
+            foreach (IEntity entity in removeEntities)
+            {
+                this.RemoveSprite(entity);
+            }
+            newEntities = new List<IEntity>();
+            removeEntities = new List<IEntity>();
+        }
 
         public abstract void LoadSystems();
 
@@ -63,6 +81,7 @@ namespace CrazyArcade.CAFramework
             entities = new List<IEntity> { };
         }
 
+
         public void RemoveSprite(IEntity sprite)
         {
             foreach (IGameSystem system in systems)
@@ -72,6 +91,15 @@ namespace CrazyArcade.CAFramework
             entities.Remove(sprite);
         }
 
+        public void ToAddEntity(IEntity entity)
+        {
+            AddSprite(entity);
+        }
+
+        public void ToRemoveEntity(IEntity entity)
+        {
+            RemoveSprite(entity);
+        }
     }
 }
 
