@@ -16,29 +16,26 @@ public class Game1 : Game
 {
     private GraphicsDeviceManager _graphics;
     private SpriteBatch _spriteBatch;
-    private IScene scene;
+    public IScene scene;
 
     public Game1()
     {
         _graphics = new GraphicsDeviceManager(this);
         Content.RootDirectory = "Content";
         IsMouseVisible = true;
+        SpriteSheet.Content = Content;
     }
 
     protected override void Initialize()
     {
-        scene = new DemoScene();
-
+        scene = new DemoScene(this);
+        TextureSingleton.LoadAllTextures(Content);
         base.Initialize();
     }
 
     protected override void LoadContent()
     {
         _spriteBatch = new SpriteBatch(GraphicsDevice);
-        SpriteSheet.LoadAllTextures(Content);
-        TestTextureSingleton.LoadAllTextures(Content);
-        TextureSingleton.LoadAllTextures(Content);
-        //scene = new TestScene();
         scene.Load();
     }
 
@@ -52,7 +49,7 @@ public class Game1 : Game
 
     protected override void Draw(GameTime gameTime)
     {
-        GraphicsDevice.Clear(Color.Gray);
+        GraphicsDevice.Clear(Color.SkyBlue);
 
         _spriteBatch.Begin();
 

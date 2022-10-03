@@ -68,6 +68,19 @@ namespace CrazyArcade.Singletons
         //    }
         //}
 
+        private static Texture2D sunBoss;
+        public static Texture2D SunBoss
+        {
+            get
+            {
+
+                if (sunBoss == null)
+                {
+                    sunBoss = Content.Load<Texture2D>("SunBoss");
+                }
+                return sunBoss;
+            }
+        }
         public static Texture2D Character
         {
             get
