@@ -25,7 +25,7 @@ namespace CrazyArcade.Content
         }
         private static void DefineArrays()
         {
-            fileNames = new string[] {"Balloons","BombEnemy", "Bubble", "DesertBlocks", "Pirate", "Player1", "Powerups", "Rides"};
+            fileNames = new string[] {"Balloons","BombEnemy", "Bubble", "DesertBlocks", "Pirate", "Player1", "Powerups", "Rides","OctoBoss"};
             spriteSheets = new Texture2D[fileNames.Length];
         }
         public static void LoadAllTextures(ContentManager content)
@@ -75,8 +75,10 @@ namespace CrazyArcade.Content
         {
             return spriteSheets[7];
         }
-        
-
+        public static Texture2D GetOctoBoss()
+        {
+            return spriteSheets[8];
+        }
 
     }
 }
