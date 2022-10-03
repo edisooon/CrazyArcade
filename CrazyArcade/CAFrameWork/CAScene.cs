@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using CrazyArcade.CAFrameWork;
+using CrazyArcade.CAFramework;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
@@ -16,6 +16,7 @@ namespace CrazyArcade.CAFramework
 
         private List<IEntity> newEntities = new List<IEntity>();
         private List<IEntity> removeEntities = new List<IEntity>();
+
 
         private void UpdateEnitities()
         {

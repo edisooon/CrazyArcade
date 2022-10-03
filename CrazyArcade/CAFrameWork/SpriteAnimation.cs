@@ -16,6 +16,9 @@ namespace CrazyArcade.CAFramework
         public bool playing = true;
         protected Rectangle[] Rectangles;
         protected int FrameIndex = 0;
+        public int Width;
+        public int Height;
+        public int rectangleFlag = 0;
 
         public virtual void CopyFrom(SpriteManager manager)
         {
@@ -70,12 +73,32 @@ namespace CrazyArcade.CAFramework
         public void Draw(SpriteBatch spriteBatch, float xShift, float yShift)
         {
             Vector2 drawPosition = new Vector2(Position.X + xShift, Position.Y + yShift);
-            spriteBatch.Draw(Texture, drawPosition, Rectangles[FrameIndex], Color, Rotation, Origin, Scale, SpriteEffect, 0f);
+            if (rectangleFlag == 1){
+                spriteBatch.Draw(Texture, new Rectangle((int)Position.X, (int)Position.Y, Width,Height), Rectangles[FrameIndex], Color, Rotation, Origin,SpriteEffect, 0f);
+            }
+            else
+            {
+                spriteBatch.Draw(Texture, drawPosition, Rectangles[FrameIndex], Color, Rotation, Origin, Scale, SpriteEffect, 0f);
+            }
+            
         }
+
+        public void setWidthHeight(int w, int h)
+        {
+            this.Width = w;
+            this.Height = h;
+            this.rectangleFlag = 1;
+        }
+        public void setEffect(SpriteEffects effect)
+        {
+            this.SpriteEffect = effect;
+        }
+
         public void SetScale(float newScale)
         {
             this.Scale = newScale;
         }
+
     }
 
     public class SpriteAnimation : SpriteManager
