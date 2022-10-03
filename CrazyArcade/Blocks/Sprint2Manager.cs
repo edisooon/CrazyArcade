@@ -26,7 +26,7 @@ namespace CrazyArcade.Blocks
         KeyboardState current;
         KeyboardState previousState;
         Rectangle blockDestination = new(200, 200, 50, 50);
-        Rectangle itemDestination = new(400, 200, 60, 60);
+        Rectangle itemDestination = new(400, 200, 64, 64);
         IScene scene;
         public Sprint2Manager(IScene scene)
         {
