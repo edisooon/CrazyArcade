@@ -34,33 +34,13 @@ namespace CrazyArcade.Demo1
             texture = TextureSingleton.GetOctoBoss();
             //Texture2D Texture, int startPositionX, int startPositionY, int frames, int width, int height
             spriteAnims = new SpriteAnimation(texture,2,5);
+
             X = x;
             Y = y;
             Xdirection = x_direction;
             Ydirection = y_direction;
         }
 
-        //GETTER METHODS --------------------------------------------------------------------------
-        /**
-        public override Texture2D Texture
-        {
-            get { return texture; }
-        }
-
-        public override Rectangle InputFrame
-        {
-            get { return inputFrame; }
-        }
-        public override Rectangle OutputFrame
-        {
-            get { return outputFrame1; }
-        }
-        public override Color Tint
-        {
-            get { return tint; }
-        }
-        **/
-        //-------------------------------------------------------------------------------------------
         public override void Load()
         {
             size = 95;
@@ -78,6 +58,8 @@ namespace CrazyArcade.Demo1
 
         public override void Update(GameTime time)
         {
+            SpriteAnim.Position = new Vector2(475, 200);
+
             spriteAnims.Update(time);
             timer = timer % threshold;
             if (timer>threshold/2)
