@@ -35,7 +35,7 @@ namespace CrazyArcade.CAFramework
         {
             foreach (SpriteAnimation Anim in SpriteAnimList)
             {
-                //Anim.Update(time);
+                Anim.Update(time);
                 Anim.Draw(batch, this.X, this.Y);
             }
         }
