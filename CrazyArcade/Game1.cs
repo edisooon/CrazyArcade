@@ -29,7 +29,7 @@ public class Game1 : Game
     protected override void Initialize()
     {
         scene = new DemoScene(this);
-
+        TextureSingleton.LoadAllTextures(Content);
         base.Initialize();
     }
 

@@ -46,11 +46,6 @@ namespace CrazyArcade.CAFramework
             {
                 system.Update(time);
             }
-            foreach (IEntity entity in entities)
-            {
-                entity.Update(time);
-            }
-            UpdateEnitities();
         }
 
         public void Draw(GameTime time, SpriteBatch batch)
@@ -97,12 +92,12 @@ namespace CrazyArcade.CAFramework
 
         public void ToAddEntity(IEntity entity)
         {
-            newEntities.Add(entity);
+            RemoveSprite(entity);
         }
 
         public void ToRemoveEntity(IEntity entity)
         {
-            removeEntities.Add(entity);
+            RemoveSprite(entity);
         }
     }
 }

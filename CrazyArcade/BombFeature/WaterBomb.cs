@@ -32,7 +32,7 @@ namespace CrazyArcade.BombFeature
             AnimationFrames = GetAnimationFrames();
             DetonateTime = 0;
             DetonateTimer = 1000;
-            this.spriteAnims = new SpriteAnimation(TestTextureSingleton.GetSpriteSheet(), AnimationFrames, 8);
+            this.spriteAnims = new SpriteAnimation(TextureSingleton.GetBallons(), AnimationFrames, 8);
         }
         private static Rectangle[] GetAnimationFrames()
         {

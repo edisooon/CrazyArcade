@@ -10,7 +10,6 @@ namespace CrazyArcade.CAFramework
 	{
 
         // for each entity, it has to have a position and animations of sprite
-        protected int X, Y;
         List<SpriteAnimation> spriteAnimList;
         public virtual List<SpriteAnimation> SpriteAnimList {
             get
@@ -22,7 +21,6 @@ namespace CrazyArcade.CAFramework
         }
         public virtual SpriteAnimation SpriteAnim { get; }
         public int X, Y;
-        public abstract SpriteAnimation SpriteAnim { get; }
 
         public abstract void Load();
         public virtual void Update(GameTime time)
