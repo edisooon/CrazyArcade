@@ -81,6 +81,7 @@ namespace CrazyArcade.CAFramework
             entities = new List<IEntity> { };
         }
 
+
         public void RemoveSprite(IEntity sprite)
         {
             foreach (IGameSystem system in systems)
@@ -92,7 +93,7 @@ namespace CrazyArcade.CAFramework
 
         public void ToAddEntity(IEntity entity)
         {
-            RemoveSprite(entity);
+            AddSprite(entity);
         }
 
         public void ToRemoveEntity(IEntity entity)
