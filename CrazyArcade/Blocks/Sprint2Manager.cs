@@ -106,7 +106,12 @@ namespace CrazyArcade.Blocks
                 new Rock(blockDestination),
                 new Tree(blockDestination),
                 new DarkTree(blockDestination),
-                new Cactus(blockDestination)
+                new Cactus(blockDestination),
+                new FlowerCactus(blockDestination),
+                new LightFlowerCactus(blockDestination),
+                new BlueCrate(blockDestination),
+                new GreenCrate(blockDestination),
+                new CyanCrate(blockDestination)
             };
             entities.Add(blockTypeList[blockIndex]);
         }
