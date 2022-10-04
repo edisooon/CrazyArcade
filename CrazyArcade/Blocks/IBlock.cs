@@ -25,6 +25,12 @@ namespace CrazyArcade.Blocks
             this.X = destination.X;
             this.Y = destination.Y;
         }
+        public Block(Rectangle destination, Rectangle source, Texture2D texture,int frames, int fps)
+        {
+            spriteAnimation = new SpriteAnimation(texture, frames, fps);
+            this.X = destination.X;
+            this.Y = destination.Y;
+        }
 
         public override SpriteAnimation SpriteAnim => this.spriteAnimation;
 

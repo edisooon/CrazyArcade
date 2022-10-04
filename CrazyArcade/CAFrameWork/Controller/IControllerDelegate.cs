@@ -8,8 +8,6 @@ namespace CrazyArcade.CAFramework.Controller
         void KeyLeft();
         void KeyRight();
         void KeySpace();
-        void Key_o();
-        void Key_p();
         void RightClick();
         void LeftClick(int x, int y);
     }

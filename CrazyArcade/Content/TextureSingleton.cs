@@ -25,7 +25,7 @@ namespace CrazyArcade.Content
         }
         private static void DefineArrays()
         {
-            fileNames = new string[] {"Balloons","BombEnemy", "Bubble", "DesertBlocks", "Pirate", "Player1", "Powerups", "Rides","bomberman_enemies","bombermanII_enemies" };
+            fileNames = new string[] {"Balloons","BombEnemy", "Bubble", "DesertBlocks", "Pirate", "Player1", "Powerups", "Rides", "OctoBoss", "Sneaker", "Turtle", "Bomb", "Coin", "Coinbag", "Potion", "bomberman_enemies", "bombermanII_enemies" };
             spriteSheets = new Texture2D[fileNames.Length];
         }
         public static void LoadAllTextures(ContentManager content)
@@ -75,14 +75,45 @@ namespace CrazyArcade.Content
         {
             return spriteSheets[7];
         }
-         public static Texture2D GetBombermanEnemies()
+        public static Texture2D GetOctoBoss()
         {
             return spriteSheets[8];
         }
-        public static Texture2D GetBombermanIIEnemies()
+        public static Texture2D GetRollerskates()
         {
             return spriteSheets[9];
         }
+        public static Texture2D GetTurtle()
+        {
+            return spriteSheets[10];
+        }
+        public static Texture2D GetBomb()
+        {
+            return spriteSheets[11];
+        }
+        public static Texture2D GetCoin()
+        {
+            return spriteSheets[12];
+        }
+        public static Texture2D GetCoinbag()
+        {
+            return spriteSheets[13];
+        }
+        public static Texture2D GetPotion()
+        {
+            return spriteSheets[14];
+        }
+        public static Texture2D GetBombermanEnemies()
+        {
+            return spriteSheets[15];
+        }
+        public static Texture2D GetBombermanIIEnemies()
+        {
+            return spriteSheets[16];
+        }
+
+
+
 
     }
 }
