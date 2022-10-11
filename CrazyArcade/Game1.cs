@@ -10,7 +10,8 @@ using System;
 using Microsoft.Xna.Framework.Content;
 using System.Reflection.Metadata;
 using CrazyArcade.Enemy;
-
+using CrazyArcade.Levels;
+using System.Diagnostics;
 namespace CrazyArcade;
 
 public class Game1 : Game
@@ -18,7 +19,8 @@ public class Game1 : Game
     private GraphicsDeviceManager _graphics;
     private SpriteBatch _spriteBatch;
     public IScene scene;
-
+    public Level Level1;
+    public ReadJSON test;
 
     public Game1()
     {
@@ -33,6 +35,10 @@ public class Game1 : Game
     {
         scene = new DemoScene(this);
         TextureSingleton.LoadAllTextures(Content);
+        
+
+        test = new ReadJSON("\\Level_0.json");
+        Level1 = test.levelObject;
 
         base.Initialize();
     }
@@ -42,20 +48,21 @@ public class Game1 : Game
         _spriteBatch = new SpriteBatch(GraphicsDevice);
 
 
-        scene.Load();
+        //scene.Load();
     }
 
     protected override void Update(GameTime gameTime)
     {
 
-        scene.Update(gameTime);
+        //scene.Update(gameTime);
 
         base.Update(gameTime);
     }
 
     protected override void Draw(GameTime gameTime)
     {
-        GraphicsDevice.Clear(Color.SkyBlue);
+        GraphicsDevice.Clear(new Color(Level1.Background[0],Level1.Background[1], Level1.Background[2]));
+
 
         _spriteBatch.Begin();
 
