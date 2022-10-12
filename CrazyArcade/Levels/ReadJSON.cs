@@ -9,12 +9,12 @@ public class ReadJSON
 {
     StreamReader sReader;
     string jString;
-    string winDir = System.Environment.GetEnvironmentVariable("windir");
+    string winDir = System.Environment.CurrentDirectory;
     public Level levelObject { get; }
     // fileName should be formatted like "\\Level_0.json"
     public ReadJSON(string fileName)
     {
-        sReader = new StreamReader("C:\\Users\\talar\\source\\repos\\CrazyArcade\\CrazyArcade\\Levels\\Level_0.json");
+        sReader = new StreamReader(winDir+ "\\Content\\JsonLevels" + fileName);
 
         try
         {
@@ -25,7 +25,7 @@ public class ReadJSON
             Console.Error.WriteLine("File is empty");
         }
         levelObject = JsonSerializer.Deserialize<Level>(jString);
-        Debug.WriteLine(levelObject.Background[0]);
+        Debug.WriteLine(levelObject.Grid[0]);
     }
 
 }
@@ -35,11 +35,13 @@ public class Level
 
     public int[] Background { get; set; }
 
+    public int[] Grid { get; set; }
+
     public LevelBlocks Blocks { get; set; }
 
     public LevelItems Items { get; set; }
 
-    public long[][] Player { get; set; }
+    public int[] Player { get; set; }
 
     public LevelEnemies Enemies { get; set; }
 
