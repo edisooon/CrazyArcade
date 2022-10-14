@@ -9,7 +9,7 @@ namespace CrazyArcade.Blocks
 {
     internal interface IBlockCollision
     {
-        public Rectangle boundingBox {get; set;}
+        public Rectangle boundingBox {get;}
 
         public void CollisionLogic();
     }

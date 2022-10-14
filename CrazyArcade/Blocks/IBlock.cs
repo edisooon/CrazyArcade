@@ -15,9 +15,11 @@ namespace CrazyArcade.Blocks
     {
 
     }
-    public abstract class Block : CAEntity, IBlock
+    public abstract class Block : CAEntity, IBlock, IBlockCollision
     {
         protected SpriteAnimation spriteAnimation;
+
+        private Rectangle internalRectangle = new Rectangle(0, 0, 40, 40);
 
         public Block(Rectangle destination, Rectangle source, Texture2D texture)
         {
@@ -34,12 +36,20 @@ namespace CrazyArcade.Blocks
 
         public override SpriteAnimation SpriteAnim => this.spriteAnimation;
 
+        public Rectangle boundingBox => internalRectangle;
+
         public override void Update(GameTime time)
         {
-
+            internalRectangle.X = X;
+            internalRectangle.Y = Y;
         }
         public override void Load()
         {
+        }
+
+        public void CollisionLogic()
+        {
+            
         }
     }
 }
