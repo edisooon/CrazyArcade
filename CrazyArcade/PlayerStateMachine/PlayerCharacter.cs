@@ -50,7 +50,7 @@ namespace CrazyArcade.PlayerStateMachine
             currentBlastLength = defaultBlastLength;
             this.controller = controller;
             controller.Delegate = this;
-            this.bboxOffset = new Point(20, 20);
+            //this.bboxOffset = new Point(20, 20);
         }
         public override void Update(GameTime time)
         {

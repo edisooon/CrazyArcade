@@ -7,10 +7,9 @@ using System.Threading.Tasks;
 
 namespace CrazyArcade.Blocks
 {
-    internal interface IBlockCollision
+    public interface IBlockCollision
     {
         public Rectangle boundingBox {get;}
-
-        public void CollisionLogic();
+        public void CollisionLogic(Rectangle overlap, IBlockCollidable collisionPartner);
     }
 }

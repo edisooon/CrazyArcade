@@ -47,7 +47,7 @@ namespace CrazyArcade.CAFrameWork.CollisionSystem
                     Rectangle checkRectangle = Rectangle.Intersect(block.boundingBox, entity.blockCollisionBoundingBox);
                     if (checkRectangle.Width != 0 || checkRectangle.Height != 0)
                     {
-                        Debug.WriteLine("Collided");
+                        block.CollisionLogic(checkRectangle, entity);
                     }
                 }
             }

@@ -19,24 +19,28 @@ namespace CrazyArcade.Demo1
         public Dir direction = Dir.Down;
         public int defaultBlastLength = 1;
         public Vector2 moveInputs = new(0, 0);
-        protected Rectangle blockBoundingBox = new Rectangle(0,0,5, 5);
+        protected Rectangle blockBoundingBox = new Rectangle(0,0,42, 56);
         protected Point bboxOffset = new Point(0, 0);
+        protected bool blockBboxOn = true;
 
         public Rectangle blockCollisionBoundingBox => blockBoundingBox;
+
+        public bool Active { get => blockBboxOn; set { blockBboxOn = value; } }
+
 
         public override void Update(GameTime time)
         {
 
             moveInputs = new(0, 0);
             CurrentSpeed = new(0, 0);
+            blockBoundingBox.X = bboxOffset.X + X;
+            blockBoundingBox.Y = bboxOffset.Y + Y;
         }
 
         public void UpdatePosition()
         {
             X += (int)CurrentSpeed.X;
             Y += (int)CurrentSpeed.Y;
-            blockBoundingBox.X = bboxOffset.X + X;
-            blockBoundingBox.Y = bboxOffset.Y + Y;
         }
 
         public void CalculateMovement()
@@ -44,9 +48,10 @@ namespace CrazyArcade.Demo1
             CurrentSpeed = moveInputs * ModifiedSpeed;
         }
 
-        public void collisionLogic()
+        public void CollisionHaltLogic(Point move)
         {
-            throw new NotImplementedException();
+            X -= move.X;
+            Y -= move.Y;
         }
     }
 }
