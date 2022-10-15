@@ -18,6 +18,7 @@
     <None Remove="CAFramework\Controller\" />
     <None Remove="Boss\" />
     <None Remove="PlayerStateMachine\" />
+    <None Remove="GridSystems\" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Icon.ico" />
@@ -29,6 +30,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Boss\" />
+    <Folder Include="GridSystems\" />
   </ItemGroup>
   <Target Name="RestoreDotnetTools" BeforeTargets="Restore">
     <Message Text="Restoring dotnet tools" Importance="High" />
