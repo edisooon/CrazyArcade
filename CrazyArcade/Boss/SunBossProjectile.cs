@@ -2,12 +2,13 @@
 using System.Collections.Generic;
 using CrazyArcade.CAFramework;
 using CrazyArcade.GameGridSystems;
+using CrazyArcade.Projectile;
 using Microsoft.Xna.Framework;
 
 namespace CrazyArcade.Boss
 {
-	public class SunBossProjectile: CAEntity, IGridable
-	{
+	public class SunBossProjectile: CAEntity, IGridable, IProjectile
+    {
         float timeAdaptor = 4;
         ISceneDelegate sceneDelegate;
         ITimer timer;

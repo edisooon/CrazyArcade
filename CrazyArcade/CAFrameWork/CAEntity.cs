@@ -39,6 +39,10 @@ namespace CrazyArcade.CAFramework
                 Anim.Draw(batch, this.X, this.Y);
             }
         }
+        public void removeFromScene()
+        {
+
+        }
     }
 }
 
