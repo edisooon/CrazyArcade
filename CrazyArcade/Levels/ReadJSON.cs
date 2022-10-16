@@ -11,7 +11,10 @@ public class ReadJSON
     string jString;
     string winDir = System.Environment.CurrentDirectory;
     public Level levelObject { get; }
-    // fileName should be formatted like "\\Level_0.json"
+    //How to use:
+    //ReadJSON test = new ReadJSON("\\Level_0.json");
+    //Level Level0 = test.levelObject;
+    
     public ReadJSON(string fileName)
     {
         sReader = new StreamReader(winDir+ "\\Content\\JsonLevels" + fileName);
@@ -25,7 +28,7 @@ public class ReadJSON
             Console.Error.WriteLine("File is empty");
         }
         levelObject = JsonSerializer.Deserialize<Level>(jString);
-        Debug.WriteLine(levelObject.Grid[0]);
+        //Debug.WriteLine(levelObject.Grid[0]);
     }
 
 }

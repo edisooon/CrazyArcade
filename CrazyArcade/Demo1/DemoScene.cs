@@ -30,8 +30,6 @@ namespace CrazyArcade.Demo1
         {
 
             Console.Out.Write("added Boss");
-            //this.AddSprite(new DemoCharacter(new DemoController()));
-            //this.AddSprite(new BombEnemySprite(100,100));
             this.AddSprite(new PlayerCharacter(new DemoController(), this));
         }
     }
