@@ -1,7 +1,6 @@
-﻿using CrazyArcade.CAFramework;
-using CrazyArcade.CAFrameWork;
-using CrazyArcade.Demo1;
+﻿using CrazyArcade.Demo1;
 using CrazyArcade.Items;
+using CrazyArcade.CAFramework;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
@@ -27,7 +26,7 @@ namespace CrazyArcade.Blocks
         KeyboardState current;
         KeyboardState previousState;
         Rectangle blockDestination = new(200, 200, 50, 50);
-        Rectangle itemDestination = new(400, 200, 50, 50);
+        Rectangle itemDestination = new(400, 200, 64, 64);
         CAScene scene;
         public Sprint2Manager(CAScene scene)
         {
@@ -74,6 +73,7 @@ namespace CrazyArcade.Blocks
             {
                 scene.AddSprite(entity);
             }
+            //itemTypeList[itemIndex].Update(gameTime,itemDestination,5);
         }
         public void UpdateBlock()
         {
@@ -98,6 +98,7 @@ namespace CrazyArcade.Blocks
                 itemIndex = Increment(itemTypeList.Count, itemIndex);
             }
             entities[item] = itemTypeList[itemIndex];
+            
         }
         public void QuitReset()
         {
@@ -137,7 +138,8 @@ namespace CrazyArcade.Blocks
                 new Balloon(itemDestination),
                 new Sneaker(itemDestination),
                 new Turtle(itemDestination),
-                new Potion(itemDestination)
+                new Potion(itemDestination),
+                new Coin(itemDestination)
             };
             entities.Add(itemTypeList[itemIndex]);
         }

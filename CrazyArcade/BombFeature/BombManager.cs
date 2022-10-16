@@ -63,5 +63,16 @@ namespace CrazyArcade.BombFeature
         {
 
         }
+        public void Key_o()
+        {
+
+            
+
+        }
+        public void Key_p()
+        {
+
+            
+        }
     }
 }

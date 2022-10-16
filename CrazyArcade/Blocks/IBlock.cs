@@ -6,7 +6,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Runtime.CompilerServices;
-using CrazyArcade.CAFrameWork;
 using CrazyArcade.CAFramework;
 using CrazyArcade.Content;
 
@@ -23,6 +22,12 @@ namespace CrazyArcade.Blocks
         public Block(Rectangle destination, Rectangle source, Texture2D texture)
         {
             spriteAnimation = new SpriteAnimation(texture, source);
+            this.X = destination.X;
+            this.Y = destination.Y;
+        }
+        public Block(Rectangle destination, Rectangle source, Texture2D texture,int frames, int fps)
+        {
+            spriteAnimation = new SpriteAnimation(texture, frames, fps);
             this.X = destination.X;
             this.Y = destination.Y;
         }

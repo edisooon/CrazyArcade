@@ -1,5 +1,5 @@
 ﻿using System;
-namespace CrazyArcade.CAFrameWork
+namespace CrazyArcade.CAFramework
 {
     public enum Dir
     {
