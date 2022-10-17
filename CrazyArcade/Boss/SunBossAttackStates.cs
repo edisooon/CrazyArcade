@@ -21,7 +21,7 @@ namespace CrazyArcade.Boss
             for (int i = 0; i < 8; i++)
             {
                 bossDelegate.Command().ToAddEntity(
-                    new SunBossProjectile(bossDelegate.Command(), vectors[i],
+                    new SunBossProjectile(bossDelegate.Command(), vectors[i] / 40,
                     bossDelegate.GetCenter(), new CATimer(time.TotalGameTime)));
             }
         }
