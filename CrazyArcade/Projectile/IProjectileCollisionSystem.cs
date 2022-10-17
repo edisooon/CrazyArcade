@@ -52,7 +52,17 @@ namespace CrazyArcade.Projectile
 
         public void Update(GameTime time)
         {
-            
+            foreach (IProjectile projectile in projectiles)
+            {
+                foreach (IProjectileCollidable entity in collidables)
+                {
+                    Rectangle checkRectangle = Rectangle.Intersect(projectile.collideFrame, entity.collideFrame);
+                    if (checkRectangle.Width != 0 || checkRectangle.Height != 0)
+                    {
+                        entity.collide(projectile);
+                    }
+                }
+            }
         }
     }
 }
