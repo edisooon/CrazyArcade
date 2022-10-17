@@ -18,11 +18,13 @@ namespace CrazyArcade.Items
     {
         //Rectangle[] frames;
         //Rectangle current;
+        public Rectangle hitbox;
         public Item(Rectangle destination, Rectangle source, Texture2D texture, int frames, int fps) : base(destination, source, texture, frames, fps)
         {
             spriteAnimation = new SpriteAnimation(texture, frames, fps);
             this.X = destination.X;
             this.Y = destination.Y;
+            this.hitbox = destination;
             //frames = sources;
             //current = frames[0];
         }

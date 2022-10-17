@@ -50,6 +50,7 @@ namespace CrazyArcade.PlayerStateMachine
             currentBlastLength = defaultBlastLength;
             this.controller = controller;
             controller.Delegate = this;
+            this.hitbox = new Rectangle(X, Y, spriteAnims[0].Width, spriteAnims[0].Height);
         }
         public override void Update(GameTime time)
         {

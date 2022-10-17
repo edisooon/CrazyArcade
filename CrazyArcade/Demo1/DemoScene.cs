@@ -22,8 +22,10 @@ namespace CrazyArcade.Demo1
         {
             this.systems.Add(new CAControllerSystem());
             this.systems.Add(new CAGameLogicSystem());
-            this.systems.Add(new Blocks.Sprint2Manager(this));
+            //this.systems.Add(new Blocks.Sprint2Manager(this));
             this.systems.Add(new EnemyManager(this));
+            this.systems.Add(new Items.PowerupCollision(this));
+            this.systems.Add(new Items.ItemManager(this));
         }
 
         public override void LoadSprites()

@@ -18,6 +18,7 @@ namespace CrazyArcade.Demo1
         public Dir direction = Dir.Down;
         public int defaultBlastLength = 1;
         public Vector2 moveInputs = new(0, 0);
+        public Rectangle hitbox;
 
 
         public override void Update(GameTime time)
@@ -31,6 +32,8 @@ namespace CrazyArcade.Demo1
         {
             X += (int)CurrentSpeed.X;
             Y += (int)CurrentSpeed.Y;
+            hitbox.X = X;
+            hitbox.Y = Y;
         }
 
         public void CalculateMovement()
