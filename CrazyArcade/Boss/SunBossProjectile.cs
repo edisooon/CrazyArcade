@@ -45,6 +45,8 @@ namespace CrazyArcade.Boss
         }
         public Vector2 GameCoord { get => gamePos; set => gamePos = value; }
 
+        public Rectangle collideFrame => throw new NotImplementedException();
+
         public override void Load()
         {
 
