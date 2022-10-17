@@ -48,13 +48,13 @@ public class Game1 : Game
         _spriteBatch = new SpriteBatch(GraphicsDevice);
 
 
-        //scene.Load();
+        scene.Load();
     }
 
     protected override void Update(GameTime gameTime)
     {
 
-        //scene.Update(gameTime);
+        scene.Update(gameTime);
 
         base.Update(gameTime);
     }
