@@ -1,4 +1,5 @@
 ﻿using CrazyArcade.Boss;
+using CrazyArcade.Levels;
 using CrazyArcade.BombFeature;
 using CrazyArcade.CAFramework;
 using CrazyArcade.CAFramework.Controller;
@@ -25,19 +26,18 @@ namespace CrazyArcade.Demo1
         {
             this.systems.Add(new CAControllerSystem());
             this.systems.Add(new CAGameLogicSystem());
-            this.systems.Add(new Blocks.Sprint2Manager(this));
-            this.systems.Add(new EnemyManager(this));
             this.systems.Add(new CAGameGridSystems(new Vector2(0, 0), 40));
+            this.systems.Add(new LevelManager(this));
         }
 
         public override void LoadSprites()
         {
-
-            Console.Out.Write("added Boss");
+            
+            //Console.Out.Write("added Boss");
             //this.AddSprite(new DemoCharacter(new DemoController()));
             //this.AddSprite(new BombEnemySprite(100,100));
-            this.AddSprite(new SunBoss(this));
             this.AddSprite(new PlayerCharacter(new DemoController(), this));
         }
+
     }
 }
