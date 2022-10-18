@@ -7,6 +7,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using CrazyArcade.CAFramework;
 using CrazyArcade.Blocks;
+using System.Diagnostics;
 
 namespace CrazyArcade.Demo1
 {
