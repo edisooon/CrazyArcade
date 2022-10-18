@@ -20,6 +20,13 @@ namespace CrazyArcade.CAFramework
             }
         }
         public virtual SpriteAnimation SpriteAnim { get; }
+        private ISceneDelegate sceneDelegate;
+        public ISceneDelegate SceneDelegate
+        {
+            get => sceneDelegate;
+            set => sceneDelegate = value;
+        }
+
         public int X, Y;
 
         public abstract void Load();
