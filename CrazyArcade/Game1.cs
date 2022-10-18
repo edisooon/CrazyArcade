@@ -37,7 +37,7 @@ public class Game1 : Game
         TextureSingleton.LoadAllTextures(Content);
         
 
-        test = new ReadJSON("\\Level_0.json");
+        test = new ReadJSON("Level_0.json");
         Level1 = test.levelObject;
 
         base.Initialize();

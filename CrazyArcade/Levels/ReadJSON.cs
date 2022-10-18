@@ -17,7 +17,8 @@ public class ReadJSON
     
     public ReadJSON(string fileName)
     {
-        sReader = new StreamReader(winDir+ "\\Content\\JsonLevels" + fileName);
+        char sep = Path.DirectorySeparatorChar;
+        sReader = new StreamReader(winDir+ sep+"Content"+ sep+"JsonLevels"+sep + fileName);
 
         try
         {
