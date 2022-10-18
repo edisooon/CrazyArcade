@@ -6,10 +6,11 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using CrazyArcade.CAFramework;
+using CrazyArcade.Blocks;
 
 namespace CrazyArcade.Demo1
 {
-    public abstract class Character : CAEntity
+    public abstract class Character : CAEntity, IBlockCollidable
     {
 
         public float DefaultSpeed = 5;
@@ -18,6 +19,13 @@ namespace CrazyArcade.Demo1
         public Dir direction = Dir.Down;
         public int defaultBlastLength = 1;
         public Vector2 moveInputs = new(0, 0);
+        protected Rectangle blockBoundingBox = new Rectangle(0,0,42, 56);
+        protected Point bboxOffset = new Point(0, 0);
+        protected bool blockBboxOn = true;
+
+        public Rectangle blockCollisionBoundingBox => blockBoundingBox;
+
+        public bool Active { get => blockBboxOn; set { blockBboxOn = value; } }
 
 
         public override void Update(GameTime time)
@@ -25,6 +33,8 @@ namespace CrazyArcade.Demo1
 
             moveInputs = new(0, 0);
             CurrentSpeed = new(0, 0);
+            blockBoundingBox.X = bboxOffset.X + X;
+            blockBoundingBox.Y = bboxOffset.Y + Y;
         }
 
         public void UpdatePosition()
@@ -36,6 +46,12 @@ namespace CrazyArcade.Demo1
         public void CalculateMovement()
         {
             CurrentSpeed = moveInputs * ModifiedSpeed;
+        }
+
+        public void CollisionHaltLogic(Point move)
+        {
+            X -= move.X;
+            Y -= move.Y;
         }
     }
 }
