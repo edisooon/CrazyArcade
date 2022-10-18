@@ -64,6 +64,7 @@ namespace CrazyArcade.PlayerStateMachine
         }
         public override void CollisionDestroyLogic()
         {
+            if (this.playerState is PlayerStateBubble) return;
             this.playerState = new PlayerStateBubble(this);
             this.spriteAnims = this.playerState.SetSprites();
             this.playerState.SetSpeed();
