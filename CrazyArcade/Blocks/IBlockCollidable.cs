@@ -15,6 +15,7 @@ namespace CrazyArcade.Blocks
     {
         public Rectangle blockCollisionBoundingBox { get; }
         public void CollisionHaltLogic(Point amountMoved);
+        public void CollisionDestroyLogic();
         public bool Active { get; set; }
     }
 }

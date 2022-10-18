@@ -53,5 +53,10 @@ namespace CrazyArcade.Demo1
             X -= move.X;
             Y -= move.Y;
         }
+
+        public virtual void CollisionDestroyLogic()
+        {
+
+        }
     }
 }

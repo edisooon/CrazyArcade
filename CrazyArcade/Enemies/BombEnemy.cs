@@ -6,9 +6,9 @@ using CrazyArcade.Content;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-namespace CrazyArcade.Enemy
+namespace CrazyArcade.Enemies
 {
-	public class BombEnemySprite: CAEntity
+	public class BombEnemySprite: Enemy
 
 	{
         private SpriteAnimation[] spriteAnims;
@@ -33,8 +33,9 @@ namespace CrazyArcade.Enemy
             X = x;
             Y = y; 
             Start = new Vector2((float)X,(float)Y);
-            
-		}
+            internalRectangle.X = X;
+            internalRectangle.Y = Y;
+        }
 
         public override void Load()
         {
@@ -141,6 +142,8 @@ namespace CrazyArcade.Enemy
             {
                 timer += (float)time.ElapsedGameTime.TotalMilliseconds;
             }
+            internalRectangle.X = X;
+            internalRectangle.Y = Y;
         }
 
 

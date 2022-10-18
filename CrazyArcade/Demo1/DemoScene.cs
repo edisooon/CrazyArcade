@@ -8,7 +8,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using CrazyArcade.Enemy;
+using CrazyArcade.Enemies;
 using CrazyArcade.CAFrameWork.CollisionSystem;
 
 namespace CrazyArcade.Demo1
@@ -27,6 +27,7 @@ namespace CrazyArcade.Demo1
             this.systems.Add(new EnemyManager(this));
             //Added to the demo scene file in order to test the functionality of the code
             this.systems.Add(new BlockCollisionSystem());
+            //this.systems.Add(new EnemyCollisionSystem());
         }
 
         public override void LoadSprites()
