@@ -30,9 +30,10 @@ namespace CrazyArcade.Demo1
             this.systems.Add(new CAControllerSystem());
             this.systems.Add(new CAGameLogicSystem());
             //Added to the demo scene file in order to test the functionality of the code
-            this.systems.Add(new BlockCollisionSystem());
+            
             this.systems.Add(new CAGameGridSystems(new Vector2(0, 0), 40));
             this.systems.Add(new LevelManager(this));
+            this.systems.Add(new BlockCollisionSystem());
 
         }
 
