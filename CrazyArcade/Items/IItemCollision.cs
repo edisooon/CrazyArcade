@@ -50,15 +50,15 @@ namespace CrazyArcade.Items
             Item toRemove = null;
             foreach(Item powerup in powerups)
             {
-                if(player.hitbox.Intersects(powerup.hitbox))
+                if(powerup.hitbox.Intersects(player.hitbox))
                 {
+                    player.playerState.ProcessItem(powerup);
                     toRemove = powerup;
                 }
             }
             if(toRemove != null)
             {
                 parentScene.RemoveSprite(toRemove);
-                player.playerState.ProcessItem();
             }
         }
     }

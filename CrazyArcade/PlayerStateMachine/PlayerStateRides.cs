@@ -2,6 +2,7 @@
 using CrazyArcade.CAFramework;
 using CrazyArcade.Content;
 using Microsoft.Xna.Framework;
+using CrazyArcade.Items;
 
 namespace CrazyArcade.PlayerStateMachine
 {
@@ -31,7 +32,7 @@ namespace CrazyArcade.PlayerStateMachine
             // character.playerState = character.playerFree;
         }
 
-        public void ProcessItem()
+        public void ProcessItem(Item toProcess)
         {
             //pesudo code:
             // character.playerFree.ProcessItem();

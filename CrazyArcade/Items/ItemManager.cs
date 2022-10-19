@@ -16,7 +16,8 @@ namespace CrazyArcade.Items
         {
             this.scene = scene;
             _items = new List<Item>();
-            scene.AddSprite(new Balloon(new Rectangle(400, 200, 100, 100)));
+            scene.AddSprite(new Balloon(new Rectangle(400, 200, 36, 36)));
+            scene.AddSprite(new Turtle(new Rectangle(200, 200, 36, 36)));
         }
         public void AddSprite(IEntity sprite)
         {

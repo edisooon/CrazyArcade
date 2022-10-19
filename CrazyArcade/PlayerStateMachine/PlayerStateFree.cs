@@ -3,6 +3,7 @@ using CrazyArcade.CAFramework;
 using CrazyArcade.Content;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
+using CrazyArcade.Items;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -65,9 +66,22 @@ namespace CrazyArcade.PlayerStateMachine
             }
             d2HeldDown = Keyboard.GetState().IsKeyDown(Keys.D2);
         }
-        public void ProcessItem()
+        public void ProcessItem(Item toProcess)
         {
-            //nothing yet
+            switch(toProcess)
+            {
+                case Turtle:
+                    character.playerState = new PlayerStateBubble(character);
+                    character.spriteAnims = character.playerState.SetSprites();
+                    character.playerState.SetSpeed();
+                    break;
+                case Balloon: 
+                    character.playerState = new PlayerStateBubble(character);
+                    character.spriteAnims = character.playerState.SetSprites();
+                    character.playerState.SetSpeed();
+                    break;
+
+            };
         }
         public void ProcessRide()
         {

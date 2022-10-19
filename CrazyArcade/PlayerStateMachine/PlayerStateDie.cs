@@ -2,6 +2,7 @@
 using CrazyArcade.CAFramework;
 using CrazyArcade.Content;
 using Microsoft.Xna.Framework;
+using CrazyArcade.Items;
 
 namespace CrazyArcade.PlayerStateMachine
 {
@@ -19,7 +20,7 @@ namespace CrazyArcade.PlayerStateMachine
             throw new NotImplementedException();
         }
 
-        public void ProcessItem()
+        public void ProcessItem(Item toProcess)
         {
             throw new NotImplementedException();
         }
