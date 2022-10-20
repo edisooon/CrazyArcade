@@ -9,12 +9,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using CrazyArcade.Enemy;
+using Microsoft.Xna.Framework;
 
 namespace CrazyArcade.Demo1
 {
     public class DemoScene : CAScene
     {
-        public DemoScene(Game1 game)
+        public DemoScene(Game1 game): base (game)
         {
             gameRef = game;
         }
@@ -28,7 +29,6 @@ namespace CrazyArcade.Demo1
 
         public override void LoadSprites()
         {
-
             Console.Out.Write("added Boss");
             //this.AddSprite(new DemoCharacter(new DemoController()));
             //this.AddSprite(new BombEnemySprite(100,100));

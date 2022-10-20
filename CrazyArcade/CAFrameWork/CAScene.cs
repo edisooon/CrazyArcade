@@ -16,6 +16,7 @@ namespace CrazyArcade.CAFramework
 
         private List<IEntity> newEntities = new List<IEntity>();
         private List<IEntity> removeEntities = new List<IEntity>();
+        public GameWindow window { get; }
 
 
         private void UpdateEnitities()
@@ -36,8 +37,11 @@ namespace CrazyArcade.CAFramework
 
         public abstract void LoadSprites();
 
-        public CAScene()
+        public CAScene(Game1 game)
         {
+            gameRef = game;
+            window = gameRef.Window;
+            window.AllowUserResizing = true;
             this.systems = new List<IGameSystem>();
         }
 
@@ -100,6 +104,11 @@ namespace CrazyArcade.CAFramework
         public void ToRemoveEntity(IEntity entity)
         {
             RemoveSprite(entity);
+        }
+
+        public Rectangle GetDimensions()
+        {
+            return window.ClientBounds;
         }
     }
 }

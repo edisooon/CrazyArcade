@@ -12,10 +12,11 @@ namespace CrazyArcade.BombFeature
     internal class TestScene : CAScene
     {
         private BombManager bombManager;
-        public TestScene()
+        public TestScene(Game1 game) : base(game)
         {
             bombManager = new(new BombTestController(), this);
         }
+
         public override void LoadSystems()
         {
             //List<IGameSystem> systemList = new();

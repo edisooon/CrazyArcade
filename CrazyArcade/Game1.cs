@@ -10,15 +10,17 @@ using System;
 using Microsoft.Xna.Framework.Content;
 using System.Reflection.Metadata;
 using CrazyArcade.Enemy;
+using CrazyArcade.Items;
 
 namespace CrazyArcade;
+
 
 public class Game1 : Game
 {
     private GraphicsDeviceManager _graphics;
     private SpriteBatch _spriteBatch;
     public IScene scene;
-
+    //private GameWindow window;
 
     public Game1()
     {
@@ -26,6 +28,7 @@ public class Game1 : Game
         Content.RootDirectory = "Content";
         IsMouseVisible = true;
         SpriteSheet.Content = Content;
+        //window = base.Window;
         
     }
 

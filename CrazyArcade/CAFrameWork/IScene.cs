@@ -7,6 +7,7 @@ namespace CrazyArcade.CAFramework
 {
 	public interface IScene
     {
+        Rectangle GetDimensions();
         void Load();
         void Update(GameTime time);
         void Draw(GameTime time, SpriteBatch batch);
