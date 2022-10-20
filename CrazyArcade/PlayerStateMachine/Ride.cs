@@ -47,12 +47,21 @@ namespace CrazyArcade.PlayerStateMachine
 
         public void generateRide(int ride) {
             spriteAnims = new SpriteAnimation[4];
-            int xcoord = 111 * ride;
-            int ydiff = ride < 3 ? 32 : 40;
+            //rows = ride
+            //columns = x off, y off-ydiff, width, height, ydiff
+            int[,] sprites = new int[4,5] {{5,3,42,31,2},{111, 3, 42, 31,2},{ 218, 5, 50, 30, 1},{333, 4, 36, 35,6}};
+            //get the right one for the selected ride
+            int[] rideSprite = new int[5] { sprites[ride, 0], sprites[ride, 1], sprites[ride, 2], sprites[ride, 3], sprites[ ride, 4]};
             for (int i = 0; i < 4; i++) {
-                spriteAnims[i] = new SpriteAnimation(TextureSingleton.GetRides(), 2, xcoord, 0, 111, ydiff, 3);
+                spriteAnims[i] = new SpriteAnimation(TextureSingleton.GetRides(), //texture
+                    2, //frames
+                    rideSprite[0], //xoff
+                    rideSprite[1] + i * (rideSprite[3] + rideSprite[4]), //yoff
+                    rideSprite[2], //width
+                    rideSprite[3], //height
+                    3);//fps
             }
-            vertOffset = ydiff;
+            vertOffset = rideSprite[3];
             //spriteAnims[0] = new SpriteAnimation(TextureSingleton.GetRides(), 12, 4, 4, 96, 32, 3); //back
             //spriteAnims[1] = new SpriteAnimation(TextureSingleton.GetRides(), 12, 4, 37, 96, 32, 3); //forward
             //spriteAnims[2] = new SpriteAnimation(TextureSingleton.GetRides(), 12, 4, 68, 96, 32, 3); //left
