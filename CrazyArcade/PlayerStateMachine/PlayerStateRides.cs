@@ -1,25 +1,25 @@
 ﻿using System;
+using System.Net.Http;
+using CrazyArcade.BombFeature;
 using CrazyArcade.CAFramework;
 using CrazyArcade.Content;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Input;
 
 namespace CrazyArcade.PlayerStateMachine
 {
+    //overall goal is to keep ride synced with player, speed, location, and direction.
     public class PlayerStateRides : ICharacterState
     {
-        int turtleSpeed = 2;
-        public SpriteAnimation[] spriteAnims;
+        Ride mount;
         private PlayerCharacter character;
+        private int direction; //0-3, in line w/ spriteAnims
 
-        public PlayerStateRides(PlayerCharacter character)
+        public PlayerStateRides(PlayerCharacter character, int ride)
         {
-            spriteAnims = new SpriteAnimation[4];
-            spriteAnims[0] = new SpriteAnimation(TextureSingleton.GetRides(), 12, 4, 4, 96, 32, 3);
-            spriteAnims[1] = new SpriteAnimation(TextureSingleton.GetRides(), 12, 4, 37, 96, 32, 3);
-            spriteAnims[2] = new SpriteAnimation(TextureSingleton.GetRides(), 12, 4, 68, 96, 32, 3);
-            spriteAnims[3] = new SpriteAnimation(TextureSingleton.GetRides(), 12, 4, 100, 96, 32, 3);
-
-            this.character = character;
+            //int ride used to indicate turtle, pirate turtle, UFO, or owl [0-3]
+            Ride newRide = new Ride(character, ride);
+            mount = newRide;
         }
 
         public void ProcessAttaction()
@@ -27,8 +27,9 @@ namespace CrazyArcade.PlayerStateMachine
             // there shall be a way to store the free state inside player character
             // rather than create a new one (preserve the powerups)
 
-            //pesudo code:
-            // character.playerState = character.playerFree;
+            //character.playerState = character.PlayerStateFree;
+            //add ride here?
+            character.parentScene.AddSprite(mount);
         }
 
         public void ProcessItem()
@@ -44,17 +45,17 @@ namespace CrazyArcade.PlayerStateMachine
 
         public void ProcessState(GameTime time)
         {
-            throw new NotImplementedException();
+            mount.Update(time);
         }
 
         public int SetSpeed()
         {
-            return turtleSpeed;
+            return (int)character.CurrentSpeed.Length();//how come this is not vector type
         }
 
         public SpriteAnimation[] SetSprites()
         {
-            return spriteAnims;
+            return mount.spriteAnims;
         }
     }
 }

@@ -22,7 +22,6 @@ namespace CrazyArcade.Demo1
 
         public override void Update(GameTime time)
         {
-
             moveInputs = new(0, 0);
             CurrentSpeed = new(0, 0);
         }

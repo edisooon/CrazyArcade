@@ -48,6 +48,7 @@ namespace CrazyArcade.Demo1
             this.spriteAnims[1] = new SpriteAnimation(SpriteSheet.Character, 6, 67, 66);
             this.spriteAnims[2] = new SpriteAnimation(SpriteSheet.Character, 6, 133, 66);
             this.spriteAnims[3] = new SpriteAnimation(SpriteSheet.Character, 6, 199, 66);
+            
         }
 
         public void KeyDown()
