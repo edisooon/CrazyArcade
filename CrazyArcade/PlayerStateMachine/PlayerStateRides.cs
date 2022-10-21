@@ -14,12 +14,17 @@ namespace CrazyArcade.PlayerStateMachine
         Ride mount;
         private PlayerCharacter character;
         private int direction; //0-3, in line w/ spriteAnims
+        private bool d1HeldDown;
+        private bool d2HeldDown;
 
         public PlayerStateRides(PlayerCharacter character, int ride)
         {
             //int ride used to indicate turtle, pirate turtle, UFO, or owl [0-3]
+            this.character = character;
             Ride newRide = new Ride(character, ride);
             mount = newRide;
+            d1HeldDown = false;
+            d2HeldDown = false;
         }
 
         public void ProcessAttaction()
@@ -45,7 +50,37 @@ namespace CrazyArcade.PlayerStateMachine
 
         public void ProcessState(GameTime time)
         {
+            character.CalculateMovement();
+            character.UpdatePosition();
             mount.Update(time);
+            character.animationHandleInt = (int)character.direction;
+            if (character.CurrentSpeed.X == 0 && character.CurrentSpeed.Y == 0)
+            {
+                character.SpriteAnim.playing = false;
+                character.SpriteAnim.setFrame(0);
+            }
+            else
+            {
+                character.SpriteAnim.playing = true;
+            }
+            if (Keyboard.GetState().IsKeyDown(Keys.E))
+            {
+                character.playerState = new PlayerStateBubble(character);
+                character.spriteAnims = character.playerState.SetSprites();
+                character.playerState.SetSpeed();
+            }
+            if (Keyboard.GetState().IsKeyDown(Keys.D1) && !d1HeldDown)
+            {
+                d1HeldDown = true;
+                character.currentBlastLength = character.currentBlastLength + 1 < 5 ? character.currentBlastLength + 1 : 5;
+            }
+            d1HeldDown = Keyboard.GetState().IsKeyDown(Keys.D1);
+            if (Keyboard.GetState().IsKeyDown(Keys.D2) && !d2HeldDown)
+            {
+                d2HeldDown = true;
+                character.bombCapacity = character.bombCapacity + 1 < 3 ? character.bombCapacity + 1 : 3;
+            }
+            d2HeldDown = Keyboard.GetState().IsKeyDown(Keys.D2);
         }
 
         public int SetSpeed()
@@ -59,4 +94,3 @@ namespace CrazyArcade.PlayerStateMachine
         }
     }
 }
-

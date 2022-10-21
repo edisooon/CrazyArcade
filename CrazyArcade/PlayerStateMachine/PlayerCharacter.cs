@@ -39,7 +39,7 @@ namespace CrazyArcade.PlayerStateMachine
         public PlayerCharacter(IController controller, CAScene scene)
         {
             ModifiedSpeed = DefaultSpeed;
-            playerState = new PlayerStateFree(this);
+            playerState = new PlayerStateRides(this, 0);
             spriteAnims = playerState.SetSprites();
             playerState.SetSpeed();
             direction = Dir.Down;
