@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using System.Runtime.CompilerServices;
 using CrazyArcade.CAFramework;
 using CrazyArcade.Content;
+using System.Diagnostics;
 
 namespace CrazyArcade.Blocks
 {
@@ -15,9 +16,11 @@ namespace CrazyArcade.Blocks
     {
 
     }
-    public abstract class Block : CAEntity, IBlock
+    public abstract class Block : CAEntity, IBlock, IBlockCollision
     {
         protected SpriteAnimation spriteAnimation;
+
+        private Rectangle internalRectangle = new Rectangle(0, 0, 40, 40);
 
         public Block(Rectangle destination, Rectangle source, Texture2D texture)
         {
@@ -35,12 +38,32 @@ namespace CrazyArcade.Blocks
 
         public override SpriteAnimation SpriteAnim => this.spriteAnimation;
 
+        public Rectangle boundingBox => internalRectangle;
+
         public override void Update(GameTime time)
         {
-
+            internalRectangle.X = X;
+            internalRectangle.Y = Y;
         }
         public override void Load()
         {
+        }
+
+        public void CollisionLogic(Rectangle overlap, IBlockCollidable collisionPartner)
+        {
+            Debug.WriteLine(overlap.Width);
+            Debug.WriteLine(overlap.Height);
+            int modifier = 1;
+            if (overlap.Width > overlap.Height)
+            {
+                if (Y < collisionPartner.blockCollisionBoundingBox.Y) modifier = -1;
+                collisionPartner.CollisionHaltLogic(new Point(0, modifier * overlap.Height));
+            } 
+            else
+            {
+                if (X < collisionPartner.blockCollisionBoundingBox.X) modifier = -1;
+                collisionPartner.CollisionHaltLogic(new Point(modifier * overlap.Width, 0));
+            }
         }
     }
 }

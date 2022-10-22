@@ -14,7 +14,7 @@ namespace CrazyArcade.Levels
 		public ReadJSON Reader;
 		public LoadLevel(string fileName)
 		{
-			Reader = new ReadJSON("\\" + fileName);
+			Reader = new ReadJSON(fileName);
 			levelObject = new Level();
 			levelObject = Reader.levelObject;
 		}
