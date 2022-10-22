@@ -7,13 +7,13 @@ using System.Diagnostics;
 
 namespace CrazyArcade.Enemies
 {
-    public abstract class Enemy: CAEntity, IBlockCollision
+    public abstract class Enemy: CAEntity, IPlayerCollidable
     {
         protected Rectangle internalRectangle = new Rectangle(0, 0, 30, 30);
 
         public Rectangle boundingBox => internalRectangle;
 
-        public void CollisionLogic(Rectangle overlap, IBlockCollidable collisionPartner)
+        public void CollisionLogic(Rectangle overlap, IPlayerCollisionBehavior collisionPartner)
         {
             collisionPartner.CollisionDestroyLogic();
         }

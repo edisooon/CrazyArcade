@@ -26,7 +26,7 @@ namespace CrazyArcade.Demo1
             this.systems.Add(new Blocks.Sprint2Manager(this));
             this.systems.Add(new EnemyManager(this));
             //Added to the demo scene file in order to test the functionality of the code
-            this.systems.Add(new BlockCollisionSystem());
+            this.systems.Add(new PlayerCollisionSystem());
             //this.systems.Add(new EnemyCollisionSystem());
         }
 

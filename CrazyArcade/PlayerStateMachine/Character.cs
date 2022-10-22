@@ -10,7 +10,7 @@ using CrazyArcade.Blocks;
 
 namespace CrazyArcade.Demo1
 {
-    public abstract class Character : CAEntity, IBlockCollidable
+    public abstract class Character : CAEntity, IPlayerCollisionBehavior
     {
 
         public float DefaultSpeed = 5;
