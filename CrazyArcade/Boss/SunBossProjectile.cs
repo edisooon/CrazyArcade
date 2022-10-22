@@ -2,10 +2,11 @@
 using System.Collections.Generic;
 using CrazyArcade.CAFramework;
 using Microsoft.Xna.Framework;
+using CrazyArcade.Blocks;
 
 namespace CrazyArcade.Boss
 {
-	public class SunBossProjectile: CAEntity
+	public class SunBossProjectile: CAEntity, IPlayerCollidable
 	{
         float timeAdaptor = 4;
         ISceneDelegate sceneDelegate;
@@ -49,6 +50,11 @@ namespace CrazyArcade.Boss
         }
         private SpriteAnimation animation;
         public override SpriteAnimation SpriteAnim => animation;
+
+        public Rectangle internalRectangle = new Rectangle(0, 0, 5, 5);
+
+        public Rectangle boundingBox => internalRectangle;
+
         public override void Load()
         {
 
@@ -58,10 +64,17 @@ namespace CrazyArcade.Boss
             timer.Update(time.TotalGameTime);
             PosX += speed.X * timer.FrameDiff.Milliseconds / timeAdaptor;
             PosY += speed.Y * timer.FrameDiff.Milliseconds / timeAdaptor;
+            this.internalRectangle.X = (int)PosX;
+            this.internalRectangle.Y = (int)PosY;
             if (timer.TotalMili > 1500)
             {
                 sceneDelegate.ToRemoveEntity(this);
             }
+        }
+
+        public void CollisionLogic(Rectangle overlap, IPlayerCollisionBehavior collisionPartner)
+        {
+            collisionPartner.CollisionDestroyLogic();
         }
     }
 }
