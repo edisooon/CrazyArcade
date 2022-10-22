@@ -24,6 +24,7 @@ namespace CrazyArcade.Blocks
             spriteAnimation = new SpriteAnimation(texture, source);
             this.X = destination.X;
             this.Y = destination.Y;
+
         }
         public Block(Rectangle destination, Rectangle source, Texture2D texture,int frames, int fps)
         {

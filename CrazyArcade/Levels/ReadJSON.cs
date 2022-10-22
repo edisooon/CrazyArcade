@@ -38,7 +38,7 @@ public class Level
 
     public int[] Background { get; set; }
 
-    public int[] Grid { get; set; }
+    public int[]  Border { get; set; }
 
     public LevelBlocks Blocks { get; set; }
 

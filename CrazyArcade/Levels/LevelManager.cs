@@ -30,6 +30,7 @@ namespace CrazyArcade.Levels
         private Vector2[] itemLocations;
         private Rectangle Destination;
         private int size;
+        private CAEntity Entity;
         public LevelManager(CAScene scene)
         {
             Level0 = new LoadLevel("level_0.json");
@@ -41,17 +42,23 @@ namespace CrazyArcade.Levels
                 Scene.AddSprite(entity);
             }
         }
+        private void LoadBlocks()
+        {
+            
+        }
         private void LoadSprites()
         {
             //Blocks
             //TODO Find a way to reduce duplicate code
             itemLocations = Level0.GetItemLocation(LoadLevel.LevelItem.DarkSandPosition);
-            size = 36;
             foreach (Vector2 vector in itemLocations)
             {
                 Debug.WriteLine(vector.Y);
                 Destination = new Rectangle((int)vector.X, (int)vector.Y, size, size);
-                EntityList.Add(new SandBlock(Destination));
+                Entity = new SandBlock(Destination);
+                Entity.SpriteAnim.Scale = (.9f);
+                EntityList.Add(Entity);
+                
             }
 
            

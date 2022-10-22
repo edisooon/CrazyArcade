@@ -25,7 +25,10 @@ namespace CrazyArcade.Levels
 			LightSandPosition,
 			DarkSandPosition,
 			StonePosition,
-			SunBossPosition,
+            CactusPosition,
+            DarkTreePosition,
+            LightTreePosition,
+            SunBossPosition,
 			OctoBossPosition,
 			BombPosition,
 			SquidPosition,
@@ -37,7 +40,6 @@ namespace CrazyArcade.Levels
 			TurtlePosition,
 			PotionPosition,
 			CoinPosition
-
 		}
 
 		public Vector2 GetStartPosition(int[] coord)
@@ -63,9 +65,9 @@ namespace CrazyArcade.Levels
 		{
 			return new Color(levelObject.Background[0], levelObject.Background[1], levelObject.Background[2]);
 		}
-		public Vector2 GetDimensions()
+		public Vector2 GetBorder()
 		{
-			return new Vector2((float)levelObject.Grid[0], (float)levelObject.Grid[1]);
+			return new Vector2((float)levelObject.Background[0], (float)levelObject.Background[1]);
 		}
 		//returns an array of vectors for the location
 		public Vector2[] GetItemLocation(LevelItem property)
@@ -88,53 +90,64 @@ namespace CrazyArcade.Levels
 					
 				case 3:
 					array = GetStartPositionArray(levelObject.Blocks.Stone);
+
 					return array;
-				
-				case 4:
+                case 4:
+                    array = GetStartPositionArray(levelObject.Boss.Sun);
+                    return array;
+
+                case 5:
+                    array = GetStartPositionArray(levelObject.Boss.Octo);
+                    return array;
+
+                case 6:
+                    array = GetStartPositionArray(levelObject.Enemies.Bomb);
+                    return array;
+                case 7:
 					array = GetStartPositionArray(levelObject.Boss.Sun);
 					return array;
 					
-				case 5:
+				case 8:
 					array = GetStartPositionArray(levelObject.Boss.Octo);
 					return array;
 			
-				case 6:
+				case 9:
 					array = GetStartPositionArray(levelObject.Enemies.Bomb);
 					return array;
 			
-				case 7:
+				case 10:
 					array = GetStartPositionArray(levelObject.Enemies.Squid);
 					return array;
 					
-				case 8:
+				case 11:
 					array = GetStartPositionArray(levelObject.Enemies.Bat);
 					return array;
 					
-				case 9:
+				case 12:
 					array = GetStartPositionArray(levelObject.Enemies.Robot);
 					return array;
 					
-				case 10:
+				case 13:
 					array = GetStartPositionArray(levelObject.Items.CoinBag);
 					return array;
 					
-				case 11:
+				case 14:
 					array = GetStartPositionArray(levelObject.Items.Balloon);
 					return array;
 				
-				case 12:
+				case 15:
 					array = GetStartPositionArray(levelObject.Items.Sneaker);
 					return array;
 				
-				case 13:
+				case 16:
 					array = GetStartPositionArray(levelObject.Items.Turtle);
 					return array;
 					
-				case 14:
+				case 17:
 					array = GetStartPositionArray(levelObject.Items.Potion);
 					return array;
 				
-				case 15:
+				case 18:
 					array = GetStartPositionArray(levelObject.Items.Coin);
 					return array;
 				
