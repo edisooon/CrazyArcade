@@ -9,11 +9,11 @@ using Microsoft.Xna.Framework.Input;
 namespace CrazyArcade.PlayerStateMachine
 {
     //overall goal is to keep ride synced with player, speed, location, and direction.
+    //This class should only be able to lead to the free state, implementing the extra life
     public class PlayerStateRides : ICharacterState
     {
         Ride mount;
         private PlayerCharacter character;
-        private int direction; //0-3, in line w/ spriteAnims
         private bool d1HeldDown;
         private bool d2HeldDown;
 
@@ -21,7 +21,7 @@ namespace CrazyArcade.PlayerStateMachine
         {
             //int ride used to indicate turtle, pirate turtle, UFO, or owl [0-3]
             this.character = character;
-            Ride newRide = new Ride(character, ride);
+            Ride newRide = new(character, ride);
             mount = newRide;
             d1HeldDown = false;
             d2HeldDown = false;
@@ -47,12 +47,11 @@ namespace CrazyArcade.PlayerStateMachine
         {
             // shall do nothing
         }
-
         public void ProcessState(GameTime time)
         {
+            //duplicate code, fix
             character.CalculateMovement();
             character.UpdatePosition();
-            mount.Update(time);
             character.animationHandleInt = (int)character.direction;
             if (character.CurrentSpeed.X == 0 && character.CurrentSpeed.Y == 0)
             {

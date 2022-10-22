@@ -42,15 +42,7 @@ namespace CrazyArcade.PlayerStateMachine
 
         public override void Update(GameTime time)
         {
-            if (player!= null)
-            {
-                X = player.X;
-                Y = player.Y - vertOffset;
-                if (player.direction == Dir.Left) dir = 0;
-                else if (player.direction == Dir.Down) dir = 1;
-                else if (player.direction == Dir.Right) dir = 2;
-                else dir = 3;
-            }
+            //does nothing
         }
 
         public void generateRide(int ride) {
@@ -72,7 +64,7 @@ namespace CrazyArcade.PlayerStateMachine
                 spriteAnims[i] = new SpriteAnimation(TextureSingleton.GetRides(), //texture
                     2, //frames
                     0, //xoff
-                    0, //yoff
+                    72*i, //yoff
                     48*2, //width
                     72, //height
                     3);//fps
