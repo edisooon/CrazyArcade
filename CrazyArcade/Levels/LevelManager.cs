@@ -1,5 +1,5 @@
 using CrazyArcade.Demo1;
-using CrazyArcade.Enemy;
+using CrazyArcade.Enemies;
 using CrazyArcade.Boss;
 using CrazyArcade.CAFramework;
 using CrazyArcade.Items;
@@ -61,6 +61,7 @@ namespace CrazyArcade.Levels
             {
                 Debug.WriteLine(vector.Y);
                 Destination = new Rectangle((int)vector.X, (int)vector.Y, size, size);
+                Console.Out.WriteLine(Destination);
                 EntityList.Add(new LightSandBlock(Destination));
             }
             itemLocations = Level0.GetItemLocation(LoadLevel.LevelItem.StonePosition);

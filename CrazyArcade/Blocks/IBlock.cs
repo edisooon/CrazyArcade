@@ -16,7 +16,7 @@ namespace CrazyArcade.Blocks
     {
 
     }
-    public abstract class Block : CAEntity, IBlock, IBlockCollision
+    public abstract class Block : CAEntity, IBlock, IPlayerCollidable
     {
         protected SpriteAnimation spriteAnimation;
 
@@ -48,7 +48,7 @@ namespace CrazyArcade.Blocks
         {
         }
 
-        public void CollisionLogic(Rectangle overlap, IBlockCollidable collisionPartner)
+        public void CollisionLogic(Rectangle overlap, IPlayerCollisionBehavior collisionPartner)
         {
             Debug.WriteLine(overlap.Width);
             Debug.WriteLine(overlap.Height);

@@ -17,28 +17,28 @@ namespace CrazyArcade.Demo1
 
         public void Update(GameTime time)
         {
-            if (Keyboard.GetState().IsKeyDown(Keys.W))
+            if (Keyboard.GetState().IsKeyDown(Keys.Up))
             {
                 Delegate.KeyUp();
             }
-            if (Keyboard.GetState().IsKeyDown(Keys.S))
+            if (Keyboard.GetState().IsKeyDown(Keys.Down))
             {
                 Delegate.KeyDown();
             }
-            if (Keyboard.GetState().IsKeyDown(Keys.A))
+            if (Keyboard.GetState().IsKeyDown(Keys.Left))
             {
                 Delegate.KeyLeft();
             }
-            if (Keyboard.GetState().IsKeyDown(Keys.D))
+            if (Keyboard.GetState().IsKeyDown(Keys.Right))
             {
                 Delegate.KeyRight();
             }
-            if (Keyboard.GetState().IsKeyDown(Keys.X) && !spacePrevPressed)
+            if (Keyboard.GetState().IsKeyDown(Keys.Space) && !spacePrevPressed)
             {
                 Delegate.KeySpace();
                 spacePrevPressed = true;
             }
-            if (!Keyboard.GetState().IsKeyDown(Keys.X))
+            if (!Keyboard.GetState().IsKeyDown(Keys.Space))
             {
                 spacePrevPressed = false;
             }
