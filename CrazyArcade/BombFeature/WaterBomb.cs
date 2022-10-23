@@ -20,6 +20,10 @@ namespace CrazyArcade.BombFeature
         float DetonateTime;
         private SpriteAnimation spriteAnims;
         PlayerCharacter owner;
+        private static readonly Rectangle frame1 = new(11, 10, 42, 42);
+        private static readonly Rectangle frame2 = new(56, 10, 42, 42);
+        private static readonly Rectangle frame3 = new(97, 10, 46, 42);
+        private static readonly int tileSize = 40;
         public override SpriteAnimation SpriteAnim => spriteAnims;
         private Rectangle[] AnimationFrames;
         public WaterBomb(CAScene ParentScene, int X, int Y, int BlastLength, PlayerCharacter character)
@@ -37,9 +41,9 @@ namespace CrazyArcade.BombFeature
         private static Rectangle[] GetAnimationFrames()
         {
             Rectangle[] NewFrames = new Rectangle[3];
-            NewFrames[0] = new Rectangle(11, 10, 42, 42);
-            NewFrames[1] = new Rectangle(56, 10, 42, 42);
-            NewFrames[2] = new Rectangle(97, 10, 46, 42);
+            NewFrames[0] = frame1;
+            NewFrames[1] = frame2;
+            NewFrames[2] = frame3;
             return NewFrames;
         }
         public override void Update(GameTime time)
@@ -69,7 +73,7 @@ namespace CrazyArcade.BombFeature
         }
         private void CreateExplosion()
         {
-            int explosionTile = 40;
+            int explosionTile = tileSize;
             Vector2 side = new Vector2(0, 0);
             ParentScene.AddSprite(new WaterExplosionCenter(ParentScene, X, Y));
             for (int i = 0; i < 4; i++)
