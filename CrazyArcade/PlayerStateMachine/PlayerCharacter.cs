@@ -45,8 +45,11 @@ namespace CrazyArcade.PlayerStateMachine
             direction = Dir.Down;
             this.parentScene = scene;
             bombsOut = 0;
-            X = 2000;
-            Y = 100;
+            X = 0;
+            Y = 0;
+            Console.Out.Write(X);
+            Console.Out.Write(Y);
+
             currentBlastLength = defaultBlastLength;
             this.controller = controller;
             controller.Delegate = this;

@@ -50,6 +50,7 @@ namespace CrazyArcade.Boss
         }
         public Vector2 GameCoord { get => gamePos; set => gamePos = value; }
 
+        public Rectangle collideFrame => throw new NotImplementedException();
 
         public override void Load()
         {
@@ -58,10 +59,10 @@ namespace CrazyArcade.Boss
         public override void Update(GameTime time)
         {
             timer.Update(time.TotalGameTime);
-            PosX += speed.X * timer.FrameDiff.Milliseconds / timeAdaptor;
-            PosY += speed.Y * timer.FrameDiff.Milliseconds / timeAdaptor;
-            this.internalRectangle.X = (int)PosX;
-            this.internalRectangle.Y = (int)PosY;
+            gamePos.X += speed.X * timer.FrameDiff.Milliseconds / timeAdaptor;
+            gamePos.Y += speed.Y * timer.FrameDiff.Milliseconds / timeAdaptor;
+            this.internalRectangle.X = (int)gamePos.X;
+            this.internalRectangle.Y = (int)gamePos.Y;
             gamePos.X += speed.X * timer.FrameDiff.Milliseconds / timeAdaptor;
             gamePos.Y += speed.Y * timer.FrameDiff.Milliseconds / timeAdaptor;
             if (timer.TotalMili > 1500)

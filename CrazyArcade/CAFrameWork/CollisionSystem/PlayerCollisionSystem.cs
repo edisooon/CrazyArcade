@@ -40,10 +40,12 @@ namespace CrazyArcade.CAFrameWork.CollisionSystem
 
         public void Update(GameTime time)
         {
-            foreach(IPlayerCollidable trigger in triggers)
+            int count = 0;
+            foreach (IPlayerCollidable trigger in triggers)
             {
                 foreach (IPlayerCollisionBehavior playerBehavior in playerBehaviors)
                 {
+                    count++;
                     Rectangle checkRectangle = Rectangle.Intersect(trigger.boundingBox, playerBehavior.blockCollisionBoundingBox);
                     if (checkRectangle.Width != 0 || checkRectangle.Height != 0)
                     {
@@ -51,6 +53,7 @@ namespace CrazyArcade.CAFrameWork.CollisionSystem
                     }
                 }
             }
+            Console.Out.Write(count + "....");
         }
     }
 }

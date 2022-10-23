@@ -26,7 +26,7 @@ namespace CrazyArcade.Demo1
         }
         public override void LoadSystems()
         {
-            this.systems.Add(new BlockCollisionSystem());
+            //this.systems.Add(new BlockCollisionSystem());
             this.systems.Add(new CAControllerSystem());
             this.systems.Add(new CAGameLogicSystem());
             //Added to the demo scene file in order to test the functionality of the code
