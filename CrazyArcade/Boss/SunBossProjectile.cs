@@ -1,43 +1,25 @@
 ﻿using System;
 using System.Collections.Generic;
 using CrazyArcade.CAFramework;
+using CrazyArcade.GameGridSystems;
+using CrazyArcade.Projectile;
 using Microsoft.Xna.Framework;
 using CrazyArcade.Blocks;
 
 namespace CrazyArcade.Boss
 {
-	public class SunBossProjectile: CAEntity, IPlayerCollidable
+	public class SunBossProjectile: CAEntity, IPlayerCollidable, IGridable
 	{
         float timeAdaptor = 4;
         ISceneDelegate sceneDelegate;
         ITimer timer;
         private Vector2 speed;
-        private float posX;
-        private float PosX
-        {
-            get => posX;
-            set
-            {
-                posX = value;
-                X = (int)posX;
-            }
-        }
-        private float posY;
-        private float PosY
-        {
-            get => posY;
-            set
-            {
-                posY = value;
-                Y = (int)posY;
-            }
-        }
         public SunBossProjectile(ISceneDelegate sceneDelegate, Vector2 speed, Vector2 position, ITimer timer)
 		{
             this.sceneDelegate = sceneDelegate;
             this.timer = timer;
-            this.PosY = position.Y;
-            this.PosX = position.X;
+            this.gamePos.Y = position.Y;
+            this.gamePos.X = position.X;
             this.speed = speed;
             Rectangle[] rectList = new Rectangle[6];
             rectList[0] = new Rectangle(193, 291, 13, 13);
@@ -51,9 +33,30 @@ namespace CrazyArcade.Boss
         private SpriteAnimation animation;
         public override SpriteAnimation SpriteAnim => animation;
 
-        public Rectangle internalRectangle = new Rectangle(0, 0, 5, 5);
+        public Rectangle internalRectangle = new Rectangle(0, 0, 10, 10);
 
         public Rectangle boundingBox => internalRectangle;
+        private Vector2 gamePos;
+        private Vector2 pos;
+        public Vector2 ScreenCoord
+        {
+            get => pos;
+            set
+            {
+                pos = value;
+                this.UpdateCoord(value);
+            }
+        }
+
+        public void UpdateCoord(Vector2 value)
+        {
+            this.X = (int)value.X;
+            this.Y = (int)value.Y;
+            this.internalRectangle.X = (int)ScreenCoord.X;
+            this.internalRectangle.Y = (int)ScreenCoord.Y;
+        }
+
+        public Vector2 GameCoord { get => gamePos; set => gamePos = value; }
 
         public override void Load()
         {
@@ -62,10 +65,8 @@ namespace CrazyArcade.Boss
         public override void Update(GameTime time)
         {
             timer.Update(time.TotalGameTime);
-            PosX += speed.X * timer.FrameDiff.Milliseconds / timeAdaptor;
-            PosY += speed.Y * timer.FrameDiff.Milliseconds / timeAdaptor;
-            this.internalRectangle.X = (int)PosX;
-            this.internalRectangle.Y = (int)PosY;
+            gamePos.X += speed.X * timer.FrameDiff.Milliseconds / timeAdaptor;
+            gamePos.Y += speed.Y * timer.FrameDiff.Milliseconds / timeAdaptor;
             if (timer.TotalMili > 1500)
             {
                 sceneDelegate.ToRemoveEntity(this);

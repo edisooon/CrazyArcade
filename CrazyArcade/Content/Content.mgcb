@@ -121,6 +121,12 @@
 /processorParam:TextureFormat=Color
 /build:DesertBlocks.png
 
+#begin JsonLevels/Level_0.json
+/copy:JsonLevels/Level_0.json
+
+#begin JsonLevels/Level_1.json
+/copy:JsonLevels/Level_1.json
+
 #begin OctoBoss.png
 /importer:TextureImporter
 /processor:TextureProcessor
