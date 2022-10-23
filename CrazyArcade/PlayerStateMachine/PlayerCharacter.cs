@@ -45,8 +45,8 @@ namespace CrazyArcade.PlayerStateMachine
             direction = Dir.Down;
             this.parentScene = scene;
             bombsOut = 0;
-            X = 0;
-            Y = 0;
+            X = 1050;
+            Y = 100;
             Console.Out.Write(X);
             Console.Out.Write(Y);
 
