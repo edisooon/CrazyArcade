@@ -67,7 +67,7 @@ namespace CrazyArcade.Levels
 		}
 		public Vector2 GetBorder()
 		{
-			return new Vector2((float)levelObject.Background[0], (float)levelObject.Background[1]);
+			return new Vector2((float)levelObject.Border[0], (float)levelObject.Border[1]);
 		}
 		//returns an array of vectors for the location
 		public Vector2[] GetItemLocation(LevelItem property)
