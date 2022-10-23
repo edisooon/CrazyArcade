@@ -26,8 +26,10 @@ namespace CrazyArcade.CAFramework
             get => sceneDelegate;
             set => sceneDelegate = value;
         }
-
-        public int X, Y;
+        private int x;
+        private int y;
+        public virtual int X { get => x; set => x = value; }
+        public virtual int Y { get => y; set => y = value; }
 
         public abstract void Load();
         public virtual void Update(GameTime time)

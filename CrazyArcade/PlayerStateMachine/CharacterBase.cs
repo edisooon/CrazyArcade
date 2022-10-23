@@ -30,7 +30,6 @@ namespace CrazyArcade.Demo1
 
         public override void Update(GameTime time)
         {
-
             moveInputs = new(0, 0);
             CurrentSpeed = new(0, 0);
             blockBoundingBox.X = bboxOffset.X + X;
@@ -50,6 +49,7 @@ namespace CrazyArcade.Demo1
 
         public void CollisionHaltLogic(Point move)
         {
+            Console.WriteLine("move: " + move.X);
             X -= move.X;
             Y -= move.Y;
         }

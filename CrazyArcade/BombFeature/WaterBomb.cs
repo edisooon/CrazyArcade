@@ -2,6 +2,7 @@
 using CrazyArcade.CAFramework;
 using CrazyArcade.Content;
 using CrazyArcade.Demo1;
+using CrazyArcade.GameGridSystems;
 using CrazyArcade.PlayerStateMachine;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -13,10 +14,9 @@ using System.Threading.Tasks;
 
 namespace CrazyArcade.BombFeature
 {
-    public class WaterBomb : CAEntity, IPlayerCollidable
+    public class WaterBomb : CAEntity, IPlayerCollidable, IGridable
     {
         int BlastLength;
-        CAScene ParentScene;
         float DetonateTimer;
         float DetonateTime;
         Boolean characterHasLeft = false;
@@ -28,12 +28,32 @@ namespace CrazyArcade.BombFeature
 
         public Rectangle boundingBox => internalRectangle;
 
-        private Rectangle[] AnimationFrames;
-        public WaterBomb(CAScene ParentScene, int X, int Y, int BlastLength, IBombCollectable character)
+        private Vector2 gamePos;
+        private Vector2 pos;
+        public Vector2 ScreenCoord
         {
-            this.X = X;
-            this.Y = Y;
-            this.ParentScene = ParentScene;
+            get => pos;
+            set
+            {
+                pos = value;
+                this.UpdateCoord(value);
+            }
+        }
+
+        public void UpdateCoord(Vector2 value)
+        {
+            this.X = (int)value.X;
+            this.Y = (int)value.Y;
+            this.internalRectangle.X = (int)ScreenCoord.X;
+            this.internalRectangle.Y = (int)ScreenCoord.Y;
+        }
+
+        public Vector2 GameCoord { get => gamePos; set => gamePos = value; }
+
+        private Rectangle[] AnimationFrames;
+        public WaterBomb(Vector2 grid, int BlastLength, IBombCollectable character)
+        {
+            gamePos = grid;
             this.BlastLength = BlastLength;
             this.owner = character;
             AnimationFrames = GetAnimationFrames();
@@ -61,7 +81,7 @@ namespace CrazyArcade.BombFeature
         }
         private void DeleteSelf()
         {
-            ParentScene.RemoveSprite(this);
+            SceneDelegate.ToRemoveEntity(this);
         }
         private void Detonate(GameTime time)
         {
@@ -80,7 +100,7 @@ namespace CrazyArcade.BombFeature
         {
             int explosionTile = 40;
             Vector2 side = new Vector2(0, 0);
-            ParentScene.AddSprite(new WaterExplosionCenter(ParentScene, X, Y));
+            SceneDelegate.ToAddEntity(new WaterExplosionCenter(X, Y));
             for (int i = 0; i < 4; i++)
             {
                 switch (i)
@@ -100,7 +120,7 @@ namespace CrazyArcade.BombFeature
                 }
                 for (int j = 1; j <= BlastLength; j++)
                 {
-                    ParentScene.AddSprite(new WaterExplosionEdge(ParentScene, i, j == BlastLength, (int) (X + (j*side.X*explosionTile)), (int) (Y + (j*side.Y * explosionTile))));
+                    SceneDelegate.ToAddEntity(new WaterExplosionEdge(i, j == BlastLength, (int) (X + (j*side.X*explosionTile)), (int) (Y + (j*side.Y * explosionTile))));
                 }
             }
         }

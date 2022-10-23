@@ -16,8 +16,27 @@ namespace CrazyArcade.PlayerStateMachine
         public int bombCapacity = 1;
         public int bombsOut;
 
-        public override SpriteAnimation SpriteAnim => spriteAnims[animationHandleInt];
+        private int x;
+        private int y;
+        public override int X {
+            get => x; set
+            {
+                Console.WriteLine("Set X: " + value);
+                x = value;
+            }
+        }
+        public override int Y
+        {
+            get => y;
+            set
+            {
+                Console.WriteLine("Set Y: " + value);
+                y = value;
+            }
+        }
 
+        public override SpriteAnimation SpriteAnim => spriteAnims[animationHandleInt];
+       
         
         public Character(CAScene scene)
         {
@@ -35,7 +54,6 @@ namespace CrazyArcade.PlayerStateMachine
         }
         public override void Update(GameTime time)
         {
-            
             playerState.ProcessState(time);
             base.Update(time);
         }

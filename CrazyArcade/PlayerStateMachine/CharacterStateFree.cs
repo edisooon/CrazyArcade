@@ -81,7 +81,7 @@ namespace CrazyArcade.PlayerStateMachine
         public void ProcessAttaction()
         {
             if (character.bombsOut >= character.bombCapacity) return;
-            character.parentScene.AddSprite(new WaterBomb(character.parentScene, character.X, character.Y, character.currentBlastLength, character));
+            character.parentScene.AddSprite(new WaterBomb(new Vector2(character.X/40, character.Y/40), character.currentBlastLength, character));
             character.bombsOut++;
         }
     }

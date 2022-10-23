@@ -37,6 +37,7 @@ namespace CrazyArcade.PlayerStateMachine
         {
             moveInputs.Y -= 1;
             direction = Dir.Up;
+
         }
 
         public void KeyDown()
