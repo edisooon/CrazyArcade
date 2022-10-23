@@ -62,6 +62,13 @@ namespace CrazyArcade.PlayerStateMachine
         {
             bombsOut = bombsOut-- >= 0 ? bombsOut-- : 0;
         }
+        public override void CollisionDestroyLogic()
+        {
+            if (this.playerState is PlayerStateBubble) return;
+            this.playerState = new PlayerStateBubble(this);
+            this.spriteAnims = this.playerState.SetSprites();
+            this.playerState.SetSpeed();
+        }
         public override void Load()
         {
 
