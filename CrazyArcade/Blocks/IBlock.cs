@@ -52,8 +52,6 @@ namespace CrazyArcade.Blocks
 
         public void CollisionLogic(Rectangle overlap, IBlockCollidable collisionPartner)
         {
-            Debug.WriteLine(overlap.Width);
-            Debug.WriteLine(overlap.Height);
             int modifier = 1;
             if (overlap.Width > overlap.Height)
             {
