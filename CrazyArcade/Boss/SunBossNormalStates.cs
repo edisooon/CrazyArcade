@@ -18,9 +18,10 @@ namespace CrazyArcade.Boss
             {
                 eyes[i] = new Rectangle(0, i * 17, 44, 17);
             }
-            Point direction = bossDelegate.GetCharacterRelativePosition();
+            Vector2 direction = bossDelegate.GetCharacterRelativePosition();
             float len = (float)Math.Sqrt(Math.Pow(direction.X, 2) + Math.Pow(direction.Y, 2));
             speed = new Vector2(direction.X / len, direction.Y / len);
+            speed /= 40;
 		}
         Vector2 speed;
         private List<SpriteAnimation> animation = new List<SpriteAnimation>();
@@ -48,7 +49,7 @@ namespace CrazyArcade.Boss
         }
         private int getEyeFrame()
         {
-            Point dir = bossDelegate.GetCharacterRelativePosition();
+            Vector2 dir = bossDelegate.GetCharacterRelativePosition();
             int res = dir.Y > 0 ? 4 : 0;
             double radius = Math.Sqrt(Math.Pow(dir.X, 2) + Math.Pow(dir.Y, 2)) + 1;
             res += (int)((dir.X + radius) / (radius * 2 / 4));
