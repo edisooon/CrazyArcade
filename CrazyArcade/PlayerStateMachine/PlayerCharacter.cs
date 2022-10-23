@@ -45,6 +45,11 @@ namespace CrazyArcade.PlayerStateMachine
             direction = Dir.Down;
             this.parentScene = scene;
             bombsOut = 0;
+            X = 0;
+            Y = 0;
+            Console.Out.Write(X);
+            Console.Out.Write(Y);
+
             //Quick fix for the player being way off the screen when the game starts. Issue with LevelManager.
             X = 2000;
             Y = 100;
@@ -61,6 +66,13 @@ namespace CrazyArcade.PlayerStateMachine
         public void BombExplode()
         {
             bombsOut = bombsOut-- >= 0 ? bombsOut-- : 0;
+        }
+        public override void CollisionDestroyLogic()
+        {
+            if (this.playerState is PlayerStateBubble) return;
+            this.playerState = new PlayerStateBubble(this);
+            this.spriteAnims = this.playerState.SetSprites();
+            this.playerState.SetSpeed();
         }
         public override void Load()
         {

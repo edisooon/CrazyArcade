@@ -1,5 +1,5 @@
 using CrazyArcade.Demo1;
-using CrazyArcade.Enemy;
+using CrazyArcade.Enemies;
 using CrazyArcade.Boss;
 using CrazyArcade.CAFramework;
 using Microsoft.Xna.Framework;
@@ -12,7 +12,7 @@ using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
-namespace CrazyArcade.Enemy
+namespace CrazyArcade.Enemies
 {
     public class EnemyManager : IGameSystem
 

@@ -1,4 +1,5 @@
-﻿using CrazyArcade.CAFramework;
+﻿using CrazyArcade.Blocks;
+using CrazyArcade.CAFramework;
 using CrazyArcade.Content;
 using CrazyArcade.Demo1;
 using CrazyArcade.PlayerStateMachine;
@@ -12,12 +13,13 @@ using System.Threading.Tasks;
 
 namespace CrazyArcade.BombFeature
 {
-    public class WaterBomb : CAEntity
+    public class WaterBomb : CAEntity, IPlayerCollidable
     {
         int BlastLength;
         CAScene ParentScene;
         float DetonateTimer;
         float DetonateTime;
+        Boolean characterHasLeft = false;
         private SpriteAnimation spriteAnims;
         PlayerCharacter owner;
         private static readonly Rectangle frame1 = new(11, 10, 42, 42);
@@ -25,6 +27,11 @@ namespace CrazyArcade.BombFeature
         private static readonly Rectangle frame3 = new(97, 10, 46, 42);
         private static readonly int tileSize = 40;
         public override SpriteAnimation SpriteAnim => spriteAnims;
+
+        public Rectangle internalRectangle;
+
+        public Rectangle boundingBox => internalRectangle;
+
         private Rectangle[] AnimationFrames;
         public WaterBomb(CAScene ParentScene, int X, int Y, int BlastLength, PlayerCharacter character)
         {
@@ -35,8 +42,9 @@ namespace CrazyArcade.BombFeature
             this.owner = character;
             AnimationFrames = GetAnimationFrames();
             DetonateTime = 0;
-            DetonateTimer = 1000;
+            DetonateTimer = 3000;
             this.spriteAnims = new SpriteAnimation(TextureSingleton.GetBallons(), AnimationFrames, 8);
+            internalRectangle = new Rectangle(X, Y, 40, 40);
         }
         private static Rectangle[] GetAnimationFrames()
         {
@@ -48,6 +56,7 @@ namespace CrazyArcade.BombFeature
         }
         public override void Update(GameTime time)
         {
+            if (!characterHasLeft) updateCharacterHasLeft();
             Detonate(time);
         }
         public override void Load()
@@ -97,6 +106,31 @@ namespace CrazyArcade.BombFeature
                 {
                     ParentScene.AddSprite(new WaterExplosionEdge(ParentScene, i, j == BlastLength, (int) (X + (j*side.X*explosionTile)), (int) (Y + (j*side.Y * explosionTile))));
                 }
+            }
+        }
+
+        public void updateCharacterHasLeft()
+        {
+            Rectangle checkRectangle = Rectangle.Intersect(this.boundingBox, owner.blockCollisionBoundingBox);
+            if (checkRectangle.Width == 0 || checkRectangle.Height == 0)
+            {
+                characterHasLeft = true;
+            }
+        }
+
+        public void CollisionLogic(Rectangle overlap, IPlayerCollisionBehavior collisionPartner)
+        {
+            if (!characterHasLeft) return;
+            int modifier = 1;
+            if (overlap.Width > overlap.Height)
+            {
+                if (Y < collisionPartner.blockCollisionBoundingBox.Y) modifier = -1;
+                collisionPartner.CollisionHaltLogic(new Point(0, modifier * overlap.Height));
+            }
+            else
+            {
+                if (X < collisionPartner.blockCollisionBoundingBox.X) modifier = -1;
+                collisionPartner.CollisionHaltLogic(new Point(modifier * overlap.Width, 0));
             }
         }
     }
