@@ -45,14 +45,9 @@ namespace CrazyArcade.PlayerStateMachine
             direction = Dir.Down;
             this.parentScene = scene;
             bombsOut = 0;
-            X = 0;
-            Y = 0;
-            Console.Out.Write(X);
-            Console.Out.Write(Y);
-
-            //Quick fix for the player being way off the screen when the game starts. Issue with LevelManager.
-            X = 2000;
+            X = 1050;
             Y = 100;
+
             currentBlastLength = defaultBlastLength;
             this.controller = controller;
             controller.Delegate = this;
