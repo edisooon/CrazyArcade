@@ -6,60 +6,14 @@ using System.Text;
 using System.Threading.Tasks;
 using CrazyArcade.CAFramework;
 using Microsoft.Xna.Framework;
+using CrazyArcade.Blocks;
 
 namespace CrazyArcade.Items
 {
-    public interface IItemCollision : IGameSystem
+    public interface IItemCollision
     {
-    }
-    public class PowerupCollision : IItemCollision
-    {
-        private PlayerCharacter player;
-        private List<Item> powerups;
-        private IScene parentScene;
-
-        public PowerupCollision(IScene scene)
-        {
-            this.powerups = new List<Item>();
-            this.parentScene = scene;
-        }
-        public void AddSprite(IEntity toAdd)
-        {
-            if(toAdd is Item)
-            {
-                powerups.Add(toAdd as Item);
-            }
-            else if(toAdd is PlayerCharacter)
-            {
-                player = (PlayerCharacter)toAdd;
-            }
-        }
-        public void RemoveSprite(IEntity toRemove)
-        {
-            if(toRemove is Item)
-            {
-                powerups.Remove(toRemove as Item);
-            }
-        }
-        public void RemoveAll()
-        {
-            powerups.Clear();
-        }
-        public void Update(GameTime gameTime)
-        {
-            Item toRemove = null;
-            foreach(Item powerup in powerups)
-            {
-                if(powerup.hitbox.Intersects(player.hitbox))
-                {
-                    player.playerState.ProcessItem(powerup);
-                    toRemove = powerup;
-                }
-            }
-            if(toRemove != null)
-            {
-                parentScene.RemoveSprite(toRemove);
-            }
-        }
+        public void CollisionLogic(IItemCollidable collisionPartner);
+        public void DeleteSelf(IScene parentScene);
+        public Rectangle itemHitbox { get; }
     }
 }

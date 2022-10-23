@@ -5,6 +5,7 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
+using CrazyArcade.PlayerStateMachine;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
@@ -30,6 +31,10 @@ namespace CrazyArcade.Items
             sources[4] = new Rectangle(240, 60, 60, 60);
             **/
         }
+        public override void CollisionLogic(IItemCollidable collisionPartner)
+        {
+            collisionPartner.IncreaseBlastLength();
+        }
     }
     public class CoinBag : Item, IItem
     {
@@ -41,6 +46,9 @@ namespace CrazyArcade.Items
             sources[0] = new Rectangle(520, 130, 60, 60);
             sources[1] = new Rectangle(580, 130, 60, 60);
      **/
+        }
+        public override void CollisionLogic(IItemCollidable collisionPartner)
+        {
         }
     }
     public class Sneaker : Item, IItem
@@ -54,6 +62,9 @@ namespace CrazyArcade.Items
             sources[1] = new Rectangle(380, 130, 60, 60);
             sources[1] = new Rectangle(460, 130, 60, 60);
      **/
+        }
+        public override void CollisionLogic(IItemCollidable collisionPartner)
+        {
         }
     }
     public class Turtle : Item, IItem
@@ -70,6 +81,10 @@ namespace CrazyArcade.Items
             sources[4] = new Rectangle(240, 130, 60, 60);
       **/
         }
+        public override void CollisionLogic(IItemCollidable collisionPartner)
+        {
+            collisionPartner.SwitchToMountedState();
+        }
     }
     public class Potion : Item, IItem
     {
@@ -84,6 +99,9 @@ namespace CrazyArcade.Items
             sources[3] = new Rectangle(520, 130, 60, 60);
             sources[4] = new Rectangle(580, 130, 60, 60);
     **/
+        }
+        public override void CollisionLogic(IItemCollidable collisionPartner)
+        {
         }
     }
     public class Coin : Item, IItem
@@ -105,6 +123,9 @@ namespace CrazyArcade.Items
             sources[8] = new Rectangle(520, 0, 60, 60);
             sources[9] = new Rectangle(580, 0, 60, 60);
     **/
+        }
+        public override void CollisionLogic(IItemCollidable collisionPartner)
+        {
         }
     }
 }

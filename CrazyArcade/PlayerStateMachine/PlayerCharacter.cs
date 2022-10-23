@@ -58,6 +58,14 @@ namespace CrazyArcade.PlayerStateMachine
             playerState.ProcessState(time);
             base.Update(time);
         }
+        public override void IncreaseBlastLength()
+        {
+            currentBlastLength++;
+        }
+        public override void SwitchToMountedState()
+        {
+            this.playerState = new PlayerStateRides(this);
+        }
         public void BombExplode()
         {
             bombsOut = bombsOut-- >= 0 ? bombsOut-- : 0;

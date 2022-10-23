@@ -14,7 +14,7 @@ namespace CrazyArcade.Items
     {
         //void Update(GameTime time, Rectangle rectangle, int fps);
     }
-    public abstract class Item : Block, IItem
+    public abstract class Item : Block, IItem, IItemCollision
     {
         //Rectangle[] frames;
         //Rectangle current;
@@ -28,6 +28,7 @@ namespace CrazyArcade.Items
             //frames = sources;
             //current = frames[0];
         }
+        public abstract void CollisionLogic(IItemCollidable collisionPartner);
         /**public void Update(GameTime time, Rectangle rectangle, int fps = 5) {
             int millisec = (int)((int)time.ElapsedGameTime.TotalMilliseconds);
             int milliPure = millisec - ((int)time.ElapsedGameTime.TotalSeconds);
@@ -36,6 +37,7 @@ namespace CrazyArcade.Items
             current = frames[currentFrame];
         }**/
         public override SpriteAnimation SpriteAnim => this.spriteAnimation;
+        public Rectangle itemHitbox => this.hitbox;
 
         public override void Update(GameTime time)
         {
@@ -43,6 +45,11 @@ namespace CrazyArcade.Items
         }
         public override void Load()
         {
+        }
+
+        public void DeleteSelf(IScene parentScene)
+        {
+            parentScene.RemoveSprite(this);
         }
     }
 }
