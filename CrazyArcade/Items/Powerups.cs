@@ -65,6 +65,7 @@ namespace CrazyArcade.Items
         }
         public override void CollisionLogic(IItemCollidable collisionPartner)
         {
+            collisionPartner.IncreaseSpeed();
         }
     }
     public class Turtle : Item, IItem
@@ -83,7 +84,7 @@ namespace CrazyArcade.Items
         }
         public override void CollisionLogic(IItemCollidable collisionPartner)
         {
-            collisionPartner.SwitchToMountedState();
+            //collisionPartner.SwitchToMountedState();
         }
     }
     public class Potion : Item, IItem
@@ -102,6 +103,7 @@ namespace CrazyArcade.Items
         }
         public override void CollisionLogic(IItemCollidable collisionPartner)
         {
+
         }
     }
     public class Coin : Item, IItem

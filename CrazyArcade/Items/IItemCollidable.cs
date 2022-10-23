@@ -12,5 +12,6 @@ namespace CrazyArcade.Items
         public Rectangle blockCollisionBoundingBox { get; }
         public void IncreaseBlastLength();
         public void SwitchToMountedState();
+        public void IncreaseSpeed();
     }
 }

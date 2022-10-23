@@ -58,5 +58,6 @@ namespace CrazyArcade.Demo1
 
         public abstract void IncreaseBlastLength();
         public abstract void SwitchToMountedState();
+        public abstract void IncreaseSpeed();
     }
 }

@@ -66,6 +66,10 @@ namespace CrazyArcade.PlayerStateMachine
         {
             this.playerState = new PlayerStateRides(this);
         }
+        public override void IncreaseSpeed()
+        {
+            this.ModifiedSpeed = DefaultSpeed * 2;
+        }
         public void BombExplode()
         {
             bombsOut = bombsOut-- >= 0 ? bombsOut-- : 0;
