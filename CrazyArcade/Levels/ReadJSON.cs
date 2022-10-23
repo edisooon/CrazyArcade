@@ -10,7 +10,7 @@ public class ReadJSON
     StreamReader sReader;
     string jString;
     string winDir = System.Environment.CurrentDirectory;
-    public Level levelObject { get; }
+    public LevelSchema levelObject { get; }
     //How to use:
     //ReadJSON test = new ReadJSON("\\Level_0.json");
     //Level Level0 = test.levelObject;
@@ -28,13 +28,13 @@ public class ReadJSON
         {
             Console.Error.WriteLine("File is empty");
         }
-        levelObject = JsonSerializer.Deserialize<Level>(jString);
+        levelObject = JsonSerializer.Deserialize<LevelSchema>(jString);
         //Debug.WriteLine(levelObject.Grid[0]);
     }
 
 }
 
-public class Level
+public class LevelSchema
 {
 
     public int[] Background { get; set; }

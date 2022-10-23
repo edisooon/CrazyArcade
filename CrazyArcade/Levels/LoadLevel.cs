@@ -10,12 +10,12 @@ namespace CrazyArcade.Levels
 	//allows for scene to load in 
 	public class LoadLevel
 	{
-		public static Level levelObject;
+		public static LevelSchema levelObject;
 		public ReadJSON Reader;
 		public LoadLevel(string fileName)
 		{
 			Reader = new ReadJSON(fileName);
-			levelObject = new Level();
+			levelObject = new LevelSchema();
 			levelObject = Reader.levelObject;
 		}
 

@@ -33,7 +33,7 @@ namespace CrazyArcade.PlayerStateMachine
             set
             {
                 controller = value;
-                controller.Delegate = this;
+                controller.Delegate = this; 
             }
         }
         public PlayerCharacter(IController controller, CAScene scene)

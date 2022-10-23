@@ -1,4 +1,4 @@
-using CrazyArcade.Demo1;
+﻿using CrazyArcade.Demo1;
 using CrazyArcade.Enemy;
 using CrazyArcade.Boss;
 using CrazyArcade.CAFramework;
@@ -27,9 +27,9 @@ using static System.Formats.Asn1.AsnWriter;
 
 namespace CrazyArcade.Levels
 {
-    public class LevelManager : IGameSystem
-
+    internal class Level
     {
+        
 
         private List<CAEntity> EntityList;
         private CAScene Scene;
@@ -41,29 +41,25 @@ namespace CrazyArcade.Levels
         float scale;
         Vector2 border;
         Vector2 startPosition;
-        public LevelManager(CAScene scene)
+        public Level(CAScene scene)
         {
             Level0 = new LoadLevel("level_0.json");
             this.Scene = scene;
             EntityList = new List<CAEntity>();
-            LoadSprites();
+            LoadSprites(Level0);
             LoadBorder(Level0);
-            foreach (CAEntity entity in EntityList)
-            {
-                Scene.AddSprite(entity);
-            }
-            Scene.AddSprite(new PlayerCharacter(new DemoController(), Scene));
+
         }
         private void LoadBorder(LoadLevel currentLevel)
         {
             scale = .9f;
             border = currentLevel.GetBorder();
-            for (int i = (int)border.X; i>= 0; i--)
+            for (int i = (int)border.X; i >= 0; i--)
             {
 
 
                 LoadStone(currentLevel, scale, i, -1);
-                LoadStone(currentLevel, scale, i-1, (int)border.Y-1);
+                LoadStone(currentLevel, scale, i - 1, (int)border.Y - 1);
             }
             for (int i = (int)border.Y; i >= 0; i--)
             {
@@ -75,20 +71,20 @@ namespace CrazyArcade.Levels
         {
             scale = Scale;
             size = 0;
-            startPosition = currentLevel.GetStartPosition(new int[2] { X, Y});
+            startPosition = currentLevel.GetStartPosition(new int[2] { X, Y });
             Destination = new Rectangle((int)startPosition.X, (int)startPosition.Y, size, size);
             Entity = new LightSandBlock(Destination);
             Entity.SpriteAnim.Scale = scale;
             EntityList.Add(Entity);
         }
-        private void LoadSprites()
+        private void LoadSprites(LoadLevel currentLevel)
         {
             //Blocks
             //TODO Find a way to reduce duplicate code
             scale = .9f;
             size = 36;
-            itemLocations = Level0.GetItemLocation(LoadLevel.LevelItem.LightSandPosition);
-         
+            itemLocations = currentLevel.GetItemLocation(LoadLevel.LevelItem.LightSandPosition);
+
             foreach (Vector2 vector in itemLocations)
             {
                 Debug.WriteLine(vector.Y);
@@ -98,7 +94,7 @@ namespace CrazyArcade.Levels
                 EntityList.Add(Entity);
             }
 
-            itemLocations = Level0.GetItemLocation(LoadLevel.LevelItem.DarkSandPosition);
+            itemLocations = currentLevel.GetItemLocation(LoadLevel.LevelItem.DarkSandPosition);
 
             foreach (Vector2 vector in itemLocations)
             {
@@ -108,8 +104,8 @@ namespace CrazyArcade.Levels
                 Entity.SpriteAnim.Scale = scale;
                 EntityList.Add(Entity);
             }
-            itemLocations = Level0.GetItemLocation(LoadLevel.LevelItem.StonePosition);
-        
+            itemLocations = currentLevel.GetItemLocation(LoadLevel.LevelItem.StonePosition);
+
             foreach (Vector2 vector in itemLocations)
             {
                 Debug.WriteLine(vector.Y);
@@ -119,7 +115,7 @@ namespace CrazyArcade.Levels
                 EntityList.Add(Entity);
             }
 
-            itemLocations = Level0.GetItemLocation(LoadLevel.LevelItem.LightTreePosition);
+            itemLocations = currentLevel.GetItemLocation(LoadLevel.LevelItem.LightTreePosition);
 
             foreach (Vector2 vector in itemLocations)
             {
@@ -130,7 +126,7 @@ namespace CrazyArcade.Levels
                 EntityList.Add(Entity);
             }
 
-            itemLocations = Level0.GetItemLocation(LoadLevel.LevelItem.DarkTreePosition);
+            itemLocations = currentLevel.GetItemLocation(LoadLevel.LevelItem.DarkTreePosition);
 
             foreach (Vector2 vector in itemLocations)
             {
@@ -142,7 +138,7 @@ namespace CrazyArcade.Levels
             }
 
 
-            itemLocations = Level0.GetItemLocation(LoadLevel.LevelItem.CactusPosition);
+            itemLocations = currentLevel.GetItemLocation(LoadLevel.LevelItem.CactusPosition);
 
             foreach (Vector2 vector in itemLocations)
             {
@@ -153,8 +149,8 @@ namespace CrazyArcade.Levels
                 EntityList.Add(Entity);
             }
 
-            itemLocations = Level0.GetItemLocation(LoadLevel.LevelItem.CoinBagPosition);
-        
+            itemLocations = currentLevel.GetItemLocation(LoadLevel.LevelItem.CoinBagPosition);
+
             foreach (Vector2 vector in itemLocations)
             {
                 Debug.WriteLine(vector.Y);
@@ -162,89 +158,89 @@ namespace CrazyArcade.Levels
                 Entity = new CoinBag(Destination);
                 EntityList.Add(Entity);
             }
-     
-            itemLocations = Level0.GetItemLocation(LoadLevel.LevelItem.BalloonPosition);
-        
+
+            itemLocations = currentLevel.GetItemLocation(LoadLevel.LevelItem.BalloonPosition);
+
             foreach (Vector2 vector in itemLocations)
             {
-               
+
                 Destination = new Rectangle((int)vector.X, (int)vector.Y, size, size);
                 EntityList.Add(new Balloon(Destination));
 
             }
-         
-            itemLocations = Level0.GetItemLocation(LoadLevel.LevelItem.SneakerPosition);
-        
+
+            itemLocations = currentLevel.GetItemLocation(LoadLevel.LevelItem.SneakerPosition);
+
             foreach (Vector2 vector in itemLocations)
             {
-      
+
                 Destination = new Rectangle((int)vector.X, (int)vector.Y, size, size);
                 EntityList.Add(new Sneaker(Destination));
             }
-            
-            itemLocations = Level0.GetItemLocation(LoadLevel.LevelItem.TurtlePosition);
-        
+
+            itemLocations = currentLevel.GetItemLocation(LoadLevel.LevelItem.TurtlePosition);
+
             foreach (Vector2 vector in itemLocations)
             {
                 Debug.WriteLine(vector.Y);
                 Destination = new Rectangle((int)vector.X, (int)vector.Y, size, size);
                 EntityList.Add(new Turtle(Destination));
             }
-           
-            itemLocations = Level0.GetItemLocation(LoadLevel.LevelItem.PotionPosition);
-        
+
+            itemLocations = currentLevel.GetItemLocation(LoadLevel.LevelItem.PotionPosition);
+
             foreach (Vector2 vector in itemLocations)
             {
                 Debug.WriteLine(vector.Y);
                 Destination = new Rectangle((int)vector.X, (int)vector.Y, size, size);
                 EntityList.Add(new Potion(Destination));
             }
-           
-            itemLocations = Level0.GetItemLocation(LoadLevel.LevelItem.CoinPosition);
-        
+
+            itemLocations = currentLevel.GetItemLocation(LoadLevel.LevelItem.CoinPosition);
+
             foreach (Vector2 vector in itemLocations)
             {
                 Debug.WriteLine(vector.Y);
                 Destination = new Rectangle((int)vector.X, (int)vector.Y, size, size);
                 EntityList.Add(new Coin(Destination));
             }
-            
-            itemLocations = Level0.GetItemLocation(LoadLevel.LevelItem.BombPosition);
+
+            itemLocations = currentLevel.GetItemLocation(LoadLevel.LevelItem.BombPosition);
 
             foreach (Vector2 vector in itemLocations)
             {
                 EntityList.Add(new BombEnemySprite((int)vector.X, (int)vector.Y));
             }
 
-            itemLocations = Level0.GetItemLocation(LoadLevel.LevelItem.SquidPosition);
+            itemLocations = currentLevel.GetItemLocation(LoadLevel.LevelItem.SquidPosition);
 
             foreach (Vector2 vector in itemLocations)
             {
                 EntityList.Add(new SquidEnemySprite((int)vector.X, (int)vector.Y));
             }
 
-            itemLocations = Level0.GetItemLocation(LoadLevel.LevelItem.BatPosition);
+            itemLocations = currentLevel.GetItemLocation(LoadLevel.LevelItem.BatPosition);
 
             foreach (Vector2 vector in itemLocations)
             {
                 EntityList.Add(new BatEnemySprite((int)vector.X, (int)vector.Y));
             }
 
-            itemLocations = Level0.GetItemLocation(LoadLevel.LevelItem.RobotPosition);
+            itemLocations = currentLevel.GetItemLocation(LoadLevel.LevelItem.RobotPosition);
 
             foreach (Vector2 vector in itemLocations)
             {
                 EntityList.Add(new RobotEnemySprite((int)vector.X, (int)vector.Y));
             }
 
-            itemLocations = Level0.GetItemLocation(LoadLevel.LevelItem.OctoBossPosition);
+            itemLocations = currentLevel.GetItemLocation(LoadLevel.LevelItem.OctoBossPosition);
 
             foreach (Vector2 vector in itemLocations)
             {
                 EntityList.Add(new OctopusEnemy((int)vector.X, (int)vector.Y));
             }
-           
-            itemLocations = Level0.GetItemLocation(LoadLevel.LevelItem.SunBossPosition);
+
+            itemLocations = currentLevel.GetItemLocation(LoadLevel.LevelItem.SunBossPosition);
 
             foreach (Vector2 vector in itemLocations)
             {
@@ -253,25 +249,5 @@ namespace CrazyArcade.Levels
 
 
         }
-
-       
-        public void Update(GameTime time)
-        {
-
-        }
-        public void AddSprite(IEntity sprite)
-        {
-            
-        }
-        public void RemoveSprite(IEntity sprite)
-        {
-
-        }
-        public void RemoveAll()
-        {
-
-        }
-        
-       
     }
 }

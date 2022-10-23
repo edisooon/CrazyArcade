@@ -19,7 +19,7 @@ public class Game1 : Game
     private GraphicsDeviceManager _graphics;
     private SpriteBatch _spriteBatch;
     public IScene scene;
-    public Level Level1;
+    public LevelSchema Level1;
     public ReadJSON test;
 
     public Game1()
