@@ -39,6 +39,8 @@ namespace CrazyArcade.BombFeature
                 this.UpdateCoord(value);
             }
         }
+        private IGridTransform trans = new NullTransform();
+        public IGridTransform Trans { get => trans; set => trans = value; }
 
         public void UpdateCoord(Vector2 value)
         {
@@ -53,7 +55,12 @@ namespace CrazyArcade.BombFeature
         private Rectangle[] AnimationFrames;
         public WaterBomb(Vector2 grid, int BlastLength, IBombCollectable character)
         {
-            gamePos = grid;
+
+            Vector2 bombPosition = grid;
+            bombPosition = bombPosition + new Vector2(0.5f);
+            bombPosition.Floor();
+            gamePos = bombPosition;
+
             this.BlastLength = BlastLength;
             this.owner = character;
             AnimationFrames = GetAnimationFrames();

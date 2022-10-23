@@ -2,6 +2,7 @@
 using CrazyArcade.BombFeature;
 using CrazyArcade.CAFramework;
 using CrazyArcade.Demo1;
+using CrazyArcade.GameGridSystems;
 using Microsoft.Xna.Framework;
 
 namespace CrazyArcade.PlayerStateMachine
@@ -16,28 +17,8 @@ namespace CrazyArcade.PlayerStateMachine
         public int bombCapacity = 1;
         public int bombsOut;
 
-        private int x;
-        private int y;
-        public override int X {
-            get => x; set
-            {
-                Console.WriteLine("Set X: " + value);
-                x = value;
-            }
-        }
-        public override int Y
-        {
-            get => y;
-            set
-            {
-                Console.WriteLine("Set Y: " + value);
-                y = value;
-            }
-        }
-
         public override SpriteAnimation SpriteAnim => spriteAnims[animationHandleInt];
-       
-        
+
         public Character(CAScene scene)
         {
             ModifiedSpeed = DefaultSpeed;
@@ -47,8 +28,7 @@ namespace CrazyArcade.PlayerStateMachine
             direction = Dir.Down;
             this.parentScene = scene;
             bombsOut = 0;
-            X = 100;
-            Y = 100;
+            GameCoord = new Vector2(3, 3);
             currentBlastLength = defaultBlastLength;
             //this.bboxOffset = new Point(20, 20);
         }

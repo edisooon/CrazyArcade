@@ -7,10 +7,11 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using CrazyArcade.CAFramework;
 using CrazyArcade.Blocks;
+using CrazyArcade.GameGridSystems;
 
 namespace CrazyArcade.Demo1
 {
-    public abstract class CharacterBase : CAEntity, IPlayerCollisionBehavior
+    public abstract class CharacterBase : CAEntity, IGridable, IPlayerCollisionBehavior
     {
 
         public float DefaultSpeed = 5;
@@ -22,6 +23,32 @@ namespace CrazyArcade.Demo1
         protected Rectangle blockBoundingBox = new Rectangle(0,0,42, 56);
         protected Point bboxOffset = new Point(0, 0);
         protected bool blockBboxOn = true;
+
+        private Vector2 gamePos;
+        private Vector2 pos;
+        public Vector2 ScreenCoord
+        {
+            get => pos;
+            set
+            {
+                pos = value;
+                this.UpdateCoord(value);
+            }
+        }
+        public void UpdateCoord(Vector2 value)
+        {
+            this.X = (int)value.X;
+            this.Y = (int)value.Y;
+        }
+        public Vector2 GameCoord {
+            get => gamePos;
+            set {
+                gamePos = value;
+                ScreenCoord = trans.Trans(value);
+            }
+        }
+        private IGridTransform trans = new NullTransform();
+        public IGridTransform Trans { get => trans; set => trans = value; }
 
         public Rectangle blockCollisionBoundingBox => blockBoundingBox;
 
@@ -38,8 +65,7 @@ namespace CrazyArcade.Demo1
 
         public void UpdatePosition()
         {
-            X += (int)CurrentSpeed.X;
-            Y += (int)CurrentSpeed.Y;
+            GameCoord += trans.RevScale(CurrentSpeed);
         }
 
         public void CalculateMovement()
@@ -49,9 +75,7 @@ namespace CrazyArcade.Demo1
 
         public void CollisionHaltLogic(Point move)
         {
-            Console.WriteLine("move: " + move.X);
-            X -= move.X;
-            Y -= move.Y;
+            GameCoord += trans.RevScale(new Vector2(move.X, move.Y));
         }
 
         public virtual void CollisionDestroyLogic()
