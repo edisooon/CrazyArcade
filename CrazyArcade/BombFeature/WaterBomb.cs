@@ -21,7 +21,7 @@ namespace CrazyArcade.BombFeature
         float DetonateTime;
         Boolean characterHasLeft = false;
         private SpriteAnimation spriteAnims;
-        PlayerCharacter owner;
+        IBombCollectable owner;
         public override SpriteAnimation SpriteAnim => spriteAnims;
 
         public Rectangle internalRectangle;
@@ -29,7 +29,7 @@ namespace CrazyArcade.BombFeature
         public Rectangle boundingBox => internalRectangle;
 
         private Rectangle[] AnimationFrames;
-        public WaterBomb(CAScene ParentScene, int X, int Y, int BlastLength, PlayerCharacter character)
+        public WaterBomb(CAScene ParentScene, int X, int Y, int BlastLength, IBombCollectable character)
         {
             this.X = X;
             this.Y = Y;
@@ -68,7 +68,7 @@ namespace CrazyArcade.BombFeature
             if(DetonateTime > DetonateTimer)
             {
                 DeleteSelf();
-                owner.BombExplode();
+                owner.recollectBomb();
                 CreateExplosion();
             }
             else
@@ -107,11 +107,11 @@ namespace CrazyArcade.BombFeature
 
         public void updateCharacterHasLeft()
         {
-            Rectangle checkRectangle = Rectangle.Intersect(this.boundingBox, owner.blockCollisionBoundingBox);
-            if (checkRectangle.Width == 0 || checkRectangle.Height == 0)
-            {
-                characterHasLeft = true;
-            }
+            //Rectangle checkRectangle = Rectangle.Intersect(this.boundingBox, owner.blockCollisionBoundingBox);
+            //if (checkRectangle.Width == 0 || checkRectangle.Height == 0)
+            //{
+            //    characterHasLeft = true;
+            //}
         }
 
         public void CollisionLogic(Rectangle overlap, IPlayerCollisionBehavior collisionPartner)

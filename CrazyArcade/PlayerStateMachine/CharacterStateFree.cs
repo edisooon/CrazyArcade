@@ -11,13 +11,13 @@ using System.Threading.Tasks;
 
 namespace CrazyArcade.PlayerStateMachine
 {
-    internal class PlayerStateFree : ICharacterState
+    internal class CharacterStateFree : ICharacterState
     {
-        private PlayerCharacter character;
+        private Character character;
         public SpriteAnimation[] spriteAnims;
         private bool d1HeldDown;
         private bool d2HeldDown;
-        public PlayerStateFree(PlayerCharacter character)
+        public CharacterStateFree(Character character)
         {
             this.spriteAnims = new SpriteAnimation[4];
             this.character = character;
@@ -48,7 +48,7 @@ namespace CrazyArcade.PlayerStateMachine
             }
             if (Keyboard.GetState().IsKeyDown(Keys.E))
             {
-                character.playerState = new PlayerStateBubble(character);
+                character.playerState = new CharacterStateBubble(character);
                 character.spriteAnims = character.playerState.SetSprites();
                 character.playerState.SetSpeed();
             }

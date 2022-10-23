@@ -12,11 +12,11 @@ namespace CrazyArcade.PlayerStateMachine
 {
     public class PlayerBubble : CAEntity
     {
-        public PlayerCharacter player;
+        public Character player;
         public CAScene scene;
         private SpriteAnimation[] currentBubble;
         public int bubbleInt;
-        public PlayerBubble(PlayerCharacter player, CAScene scene)
+        public PlayerBubble(Character player, CAScene scene)
         {
             this.player = player;
             this.scene = scene;
