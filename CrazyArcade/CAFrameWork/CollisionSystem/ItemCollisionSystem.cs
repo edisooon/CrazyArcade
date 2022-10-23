@@ -58,7 +58,7 @@ namespace CrazyArcade.CAFrameWork.CollisionSystem
                     if (collidable.blockCollisionBoundingBox.Intersects(collisionItem.itemHitbox))
                     {
                         collisionItem.CollisionLogic(collidable);
-                        //toRemove.Add(collisionItem);
+                        toRemove.Add(collisionItem);
                     }
                 }
             }

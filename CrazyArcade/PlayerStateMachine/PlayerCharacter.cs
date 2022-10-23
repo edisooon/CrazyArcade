@@ -24,6 +24,7 @@ namespace CrazyArcade.PlayerStateMachine
         public int currentBlastLength;
         public int bombCapacity = 1;
         public int bombsOut;
+        public int coins;
 
         public override SpriteAnimation SpriteAnim => spriteAnims[animationHandleInt];
 
@@ -45,6 +46,7 @@ namespace CrazyArcade.PlayerStateMachine
             direction = Dir.Down;
             this.parentScene = scene;
             bombsOut = 0;
+            coins = 0;
             X = 2000;
             Y = 100;
             currentBlastLength = defaultBlastLength;
@@ -69,6 +71,14 @@ namespace CrazyArcade.PlayerStateMachine
         public override void IncreaseSpeed()
         {
             this.ModifiedSpeed = DefaultSpeed * 2;
+        }
+        public override void IncreaseBombCount()
+        {
+            this.bombCapacity++;
+        }
+        public override void AddCoin(int toAdd)
+        {
+            coins+= toAdd;
         }
         public void BombExplode()
         {

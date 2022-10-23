@@ -13,5 +13,7 @@ namespace CrazyArcade.Items
         public void IncreaseBlastLength();
         public void SwitchToMountedState();
         public void IncreaseSpeed();
+        public void IncreaseBombCount();
+        public void AddCoin(int toAdd);
     }
 }
