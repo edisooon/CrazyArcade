@@ -14,6 +14,9 @@ namespace CrazyArcade.Demo1
     {
         public IControllerDelegate Delegate { get; set; }
         bool spacePrevPressed = false;
+        static int mouseTolerance = 25;
+        int rightMousePrevPressed = mouseTolerance;
+        int leftMousePrevPressed = mouseTolerance;
 
         public void Update(GameTime time)
         {
@@ -21,7 +24,9 @@ namespace CrazyArcade.Demo1
             {
                 Delegate.KeyUp();
             }
+
             if (Keyboard.GetState().IsKeyDown(Keys.Down))
+
             {
                 Delegate.KeyDown();
             }
@@ -33,7 +38,36 @@ namespace CrazyArcade.Demo1
             {
                 Delegate.KeyRight();
             }
+
+            if (Mouse.GetState().LeftButton == ButtonState.Pressed && leftMousePrevPressed == mouseTolerance)
+            {
+                Delegate.LeftClick();
+                leftMousePrevPressed = 0;
+            }
+            if (Mouse.GetState().LeftButton == ButtonState.Released)
+            {
+                if (rightMousePrevPressed < mouseTolerance)
+                {
+                    rightMousePrevPressed++;
+                }
+
+            }
+            if (Mouse.GetState().RightButton == ButtonState.Pressed && rightMousePrevPressed == mouseTolerance)
+            {
+                Delegate.RightClick();
+                rightMousePrevPressed = 0;
+            }
+            if (Mouse.GetState().RightButton == ButtonState.Released)
+            {
+                if (leftMousePrevPressed < mouseTolerance)
+                {
+                    leftMousePrevPressed++;
+                }
+                    
+            }
+
             if (Keyboard.GetState().IsKeyDown(Keys.Space) && !spacePrevPressed)
+
             {
                 Delegate.KeySpace();
                 spacePrevPressed = true;
@@ -42,6 +76,9 @@ namespace CrazyArcade.Demo1
             {
                 spacePrevPressed = false;
             }
+            
+
         }
+
     }
 }

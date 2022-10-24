@@ -12,9 +12,11 @@ using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
-namespace CrazyArcade.Enemies
+using CrazyArcade.CAFramework.Controller;
+
+namespace CrazyArcade.Enemy
 {
-    public class EnemyManager : IGameSystem
+    public class EnemyManager : IGameSystem,IControllable
 
     {
         private int i = 1;
@@ -28,6 +30,16 @@ namespace CrazyArcade.Enemies
 
         KeyboardState currentState;
         KeyboardState oldState;
+
+        public IController Controller
+        {
+            get => controller;
+            set
+            {
+                controller = value;
+                controller.Delegate = this;
+            }
+        }
         public EnemyManager(CAScene scene)
         {
             length = 6;

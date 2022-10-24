@@ -12,6 +12,7 @@ using CrazyArcade.Content;
 using Microsoft.Xna.Framework;
 using CrazyArcade.BombFeature;
 using CrazyArcade.GameGridSystems;
+using System.Diagnostics;
 
 namespace CrazyArcade.PlayerStateMachine
 {
@@ -23,7 +24,7 @@ namespace CrazyArcade.PlayerStateMachine
             set
             {
                 controller = value;
-                controller.Delegate = this;
+                controller.Delegate = this; 
             }
         }
 
@@ -65,6 +66,10 @@ namespace CrazyArcade.PlayerStateMachine
         }
 
         public void RightClick()
+        {
+
+        }
+        public void LeftClick()
         {
 
         }
