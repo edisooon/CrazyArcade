@@ -49,7 +49,6 @@ namespace CrazyArcade.PlayerStateMachine
 
         }
 
-        }
 
         public void recollectBomb()
         {
