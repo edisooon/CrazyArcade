@@ -66,22 +66,8 @@ namespace CrazyArcade.PlayerStateMachine
             }
             d2HeldDown = Keyboard.GetState().IsKeyDown(Keys.D2);
         }
-        public void ProcessItem(Item toProcess)
+        public void ProcessItem()
         {
-            switch(toProcess)
-            {
-                case Turtle:
-                    character.playerState = new PlayerStateBubble(character);
-                    character.spriteAnims = character.playerState.SetSprites();
-                    character.playerState.SetSpeed();
-                    break;
-                case Balloon: 
-                    character.playerState = new PlayerStateBubble(character);
-                    character.spriteAnims = character.playerState.SetSprites();
-                    character.playerState.SetSpeed();
-                    break;
-
-            };
         }
         public void ProcessRide()
         {

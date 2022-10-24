@@ -15,7 +15,7 @@ namespace CrazyArcade.PlayerStateMachine
         public void ProcessState(GameTime time);
         public SpriteAnimation[] SetSprites();
         public int SetSpeed();
-        public void ProcessItem(Item toProcess);
+        public void ProcessItem();
         public void ProcessRide();
         public void ProcessAttaction();
     }

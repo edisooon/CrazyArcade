@@ -32,7 +32,7 @@ namespace CrazyArcade.PlayerStateMachine
             // character.playerState = character.playerFree;
         }
 
-        public void ProcessItem(Item toProcess)
+        public void ProcessItem()
         {
             //pesudo code:
             // character.playerFree.ProcessItem();

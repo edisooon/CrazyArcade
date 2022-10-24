@@ -29,7 +29,7 @@ namespace CrazyArcade.PlayerStateMachine
             //can't
         }
 
-        public void ProcessItem(Item toProcess)
+        public void ProcessItem()
         {
             //nope
         }
