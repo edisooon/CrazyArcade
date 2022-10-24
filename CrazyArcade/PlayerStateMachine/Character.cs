@@ -7,6 +7,10 @@ using Microsoft.Xna.Framework;
 
 namespace CrazyArcade.PlayerStateMachine
 {
+    /*
+     * State machine is implemented here
+     * 
+     */
 	public class Character: CharacterBase, IBombCollectable
     {
 		public SpriteAnimation[] spriteAnims;
@@ -37,6 +41,8 @@ namespace CrazyArcade.PlayerStateMachine
             playerState.ProcessState(time);
             base.Update(time);
         }
+
+        //@implement IPlayerCollisionBehavior
         public override void CollisionDestroyLogic()
         {
             if (this.playerState is CharacterStateBubble) return;
@@ -49,7 +55,7 @@ namespace CrazyArcade.PlayerStateMachine
 
         }
 
-
+        //@Implement IBombCollectable
         public void recollectBomb()
         {
             bombsOut = bombsOut-- >= 0 ? bombsOut-- : 0;
