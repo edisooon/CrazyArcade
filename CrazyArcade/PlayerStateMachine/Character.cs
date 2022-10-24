@@ -49,6 +49,8 @@ namespace CrazyArcade.PlayerStateMachine
 
         }
 
+        }
+
         public void recollectBomb()
         {
             bombsOut = bombsOut-- >= 0 ? bombsOut-- : 0;

@@ -9,6 +9,7 @@ namespace CrazyArcade.Blocks
 {
     public interface IPlayerCollidable
     {
+        //The rectangle that is collided with
         public Rectangle boundingBox {get;}
         public void CollisionLogic(Rectangle overlap, IPlayerCollisionBehavior collisionPartner);
     }

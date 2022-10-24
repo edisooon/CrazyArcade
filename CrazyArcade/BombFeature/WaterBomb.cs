@@ -21,6 +21,9 @@ namespace CrazyArcade.BombFeature
         float DetonateTime;
         Boolean characterHasLeft = false;
         private SpriteAnimation spriteAnims;
+        private static readonly Rectangle frame1 = new(11, 10, 42, 42);
+        private static readonly Rectangle frame2 = new(56, 10, 42, 42);
+        private static readonly Rectangle frame3 = new(97, 10, 46, 42);
         IBombCollectable owner;
         public override SpriteAnimation SpriteAnim => spriteAnims;
 
@@ -82,9 +85,9 @@ namespace CrazyArcade.BombFeature
         private static Rectangle[] GetAnimationFrames()
         {
             Rectangle[] NewFrames = new Rectangle[3];
-            NewFrames[0] = new Rectangle(11, 10, 42, 42);
-            NewFrames[1] = new Rectangle(56, 10, 42, 42);
-            NewFrames[2] = new Rectangle(97, 10, 46, 42);
+            NewFrames[0] = frame1;
+            NewFrames[1] = frame2;
+            NewFrames[2] = frame3;
             return NewFrames;
         }
         public override void Update(GameTime time)
