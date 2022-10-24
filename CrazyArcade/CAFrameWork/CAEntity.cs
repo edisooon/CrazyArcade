@@ -11,7 +11,6 @@ namespace CrazyArcade.CAFramework
 	{
 
         // for each entity, it has to have a position and animations of sprite
-        List<SpriteAnimation> spriteAnimList;
         public virtual List<SpriteAnimation> SpriteAnimList {
             get
             {

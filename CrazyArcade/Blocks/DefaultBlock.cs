@@ -11,7 +11,7 @@ using CrazyArcade.Content;
 
 namespace CrazyArcade.Blocks
 {
-    public abstract class DefaultBlock : Block, IBlock
+    public abstract class DefaultBlock : Block
     {
         public DefaultBlock(Rectangle destinationRectangle, Rectangle sourceRectangle) : base(destinationRectangle, sourceRectangle, Content.TextureSingleton.GetDesertBlocks())
         {
