@@ -107,10 +107,7 @@ namespace CrazyArcade.Levels
             {
                 levelNum--;
             }
-            else
-            {
-                levelNum = levelFiles.Length - 1;
-            }
+            
         }
 
         public void LeftClick()
@@ -121,10 +118,7 @@ namespace CrazyArcade.Levels
                 oldNum = levelNum;
                 levelNum++;
             }
-            else
-            {
-                levelNum = 0;
-            }
+            
         }
         public void AddSprite(IEntity sprite)
         {
