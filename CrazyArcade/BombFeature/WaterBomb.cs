@@ -54,10 +54,6 @@ namespace CrazyArcade.BombFeature
         private IExplosionDetector detector;
         public IExplosionDetector Detector { get => detector; set => detector = value; }
 
-        public int Distance => BlastLength;
-
-        public Point Center => new Point((int) GameCoord.X, (int) GameCoord.Y);
-
         private bool canExplode = true;
         public bool CanExplode => canExplode;
 
@@ -143,7 +139,7 @@ namespace CrazyArcade.BombFeature
         {
             canExplode = false;
             owner.recollectBomb();
-            return new Explosion(Center, Distance, this.SceneDelegate, this.trans);
+            return new Explosion(new Point((int)GameCoord.X, (int)GameCoord.Y), BlastLength, this.SceneDelegate, this.trans);
         }
 
         public void Collide(IExplosion bomb)
