@@ -49,9 +49,9 @@ namespace CrazyArcade.Levels
             currentLevel = new CreateLevel(levelName);
             this.Scene = scene;
             EntityList = new List<CAEntity>();
-            EntityList.Add(new PlayerCharacter(new DemoController(), Scene));
             LoadSprites();
             LoadBorder();
+            EntityList.Add(new PlayerCharacter(new DemoController(), Scene));
 
         }
         public void DrawLevel()
