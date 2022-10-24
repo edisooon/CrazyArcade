@@ -8,7 +8,7 @@ using CrazyArcade.Blocks;
 
 namespace CrazyArcade.Boss
 {
-	public class SunBossProjectile: CAEntity, IPlayerCollidable, IGridable, IProjectile
+	public class SunBossProjectile: CAEntity, IPlayerCollidable, IGridable
 	{
         float timeAdaptor = 4;
         ISceneDelegate sceneDelegate;
@@ -33,9 +33,10 @@ namespace CrazyArcade.Boss
         private SpriteAnimation animation;
         public override SpriteAnimation SpriteAnim => animation;
 
-        public Rectangle internalRectangle = new Rectangle(0, 0, 5, 5);
+        public Rectangle internalRectangle = new Rectangle(0, 0, 10, 10);
 
         public Rectangle boundingBox => internalRectangle;
+
         private Vector2 gamePos;
         private Vector2 pos;
         public Vector2 ScreenCoord
@@ -44,13 +45,21 @@ namespace CrazyArcade.Boss
             set
             {
                 pos = value;
-                this.X = (int)value.X;
-                this.Y = (int)value.Y;
+                this.UpdateCoord(value);
             }
         }
         public Vector2 GameCoord { get => gamePos; set => gamePos = value; }
+        private IGridTransform trans = new NullTransform();
+        public IGridTransform Trans { get => trans; set => trans = value; }
 
-        public Rectangle collideFrame => throw new NotImplementedException();
+        public void UpdateCoord(Vector2 value)
+        {
+            this.X = (int)value.X;
+            this.Y = (int)value.Y;
+            this.internalRectangle.X = (int)ScreenCoord.X;
+            this.internalRectangle.Y = (int)ScreenCoord.Y;
+        }
+
 
         public override void Load()
         {
@@ -59,10 +68,6 @@ namespace CrazyArcade.Boss
         public override void Update(GameTime time)
         {
             timer.Update(time.TotalGameTime);
-            gamePos.X += speed.X * timer.FrameDiff.Milliseconds / timeAdaptor;
-            gamePos.Y += speed.Y * timer.FrameDiff.Milliseconds / timeAdaptor;
-            this.internalRectangle.X = (int)gamePos.X;
-            this.internalRectangle.Y = (int)gamePos.Y;
             gamePos.X += speed.X * timer.FrameDiff.Milliseconds / timeAdaptor;
             gamePos.Y += speed.Y * timer.FrameDiff.Milliseconds / timeAdaptor;
             if (timer.TotalMili > 1500)

@@ -54,17 +54,18 @@ namespace CrazyArcade.Levels
                 EntityList.Add(new SandBlock(Destination));
             }
 
-           
+
             itemLocations = Level0.GetItemLocation(LoadLevel.LevelItem.LightSandPosition);
-         
+
             foreach (Vector2 vector in itemLocations)
             {
                 Debug.WriteLine(vector.Y);
                 Destination = new Rectangle((int)vector.X, (int)vector.Y, size, size);
+                Console.Out.WriteLine(Destination);
                 EntityList.Add(new LightSandBlock(Destination));
             }
             itemLocations = Level0.GetItemLocation(LoadLevel.LevelItem.StonePosition);
-        
+
             foreach (Vector2 vector in itemLocations)
             {
                 Debug.WriteLine(vector.Y);
@@ -74,59 +75,59 @@ namespace CrazyArcade.Levels
 
 
             itemLocations = Level0.GetItemLocation(LoadLevel.LevelItem.CoinBagPosition);
-        
+
             foreach (Vector2 vector in itemLocations)
             {
                 Debug.WriteLine(vector.Y);
                 Destination = new Rectangle((int)vector.X, (int)vector.Y, size, size);
                 EntityList.Add(new CoinBag(Destination));
             }
-     
+
             itemLocations = Level0.GetItemLocation(LoadLevel.LevelItem.BalloonPosition);
-        
+
             foreach (Vector2 vector in itemLocations)
             {
-               
+
                 Destination = new Rectangle((int)vector.X, (int)vector.Y, size, size);
                 EntityList.Add(new Balloon(Destination));
             }
-         
+
             itemLocations = Level0.GetItemLocation(LoadLevel.LevelItem.SneakerPosition);
-        
+
             foreach (Vector2 vector in itemLocations)
             {
-      
+
                 Destination = new Rectangle((int)vector.X, (int)vector.Y, size, size);
                 EntityList.Add(new Sneaker(Destination));
             }
-            
+
             itemLocations = Level0.GetItemLocation(LoadLevel.LevelItem.TurtlePosition);
-        
+
             foreach (Vector2 vector in itemLocations)
             {
                 Debug.WriteLine(vector.Y);
                 Destination = new Rectangle((int)vector.X, (int)vector.Y, size, size);
                 EntityList.Add(new Turtle(Destination));
             }
-           
+
             itemLocations = Level0.GetItemLocation(LoadLevel.LevelItem.PotionPosition);
-        
+
             foreach (Vector2 vector in itemLocations)
             {
                 Debug.WriteLine(vector.Y);
                 Destination = new Rectangle((int)vector.X, (int)vector.Y, size, size);
                 EntityList.Add(new Potion(Destination));
             }
-           
+
             itemLocations = Level0.GetItemLocation(LoadLevel.LevelItem.CoinPosition);
-        
+
             foreach (Vector2 vector in itemLocations)
             {
                 Debug.WriteLine(vector.Y);
                 Destination = new Rectangle((int)vector.X, (int)vector.Y, size, size);
                 EntityList.Add(new Coin(Destination));
             }
-            
+
             itemLocations = Level0.GetItemLocation(LoadLevel.LevelItem.BombPosition);
 
             foreach (Vector2 vector in itemLocations)
