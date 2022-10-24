@@ -5,10 +5,9 @@ using Microsoft.Xna.Framework;
 
 namespace CrazyArcade.Boss
 {
-	public interface IStates
-	{
-		IStates Update(GameTime time);
+    public interface IStates
+    {
+        IStates Update(GameTime time);
         public List<SpriteAnimation> Animation { get; }
     }
 }
-

@@ -29,12 +29,14 @@ namespace CrazyArcade.PlayerStateMachine
 
         public PlayerBubble(Character player, CAScene scene)
         {
-            
+
             this.player = player;
             this.scene = scene;
             bubbleInt = 0;
-            GameCoord = new Vector2(player.GameCoord.X + bubbleCenter.X, player.GameCoord.Y + bubbleCenter.Y);
-            //Note, there is a way to do this within the animation system, however changes are being made straight to the code itself for
+            X = player.X + bubbleCenter.X;
+            Y = player.Y + bubbleCenter.Y;
+            //Note, there is a way to do this within the animation system,
+            //however changes are being made straight to the code itself for
             //reasons of time constraints.
             currentBubble = new SpriteAnimation[3];
             currentBubble[0] = new SpriteAnimation(TextureSingleton.GetBubble(), 0, 0, bubbleWidthHeight, bubbleWidthHeight, bubbleGrowFrames, 0, bubbleFPS);
@@ -52,8 +54,8 @@ namespace CrazyArcade.PlayerStateMachine
                 Pop();
                 return;
             }
-            GameCoord = new Vector2(player.GameCoord.X + bubbleCenter.X, player.GameCoord.Y + bubbleCenter.Y);
-
+            X = player.X + bubbleCenter.X;
+            Y = player.Y + bubbleCenter.Y;
         }
 
         public override SpriteAnimation SpriteAnim => currentBubble[bubbleInt];

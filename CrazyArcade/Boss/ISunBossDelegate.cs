@@ -4,8 +4,8 @@ using Microsoft.Xna.Framework;
 
 namespace CrazyArcade.Boss
 {
-	public interface ISunBossDelegate
-	{
+    public interface ISunBossDelegate
+    {
         bool DidGetDemaged();
         Vector2 GetCharacterRelativePosition();
         Vector2 GetCharacterPosition();
@@ -14,4 +14,3 @@ namespace CrazyArcade.Boss
         Vector2 GetCenter();
     }
 }
-

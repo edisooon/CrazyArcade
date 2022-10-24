@@ -10,7 +10,8 @@ namespace CrazyArcade.Boss
         protected ITimer timer;
         protected ISunBossDelegate bossDelegate;
         public abstract List<SpriteAnimation> Animation { get; }
-        public SunBossStates(ISunBossDelegate bossDelegate, GameTime time) {
+        public SunBossStates(ISunBossDelegate bossDelegate, GameTime time)
+        {
             this.bossDelegate = bossDelegate;
             timer = new CATimer(time.TotalGameTime);
         }
@@ -22,4 +23,3 @@ namespace CrazyArcade.Boss
         }
     }
 }
-

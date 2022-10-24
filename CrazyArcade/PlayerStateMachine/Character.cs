@@ -11,9 +11,9 @@ namespace CrazyArcade.PlayerStateMachine
      * State machine is implemented here
      * 
      */
-	public class Character: CharacterBase, IBombCollectable
+    public class Character : CharacterBase, IBombCollectable
     {
-		public SpriteAnimation[] spriteAnims;
+        public SpriteAnimation[] spriteAnims;
         public CAScene parentScene;
         public ICharacterState playerState;
         public int animationHandleInt;
@@ -62,4 +62,3 @@ namespace CrazyArcade.PlayerStateMachine
         }
     }
 }
-

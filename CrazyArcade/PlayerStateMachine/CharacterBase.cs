@@ -26,7 +26,7 @@ namespace CrazyArcade.Demo1
         //----------IGridable Start------------
         private Vector2 gamePos;
         private Vector2 pos;
-        public Vector2 ScreenCoord 
+        public Vector2 ScreenCoord
         {
             get => pos;
             set
@@ -37,14 +37,14 @@ namespace CrazyArcade.Demo1
         }
         public void UpdateCoord(Vector2 value)
         {
-            //this.X = (int)value.X;
-            //this.Y = (int)value.Y;
-            //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-            //GameCoord = new Vector2(value.X,value.Y);
+            this.X = (int)value.X;
+            this.Y = (int)value.Y;
         }
-        public Vector2 GameCoord {
+        public Vector2 GameCoord
+        {
             get => gamePos;
-            set {
+            set
+            {
                 gamePos = value;
                 ScreenCoord = trans.Trans(value);
             }
@@ -62,8 +62,8 @@ namespace CrazyArcade.Demo1
         {
             moveInputs = new(0, 0);
             CurrentSpeed = new(0, 0);
-            blockBoundingBox.X = bboxOffset.X + (int)GameCoord.X;
-            blockBoundingBox.Y = bboxOffset.Y + (int)GameCoord.Y;
+            blockBoundingBox.X = bboxOffset.X + X;
+            blockBoundingBox.Y = bboxOffset.Y + Y;
         }
 
         public void UpdatePosition()

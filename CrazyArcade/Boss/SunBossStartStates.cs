@@ -5,9 +5,9 @@ using Microsoft.Xna.Framework;
 
 namespace CrazyArcade.Boss
 {
-	public class SunBossStartStates: SunBossStates
-	{
-		public SunBossStartStates(ISunBossDelegate bossDelegate, GameTime time): base(bossDelegate, time)
+    public class SunBossStartStates : SunBossStates
+    {
+        public SunBossStartStates(ISunBossDelegate bossDelegate, GameTime time) : base(bossDelegate, time)
         {
 
             animation = new List<SpriteAnimation>();
@@ -23,4 +23,3 @@ namespace CrazyArcade.Boss
         }
     }
 }
-

@@ -1,6 +1,4 @@
-﻿
-
-using CrazyArcade.CAFramework;
+﻿using CrazyArcade.CAFramework;
 using CrazyArcade.Content;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
@@ -44,7 +42,7 @@ namespace CrazyArcade.PlayerStateMachine
         {
             character.CalculateMovement();
             character.UpdatePosition();
-            
+
             if (elapsedTime > popTime)
             {
                 character.playerState = new CharacterStateFree(character);

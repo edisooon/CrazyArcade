@@ -6,16 +6,16 @@ using CrazyArcade.GameGridSystems;
 
 namespace CrazyArcade.Boss
 {
-	public class SunBoss: CAEntity, ISunBossDelegate, IGridable
-	{
+    public class SunBoss : CAEntity, ISunBossDelegate, IGridable
+    {
 
         ISceneDelegate sceneDelegate;
-        private float unitSize = 44/40;
+        private float unitSize = 44 / 40;
         public SunBoss(ISceneDelegate sceneDelegate)
-		{
+        {
             this.sceneDelegate = sceneDelegate;
             this.GameCoord = new Vector2(5, 5);
-		}
+        }
 
         IStates states;
         public override List<SpriteAnimation> SpriteAnimList => states.Animation;
@@ -28,7 +28,8 @@ namespace CrazyArcade.Boss
             set
             {
                 pos = value;
-                GameCoord = value;
+                this.X = (int)value.X;
+                this.Y = (int)value.Y;
             }
         }
         public Vector2 GameCoord { get => gamePos; set => gamePos = value; }
@@ -82,4 +83,3 @@ namespace CrazyArcade.Boss
         }
     }
 }
-

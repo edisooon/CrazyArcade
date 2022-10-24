@@ -8,14 +8,14 @@ using CrazyArcade.Blocks;
 
 namespace CrazyArcade.Boss
 {
-	public class SunBossProjectile: CAEntity, IPlayerCollidable, IGridable
-	{
+    public class SunBossProjectile : CAEntity, IPlayerCollidable, IGridable
+    {
         float timeAdaptor = 4;
         ISceneDelegate sceneDelegate;
         ITimer timer;
         private Vector2 speed;
         public SunBossProjectile(ISceneDelegate sceneDelegate, Vector2 speed, Vector2 position, ITimer timer)
-		{
+        {
             this.sceneDelegate = sceneDelegate;
             this.timer = timer;
             this.gamePos.Y = position.Y;
@@ -54,7 +54,8 @@ namespace CrazyArcade.Boss
 
         public void UpdateCoord(Vector2 value)
         {
-            GameCoord = value;
+            this.X = (int)value.X;
+            this.Y = (int)value.Y;
             this.internalRectangle.X = (int)ScreenCoord.X;
             this.internalRectangle.Y = (int)ScreenCoord.Y;
         }
@@ -81,4 +82,3 @@ namespace CrazyArcade.Boss
         }
     }
 }
-

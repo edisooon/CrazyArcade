@@ -31,8 +31,8 @@ namespace CrazyArcade.CAFramework
         }
         private int x;
         private int y;
-        private int X { get => x; set => x = value; }
-        private int Y { get => y; set => y = value; }
+        public virtual int X { get => x; set => x = value; }
+        public virtual int Y { get => y; set => y = value; }
         private Vector2 gamePos;
         private Vector2 pos;
 
