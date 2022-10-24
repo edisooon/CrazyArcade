@@ -4,10 +4,11 @@ using CrazyArcade.CAFramework;
 using CrazyArcade.Demo1;
 using CrazyArcade.GameGridSystems;
 using Microsoft.Xna.Framework;
+using CrazyArcade.Items;
 
 namespace CrazyArcade.PlayerStateMachine
 {
-    public abstract class Character : CharacterBase, IBombCollectable
+    public abstract class Character : CharacterBase, IBombCollectable, IItemCollidable
     {
 		public SpriteAnimation[] spriteAnims;
         public CAScene parentScene;
