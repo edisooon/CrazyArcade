@@ -11,9 +11,6 @@ namespace CrazyArcade.Demo1
 {
     public class OctopusEnemy : Enemy
     {
-        private int size;
-        float timer;
-        float threshold;
         private Texture2D texture;
         private Color tint;
         public Rectangle outputFrame1;
@@ -40,9 +37,6 @@ namespace CrazyArcade.Demo1
 
         public override void Load()
         {
-            size = 95;
-            timer = 0;
-            threshold = 120;
             texture = TextureSingleton.GetOctoBoss();
             tint = Color.White;
         }

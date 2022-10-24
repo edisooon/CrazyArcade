@@ -30,14 +30,6 @@ namespace CrazyArcade.Demo1
 
         Point position = new Point(100, 100);
 
-        //public override Texture2D Texture => Singletons.SpriteSheet.Character;
-
-        //public override Rectangle InputFrame => new Rectangle(0, 67, 56, 67);
-
-        //public override Rectangle OutputFrame => new Rectangle(position.X, position.Y, 56, 67);
-
-        //public override Color Tint => Color.White;
-
         public override SpriteAnimation SpriteAnim => throw new NotImplementedException();
 
         public void KeyDown()

@@ -36,7 +36,10 @@ namespace CrazyArcade.Content
                 spriteSheets[i] = content.Load<Texture2D>(fileNames[i]);
             }
         }
-        
+        public static Texture2D GetNull()
+        {
+            return spriteSheets[0];
+        }
         public static Texture2D GetBallons()
         {
             return spriteSheets[0];

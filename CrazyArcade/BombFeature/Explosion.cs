@@ -1,5 +1,6 @@
 ﻿using System;
 using CrazyArcade.CAFramework;
+using CrazyArcade.GameGridSystems;
 using Microsoft.Xna.Framework;
 
 namespace CrazyArcade.BombFeature
@@ -8,18 +9,47 @@ namespace CrazyArcade.BombFeature
 	{
 		private int distance;
 		private Point center;
-		public Explosion(Point center, int distance)
-		{
-			this.center = center;
-			this.distance = distance;
-		}
-
         public int Distance => distance;
-
         public Point Center => center;
 
-        public override void Load()
+        private Vector2 gamePos;
+        private Vector2 pos;
+        public Vector2 ScreenCoord
         {
+            get => pos;
+            set
+            {
+                pos = value;
+                this.UpdateCoord(value);
+            }
+        }
+        public void UpdateCoord(Vector2 value)
+        {
+            this.X = (int)value.X;
+            this.Y = (int)value.Y;
+        }
+        private IGridTransform trans = new NullTransform();
+        public IGridTransform Trans { get => trans; set => trans = value; }
+        public Vector2 GameCoord {
+            get => gamePos;
+            set {
+                gamePos = value;
+                ScreenCoord = Trans.Trans(value);
+            }
+        }
+
+        public Explosion(Point center, int distance, ISceneDelegate sceneDelegate, IGridTransform trans)
+		{
+            this.trans = trans;
+            this.GameCoord = new Vector2(center.X, center.Y);
+            this.SceneDelegate = sceneDelegate;
+			this.center = center;
+			this.distance = distance;
+            explodeEdges();
+        }
+
+		public void explodeEdges()
+		{
             int explosionTile = 40;
             Vector2 side = new Vector2(0, 0);
             SceneDelegate.ToAddEntity(new WaterExplosionCenter(X, Y));
@@ -45,6 +75,12 @@ namespace CrazyArcade.BombFeature
                     SceneDelegate.ToAddEntity(new WaterExplosionEdge(i, j == distance, (int)(X + (j * side.X * explosionTile)), (int)(Y + (j * side.Y * explosionTile))));
                 }
             }
+        }
+
+
+        public override void Load()
+        {
+
         }
     }
 }

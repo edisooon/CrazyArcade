@@ -14,7 +14,7 @@ namespace CrazyArcade.PlayerStateMachine
         public ICharacterState playerState;
         public int animationHandleInt;
         public int currentBlastLength;
-        public int bombCapacity = 1;
+        public int bombCapacity = 4;
         public int bombsOut;
 
         public override SpriteAnimation SpriteAnim => spriteAnims[animationHandleInt];
@@ -48,6 +48,7 @@ namespace CrazyArcade.PlayerStateMachine
         {
 
         }
+
 
         public void recollectBomb()
         {

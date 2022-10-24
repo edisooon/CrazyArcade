@@ -14,13 +14,16 @@ using System.Threading.Tasks;
 
 namespace CrazyArcade.BombFeature
 {
-    public class WaterBomb : CAEntity, IPlayerCollidable, IGridable
+    public class WaterBomb : CAEntity, IPlayerCollidable, IExplosionCollidable, IExplodable
     {
         int BlastLength;
         float DetonateTimer;
         float DetonateTime;
         Boolean characterHasLeft = false;
         private SpriteAnimation spriteAnims;
+        private static readonly Rectangle frame1 = new(11, 10, 42, 42);
+        private static readonly Rectangle frame2 = new(56, 10, 42, 42);
+        private static readonly Rectangle frame3 = new(97, 10, 46, 42);
         IBombCollectable owner;
         public override SpriteAnimation SpriteAnim => spriteAnims;
 
@@ -51,8 +54,18 @@ namespace CrazyArcade.BombFeature
         }
 
         public Vector2 GameCoord { get => gamePos; set => gamePos = value; }
+        private IExplosionDetector detector;
+        public IExplosionDetector Detector { get => detector; set => detector = value; }
+
+        public int Distance => BlastLength;
+
+        public Point Center => new Point((int) GameCoord.X, (int) GameCoord.Y);
+
+        private bool canExplode = true;
+        public bool CanExplode => canExplode;
 
         private Rectangle[] AnimationFrames;
+        
         public WaterBomb(Vector2 grid, int BlastLength, IBombCollectable character)
         {
 
@@ -72,9 +85,9 @@ namespace CrazyArcade.BombFeature
         private static Rectangle[] GetAnimationFrames()
         {
             Rectangle[] NewFrames = new Rectangle[3];
-            NewFrames[0] = new Rectangle(11, 10, 42, 42);
-            NewFrames[1] = new Rectangle(56, 10, 42, 42);
-            NewFrames[2] = new Rectangle(97, 10, 46, 42);
+            NewFrames[0] = frame1;
+            NewFrames[1] = frame2;
+            NewFrames[2] = frame3;
             return NewFrames;
         }
         public override void Update(GameTime time)
@@ -96,39 +109,11 @@ namespace CrazyArcade.BombFeature
             {
                 DeleteSelf();
                 owner.recollectBomb();
-                CreateExplosion();
+                detector.Ignite(this);
             }
             else
             {
                 DetonateTime += (float)time.ElapsedGameTime.TotalMilliseconds;
-            }
-        }
-        private void CreateExplosion()
-        {
-            int explosionTile = 40;
-            Vector2 side = new Vector2(0, 0);
-            SceneDelegate.ToAddEntity(new WaterExplosionCenter(X, Y));
-            for (int i = 0; i < 4; i++)
-            {
-                switch (i)
-                {
-                    case 0:
-                        side = new Vector2(0, -1);
-                        break;
-                    case 1:
-                        side = new Vector2(0, 1);
-                        break;
-                    case 2:
-                        side = new Vector2(-1, 0);
-                        break;
-                    case 3:
-                        side = new Vector2(1, 0);
-                        break;
-                }
-                for (int j = 1; j <= BlastLength; j++)
-                {
-                    SceneDelegate.ToAddEntity(new WaterExplosionEdge(i, j == BlastLength, (int) (X + (j*side.X*explosionTile)), (int) (Y + (j*side.Y * explosionTile))));
-                }
             }
         }
 
@@ -155,6 +140,18 @@ namespace CrazyArcade.BombFeature
                 if (X < collisionPartner.blockCollisionBoundingBox.X) modifier = -1;
                 collisionPartner.CollisionHaltLogic(new Point(modifier * overlap.Width, 0));
             }
+        }
+
+        public IExplosion explode()
+        {
+            canExplode = false;
+            owner.recollectBomb();
+            return new Explosion(Center, Distance, this.SceneDelegate, this.trans);
+        }
+
+        public void Collide(IExplosion bomb)
+        {
+            detector.Ignite(this);
         }
     }
 }

@@ -14,6 +14,8 @@ using Microsoft.Xna.Framework.Input;
 
 namespace CrazyArcade.Blocks
 {
+    //The purpose of this interface is to group together all blocks in the future. All code contained within must apply to all blocks, and changes can be 
+    //Made in the future to enforce this. As of now however, it's purpose is to have an easy way to catagorise all blocks as this.
     public interface IBlock : IEntity
     {
 
@@ -78,8 +80,6 @@ namespace CrazyArcade.Blocks
 
         public void CollisionLogic(Rectangle overlap, IPlayerCollisionBehavior collisionPartner)
         {
-            Debug.WriteLine(overlap.Width);
-            Debug.WriteLine(overlap.Height);
             int modifier = 1;
             if (overlap.Width > overlap.Height)
             {
