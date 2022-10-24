@@ -116,7 +116,6 @@ namespace CrazyArcade.BombFeature
                 DetonateTime += (float)time.ElapsedGameTime.TotalMilliseconds;
             }
         }
-       
 
         public void updateCharacterHasLeft()
         {
