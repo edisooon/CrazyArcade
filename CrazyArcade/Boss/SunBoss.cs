@@ -33,6 +33,8 @@ namespace CrazyArcade.Boss
             }
         }
         public Vector2 GameCoord { get => gamePos; set => gamePos = value; }
+        private IGridTransform trans = new NullTransform();
+        public IGridTransform Trans { get => trans; set => trans = value; }
 
         public override void Load()
         {
