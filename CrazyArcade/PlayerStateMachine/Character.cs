@@ -55,11 +55,26 @@ namespace CrazyArcade.PlayerStateMachine
             bombsOut = bombsOut-- >= 0 ? bombsOut-- : 0;
         }
 
-        public abstract void IncreaseBlastLength();
-        public abstract void SwitchToMountedState();
-        public abstract void IncreaseSpeed();
-        public abstract void IncreaseBombCount();
-        public abstract void AddCoin(int toAdd);
+        public void IncreaseBlastLength()
+        {
+            this.currentBlastLength++;
+        }
+        public void SwitchToMountedState()
+        {
+            this.playerState.ProcessRide();
+        }
+        public void IncreaseSpeed()
+        {
+            this.ModifiedSpeed++;
+        }
+        public void IncreaseBombCount()
+        {
+            this.bombCapacity++;
+        }
+        public void AddCoin(int toAdd)
+        {
+
+        }
     }
 }
 
