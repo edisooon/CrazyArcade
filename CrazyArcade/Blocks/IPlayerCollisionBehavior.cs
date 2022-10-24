@@ -13,7 +13,9 @@ namespace CrazyArcade.Blocks
     //the objects that collide with the blocks.
     public interface IPlayerCollisionBehavior
     {
+        //The rectangle that detects the collision
         public Rectangle blockCollisionBoundingBox { get; }
+        //The code that is executed when a collision is detected. (Called by the block)
         public void CollisionHaltLogic(Point amountMoved);
         public void CollisionDestroyLogic();
         public bool Active { get; set; }

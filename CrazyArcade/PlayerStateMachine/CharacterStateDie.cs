@@ -5,13 +5,13 @@ using Microsoft.Xna.Framework;
 
 namespace CrazyArcade.PlayerStateMachine
 {
-    public class PlayerStateNew : ICharacterState
+    public class CharacterStateDie : ICharacterState
     {
-        SpriteAnimation[] start;
-        public PlayerStateNew()
+        SpriteAnimation[] die;
+        public CharacterStateDie()
         {
-            start = new SpriteAnimation[1];
-            start[0] = new SpriteAnimation(TextureSingleton.GetPlayer1(), 10, 7, 527, 480, 64, 10);
+            die = new SpriteAnimation[1];
+            die[0] = new SpriteAnimation(TextureSingleton.GetPlayer1(), 11, 7, 275, 531, 108, 10);
         }
 
         public void ProcessAttaction()
@@ -41,7 +41,7 @@ namespace CrazyArcade.PlayerStateMachine
 
         public SpriteAnimation[] SetSprites()
         {
-            return start;
+            return die;
         }
     }
 }

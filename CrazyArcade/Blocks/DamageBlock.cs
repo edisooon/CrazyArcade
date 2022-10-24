@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace CrazyArcade.Blocks
 {
-    public abstract class DamageBlock : Block, IBlock
+    public abstract class DamageBlock : Block
     {
         public DamageBlock(Rectangle destinationRectangle, Rectangle sourceRectangle) : base(destinationRectangle, sourceRectangle, Content.TextureSingleton.GetDesertBlocks())
         {

@@ -51,6 +51,7 @@ namespace CrazyArcade.CAFramework
                 {
                     (system as IControllable).Controller.Update(time);
                 }
+                UpdateSprite(time);
             }
             
         }
@@ -68,11 +69,23 @@ namespace CrazyArcade.CAFramework
             LoadSystems();
             LoadSprites();
         }
-
+        public void UpdateSprite(GameTime time)
+        {
+            foreach (IEntity removeSprite in removeEntities)
+            {
+                this.RemoveSprite(removeSprite);
+            }
+            foreach (IEntity addSprite in newEntities)
+            {
+                this.AddSprite(addSprite);
+            }
+            removeEntities.Clear();
+            newEntities.Clear();
+        }
         public void AddSprite(IEntity sprite)
         {
-            sprite.Load();
             sprite.SceneDelegate = this;
+            sprite.Load();
             foreach (IGameSystem system in systems)
             {
                 system.AddSprite(sprite);
@@ -101,12 +114,12 @@ namespace CrazyArcade.CAFramework
 
         public void ToAddEntity(IEntity entity)
         {
-            AddSprite(entity);
+            newEntities.Add(entity);
         }
 
         public void ToRemoveEntity(IEntity entity)
         {
-            RemoveSprite(entity);
+            removeEntities.Add(entity);
         }
     }
 }

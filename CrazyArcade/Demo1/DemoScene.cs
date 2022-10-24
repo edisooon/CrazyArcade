@@ -29,6 +29,8 @@ namespace CrazyArcade.Demo1
             //this.systems.Add(new BlockCollisionSystem());
             this.systems.Add(new CAControllerSystem());
             this.systems.Add(new CAGameLogicSystem());
+
+            this.systems.Add(new BombCollisionSystem(this));
             //Added to the demo scene file in order to test the functionality of the code
             this.systems.Add(new PlayerCollisionSystem());
             
@@ -40,12 +42,8 @@ namespace CrazyArcade.Demo1
 
         public override void LoadSprites()
         {
-            
-            //Console.Out.Write("added Boss");
-            //this.AddSprite(new DemoCharacter(new DemoController()));
-            //this.AddSprite(new BombEnemySprite(100,100));
-            //this.AddSprite(new PlayerCharacter(new DemoController(), this));
-
+            //This may not be neccessary
+            this.AddSprite(new PlayerCharacter(new DemoController(), this));
         }
 
     }
