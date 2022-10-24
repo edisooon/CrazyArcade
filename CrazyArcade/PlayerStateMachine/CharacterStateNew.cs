@@ -6,13 +6,13 @@ using CrazyArcade.Items;
 
 namespace CrazyArcade.PlayerStateMachine
 {
-    public class PlayerStateDie : ICharacterState
+    public class CharacterStateNew : ICharacterState
     {
-        SpriteAnimation[] die;
-        public PlayerStateDie()
+        SpriteAnimation[] start;
+        public CharacterStateNew()
         {
-            die = new SpriteAnimation[1];
-            die[0] = new SpriteAnimation(TextureSingleton.GetPlayer1(), 11, 7, 275, 531, 108, 10);
+            start = new SpriteAnimation[1];
+            start[0] = new SpriteAnimation(TextureSingleton.GetPlayer1(), 10, 7, 527, 480, 64, 10);
         }
 
         public void ProcessAttaction()
@@ -42,7 +42,7 @@ namespace CrazyArcade.PlayerStateMachine
 
         public SpriteAnimation[] SetSprites()
         {
-            return die;
+            return start;
         }
     }
 }

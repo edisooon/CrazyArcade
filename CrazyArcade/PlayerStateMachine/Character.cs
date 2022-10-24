@@ -1,59 +1,58 @@
 ﻿using System;
-
-using CrazyArcade.CAFramework.Controller;
-using CrazyArcade.Singletons;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Input;
+using CrazyArcade.BombFeature;
 using CrazyArcade.CAFramework;
-using CrazyArcade.Blocks;
-using System.Diagnostics;
-using CrazyArcade.Items;
+using CrazyArcade.Demo1;
+using CrazyArcade.GameGridSystems;
+using Microsoft.Xna.Framework;
 
-namespace CrazyArcade.Demo1
+namespace CrazyArcade.PlayerStateMachine
 {
-    public abstract class Character : CAEntity, IBlockCollidable, IItemCollidable
+    public abstract class Character : CharacterBase, IBombCollectable
     {
+		public SpriteAnimation[] spriteAnims;
+        public CAScene parentScene;
+        public ICharacterState playerState;
+        public int animationHandleInt;
+        public int currentBlastLength;
+        public int bombCapacity = 4;
+        public int bombsOut;
 
-        public float DefaultSpeed = 5;
-        public float ModifiedSpeed;
-        public Vector2 CurrentSpeed = new(0, 0);
-        public Dir direction = Dir.Down;
-        public int defaultBlastLength = 1;
-        public Vector2 moveInputs = new(0, 0);
-        protected Rectangle blockBoundingBox = new Rectangle(0, 0, 42, 56);
-        protected Point bboxOffset = new Point(0, 0);
-        protected bool blockBboxOn = true;
+        public override SpriteAnimation SpriteAnim => spriteAnims[animationHandleInt];
 
-        public Rectangle blockCollisionBoundingBox => blockBoundingBox;
-
-        public bool Active { get => blockBboxOn; set { blockBboxOn = value; } }
-
-
+        public Character(CAScene scene)
+        {
+            ModifiedSpeed = DefaultSpeed;
+            playerState = new CharacterStateFree(this);
+            spriteAnims = playerState.SetSprites();
+            playerState.SetSpeed();
+            direction = Dir.Down;
+            this.parentScene = scene;
+            bombsOut = 0;
+            GameCoord = new Vector2(3, 3);
+            currentBlastLength = defaultBlastLength;
+            //this.bboxOffset = new Point(20, 20);
+        }
         public override void Update(GameTime time)
         {
+            playerState.ProcessState(time);
+            base.Update(time);
+        }
+        public override void CollisionDestroyLogic()
+        {
+            if (this.playerState is CharacterStateBubble) return;
+            this.playerState = new CharacterStateBubble(this);
+            this.spriteAnims = this.playerState.SetSprites();
+            this.playerState.SetSpeed();
+        }
+        public override void Load()
+        {
 
-            moveInputs = new(0, 0);
-            CurrentSpeed = new(0, 0);
-            blockBoundingBox.X = bboxOffset.X + X;
-            blockBoundingBox.Y = bboxOffset.Y + Y;
         }
 
-        public void UpdatePosition()
-        {
-            X += (int)CurrentSpeed.X;
-            Y += (int)CurrentSpeed.Y;
-        }
 
-        public void CalculateMovement()
+        public void recollectBomb()
         {
-            CurrentSpeed = moveInputs * ModifiedSpeed;
-        }
-
-        public void CollisionHaltLogic(Point move)
-        {
-            X -= move.X;
-            Y -= move.Y;
+            bombsOut = bombsOut-- >= 0 ? bombsOut-- : 0;
         }
 
         public abstract void IncreaseBlastLength();
@@ -63,3 +62,4 @@ namespace CrazyArcade.Demo1
         public abstract void AddCoin(int toAdd);
     }
 }
+

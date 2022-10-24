@@ -6,13 +6,13 @@ using CrazyArcade.Items;
 
 namespace CrazyArcade.PlayerStateMachine
 {
-    public class PlayerStateRides : ICharacterState
+    public class CharacterStateRides : ICharacterState
     {
         int turtleSpeed = 2;
         public SpriteAnimation[] spriteAnims;
         private PlayerCharacter character;
 
-        public PlayerStateRides(PlayerCharacter character)
+        public CharacterStateRides(PlayerCharacter character)
         {
             spriteAnims = new SpriteAnimation[4];
             spriteAnims[0] = new SpriteAnimation(TextureSingleton.GetRides(), 12, 4, 4, 96, 32, 3);

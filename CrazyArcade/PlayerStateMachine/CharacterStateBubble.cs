@@ -11,13 +11,13 @@ using System.Threading.Tasks;
 
 namespace CrazyArcade.PlayerStateMachine
 {
-    public class PlayerStateBubble : ICharacterState
+    public class CharacterStateBubble : ICharacterState
     {
-        private PlayerCharacter character;
+        private Character character;
         private PlayerBubble bubble;
         private float elapsedTime = 0f;
         private float popTime = 3000f;
-        public PlayerStateBubble(PlayerCharacter character)
+        public CharacterStateBubble(Character character)
         {
             this.character = character;
             character.animationHandleInt = 0;
@@ -46,7 +46,7 @@ namespace CrazyArcade.PlayerStateMachine
             
             if (elapsedTime > popTime)
             {
-                character.playerState = new PlayerStateFree(character);
+                character.playerState = new CharacterStateFree(character);
                 character.spriteAnims = character.playerState.SetSprites();
                 bubble.bubbleInt = 2;
                 character.playerState.SetSpeed();

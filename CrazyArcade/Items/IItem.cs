@@ -10,32 +10,22 @@ using Microsoft.Xna.Framework;
 
 namespace CrazyArcade.Items
 {
+    //Interface made to catagorise those that implement it, items
     public interface IItem : IEntity
     {
-        //void Update(GameTime time, Rectangle rectangle, int fps);
+        
     }
     public abstract class Item : Block, IItem, IItemCollision
     {
-        //Rectangle[] frames;
-        //Rectangle current;
-        public Rectangle hitbox;
+
         public Item(Rectangle destination, Rectangle source, Texture2D texture, int frames, int fps) : base(destination, source, texture, frames, fps)
         {
             spriteAnimation = new SpriteAnimation(texture, frames, fps);
             this.X = destination.X;
             this.Y = destination.Y;
-            this.hitbox = destination;
-            //frames = sources;
-            //current = frames[0];
+
         }
-        public abstract void CollisionLogic(IItemCollidable collisionPartner);
-        /**public void Update(GameTime time, Rectangle rectangle, int fps = 5) {
-            int millisec = (int)((int)time.ElapsedGameTime.TotalMilliseconds);
-            int milliPure = millisec - ((int)time.ElapsedGameTime.TotalSeconds);
-            int durationPerFrame = 1000 / fps;
-            int currentFrame = milliPure / durationPerFrame;
-            current = frames[currentFrame];
-        }**/
+
         public override SpriteAnimation SpriteAnim => this.spriteAnimation;
         public Rectangle itemHitbox => this.hitbox;
 

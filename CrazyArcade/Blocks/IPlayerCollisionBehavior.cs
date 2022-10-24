@@ -11,10 +11,13 @@ namespace CrazyArcade.Blocks
     //there is not a ton of entity orginizaion in the folder hirearchy.
     //Keep in mind that blocks do not utelize the code below themselves, rather,
     //the objects that collide with the blocks.
-    public interface IBlockCollidable
+    public interface IPlayerCollisionBehavior
     {
+        //The rectangle that detects the collision
         public Rectangle blockCollisionBoundingBox { get; }
+        //The code that is executed when a collision is detected. (Called by the block)
         public void CollisionHaltLogic(Point amountMoved);
+        public void CollisionDestroyLogic();
         public bool Active { get; set; }
     }
 }

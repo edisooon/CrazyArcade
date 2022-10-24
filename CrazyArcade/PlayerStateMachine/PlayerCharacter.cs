@@ -16,18 +16,6 @@ namespace CrazyArcade.PlayerStateMachine
 {
     public class PlayerCharacter : Character, IControllable
     {
-        private IController controller;
-        public SpriteAnimation[] spriteAnims;
-        public CAScene parentScene;
-        public ICharacterState playerState;
-        public int animationHandleInt;
-        public int currentBlastLength;
-        public int bombCapacity = 1;
-        public int bombsOut;
-        public int coins;
-
-        public override SpriteAnimation SpriteAnim => spriteAnims[animationHandleInt];
-
         public IController Controller
         {
             get => controller;
@@ -37,62 +25,19 @@ namespace CrazyArcade.PlayerStateMachine
                 controller.Delegate = this;
             }
         }
-        public PlayerCharacter(IController controller, CAScene scene)
+
+        private IController controller;
+
+        public PlayerCharacter(IController controller, CAScene scene): base(scene)
         {
-            ModifiedSpeed = DefaultSpeed;
-            playerState = new PlayerStateFree(this);
-            spriteAnims = playerState.SetSprites();
-            playerState.SetSpeed();
-            direction = Dir.Down;
-            this.parentScene = scene;
-            bombsOut = 0;
-            coins = 0;
-            X = 2000;
-            Y = 100;
-            currentBlastLength = defaultBlastLength;
             this.controller = controller;
             controller.Delegate = this;
-            //this.bboxOffset = new Point(20, 20);
         }
-        public override void Update(GameTime time)
-        {
-            
-            playerState.ProcessState(time);
-            base.Update(time);
-        }
-        public override void IncreaseBlastLength()
-        {
-            currentBlastLength++;
-        }
-        public override void SwitchToMountedState()
-        {
-            this.playerState = new PlayerStateRides(this);
-        }
-        public override void IncreaseSpeed()
-        {
-            this.ModifiedSpeed = DefaultSpeed * 2;
-        }
-        public override void IncreaseBombCount()
-        {
-            this.bombCapacity++;
-        }
-        public override void AddCoin(int toAdd)
-        {
-            coins+= toAdd;
-        }
-        public void BombExplode()
-        {
-            bombsOut = bombsOut-- >= 0 ? bombsOut-- : 0;
-        }
-        public override void Load()
-        {
-
-        }
-
         public void KeyUp()
         {
             moveInputs.Y -= 1;
             direction = Dir.Up;
+
         }
 
         public void KeyDown()
