@@ -39,7 +39,7 @@ namespace CrazyArcade.Items
         {
         }
         public abstract void CollisionLogic(IItemCollidable collisionPartner);
-
+        //Assumes that @this is in the IScene that is passed
         public void DeleteSelf(IScene parentScene)
         {
             parentScene.RemoveSprite(this);

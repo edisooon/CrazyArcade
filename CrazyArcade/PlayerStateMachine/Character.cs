@@ -61,11 +61,11 @@ namespace CrazyArcade.PlayerStateMachine
         {
             bombsOut = bombsOut-- >= 0 ? bombsOut-- : 0;
         }
+        //@implement IItemCollidable
         public bool canHaveItem()
         {
             return (playerState is CharacterStateFree || playerState is CharacterStateRides);
         }
-
         public void IncreaseBlastLength()
         {
             this.currentBlastLength++;

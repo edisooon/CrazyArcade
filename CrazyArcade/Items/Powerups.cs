@@ -58,6 +58,8 @@ namespace CrazyArcade.Items
         }
         public override void CollisionLogic(IItemCollidable collisionPartner)
         {
+            //Commented out since Mounted State is not implemented in branch this was worked on
+
             //collisionPartner.SwitchToMountedState();
         }
     }

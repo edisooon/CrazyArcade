@@ -9,6 +9,7 @@ namespace CrazyArcade.Items
 {
     public interface IItemCollidable
     {
+        //Reused from IPlayerCollisionBehavior
         public Rectangle blockCollisionBoundingBox { get; }
         public bool canHaveItem();
         public void IncreaseBlastLength();
