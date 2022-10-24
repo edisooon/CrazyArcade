@@ -9,7 +9,7 @@ using CrazyArcade.BombFeature;
 using System;
 using Microsoft.Xna.Framework.Content;
 using System.Reflection.Metadata;
-using CrazyArcade.Enemy;
+using CrazyArcade.Enemies;
 using CrazyArcade.Levels;
 using System.Diagnostics;
 namespace CrazyArcade;

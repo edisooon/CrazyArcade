@@ -11,7 +11,7 @@ using System.Diagnostics;
 
 namespace CrazyArcade.Demo1
 {
-    public abstract class Character : CAEntity, IBlockCollidable
+    public abstract class Character : CAEntity, IPlayerCollisionBehavior
     {
 
         public float DefaultSpeed = 5;
@@ -53,6 +53,11 @@ namespace CrazyArcade.Demo1
         {
             X -= move.X;
             Y -= move.Y;
+        }
+
+        public virtual void CollisionDestroyLogic()
+        {
+
         }
     }
 }

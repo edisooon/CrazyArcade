@@ -1,5 +1,5 @@
 using CrazyArcade.Demo1;
-using CrazyArcade.Enemy;
+using CrazyArcade.Enemies;
 using CrazyArcade.Boss;
 using CrazyArcade.CAFramework;
 using Microsoft.Xna.Framework;

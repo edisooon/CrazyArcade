@@ -46,8 +46,11 @@ namespace CrazyArcade.PlayerStateMachine
             direction = Dir.Down;
             this.parentScene = scene;
             bombsOut = 0;
-            X = 7050;
-            Y = 300;
+            X = 1050;
+            Y = 100;
+            Console.Out.Write(X);
+            Console.Out.Write(Y);
+
             currentBlastLength = defaultBlastLength;
             this.controller = controller;
             controller.Delegate = this;
@@ -62,6 +65,13 @@ namespace CrazyArcade.PlayerStateMachine
         public void BombExplode()
         {
             bombsOut = bombsOut-- >= 0 ? bombsOut-- : 0;
+        }
+        public override void CollisionDestroyLogic()
+        {
+            if (this.playerState is PlayerStateBubble) return;
+            this.playerState = new PlayerStateBubble(this);
+            this.spriteAnims = this.playerState.SetSprites();
+            this.playerState.SetSpeed();
         }
         public override void Load()
         {
