@@ -4,6 +4,7 @@ using CrazyArcade.BombFeature;
 using CrazyArcade.CAFramework;
 using CrazyArcade.Content;
 using Microsoft.Xna.Framework;
+using CrazyArcade.Items;
 using Microsoft.Xna.Framework.Input;
 
 namespace CrazyArcade.PlayerStateMachine

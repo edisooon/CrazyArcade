@@ -15,18 +15,21 @@ namespace CrazyArcade.Items
     {
         
     }
-    public abstract class Item : Block, IItem
+    public abstract class Item : CAEntity, IItem, IItemCollision
     {
 
-        public Item(Rectangle destination, Rectangle source, Texture2D texture, int frames, int fps) : base(destination, source, texture, frames, fps)
+        protected Rectangle hitbox;
+        protected SpriteAnimation spriteAnimation;
+        public Item(Rectangle destination, Rectangle source, Texture2D texture, int frames, int fps)
         {
             spriteAnimation = new SpriteAnimation(texture, frames, fps);
             this.X = destination.X;
             this.Y = destination.Y;
-
+            hitbox = destination;
         }
 
         public override SpriteAnimation SpriteAnim => this.spriteAnimation;
+        public Rectangle itemHitbox => this.hitbox;
 
         public override void Update(GameTime time)
         {
@@ -34,6 +37,12 @@ namespace CrazyArcade.Items
         }
         public override void Load()
         {
+        }
+        public abstract void CollisionLogic(IItemCollidable collisionPartner);
+
+        public void DeleteSelf(IScene parentScene)
+        {
+            parentScene.RemoveSprite(this);
         }
     }
 }
