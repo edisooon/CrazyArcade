@@ -86,78 +86,78 @@ namespace CrazyArcade.Levels
 			int item = (int)property;
 			switch (item)
 			{
-				case 0:
+				case (int)LevelItem.PlayerPosition:
 					array[0] = GetStartPosition(levelObject.Player);
 					return array;
 					
-				case 1:
+				case (int)LevelItem.LightSandPosition:
 					array = GetStartPositionArray(levelObject.Blocks.LightSand);
 					return array;
 					
-				case 2:
+				case (int)LevelItem.DarkSandPosition:
 					array = GetStartPositionArray(levelObject.Blocks.DarkSand);
 					return array;
 					
-				case 3:
+				case (int)LevelItem.StonePosition:
 					array = GetStartPositionArray(levelObject.Blocks.Stone);
 
 					return array;
-                case 4:
-                    array = GetStartPositionArray(levelObject.Boss.Sun);
+                case (int)LevelItem.CactusPosition:
+                    array = GetStartPositionArray(levelObject.Blocks.Cactus);
                     return array;
 
-                case 5:
-                    array = GetStartPositionArray(levelObject.Boss.Octo);
+                case (int)LevelItem.DarkTreePosition:
+                    array = GetStartPositionArray(levelObject.Blocks.DarkTree);
                     return array;
 
-                case 6:
-                    array = GetStartPositionArray(levelObject.Enemies.Bomb);
+                case (int)LevelItem.LightTreePosition:
+                    array = GetStartPositionArray(levelObject.Blocks.LightTree);
                     return array;
-                case 7:
+                case (int)LevelItem.SunBossPosition:
 					array = GetStartPositionArray(levelObject.Boss.Sun);
 					return array;
 					
-				case 8:
+				case (int)LevelItem.OctoBossPosition:
 					array = GetStartPositionArray(levelObject.Boss.Octo);
 					return array;
 			
-				case 9:
+				case (int)LevelItem.BombPosition:
 					array = GetStartPositionArray(levelObject.Enemies.Bomb);
 					return array;
 			
-				case 10:
+				case (int)LevelItem.SquidPosition:
 					array = GetStartPositionArray(levelObject.Enemies.Squid);
 					return array;
 					
-				case 11:
+				case (int)LevelItem.BatPosition:
 					array = GetStartPositionArray(levelObject.Enemies.Bat);
 					return array;
 					
-				case 12:
+				case (int)LevelItem.RobotPosition:
 					array = GetStartPositionArray(levelObject.Enemies.Robot);
 					return array;
 					
-				case 13:
+				case (int)LevelItem.CoinBagPosition:
 					array = GetStartPositionArray(levelObject.Items.CoinBag);
 					return array;
 					
-				case 14:
+				case (int)LevelItem.BalloonPosition:
 					array = GetStartPositionArray(levelObject.Items.Balloon);
 					return array;
 				
-				case 15:
+				case (int)LevelItem.SneakerPosition:
 					array = GetStartPositionArray(levelObject.Items.Sneaker);
 					return array;
 				
-				case 16:
+				case (int)LevelItem.TurtlePosition:
 					array = GetStartPositionArray(levelObject.Items.Turtle);
 					return array;
 					
-				case 17:
+				case (int)LevelItem.PotionPosition:
 					array = GetStartPositionArray(levelObject.Items.Potion);
 					return array;
 				
-				case 18:
+				case (int)LevelItem.CoinPosition:
 					array = GetStartPositionArray(levelObject.Items.Coin);
 					return array;
 				

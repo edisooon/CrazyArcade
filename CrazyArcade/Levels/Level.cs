@@ -69,20 +69,21 @@ namespace CrazyArcade.Levels
                 Scene.RemoveSprite(entity);
             }
         }
-        /*
-        public void ShiftLevel()
+        
+        public void ShiftLevel(Dir direction)
         {
-            offset = 5.0f;
+            offset = 1.0f;
             foreach (CAEntity entity in EntityList)
             {
                 if (entity is IGridable)
                 {
                     coord = (entity as IGridable).GameCoord;
+                    if (direction == Dir.Left);
                     coord.X += offset;
-                    coord.Y += offset;
+
                 }
             }
-        }*/
+        }
         private void LoadBorder()
         {
             scale = .9f;

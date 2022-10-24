@@ -78,6 +78,10 @@ public class LevelBlocks
     public int[][] DarkSand { get; set; }
 
     public int[][] Stone { get; set; }
+    public int[][] Cactus { get; set; }
+    public int[][] DarkTree { get; set; }
+    public int[][] LightTree { get; set; }
+
 }
 
 public class LevelBoss
