@@ -15,7 +15,7 @@ namespace CrazyArcade.PlayerStateMachine
 {
     internal class Ride : CAEntity
     {
-        PlayerCharacter player;
+        Character player;
         public SpriteAnimation[] spriteAnims { get; set; }
 
         public int animationHandleInt;
@@ -26,7 +26,7 @@ namespace CrazyArcade.PlayerStateMachine
         //int rideType; // 0 - 3, turtle, pirate turtle, ufo, owl
 
 
-        public Ride(PlayerCharacter character, int ride) {
+        public Ride(Character character, int ride) {
             player = character;
             generateRide(ride%4);
             if (character != null) {

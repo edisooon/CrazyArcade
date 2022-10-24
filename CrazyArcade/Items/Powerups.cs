@@ -54,11 +54,10 @@ namespace CrazyArcade.Items
         private static Rectangle source = new Rectangle(14,131,37,59);
         public Turtle(Rectangle destinationRectangle) : base(destinationRectangle, source, Content.TextureSingleton.GetTurtle(), 5, 5)
         {
-
         }
         public override void CollisionLogic(IItemCollidable collisionPartner)
         {
-            //collisionPartner.SwitchToMountedState();
+            collisionPartner.SwitchToMountedState();
         }
     }
     public class Potion : Item

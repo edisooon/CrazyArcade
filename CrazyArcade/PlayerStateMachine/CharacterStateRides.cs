@@ -14,13 +14,14 @@ namespace CrazyArcade.PlayerStateMachine
     public class PlayerStateRides : ICharacterState
     {
         Ride mount;
-        private PlayerCharacter character;
+        private Character character;
         private bool d1HeldDown;
         private bool d2HeldDown;
 
-        public PlayerStateRides(PlayerCharacter character, int ride)
+        public PlayerStateRides(Character character, int ride)
         {
             //int ride used to indicate turtle, pirate turtle, UFO, or owl [0-3]
+            //only use 0 for now
             this.character = character;
             Ride newRide = new(character, ride);
             mount = newRide;

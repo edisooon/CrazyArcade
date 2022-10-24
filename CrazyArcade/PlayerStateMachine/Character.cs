@@ -63,7 +63,7 @@ namespace CrazyArcade.PlayerStateMachine
         }
         public bool canHaveItem()
         {
-            return (playerState is CharacterStateFree || playerState is CharacterStateRides);
+            return (playerState is CharacterStateFree || playerState is PlayerStateRides);
         }
 
         public void IncreaseBlastLength()
@@ -72,7 +72,7 @@ namespace CrazyArcade.PlayerStateMachine
         }
         public void SwitchToMountedState()
         {
-            this.playerState.ProcessRide();
+            this.playerState = new PlayerStateRides(this, 0);
         }
         public void IncreaseSpeed()
         {
