@@ -73,7 +73,6 @@ namespace CrazyArcade.Levels
             mapReader = new CreateMap(mapFile);
             mapSchema = mapReader.mapObject;
             levelFiles = mapSchema.Levels;
-
         }   
         private void loadLevels()
         {
@@ -89,13 +88,13 @@ namespace CrazyArcade.Levels
         }
         public void Update(GameTime time)
         {
-            /*if (shiftFlag<50)
+            if (shiftFlag<50)
             {
                 //Just a start
                 levelArray[levelNum].ShiftLevel(direction);
                 shiftFlag++;
             }
-            else*/ if (oldNum != levelNum)
+            else if (oldNum != levelNum)
             {
                 levelArray[oldNum].DeleteLevel();
                 Scene.RemoveAllSprite();

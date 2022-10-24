@@ -77,7 +77,7 @@ namespace CrazyArcade.Levels
             {
                 if (entity is IGridable)
                 {
-                    coord = (entity as IGridable).GameCoord;
+                    coord = (entity as IGridable).ScreenCoord;
                     if (direction == Dir.Left);
                     coord.X += offset;
 
