@@ -34,6 +34,7 @@ namespace CrazyArcade.Enemies
             Start = new Vector2((float)X, (float)Y);
             internalRectangle.X = X;
             internalRectangle.Y = Y;
+            ScreenCoord = new Vector2(X, Y);
         }
 
         public override void Load()

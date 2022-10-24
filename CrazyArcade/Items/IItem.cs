@@ -24,16 +24,8 @@ namespace CrazyArcade.Items
             spriteAnimation = new SpriteAnimation(texture, frames, fps);
             this.X = destination.X;
             this.Y = destination.Y;
-            //frames = sources;
-            //current = frames[0];
+            ScreenCoord = new Vector2(X, Y);
         }
-        /**public void Update(GameTime time, Rectangle rectangle, int fps = 5) {
-            int millisec = (int)((int)time.ElapsedGameTime.TotalMilliseconds);
-            int milliPure = millisec - ((int)time.ElapsedGameTime.TotalSeconds);
-            int durationPerFrame = 1000 / fps;
-            int currentFrame = milliPure / durationPerFrame;
-            current = frames[currentFrame];
-        }**/
         public override SpriteAnimation SpriteAnim => this.spriteAnimation;
 
         public override void Update(GameTime time)

@@ -9,7 +9,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 namespace CrazyArcade.Demo1
 {
-    public class OctopusEnemy : CAEntity
+    public class OctopusEnemy : Enemy
     {
         private int size;
         float timer;
@@ -30,9 +30,10 @@ namespace CrazyArcade.Demo1
             texture = TextureSingleton.GetOctoBoss();
             spriteAnims = new SpriteAnimation(texture,2,5);
             X = x;
-            Y = y;
-            pos = new Vector2(X, Y);
-            gamePos = new Vector2(X, Y); 
+            Y = y; 
+            internalRectangle.X = X;
+            internalRectangle.Y = Y;
+            ScreenCoord = new Vector2(X, Y);
         }
 
         

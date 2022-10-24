@@ -31,8 +31,8 @@ namespace CrazyArcade.CAFramework
         private int y;
         public virtual int X { get => x; set => x = value; }
         public virtual int Y { get => y; set => y = value; }
-        public Vector2 gamePos;
-        public Vector2 pos;
+        private Vector2 gamePos;
+        private Vector2 pos;
 
         public Vector2 ScreenCoord
         {
@@ -44,7 +44,16 @@ namespace CrazyArcade.CAFramework
                 this.Y = (int)value.Y;
             }
         }
-        public Vector2 GameCoord { get => gamePos; set => gamePos = value; }
+
+        public Vector2 GameCoord
+        {
+            get => gamePos;
+            set
+            {
+                gamePos = value;
+                ScreenCoord = trans.Trans(value);
+            }
+        }
         private IGridTransform trans = new NullTransform();
         public IGridTransform Trans { get => trans; set => trans = value; }
         //why 2 trans?

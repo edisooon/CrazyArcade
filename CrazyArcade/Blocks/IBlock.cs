@@ -32,6 +32,7 @@ namespace CrazyArcade.Blocks
             pos = new Vector2(X, Y);
             internalRectangle.X = X;
             internalRectangle.Y = Y;
+            ScreenCoord = new Vector2(X, Y);
         }
         public Block(Rectangle destination, Rectangle source, Texture2D texture,int frames, int fps)
         {
@@ -41,6 +42,7 @@ namespace CrazyArcade.Blocks
             this.Y = destination.Y;
             internalRectangle.X = X;
             internalRectangle.Y = Y;
+            ScreenCoord = new Vector2(X, Y);
         }
 
         public override SpriteAnimation SpriteAnim => this.spriteAnimation;

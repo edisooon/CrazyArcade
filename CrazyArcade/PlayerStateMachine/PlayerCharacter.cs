@@ -29,8 +29,6 @@ namespace CrazyArcade.PlayerStateMachine
 
         private IController controller;
 
-
-
         public PlayerCharacter(IController controller, CAScene scene): base(scene)
         {
             this.controller = controller;

@@ -32,8 +32,8 @@ namespace CrazyArcade.Enemies
         {
             length = 6;
             this.Scene = scene;
-            X = 300;
-            Y = 100;
+            X = 5;//300
+            Y = 5;//100
             CAEntityList = new CAEntity[length];
             CAEntityList[0] = new BombEnemySprite(X, Y);
             CAEntityList[1] = new SquidEnemySprite(X, Y);
@@ -44,8 +44,6 @@ namespace CrazyArcade.Enemies
             currentSprite = CAEntityList[0];
             Scene.AddSprite(currentSprite);
             oldSprite = currentSprite;
-
-
         }
 
         public void Update(GameTime time)

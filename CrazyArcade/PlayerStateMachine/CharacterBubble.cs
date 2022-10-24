@@ -30,6 +30,7 @@ namespace CrazyArcade.PlayerStateMachine
             currentBubble[1].SetScale(1.1f);
             currentBubble[2] = new SpriteAnimation(TextureSingleton.GetBubble(), 288, 0, 72, 72, 6, 0, 10);
             currentBubble[2].SetScale(1.1f);
+            this.GameCoord = new Vector2(player.GameCoord.X,player.GameCoord.Y);
         }
         public override void Update(GameTime time)
         {

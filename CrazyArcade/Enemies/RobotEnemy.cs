@@ -34,6 +34,7 @@ namespace CrazyArcade.Enemies
             Start = new Vector2((float)X, (float)Y);
             internalRectangle.X = X;
             internalRectangle.Y = Y;
+            ScreenCoord = new Vector2(X, Y);
         }
 
         public override void Load()
@@ -76,6 +77,8 @@ namespace CrazyArcade.Enemies
 
         public override void Update(GameTime time)
         {
+            ScreenCoord = new Vector2(X, Y);
+            GameCoord = new Vector2(X, Y);
 
             // handled animation updated (position and frame) in abstract level
 
