@@ -2,6 +2,7 @@
 using CrazyArcade.CAFramework;
 using CrazyArcade.Content;
 using Microsoft.Xna.Framework;
+using CrazyArcade.Items;
 
 namespace CrazyArcade.PlayerStateMachine
 {
