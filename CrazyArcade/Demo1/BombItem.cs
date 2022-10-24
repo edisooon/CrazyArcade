@@ -68,6 +68,10 @@ namespace CrazyArcade.Demo1
             throw new NotImplementedException();
         }
 
+        public void LeftClick()
+        {
+            throw new NotImplementedException();
+        }
         public void LeftClick(int x, int y)
         {
             throw new NotImplementedException();
