@@ -24,7 +24,6 @@ namespace CrazyArcade.BombFeature
         private static readonly Rectangle frame1 = new(11, 10, 42, 42);
         private static readonly Rectangle frame2 = new(56, 10, 42, 42);
         private static readonly Rectangle frame3 = new(97, 10, 46, 42);
-        private static readonly int tileSize = 40;
         IBombCollectable owner;
         public override SpriteAnimation SpriteAnim => spriteAnims;
 
@@ -117,6 +116,7 @@ namespace CrazyArcade.BombFeature
                 DetonateTime += (float)time.ElapsedGameTime.TotalMilliseconds;
             }
         }
+       
 
         public void updateCharacterHasLeft()
         {
