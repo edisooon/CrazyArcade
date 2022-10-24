@@ -36,6 +36,7 @@ namespace CrazyArcade.Boss
         public Rectangle internalRectangle = new Rectangle(0, 0, 10, 10);
 
         public Rectangle boundingBox => internalRectangle;
+
         private Vector2 gamePos;
         private Vector2 pos;
         public Vector2 ScreenCoord
@@ -47,6 +48,9 @@ namespace CrazyArcade.Boss
                 this.UpdateCoord(value);
             }
         }
+        public Vector2 GameCoord { get => gamePos; set => gamePos = value; }
+        private IGridTransform trans = new NullTransform();
+        public IGridTransform Trans { get => trans; set => trans = value; }
 
         public void UpdateCoord(Vector2 value)
         {
@@ -56,7 +60,6 @@ namespace CrazyArcade.Boss
             this.internalRectangle.Y = (int)ScreenCoord.Y;
         }
 
-        public Vector2 GameCoord { get => gamePos; set => gamePos = value; }
 
         public override void Load()
         {

@@ -16,17 +16,6 @@ namespace CrazyArcade.PlayerStateMachine
 {
     public class PlayerCharacter : Character, IControllable
     {
-        private IController controller;
-        public SpriteAnimation[] spriteAnims;
-        public CAScene parentScene;
-        public ICharacterState playerState;
-        public int animationHandleInt;
-        public int currentBlastLength;
-        public int bombCapacity = 1;
-        public int bombsOut;
-
-        public override SpriteAnimation SpriteAnim => spriteAnims[animationHandleInt];
-
         public IController Controller
         {
             get => controller;
@@ -36,51 +25,19 @@ namespace CrazyArcade.PlayerStateMachine
                 controller.Delegate = this;
             }
         }
-        public PlayerCharacter(IController controller, CAScene scene)
-        {
-            ModifiedSpeed = DefaultSpeed;
-            playerState = new PlayerStateFree(this);
-            spriteAnims = playerState.SetSprites();
-            playerState.SetSpeed();
-            direction = Dir.Down;
-            this.parentScene = scene;
-            bombsOut = 0;
-            X = 1050;
-            Y = 100;
-            Console.Out.Write(X);
-            Console.Out.Write(Y);
 
-            currentBlastLength = defaultBlastLength;
+        private IController controller;
+
+        public PlayerCharacter(IController controller, CAScene scene): base(scene)
+        {
             this.controller = controller;
             controller.Delegate = this;
-            //this.bboxOffset = new Point(20, 20);
         }
-        public override void Update(GameTime time)
-        {
-            
-            playerState.ProcessState(time);
-            base.Update(time);
-        }
-        public void BombExplode()
-        {
-            bombsOut = bombsOut-- >= 0 ? bombsOut-- : 0;
-        }
-        public override void CollisionDestroyLogic()
-        {
-            if (this.playerState is PlayerStateBubble) return;
-            this.playerState = new PlayerStateBubble(this);
-            this.spriteAnims = this.playerState.SetSprites();
-            this.playerState.SetSpeed();
-        }
-        public override void Load()
-        {
-
-        }
-
         public void KeyUp()
         {
             moveInputs.Y -= 1;
             direction = Dir.Up;
+
         }
 
         public void KeyDown()
