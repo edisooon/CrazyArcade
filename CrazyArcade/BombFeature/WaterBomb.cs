@@ -142,6 +142,7 @@ namespace CrazyArcade.BombFeature
         public IExplosion explode()
         {
             canExplode = false;
+            owner.recollectBomb();
             return new Explosion(Center, Distance, this.SceneDelegate, this.trans);
         }
 
