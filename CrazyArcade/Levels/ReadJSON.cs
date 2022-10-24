@@ -10,12 +10,19 @@ public class ReadJSON
     StreamReader sReader;
     string jString;
     string winDir = System.Environment.CurrentDirectory;
-    public Level levelObject { get; }
+    public LevelSchema levelObject { get; }
+    public MapSchema mapObject { get; }
     //How to use:
-    //ReadJSON test = new ReadJSON("\\Level_0.json");
+    //ReadJSON test = new ReadJSON("\\Level_0.json", file);
     //Level Level0 = test.levelObject;
-    
-    public ReadJSON(string fileName)
+
+
+    public enum fileType
+    {
+        LevelFile,
+        MapFile
+    }
+    public ReadJSON(string fileName, fileType type)
     {
         char sep = Path.DirectorySeparatorChar;
         sReader = new StreamReader(winDir+ sep+"Content"+ sep+"JsonLevels"+sep + fileName);
@@ -28,18 +35,30 @@ public class ReadJSON
         {
             Console.Error.WriteLine("File is empty");
         }
-        levelObject = JsonSerializer.Deserialize<Level>(jString);
-        //Debug.WriteLine(levelObject.Grid[0]);
+        if (type == fileType.LevelFile)
+        {
+            levelObject = JsonSerializer.Deserialize<LevelSchema>(jString);
+        }
+        else if(type == fileType.MapFile) 
+        {
+            mapObject = JsonSerializer.Deserialize<MapSchema>(jString);
+        }
     }
 
 }
 
-public class Level
+
+public partial class MapSchema
+{
+
+    public string[] Levels { get; set; }
+}
+public class LevelSchema
 {
 
     public int[] Background { get; set; }
 
-    public int[] Grid { get; set; }
+    public int[]  Border { get; set; }
 
     public LevelBlocks Blocks { get; set; }
 
@@ -59,6 +78,10 @@ public class LevelBlocks
     public int[][] DarkSand { get; set; }
 
     public int[][] Stone { get; set; }
+    public int[][] Cactus { get; set; }
+    public int[][] DarkTree { get; set; }
+    public int[][] LightTree { get; set; }
+
 }
 
 public class LevelBoss

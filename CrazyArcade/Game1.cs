@@ -19,7 +19,7 @@ public class Game1 : Game
     private GraphicsDeviceManager _graphics;
     private SpriteBatch _spriteBatch;
     public IScene scene;
-    public Level Level1;
+    public LevelSchema Level1;
     public ReadJSON test;
 
     public Game1()
@@ -37,7 +37,7 @@ public class Game1 : Game
         TextureSingleton.LoadAllTextures(Content);
         
 
-        test = new ReadJSON("Level_0.json");
+        test = new ReadJSON("Level_0.json",ReadJSON.fileType.LevelFile);
         Level1 = test.levelObject;
 
         base.Initialize();

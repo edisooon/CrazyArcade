@@ -21,9 +21,6 @@ namespace CrazyArcade.BombFeature
         float DetonateTime;
         Boolean characterHasLeft = false;
         private SpriteAnimation spriteAnims;
-        private static readonly Rectangle frame1 = new(11, 10, 42, 42);
-        private static readonly Rectangle frame2 = new(56, 10, 42, 42);
-        private static readonly Rectangle frame3 = new(97, 10, 46, 42);
         IBombCollectable owner;
         public override SpriteAnimation SpriteAnim => spriteAnims;
 
@@ -57,10 +54,6 @@ namespace CrazyArcade.BombFeature
         private IExplosionDetector detector;
         public IExplosionDetector Detector { get => detector; set => detector = value; }
 
-        public int Distance => BlastLength;
-
-        public Point Center => new Point((int) GameCoord.X, (int) GameCoord.Y);
-
         private bool canExplode = true;
         public bool CanExplode => canExplode;
 
@@ -85,9 +78,9 @@ namespace CrazyArcade.BombFeature
         private static Rectangle[] GetAnimationFrames()
         {
             Rectangle[] NewFrames = new Rectangle[3];
-            NewFrames[0] = frame1;
-            NewFrames[1] = frame2;
-            NewFrames[2] = frame3;
+            NewFrames[0] = new Rectangle(11, 10, 42, 42);
+            NewFrames[1] = new Rectangle(56, 10, 42, 42);
+            NewFrames[2] = new Rectangle(97, 10, 46, 42);
             return NewFrames;
         }
         public override void Update(GameTime time)
@@ -146,7 +139,7 @@ namespace CrazyArcade.BombFeature
         {
             canExplode = false;
             owner.recollectBomb();
-            return new Explosion(Center, Distance, this.SceneDelegate, this.trans);
+            return new Explosion(new Point((int)GameCoord.X, (int)GameCoord.Y), BlastLength, this.SceneDelegate, this.trans);
         }
 
         public void Collide(IExplosion bomb)

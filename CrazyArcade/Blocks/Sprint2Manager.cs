@@ -144,6 +144,7 @@ namespace CrazyArcade.Blocks
                 new Coin(itemDestination)
             };
             entities.Add(itemTypeList[itemIndex]);
+            
         }
 
         public void AddSprite(IEntity sprite)

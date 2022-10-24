@@ -35,11 +35,14 @@ namespace CrazyArcade.Demo1
             this.systems.Add(new PlayerCollisionSystem());
             
             this.systems.Add(new CAGameGridSystems(new Vector2(0, 0), 40));
-            this.systems.Add(new LevelManager(this));
+            this.systems.Add(new LevelManager(this, new DemoController()));
+
+
         }
 
         public override void LoadSprites()
         {
+            //This may not be neccessary
             this.AddSprite(new PlayerCharacter(new DemoController(), this));
         }
 
