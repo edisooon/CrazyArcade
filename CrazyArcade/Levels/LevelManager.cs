@@ -43,6 +43,8 @@ namespace CrazyArcade.Levels
         private int levelNum;
         private int length;
         private int oldNum;
+        private int shiftFlag;
+        private Dir direction;
         public IController Controller
         {
             get => controller;
@@ -63,6 +65,7 @@ namespace CrazyArcade.Levels
             levelArray[levelNum].DrawLevel();
             this.controller = controller;
             controller.Delegate = this;
+            shiftFlag = 50;
         }
         
         private void getLevelFiles()
@@ -86,8 +89,13 @@ namespace CrazyArcade.Levels
         }
         public void Update(GameTime time)
         {
-
-            if (oldNum != levelNum)
+            /*if (shiftFlag<50)
+            {
+                //Just a start
+                levelArray[levelNum].ShiftLevel(direction);
+                shiftFlag++;
+            }
+            else*/ if (oldNum != levelNum)
             {
                 levelArray[oldNum].DeleteLevel();
                 Scene.RemoveAllSprite();
@@ -103,9 +111,11 @@ namespace CrazyArcade.Levels
 
         {
             
-            if (levelNum > 0)
+            if (levelNum > 0 && (shiftFlag == 50))
             {
+                oldNum = levelNum;
                 levelNum--;
+                direction = Dir.Right;
             }
             
         }
@@ -113,10 +123,12 @@ namespace CrazyArcade.Levels
         public void LeftClick()
         {
 
-            if (levelNum < levelFiles.Length-1)
+            if ((levelNum < levelFiles.Length-1 )&&(shiftFlag == 50))
             {
                 oldNum = levelNum;
                 levelNum++;
+                direction = Dir.Left;
+
             }
             
         }

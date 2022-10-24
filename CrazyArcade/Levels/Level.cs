@@ -24,6 +24,7 @@ using Rectangle = Microsoft.Xna.Framework.Rectangle;
 using System.Reflection.Metadata.Ecma335;
 using System.Runtime.Intrinsics;
 using static System.Formats.Asn1.AsnWriter;
+using CrazyArcade.GameGridSystems;
 
 namespace CrazyArcade.Levels
 {
@@ -41,6 +42,8 @@ namespace CrazyArcade.Levels
         float scale;
         Vector2 border;
         Vector2 startPosition;
+        Vector2 coord;
+        float offset;
         public Level(CAScene scene, string levelName)
         {
             currentLevel = new CreateLevel(levelName);
@@ -66,6 +69,20 @@ namespace CrazyArcade.Levels
                 Scene.RemoveSprite(entity);
             }
         }
+        /*
+        public void ShiftLevel()
+        {
+            offset = 5.0f;
+            foreach (CAEntity entity in EntityList)
+            {
+                if (entity is IGridable)
+                {
+                    coord = (entity as IGridable).GameCoord;
+                    coord.X += offset;
+                    coord.Y += offset;
+                }
+            }
+        }*/
         private void LoadBorder()
         {
             scale = .9f;
