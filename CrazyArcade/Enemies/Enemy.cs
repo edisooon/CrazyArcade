@@ -4,6 +4,7 @@ using CrazyArcade.CAFramework;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System.Diagnostics;
+using CrazyArcade.GameGridSystems;
 
 namespace CrazyArcade.Enemies
 {

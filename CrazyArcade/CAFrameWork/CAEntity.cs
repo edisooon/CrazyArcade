@@ -1,16 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
 using CrazyArcade.CAFramework;
+using CrazyArcade.GameGridSystems;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
 namespace CrazyArcade.CAFramework
 {
-	public abstract class CAEntity: IEntity
+	public abstract class CAEntity: IEntity, IGridable
 	{
 
         // for each entity, it has to have a position and animations of sprite
-        List<SpriteAnimation> spriteAnimList;
+        List<SpriteAnimation> spriteAnimList;//this is going unused rn -> DEAD CODE
         public virtual List<SpriteAnimation> SpriteAnimList {
             get
             {
@@ -30,6 +31,23 @@ namespace CrazyArcade.CAFramework
         private int y;
         public virtual int X { get => x; set => x = value; }
         public virtual int Y { get => y; set => y = value; }
+        public Vector2 gamePos;
+        public Vector2 pos;
+
+        public Vector2 ScreenCoord
+        {
+            get => pos;
+            set
+            {
+                pos = value;
+                this.X = (int)value.X;
+                this.Y = (int)value.Y;
+            }
+        }
+        public Vector2 GameCoord { get => gamePos; set => gamePos = value; }
+        private IGridTransform trans = new NullTransform();
+        public IGridTransform Trans { get => trans; set => trans = value; }
+        //why 2 trans?
 
         public abstract void Load();
         public virtual void Update(GameTime time)
@@ -37,7 +55,25 @@ namespace CrazyArcade.CAFramework
             // handled animation updated (position and frame) in abstract level
             foreach (SpriteAnimation Anim in SpriteAnimList)   {
                 Anim.Update(time);
-         
+                if (pos.Equals(null))
+                {
+                    pos = new Vector2(X, Y);
+                }
+                else {
+                    pos.X = X;
+                    pos.Y = Y;
+                }
+
+                if (gamePos.Equals(null))
+                {
+                    gamePos = new Vector2(X, Y);
+                }
+                else
+                {
+                    gamePos.X = X;
+                    gamePos.Y = Y;
+                }
+
             }
         }
         public void Draw(GameTime time, SpriteBatch batch)

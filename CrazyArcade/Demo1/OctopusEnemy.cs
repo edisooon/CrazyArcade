@@ -2,6 +2,8 @@
 using CrazyArcade.CAFramework;
 using CrazyArcade.CAFramework.Controller;
 using CrazyArcade.Content;
+using CrazyArcade.Enemies;
+using CrazyArcade.GameGridSystems;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
@@ -22,13 +24,18 @@ namespace CrazyArcade.Demo1
         public Rectangle inputFrame;
 
 
+
         public OctopusEnemy(int x, int y)
         {
             texture = TextureSingleton.GetOctoBoss();
             spriteAnims = new SpriteAnimation(texture,2,5);
             X = x;
             Y = y;
+            pos = new Vector2(X, Y);
+            gamePos = new Vector2(X, Y); 
         }
+
+        
 
         public override void Load()
         {

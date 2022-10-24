@@ -11,6 +11,7 @@ using CrazyArcade.Singletons;
 using CrazyArcade.Content;
 using Microsoft.Xna.Framework;
 using CrazyArcade.BombFeature;
+using CrazyArcade.GameGridSystems;
 
 namespace CrazyArcade.PlayerStateMachine
 {
@@ -27,6 +28,8 @@ namespace CrazyArcade.PlayerStateMachine
         }
 
         private IController controller;
+
+
 
         public PlayerCharacter(IController controller, CAScene scene): base(scene)
         {

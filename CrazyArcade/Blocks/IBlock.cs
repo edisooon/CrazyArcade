@@ -8,7 +8,9 @@ using System.Threading.Tasks;
 using System.Runtime.CompilerServices;
 using CrazyArcade.CAFramework;
 using CrazyArcade.Content;
+using CrazyArcade.GameGridSystems;
 using System.Diagnostics;
+using Microsoft.Xna.Framework.Input;
 
 namespace CrazyArcade.Blocks
 {
@@ -16,7 +18,7 @@ namespace CrazyArcade.Blocks
     {
 
     }
-    public abstract class Block : CAEntity, IBlock, IPlayerCollidable
+    public abstract class Block : CAEntity, IBlock, IPlayerCollidable, IGridable
     {
         protected SpriteAnimation spriteAnimation;
 
@@ -27,6 +29,7 @@ namespace CrazyArcade.Blocks
             spriteAnimation = new SpriteAnimation(texture, source);
             this.X = destination.X;
             this.Y = destination.Y;
+            pos = new Vector2(X, Y);
             internalRectangle.X = X;
             internalRectangle.Y = Y;
         }
@@ -34,6 +37,7 @@ namespace CrazyArcade.Blocks
         {
             spriteAnimation = new SpriteAnimation(texture, frames, fps);
             this.X = destination.X;
+            pos = new Vector2(X, Y);
             this.Y = destination.Y;
             internalRectangle.X = X;
             internalRectangle.Y = Y;
@@ -42,11 +46,29 @@ namespace CrazyArcade.Blocks
         public override SpriteAnimation SpriteAnim => this.spriteAnimation;
 
         public Rectangle boundingBox => internalRectangle;
+        private Vector2 gamePos;
+        private Vector2 pos;
+
+        public Vector2 ScreenCoord
+        {
+            get => pos;
+            set
+            {
+                pos = value;
+                this.X = (int)value.X;
+                this.Y = (int)value.Y;
+            }
+        }
+        public Vector2 GameCoord { get => gamePos; set => gamePos = value; }
+        private IGridTransform trans = new NullTransform();
+        public IGridTransform Trans { get => trans; set => trans = value; }
 
         public override void Update(GameTime time)
         {
             internalRectangle.X = X;
             internalRectangle.Y = Y;
+            pos.X = X;
+            pos.Y = Y;
         }
         public override void Load()
         {
