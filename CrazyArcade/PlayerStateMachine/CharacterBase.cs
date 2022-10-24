@@ -26,7 +26,7 @@ namespace CrazyArcade.Demo1
 
         private Vector2 gamePos;
         private Vector2 pos;
-        public Vector2 ScreenCoord
+        public Vector2 ScreenCoord 
         {
             get => pos;
             set
@@ -75,7 +75,7 @@ namespace CrazyArcade.Demo1
 
         public void CollisionHaltLogic(Point move)
         {
-            GameCoord += trans.RevScale(new Vector2(move.X, move.Y));
+            GameCoord -= trans.RevScale(new Vector2(move.X, move.Y));
         }
 
         public virtual void CollisionDestroyLogic()

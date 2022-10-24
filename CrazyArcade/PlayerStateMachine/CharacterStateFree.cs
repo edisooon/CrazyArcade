@@ -62,7 +62,7 @@ namespace CrazyArcade.PlayerStateMachine
             if (Keyboard.GetState().IsKeyDown(Keys.D2) && !d2HeldDown)
             {
                 d2HeldDown = true;
-                character.bombCapacity = character.bombCapacity + 1 < 3 ? character.bombCapacity + 1 : 3;
+                character.bombCapacity = character.bombCapacity + 1 < 5 ? character.bombCapacity + 1 : 5;
             }
             d2HeldDown = Keyboard.GetState().IsKeyDown(Keys.D2);
         }
