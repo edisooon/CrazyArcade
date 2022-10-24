@@ -12,7 +12,7 @@ namespace CrazyArcade.PlayerStateMachine
      * State machine is implemented here
      * 
      */
-    public class Character: CharacterBase, IBombCollectable
+    public class Character: CharacterBase, IBombCollectable, IItemCollidable
     {
 		public SpriteAnimation[] spriteAnims;
         public CAScene parentScene;
