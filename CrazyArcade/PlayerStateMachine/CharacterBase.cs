@@ -13,15 +13,14 @@ namespace CrazyArcade.Demo1
 {
     public abstract class CharacterBase : CAEntity, IGridable, IPlayerCollisionBehavior
     {
-
         public float DefaultSpeed = 5;
         public float ModifiedSpeed;
         public Vector2 CurrentSpeed = new(0, 0);
         public Dir direction = Dir.Down;
         public int defaultBlastLength = 1;
         public Vector2 moveInputs = new(0, 0);
-        protected Rectangle blockBoundingBox = new Rectangle(0,0,42, 56);
-        protected Point bboxOffset = new Point(0, 0);
+        protected Rectangle blockBoundingBox = new Rectangle(0, 0, 9, 9);
+        protected Point bboxOffset = new Point(16, 47);
         protected bool blockBboxOn = true;
 
         private Vector2 gamePos;
