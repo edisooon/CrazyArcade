@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using CrazyArcade.CAFramework;
+using CrazyArcade.Content;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
@@ -10,7 +11,6 @@ namespace CrazyArcade.CAFramework
 	{
 
         // for each entity, it has to have a position and animations of sprite
-        List<SpriteAnimation> spriteAnimList;
         public virtual List<SpriteAnimation> SpriteAnimList {
             get
             {
@@ -19,15 +19,19 @@ namespace CrazyArcade.CAFramework
                 return list;
             }
         }
-        public virtual SpriteAnimation SpriteAnim { get; }
+
+        private SpriteAnimation spriteAnim = new SpriteAnimation(TextureSingleton.GetNull(), 1, 0, 0, 0);
+        public virtual SpriteAnimation SpriteAnim { get => spriteAnim; }
         private ISceneDelegate sceneDelegate;
         public ISceneDelegate SceneDelegate
         {
             get => sceneDelegate;
             set => sceneDelegate = value;
         }
-
-        public int X, Y;
+        private int x;
+        private int y;
+        public virtual int X { get => x; set => x = value; }
+        public virtual int Y { get => y; set => y = value; }
 
         public abstract void Load();
         public virtual void Update(GameTime time)

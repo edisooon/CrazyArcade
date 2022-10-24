@@ -1,5 +1,5 @@
 using CrazyArcade.Demo1;
-using CrazyArcade.Enemy;
+using CrazyArcade.Enemies;
 using CrazyArcade.Boss;
 using CrazyArcade.CAFramework;
 using Microsoft.Xna.Framework;
@@ -12,9 +12,11 @@ using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
+using CrazyArcade.CAFramework.Controller;
+
 namespace CrazyArcade.Enemy
 {
-    public class EnemyManager : IGameSystem
+    public class EnemyManager : IGameSystem,IControllable
 
     {
         private int i = 1;
@@ -28,6 +30,16 @@ namespace CrazyArcade.Enemy
 
         KeyboardState currentState;
         KeyboardState oldState;
+
+        public IController Controller
+        {
+            get => controller;
+            set
+            {
+                controller = value;
+                controller.Delegate = this;
+            }
+        }
         public EnemyManager(CAScene scene)
         {
             length = 6;
@@ -44,8 +56,6 @@ namespace CrazyArcade.Enemy
             currentSprite = CAEntityList[0];
             Scene.AddSprite(currentSprite);
             oldSprite = currentSprite;
-
-
         }
 
         public void Update(GameTime time)

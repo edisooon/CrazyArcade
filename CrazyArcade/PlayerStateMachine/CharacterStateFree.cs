@@ -8,16 +8,17 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using CrazyArcade.GameGridSystems;
 
 namespace CrazyArcade.PlayerStateMachine
 {
-    internal class PlayerStateFree : ICharacterState
+    internal class CharacterStateFree : ICharacterState
     {
-        private PlayerCharacter character;
+        private Character character;
         public SpriteAnimation[] spriteAnims;
         private bool d1HeldDown;
         private bool d2HeldDown;
-        public PlayerStateFree(PlayerCharacter character)
+        public CharacterStateFree(Character character)
         {
             this.spriteAnims = new SpriteAnimation[4];
             this.character = character;
@@ -48,7 +49,7 @@ namespace CrazyArcade.PlayerStateMachine
             }
             if (Keyboard.GetState().IsKeyDown(Keys.E))
             {
-                character.playerState = new PlayerStateBubble(character);
+                character.playerState = new CharacterStateBubble(character);
                 character.spriteAnims = character.playerState.SetSprites();
                 character.playerState.SetSpeed();
             }
@@ -61,7 +62,7 @@ namespace CrazyArcade.PlayerStateMachine
             if (Keyboard.GetState().IsKeyDown(Keys.D2) && !d2HeldDown)
             {
                 d2HeldDown = true;
-                character.bombCapacity = character.bombCapacity + 1 < 3 ? character.bombCapacity + 1 : 3;
+                character.bombCapacity = character.bombCapacity + 1 < 5 ? character.bombCapacity + 1 : 5;
             }
             d2HeldDown = Keyboard.GetState().IsKeyDown(Keys.D2);
         }
@@ -81,7 +82,7 @@ namespace CrazyArcade.PlayerStateMachine
         public void ProcessAttaction()
         {
             if (character.bombsOut >= character.bombCapacity) return;
-            character.parentScene.AddSprite(new WaterBomb(character.parentScene, character.X, character.Y, character.currentBlastLength, character));
+            character.parentScene.AddSprite(new WaterBomb(character.GameCoord, character.currentBlastLength, character));
             character.bombsOut++;
         }
     }

@@ -7,10 +7,11 @@ using System.Threading.Tasks;
 
 namespace CrazyArcade.Blocks
 {
-    public abstract class DamageBlock : Block, IBlock
+    public abstract class DamageBlock : Block
     {
         public DamageBlock(Rectangle destinationRectangle, Rectangle sourceRectangle) : base(destinationRectangle, sourceRectangle, Content.TextureSingleton.GetDesertBlocks())
         {
+
         }
     }
     public class Cactus : DamageBlock
@@ -18,6 +19,7 @@ namespace CrazyArcade.Blocks
         private static Rectangle source = new Rectangle(11, 230, 38, 56);
         public Cactus(Rectangle destinationRectangle) : base(destinationRectangle, source)
         {
+            
         }
     }
 }

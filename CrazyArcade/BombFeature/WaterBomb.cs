@@ -1,6 +1,8 @@
-﻿using CrazyArcade.CAFramework;
+﻿using CrazyArcade.Blocks;
+using CrazyArcade.CAFramework;
 using CrazyArcade.Content;
 using CrazyArcade.Demo1;
+using CrazyArcade.GameGridSystems;
 using CrazyArcade.PlayerStateMachine;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -12,27 +14,66 @@ using System.Threading.Tasks;
 
 namespace CrazyArcade.BombFeature
 {
-    public class WaterBomb : CAEntity
+    public class WaterBomb : CAEntity, IPlayerCollidable, IExplosionCollidable, IExplodable
     {
         int BlastLength;
-        CAScene ParentScene;
         float DetonateTimer;
         float DetonateTime;
+        Boolean characterHasLeft = false;
         private SpriteAnimation spriteAnims;
-        PlayerCharacter owner;
+        IBombCollectable owner;
         public override SpriteAnimation SpriteAnim => spriteAnims;
-        private Rectangle[] AnimationFrames;
-        public WaterBomb(CAScene ParentScene, int X, int Y, int BlastLength, PlayerCharacter character)
+
+        public Rectangle internalRectangle;
+
+        public Rectangle boundingBox => internalRectangle;
+
+        private Vector2 gamePos;
+        private Vector2 pos;
+        public Vector2 ScreenCoord
         {
-            this.X = X;
-            this.Y = Y;
-            this.ParentScene = ParentScene;
+            get => pos;
+            set
+            {
+                pos = value;
+                this.UpdateCoord(value);
+            }
+        }
+        private IGridTransform trans = new NullTransform();
+        public IGridTransform Trans { get => trans; set => trans = value; }
+
+        public void UpdateCoord(Vector2 value)
+        {
+            this.X = (int)value.X;
+            this.Y = (int)value.Y;
+            this.internalRectangle.X = (int)ScreenCoord.X;
+            this.internalRectangle.Y = (int)ScreenCoord.Y;
+        }
+
+        public Vector2 GameCoord { get => gamePos; set => gamePos = value; }
+        private IExplosionDetector detector;
+        public IExplosionDetector Detector { get => detector; set => detector = value; }
+
+        private bool canExplode = true;
+        public bool CanExplode => canExplode;
+
+        private Rectangle[] AnimationFrames;
+        
+        public WaterBomb(Vector2 grid, int BlastLength, IBombCollectable character)
+        {
+
+            Vector2 bombPosition = grid;
+            bombPosition = bombPosition + new Vector2(0.5f);
+            bombPosition.Floor();
+            gamePos = bombPosition;
+
             this.BlastLength = BlastLength;
             this.owner = character;
             AnimationFrames = GetAnimationFrames();
             DetonateTime = 0;
-            DetonateTimer = 1000;
+            DetonateTimer = 3000;
             this.spriteAnims = new SpriteAnimation(TextureSingleton.GetBallons(), AnimationFrames, 8);
+            internalRectangle = new Rectangle(X, Y, 40, 40);
         }
         private static Rectangle[] GetAnimationFrames()
         {
@@ -44,6 +85,7 @@ namespace CrazyArcade.BombFeature
         }
         public override void Update(GameTime time)
         {
+            if (!characterHasLeft) updateCharacterHasLeft();
             Detonate(time);
         }
         public override void Load()
@@ -52,48 +94,57 @@ namespace CrazyArcade.BombFeature
         }
         private void DeleteSelf()
         {
-            ParentScene.RemoveSprite(this);
+            SceneDelegate.ToRemoveEntity(this);
         }
         private void Detonate(GameTime time)
         {
             if(DetonateTime > DetonateTimer)
             {
                 DeleteSelf();
-                owner.BombExplode();
-                CreateExplosion();
+                owner.recollectBomb();
+                detector.Ignite(this);
             }
             else
             {
                 DetonateTime += (float)time.ElapsedGameTime.TotalMilliseconds;
             }
         }
-        private void CreateExplosion()
+
+        public void updateCharacterHasLeft()
         {
-            int explosionTile = 40;
-            Vector2 side = new Vector2(0, 0);
-            ParentScene.AddSprite(new WaterExplosionCenter(ParentScene, X, Y));
-            for (int i = 0; i < 4; i++)
+            //Rectangle checkRectangle = Rectangle.Intersect(this.boundingBox, owner.blockCollisionBoundingBox);
+            //if (checkRectangle.Width == 0 || checkRectangle.Height == 0)
+            //{
+            //    characterHasLeft = true;
+            //}
+        }
+
+        public void CollisionLogic(Rectangle overlap, IPlayerCollisionBehavior collisionPartner)
+        {
+            if (!characterHasLeft) return;
+            int modifier = 1;
+            if (overlap.Width > overlap.Height)
             {
-                switch (i)
-                {
-                    case 0:
-                        side = new Vector2(0, -1);
-                        break;
-                    case 1:
-                        side = new Vector2(0, 1);
-                        break;
-                    case 2:
-                        side = new Vector2(-1, 0);
-                        break;
-                    case 3:
-                        side = new Vector2(1, 0);
-                        break;
-                }
-                for (int j = 1; j <= BlastLength; j++)
-                {
-                    ParentScene.AddSprite(new WaterExplosionEdge(ParentScene, i, j == BlastLength, (int) (X + (j*side.X*explosionTile)), (int) (Y + (j*side.Y * explosionTile))));
-                }
+                if (Y < collisionPartner.blockCollisionBoundingBox.Y) modifier = -1;
+                collisionPartner.CollisionHaltLogic(new Point(0, modifier * overlap.Height));
             }
+            else
+            {
+                if (X < collisionPartner.blockCollisionBoundingBox.X) modifier = -1;
+                collisionPartner.CollisionHaltLogic(new Point(modifier * overlap.Width, 0));
+            }
+        }
+
+        public IExplosion explode()
+        {
+            canExplode = false;
+            owner.recollectBomb();
+            return new Explosion(new Point((int)GameCoord.X, (int)GameCoord.Y), BlastLength, this.SceneDelegate, this.trans);
+        }
+
+        public void Collide(IExplosion bomb)
+        {
+            detector.Ignite(this);
         }
     }
 }

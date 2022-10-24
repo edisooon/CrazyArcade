@@ -14,34 +14,71 @@ namespace CrazyArcade.Demo1
     {
         public IControllerDelegate Delegate { get; set; }
         bool spacePrevPressed = false;
+        static int mouseTolerance = 25;
+        int rightMousePrevPressed = mouseTolerance;
+        int leftMousePrevPressed = mouseTolerance;
 
         public void Update(GameTime time)
         {
-            if (Keyboard.GetState().IsKeyDown(Keys.W))
+            if (Keyboard.GetState().IsKeyDown(Keys.Up))
             {
                 Delegate.KeyUp();
             }
-            if (Keyboard.GetState().IsKeyDown(Keys.S))
+
+            if (Keyboard.GetState().IsKeyDown(Keys.Down))
+
             {
                 Delegate.KeyDown();
             }
-            if (Keyboard.GetState().IsKeyDown(Keys.A))
+            if (Keyboard.GetState().IsKeyDown(Keys.Left))
             {
                 Delegate.KeyLeft();
             }
-            if (Keyboard.GetState().IsKeyDown(Keys.D))
+            if (Keyboard.GetState().IsKeyDown(Keys.Right))
             {
                 Delegate.KeyRight();
             }
-            if (Keyboard.GetState().IsKeyDown(Keys.X) && !spacePrevPressed)
+
+            if (Mouse.GetState().LeftButton == ButtonState.Pressed && leftMousePrevPressed == mouseTolerance)
+            {
+                Delegate.LeftClick();
+                leftMousePrevPressed = 0;
+            }
+            if (Mouse.GetState().LeftButton == ButtonState.Released)
+            {
+                if (rightMousePrevPressed < mouseTolerance)
+                {
+                    rightMousePrevPressed++;
+                }
+
+            }
+            if (Mouse.GetState().RightButton == ButtonState.Pressed && rightMousePrevPressed == mouseTolerance)
+            {
+                Delegate.RightClick();
+                rightMousePrevPressed = 0;
+            }
+            if (Mouse.GetState().RightButton == ButtonState.Released)
+            {
+                if (leftMousePrevPressed < mouseTolerance)
+                {
+                    leftMousePrevPressed++;
+                }
+                    
+            }
+
+            if (Keyboard.GetState().IsKeyDown(Keys.Space) && !spacePrevPressed)
+
             {
                 Delegate.KeySpace();
                 spacePrevPressed = true;
             }
-            if (!Keyboard.GetState().IsKeyDown(Keys.X))
+            if (!Keyboard.GetState().IsKeyDown(Keys.Space))
             {
                 spacePrevPressed = false;
             }
+            
+
         }
+
     }
 }

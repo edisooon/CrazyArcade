@@ -9,7 +9,7 @@ using CrazyArcade.BombFeature;
 using System;
 using Microsoft.Xna.Framework.Content;
 using System.Reflection.Metadata;
-using CrazyArcade.Enemy;
+using CrazyArcade.Enemies;
 using CrazyArcade.Levels;
 using System.Diagnostics;
 namespace CrazyArcade;
@@ -19,7 +19,7 @@ public class Game1 : Game
     private GraphicsDeviceManager _graphics;
     private SpriteBatch _spriteBatch;
     public IScene scene;
-    public Level Level1;
+    public LevelSchema Level1;
     public ReadJSON test;
 
     public Game1()
@@ -37,7 +37,7 @@ public class Game1 : Game
         TextureSingleton.LoadAllTextures(Content);
         
 
-        test = new ReadJSON("Level_0.json");
+        test = new ReadJSON("Level_0.json",ReadJSON.fileType.LevelFile);
         Level1 = test.levelObject;
 
         base.Initialize();

@@ -7,25 +7,30 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using CrazyArcade.Blocks;
 
 namespace CrazyArcade.BombFeature
 {
-    internal class WaterExplosionCenter : CAEntity
+    internal class WaterExplosionCenter : CAEntity, IPlayerCollidable
     {
         static int FrameLength = 40;
-        CAScene ParentScene;
         private SpriteAnimation spriteAnims;
         float AliveTime = 0;
         float Lifespan = 1000;
         public override SpriteAnimation SpriteAnim => spriteAnims;
+
+        public Rectangle internalRectangle;
+
+        public Rectangle boundingBox => internalRectangle;
+
         private Rectangle[] AnimationFrames;
-        public WaterExplosionCenter(CAScene ParentScene, int X = 0, int Y = 0)
+        public WaterExplosionCenter(int X = 0, int Y = 0)
         {
             this.X = X;
             this.Y = Y;
-            this.ParentScene = ParentScene;
             AnimationFrames = GetActiveAnimationFrames();
             this.spriteAnims = new SpriteAnimation(TextureSingleton.GetBallons(), AnimationFrames, 15);
+            this.internalRectangle = new Rectangle(X, Y, 40, 40);
         }
         private Rectangle[] GetActiveAnimationFrames()
         {
@@ -54,7 +59,12 @@ namespace CrazyArcade.BombFeature
         }
         private void DeleteSelf()
         {
-            ParentScene.RemoveSprite(this);
+            SceneDelegate.ToRemoveEntity(this);
+        }
+
+        public void CollisionLogic(Rectangle overlap, IPlayerCollisionBehavior collisionPartner)
+        {
+            collisionPartner.CollisionDestroyLogic();
         }
     }
 }

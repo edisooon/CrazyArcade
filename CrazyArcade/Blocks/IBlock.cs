@@ -12,11 +12,13 @@ using System.Diagnostics;
 
 namespace CrazyArcade.Blocks
 {
+    //The purpose of this interface is to group together all blocks in the future. All code contained within must apply to all blocks, and changes can be 
+    //Made in the future to enforce this. As of now however, it's purpose is to have an easy way to catagorise all blocks as this.
     public interface IBlock : IEntity
     {
 
     }
-    public abstract class Block : CAEntity, IBlock, IBlockCollision
+    public abstract class Block : CAEntity, IBlock, IPlayerCollidable
     {
         protected SpriteAnimation spriteAnimation;
 
@@ -27,12 +29,16 @@ namespace CrazyArcade.Blocks
             spriteAnimation = new SpriteAnimation(texture, source);
             this.X = destination.X;
             this.Y = destination.Y;
+            internalRectangle.X = X;
+            internalRectangle.Y = Y;
         }
         public Block(Rectangle destination, Rectangle source, Texture2D texture,int frames, int fps)
         {
             spriteAnimation = new SpriteAnimation(texture, frames, fps);
             this.X = destination.X;
             this.Y = destination.Y;
+            internalRectangle.X = X;
+            internalRectangle.Y = Y;
         }
 
         public override SpriteAnimation SpriteAnim => this.spriteAnimation;
@@ -48,10 +54,8 @@ namespace CrazyArcade.Blocks
         {
         }
 
-        public void CollisionLogic(Rectangle overlap, IBlockCollidable collisionPartner)
+        public void CollisionLogic(Rectangle overlap, IPlayerCollisionBehavior collisionPartner)
         {
-            Debug.WriteLine(overlap.Width);
-            Debug.WriteLine(overlap.Height);
             int modifier = 1;
             if (overlap.Width > overlap.Height)
             {

@@ -84,7 +84,11 @@ namespace CrazyArcade.Demo1
         {
             Y += 1;
         }
-        public void LeftClick(int X, int Y)
+        public void LeftClick(int x, int y)
+        {
+
+        }
+        public void LeftClick()
         {
 
         }

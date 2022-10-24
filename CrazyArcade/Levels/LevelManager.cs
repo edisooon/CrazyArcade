@@ -1,5 +1,5 @@
 using CrazyArcade.Demo1;
-using CrazyArcade.Enemy;
+using CrazyArcade.Enemies;
 using CrazyArcade.Boss;
 using CrazyArcade.CAFramework;
 using CrazyArcade.Items;
@@ -17,169 +17,123 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Diagnostics;
+using System.Numerics;
+using Vector2 = Microsoft.Xna.Framework.Vector2;
+using System.Drawing;
+using Rectangle = Microsoft.Xna.Framework.Rectangle;
+using System.Reflection.Metadata.Ecma335;
+using System.Runtime.Intrinsics;
+using static System.Formats.Asn1.AsnWriter;
+using CrazyArcade.CAFramework.Controller;
+using Microsoft.Xna.Framework.Content;
 
 namespace CrazyArcade.Levels
 {
-    public class LevelManager : IGameSystem
+    public class LevelManager : IGameSystem, IControllable
 
     {
-
-        private List<CAEntity> EntityList;
+        private IController controller;
         private CAScene Scene;
-        private LoadLevel Level0;
-        private Vector2[] itemLocations;
-        private Rectangle Destination;
-        private int size;
-        public LevelManager(CAScene scene)
+        private string mapFile;
+        private string levelFile;
+        private MapSchema mapSchema;
+        private Level[] levelArray;
+        private CreateMap mapReader;
+        private string[] levelFiles;
+        private int levelNum;
+        private int length;
+        private int oldNum;
+        private int shiftFlag;
+        private Dir direction;
+        public IController Controller
         {
-            Level0 = new LoadLevel("level_0.json");
+            get => controller;
+            set
+            {
+                controller = value;
+                controller.Delegate = this;
+            }
+        }
+        public LevelManager(CAScene scene, IController controller)
+        {
             this.Scene = scene;
-            EntityList = new List<CAEntity>();
-            LoadSprites();
-            foreach (CAEntity entity in EntityList)
-            {
-                Scene.AddSprite(entity);
-            }
+            mapFile = "Map.json";
+            levelNum = 0;
+            oldNum = 0;
+            getLevelFiles();
+            loadLevels();
+            levelArray[levelNum].DrawLevel();
+            this.controller = controller;
+            controller.Delegate = this;
+            shiftFlag = 50;
         }
-        private void LoadSprites()
+        
+        private void getLevelFiles()
         {
-            //Blocks
-            //TODO Find a way to reduce duplicate code
-            itemLocations = Level0.GetItemLocation(LoadLevel.LevelItem.DarkSandPosition);
-            size = 36;
-            foreach (Vector2 vector in itemLocations)
+            mapReader = new CreateMap(mapFile);
+            mapSchema = mapReader.mapObject;
+            levelFiles = mapSchema.Levels;
+        }   
+        private void loadLevels()
+        {
+            length = levelFiles.Length;
+            levelArray = new Level[length];
+            for (int i = 0; i < length; i++)
             {
-                Debug.WriteLine(vector.Y);
-                Destination = new Rectangle((int)vector.X, (int)vector.Y, size, size);
-                EntityList.Add(new SandBlock(Destination));
-            }
-
-           
-            itemLocations = Level0.GetItemLocation(LoadLevel.LevelItem.LightSandPosition);
-         
-            foreach (Vector2 vector in itemLocations)
-            {
-                Debug.WriteLine(vector.Y);
-                Destination = new Rectangle((int)vector.X, (int)vector.Y, size, size);
-                EntityList.Add(new LightSandBlock(Destination));
-            }
-            itemLocations = Level0.GetItemLocation(LoadLevel.LevelItem.StonePosition);
-        
-            foreach (Vector2 vector in itemLocations)
-            {
-                Debug.WriteLine(vector.Y);
-                Destination = new Rectangle((int)vector.X, (int)vector.Y, size, size);
-                EntityList.Add(new Rock(Destination));
-            }
-
-
-            itemLocations = Level0.GetItemLocation(LoadLevel.LevelItem.CoinBagPosition);
-        
-            foreach (Vector2 vector in itemLocations)
-            {
-                Debug.WriteLine(vector.Y);
-                Destination = new Rectangle((int)vector.X, (int)vector.Y, size, size);
-                EntityList.Add(new CoinBag(Destination));
-            }
-     
-            itemLocations = Level0.GetItemLocation(LoadLevel.LevelItem.BalloonPosition);
-        
-            foreach (Vector2 vector in itemLocations)
-            {
-               
-                Destination = new Rectangle((int)vector.X, (int)vector.Y, size, size);
-                EntityList.Add(new Balloon(Destination));
-            }
-         
-            itemLocations = Level0.GetItemLocation(LoadLevel.LevelItem.SneakerPosition);
-        
-            foreach (Vector2 vector in itemLocations)
-            {
-      
-                Destination = new Rectangle((int)vector.X, (int)vector.Y, size, size);
-                EntityList.Add(new Sneaker(Destination));
-            }
-            
-            itemLocations = Level0.GetItemLocation(LoadLevel.LevelItem.TurtlePosition);
-        
-            foreach (Vector2 vector in itemLocations)
-            {
-                Debug.WriteLine(vector.Y);
-                Destination = new Rectangle((int)vector.X, (int)vector.Y, size, size);
-                EntityList.Add(new Turtle(Destination));
-            }
-           
-            itemLocations = Level0.GetItemLocation(LoadLevel.LevelItem.PotionPosition);
-        
-            foreach (Vector2 vector in itemLocations)
-            {
-                Debug.WriteLine(vector.Y);
-                Destination = new Rectangle((int)vector.X, (int)vector.Y, size, size);
-                EntityList.Add(new Potion(Destination));
-            }
-           
-            itemLocations = Level0.GetItemLocation(LoadLevel.LevelItem.CoinPosition);
-        
-            foreach (Vector2 vector in itemLocations)
-            {
-                Debug.WriteLine(vector.Y);
-                Destination = new Rectangle((int)vector.X, (int)vector.Y, size, size);
-                EntityList.Add(new Coin(Destination));
-            }
-            
-            itemLocations = Level0.GetItemLocation(LoadLevel.LevelItem.BombPosition);
-
-            foreach (Vector2 vector in itemLocations)
-            {
-                EntityList.Add(new BombEnemySprite((int)vector.X, (int)vector.Y));
-            }
-
-            itemLocations = Level0.GetItemLocation(LoadLevel.LevelItem.SquidPosition);
-
-            foreach (Vector2 vector in itemLocations)
-            {
-                EntityList.Add(new SquidEnemySprite((int)vector.X, (int)vector.Y));
-            }
-
-            itemLocations = Level0.GetItemLocation(LoadLevel.LevelItem.BatPosition);
-
-            foreach (Vector2 vector in itemLocations)
-            {
-                EntityList.Add(new BatEnemySprite((int)vector.X, (int)vector.Y));
-            }
-
-            itemLocations = Level0.GetItemLocation(LoadLevel.LevelItem.RobotPosition);
-
-            foreach (Vector2 vector in itemLocations)
-            {
-                EntityList.Add(new RobotEnemySprite((int)vector.X, (int)vector.Y));
-            }
-
-            itemLocations = Level0.GetItemLocation(LoadLevel.LevelItem.OctoBossPosition);
-
-            foreach (Vector2 vector in itemLocations)
-            {
-                EntityList.Add(new OctopusEnemy((int)vector.X, (int)vector.Y));
-            }
-           
-            itemLocations = Level0.GetItemLocation(LoadLevel.LevelItem.SunBossPosition);
-
-            foreach (Vector2 vector in itemLocations)
-            {
-                EntityList.Add(new SunBoss(Scene));
+                levelFile = levelFiles[i];
+                levelArray[i] = new Level(Scene, levelFile);
             }
 
 
         }
-
-       
         public void Update(GameTime time)
         {
+            if (shiftFlag<50)
+            {
+                //Just a start
+                levelArray[levelNum].ShiftLevel(direction);
+                shiftFlag++;
+            }
+            else if (oldNum != levelNum)
+            {
+                levelArray[oldNum].DeleteLevel();
+                Scene.RemoveAllSprite();
+                levelArray[levelNum].DrawLevel();
+                oldNum = levelNum;
+            }
 
+            
+        }
+        
+
+        public void RightClick()
+
+        {
+            
+            if (levelNum > 0 && (shiftFlag == 50))
+            {
+                oldNum = levelNum;
+                levelNum--;
+                direction = Dir.Right;
+            }
+            
+        }
+
+        public void LeftClick()
+        {
+
+            if ((levelNum < levelFiles.Length-1 )&&(shiftFlag == 50))
+            {
+                oldNum = levelNum;
+                levelNum++;
+                direction = Dir.Left;
+
+            }
+            
         }
         public void AddSprite(IEntity sprite)
         {
-            
+
         }
         public void RemoveSprite(IEntity sprite)
         {
@@ -189,7 +143,42 @@ namespace CrazyArcade.Levels
         {
 
         }
-        
-       
+        public void KeyUp()
+        {
+
+        }
+
+        public void KeyDown()
+        {
+
+        }
+
+        public void KeyLeft()
+        {
+
+        }
+
+        public void KeyRight()
+        {
+
+        }
+
+        public void KeySpace()
+        {
+
+        }
+        public void Key_o()
+        {
+
+        }
+        public void Key_p()
+        {
+
+        }
+        public void LeftClick(int x, int y)
+        {
+
+        }
+
     }
 }

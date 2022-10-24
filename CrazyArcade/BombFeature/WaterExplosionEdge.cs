@@ -7,13 +7,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using CrazyArcade.Blocks;
 
 namespace CrazyArcade.BombFeature
 {
-    internal class WaterExplosionEdge : CAEntity
+    internal class WaterExplosionEdge : CAEntity, IPlayerCollidable
     {
         static int FrameLength = 40;
-        CAScene ParentScene;
         float Lifespan;
         float AliveTime;
         int Direction;
@@ -21,7 +21,12 @@ namespace CrazyArcade.BombFeature
         int living;
         private SpriteAnimation[] spriteAnims;
         public override SpriteAnimation SpriteAnim => spriteAnims[living];
-        public WaterExplosionEdge(CAScene ParentScene, int direction, bool head, int X = 0, int Y = 0)
+
+        public Rectangle internalRectangle;
+
+        public Rectangle boundingBox => internalRectangle;
+
+        public WaterExplosionEdge(int direction, bool head, int X = 0, int Y = 0)
         {
             spriteAnims = new SpriteAnimation[2];
             this.X = X;
@@ -31,11 +36,11 @@ namespace CrazyArcade.BombFeature
             living = 0;
             Direction = direction;
             this.head = head;
-            this.ParentScene = ParentScene;
             Rectangle[] activeFrames = GetActiveAnimationFrames();
             Rectangle[] decayFrames = GetDecayedAnimationFrames();
             this.spriteAnims[0] = new SpriteAnimation(TextureSingleton.GetBallons(), activeFrames, 15);
             this.spriteAnims[1] = new SpriteAnimation(TextureSingleton.GetBallons(), decayFrames, 15);
+            this.internalRectangle = new Rectangle(X, Y, 40, 40);
         }
         private Rectangle[] GetActiveAnimationFrames()
         {
@@ -97,7 +102,12 @@ namespace CrazyArcade.BombFeature
         }
         private void DeleteSelf()
         {
-            ParentScene.RemoveSprite(this);
+            SceneDelegate.ToRemoveEntity(this);
+        }
+
+        public void CollisionLogic(Rectangle overlap, IPlayerCollisionBehavior collisionPartner)
+        {
+            collisionPartner.CollisionDestroyLogic();
         }
     }
 }

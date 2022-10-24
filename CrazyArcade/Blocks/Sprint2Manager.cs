@@ -14,6 +14,8 @@ using System.Threading.Tasks;
 
 namespace CrazyArcade.Blocks
 {
+    //This game system is depreciated, keeping it around in order to see how things were done in sprint 2 for future reference.
+    //If desired, this can be deleted.
     public class Sprint2Manager : IGameSystem
     {
         private const int block = 0;
@@ -137,6 +139,7 @@ namespace CrazyArcade.Blocks
                 new Coin(itemDestination)
             };
             entities.Add(itemTypeList[itemIndex]);
+            
         }
 
         public void AddSprite(IEntity sprite)
