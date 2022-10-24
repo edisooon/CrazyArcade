@@ -23,6 +23,7 @@ namespace CrazyArcade.Demo1
         protected Point bboxOffset = new Point(16, 47);
         protected bool blockBboxOn = true;
 
+        //----------IGridable Start------------
         private Vector2 gamePos;
         private Vector2 pos;
         public Vector2 ScreenCoord 
@@ -48,6 +49,7 @@ namespace CrazyArcade.Demo1
         }
         private IGridTransform trans = new NullTransform();
         public IGridTransform Trans { get => trans; set => trans = value; }
+        //----------IGridable End------------
 
         public Rectangle blockCollisionBoundingBox => blockBoundingBox;
 
@@ -71,7 +73,7 @@ namespace CrazyArcade.Demo1
         {
             CurrentSpeed = moveInputs * ModifiedSpeed;
         }
-
+        //--------IPlayerCollisionBehavior Start------------
         public void CollisionHaltLogic(Point move)
         {
             GameCoord -= trans.RevScale(new Vector2(move.X, move.Y));
@@ -81,5 +83,6 @@ namespace CrazyArcade.Demo1
         {
 
         }
+        //--------IPlayerCollisionBehavior End------------
     }
 }
