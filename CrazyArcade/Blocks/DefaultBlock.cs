@@ -8,12 +8,13 @@ using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using CrazyArcade.Content;
+using CrazyArcade.Items;
 
 namespace CrazyArcade.Blocks
 {
     public abstract class DefaultBlock : Block
     {
-        public DefaultBlock(Rectangle destinationRectangle, Rectangle sourceRectangle) : base(destinationRectangle, sourceRectangle, Content.TextureSingleton.GetDesertBlocks())
+        public DefaultBlock(Vector2 position, Rectangle sourceRectangle) : base(position, sourceRectangle, Content.TextureSingleton.GetDesertBlocks())
         {
         }
     }
@@ -21,35 +22,35 @@ namespace CrazyArcade.Blocks
     public class LightSandBlock : DefaultBlock
     {
         private static Rectangle source = new Rectangle(10, 10, 40, 44);
-        public LightSandBlock(Rectangle destinationRectangle) : base(destinationRectangle, source)
+        public LightSandBlock(Vector2 position) : base(position, source)
         {
         }
     }
     public class SandBlock : DefaultBlock
     {
         private static Rectangle source = new Rectangle(60, 10, 40, 44);
-        public SandBlock(Rectangle destinationRectangle) : base(destinationRectangle, source)
+        public SandBlock(Vector2 position) : base(position, source)
         {
         }
     }
     public class Rock : DefaultBlock
     {
         private static Rectangle source = new Rectangle(110, 10, 40, 47);
-        public Rock(Rectangle destinationRectangle) : base(destinationRectangle, source)
+        public Rock(Vector2 position) : base(position, source)
         {
         }
     }
     public class Tree : DefaultBlock
     {
         private static Rectangle source = new Rectangle(10, 127, 63, 80);
-        public Tree(Rectangle destinationRectangle) : base(destinationRectangle, source)
+        public Tree(Vector2 position) : base(position, source)
         {
         }
     }
     public class DarkTree : DefaultBlock
     {
         private static Rectangle source = new Rectangle(83, 127, 63, 80);
-        public DarkTree(Rectangle destinationRectangle) : base(destinationRectangle, source)
+        public DarkTree(Vector2 position) : base(position, source)
         {
         }
     }

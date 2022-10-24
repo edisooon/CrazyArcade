@@ -18,7 +18,6 @@ namespace CrazyArcade.Boss
 
         public override IStates Update(GameTime time)
         {
-            Console.Out.Write("Started\n");
             return new SunBossNormalStates(bossDelegate, time);
         }
     }

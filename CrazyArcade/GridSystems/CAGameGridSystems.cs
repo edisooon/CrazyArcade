@@ -5,12 +5,20 @@ using Microsoft.Xna.Framework;
 
 namespace CrazyArcade.GameGridSystems
 {
-	public class CAGameGridSystems: IGameSystem, IGridTransform
-	{
+    public interface IGridSystems: IGameSystem
+    {
+        Vector2 Camera { get; set; }
+        Vector2 StageOffset { get; set; }
+    }
+	public class CAGameGridSystems: IGameSystem, IGridTransform, IGridSystems
+    {
         public static int BlockLength => 40;
         List<IGridable> list = new List<IGridable>();
-		Vector2 camera { get; set; }
+        Vector2 camera = new Vector2(0, 0);
         private Vector2 stageOffset;
+        public Vector2 Camera { get => camera; set => camera = value; }
+        public Vector2 StageOffset { get => stageOffset; set => stageOffset = value; }
+
         private float gridSize;
         public CAGameGridSystems(Vector2 stageOffset, float gridSize)
         {
@@ -21,14 +29,15 @@ namespace CrazyArcade.GameGridSystems
 
         public Vector2 Trans(Vector2 vec)
         {
+            Console.WriteLine(stageOffset.X);
             vec = Scale(vec);
-            vec += camera;
+            vec -= camera;
             vec += stageOffset;
             return vec;
         }
         public Vector2 RevTrans(Vector2 vec)
         {
-            vec -= camera;
+            vec += camera;
             vec -= stageOffset;
             vec = RevScale(vec);
             return vec;

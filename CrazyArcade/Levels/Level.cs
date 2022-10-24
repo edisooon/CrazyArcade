@@ -54,12 +54,9 @@ namespace CrazyArcade.Levels
             LoadBorder();
 
         }
-        public void DrawLevel()
+        public List<CAEntity> DrawLevel()
         {
-            foreach (CAEntity entity in EntityList)
-            {
-                Scene.AddSprite(entity);
-            }
+            return EntityList;
         }
         
         public void DeleteLevel()
@@ -78,7 +75,7 @@ namespace CrazyArcade.Levels
                 if (entity is IGridable)
                 {
                     coord = (entity as IGridable).ScreenCoord;
-                    if (direction == Dir.Left);
+                    //if (direction == Dir.Left);
                     coord.X += offset;
 
                 }

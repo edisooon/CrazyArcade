@@ -27,7 +27,7 @@ namespace CrazyArcade.BombFeature
         public Rectangle internalRectangle;
 
         public Rectangle boundingBox => internalRectangle;
-
+        //---------------Gridable Start------------------
         private Vector2 gamePos;
         private Vector2 pos;
         public Vector2 ScreenCoord
@@ -51,6 +51,8 @@ namespace CrazyArcade.BombFeature
         }
 
         public Vector2 GameCoord { get => gamePos; set => gamePos = value; }
+        //---------------Gridable End------------------
+
         private IExplosionDetector detector;
         public IExplosionDetector Detector { get => detector; set => detector = value; }
 
