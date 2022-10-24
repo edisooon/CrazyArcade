@@ -10,10 +10,10 @@ namespace CrazyArcade.Items
     public interface IItemCollidable
     {
         public Rectangle blockCollisionBoundingBox { get; }
+        public bool canHaveItem();
         public void IncreaseBlastLength();
         public void SwitchToMountedState();
         public void IncreaseSpeed();
         public void IncreaseBombCount();
-        public void AddCoin(int toAdd);
     }
 }

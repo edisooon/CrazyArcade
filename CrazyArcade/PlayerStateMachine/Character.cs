@@ -55,6 +55,10 @@ namespace CrazyArcade.PlayerStateMachine
         {
             bombsOut = bombsOut-- >= 0 ? bombsOut-- : 0;
         }
+        public bool canHaveItem()
+        {
+            return (playerState is CharacterStateFree || playerState is CharacterStateRides);
+        }
 
         public void IncreaseBlastLength()
         {
@@ -71,10 +75,6 @@ namespace CrazyArcade.PlayerStateMachine
         public void IncreaseBombCount()
         {
             this.bombCapacity++;
-        }
-        public void AddCoin(int toAdd)
-        {
-
         }
     }
 }

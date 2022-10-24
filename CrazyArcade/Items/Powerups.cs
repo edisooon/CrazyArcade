@@ -35,7 +35,6 @@ namespace CrazyArcade.Items
         }
         public override void CollisionLogic(IItemCollidable collisionPartner)
         {
-            collisionPartner.AddCoin(5);
         }
     }
     public class Sneaker : Item
@@ -84,7 +83,6 @@ namespace CrazyArcade.Items
         }
         public override void CollisionLogic(IItemCollidable collisionPartner)
         {
-            collisionPartner.AddCoin(1);
         }
     }
 }
