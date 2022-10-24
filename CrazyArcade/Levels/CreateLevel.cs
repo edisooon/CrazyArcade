@@ -7,15 +7,25 @@ using Microsoft.Xna.Framework;
 using CrazyArcade.Levels;
 namespace CrazyArcade.Levels
 {
-	//allows for scene to load in 
-	public class LoadLevel
+    public class CreateMap
 	{
-		public static LevelSchema levelObject;
-		public ReadJSON Reader;
-		public LoadLevel(string fileName)
+        public MapSchema mapObject { get; }
+        public ReadJSON Reader;
+        public CreateMap(string fileName)
+        {
+            Reader = new ReadJSON(fileName, ReadJSON.fileType.MapFile);
+            mapObject = new MapSchema();
+            mapObject = Reader.mapObject;
+        }
+    }
+    //allows for scene to load in level
+    public class CreateLevel
+	{
+		public LevelSchema levelObject { get; }
+        public ReadJSON Reader;
+		public CreateLevel(string fileName)
 		{
-			Reader = new ReadJSON(fileName);
-			levelObject = new LevelSchema();
+			Reader = new ReadJSON(fileName, ReadJSON.fileType.LevelFile);
 			levelObject = Reader.levelObject;
 		}
 

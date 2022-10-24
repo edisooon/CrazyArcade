@@ -9,6 +9,7 @@ namespace CrazyArcade.CAFramework.Controller
 	public class CAControllerSystem: IGameSystem
 	{
         List<IEntity> sprites;
+
 		public CAControllerSystem()
 		{
             sprites = new List<IEntity>();

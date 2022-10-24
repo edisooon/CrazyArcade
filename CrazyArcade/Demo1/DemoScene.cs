@@ -33,10 +33,9 @@ namespace CrazyArcade.Demo1
             //Added to the demo scene file in order to test the functionality of the code
             
             this.systems.Add(new CAGameGridSystems(new Vector2(0, 0), 40));
-            
-            
-            this.systems.Add(new LevelManager(this));
-            Debug.WriteLine("Added player");
+            this.systems.Add(new LevelManager(this, new DemoController()));
+
+
         }
 
         public override void LoadSprites()
@@ -46,7 +45,7 @@ namespace CrazyArcade.Demo1
             //this.AddSprite(new DemoCharacter(new DemoController()));
             //this.AddSprite(new BombEnemySprite(100,100));
             //this.AddSprite(new PlayerCharacter(new DemoController(), this));
-            
+
         }
 
     }

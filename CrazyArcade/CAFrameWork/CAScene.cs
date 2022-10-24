@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using CrazyArcade.CAFramework;
+using CrazyArcade.CAFramework.Controller;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
@@ -46,7 +47,12 @@ namespace CrazyArcade.CAFramework
             foreach (IGameSystem system in systems)
             {
                 system.Update(time);
+                if (system is IControllable)
+                {
+                    (system as IControllable).Controller.Update(time);
+                }
             }
+            
         }
 
         public void Draw(GameTime time, SpriteBatch batch)

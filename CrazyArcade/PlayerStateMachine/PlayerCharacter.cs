@@ -11,6 +11,7 @@ using CrazyArcade.Singletons;
 using CrazyArcade.Content;
 using Microsoft.Xna.Framework;
 using CrazyArcade.BombFeature;
+using System.Diagnostics;
 
 namespace CrazyArcade.PlayerStateMachine
 {
@@ -97,6 +98,10 @@ namespace CrazyArcade.PlayerStateMachine
         }
 
         public void RightClick()
+        {
+
+        }
+        public void LeftClick()
         {
 
         }
