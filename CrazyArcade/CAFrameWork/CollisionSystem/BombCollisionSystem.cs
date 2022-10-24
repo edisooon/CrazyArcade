@@ -29,6 +29,11 @@ namespace CrazyArcade.CAFrameWork.CollisionSystem
             }
         }
 
+        /*  A DFS search
+         *  Internel node: (IExplodable && IExplosionCollidable)
+         *  Leaf node: (!IExplodable && IExplosionCollidableExple)
+         *  Root: IExplosion
+         */
         public void Detect(IExplosion explosion)
         {
             foreach (IExplosionCollidable collidable in triggers)
@@ -46,6 +51,9 @@ namespace CrazyArcade.CAFrameWork.CollisionSystem
             }
         }
 
+        /*
+         * Task for each Node in the DFS search
+         */
         public void Ignite(IExplodable explodable)
         {
             if (explodable.CanExplode)
