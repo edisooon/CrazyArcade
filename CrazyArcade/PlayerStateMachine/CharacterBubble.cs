@@ -13,7 +13,7 @@ namespace CrazyArcade.PlayerStateMachine
 {
     public class PlayerBubble : CAEntity
     {
-        public PlayerCharacter player;
+        public Character player;
         public CAScene scene;
         private SpriteAnimation[] currentBubble;
         public int bubbleInt;
@@ -27,7 +27,7 @@ namespace CrazyArcade.PlayerStateMachine
         private static readonly int bubblePopFrames = 6;
         private static readonly int bubbleFPS = 10;
 
-        public PlayerBubble(PlayerCharacter player, CAScene scene)
+        public PlayerBubble(Character player, CAScene scene)
         {
             
             this.player = player;
