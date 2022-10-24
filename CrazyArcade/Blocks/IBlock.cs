@@ -29,22 +29,18 @@ namespace CrazyArcade.Blocks
         public Block(Rectangle destination, Rectangle source, Texture2D texture)
         {
             spriteAnimation = new SpriteAnimation(texture, source);
-            this.X = destination.X;
-            this.Y = destination.Y;
-            pos = new Vector2(X, Y);
-            internalRectangle.X = X;
-            internalRectangle.Y = Y;
-            ScreenCoord = new Vector2(X, Y);
+            GameCoord = new Vector2(destination.X, destination.Y);
+            internalRectangle.X = (int)GameCoord.X;
+            internalRectangle.Y = (int)GameCoord.Y;
+            //ScreenCoord = new Vector2(X, Y);
         }
         public Block(Rectangle destination, Rectangle source, Texture2D texture,int frames, int fps)
         {
             spriteAnimation = new SpriteAnimation(texture, frames, fps);
-            this.X = destination.X;
-            pos = new Vector2(X, Y);
-            this.Y = destination.Y;
-            internalRectangle.X = X;
-            internalRectangle.Y = Y;
-            ScreenCoord = new Vector2(X, Y);
+            GameCoord = new Vector2(destination.X, destination.Y);
+            internalRectangle.X = (int)GameCoord.X;
+            internalRectangle.Y = (int)GameCoord.Y;
+            //ScreenCoord = new Vector2(X, Y);
         }
 
         public override SpriteAnimation SpriteAnim => this.spriteAnimation;
@@ -59,8 +55,6 @@ namespace CrazyArcade.Blocks
             set
             {
                 pos = value;
-                this.X = (int)value.X;
-                this.Y = (int)value.Y;
             }
         }
         public Vector2 GameCoord { get => gamePos; set => gamePos = value; }
@@ -69,10 +63,8 @@ namespace CrazyArcade.Blocks
 
         public override void Update(GameTime time)
         {
-            internalRectangle.X = X;
-            internalRectangle.Y = Y;
-            pos.X = X;
-            pos.Y = Y;
+            internalRectangle.X = (int)GameCoord.X;
+            internalRectangle.Y = (int)GameCoord.Y;
         }
         public override void Load()
         {
@@ -83,12 +75,12 @@ namespace CrazyArcade.Blocks
             int modifier = 1;
             if (overlap.Width > overlap.Height)
             {
-                if (Y < collisionPartner.blockCollisionBoundingBox.Y) modifier = -1;
+                if (GameCoord.Y < collisionPartner.blockCollisionBoundingBox.Y) modifier = -1;
                 collisionPartner.CollisionHaltLogic(new Point(0, modifier * overlap.Height));
             } 
             else
             {
-                if (X < collisionPartner.blockCollisionBoundingBox.X) modifier = -1;
+                if (GameCoord.X < collisionPartner.blockCollisionBoundingBox.X) modifier = -1;
                 collisionPartner.CollisionHaltLogic(new Point(modifier * overlap.Width, 0));
             }
         }

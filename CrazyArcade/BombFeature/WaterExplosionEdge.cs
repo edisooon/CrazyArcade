@@ -29,8 +29,7 @@ namespace CrazyArcade.BombFeature
         public WaterExplosionEdge(int direction, bool head, int X = 0, int Y = 0)
         {
             spriteAnims = new SpriteAnimation[2];
-            this.X = X;
-            this.Y = Y;
+            GameCoord = new Vector2(X, Y);
             Lifespan = 1000;
             AliveTime = 0;
             living = 0;

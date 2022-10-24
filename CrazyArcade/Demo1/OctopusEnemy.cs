@@ -26,11 +26,10 @@ namespace CrazyArcade.Demo1
         {
             texture = TextureSingleton.GetOctoBoss();
             spriteAnims = new SpriteAnimation(texture,2,5);
-            X = x;
-            Y = y; 
-            internalRectangle.X = X;
-            internalRectangle.Y = Y;
-            ScreenCoord = new Vector2(X, Y);
+            GameCoord = new Vector2(x, y);
+            internalRectangle.X = (int)GameCoord.X;
+            internalRectangle.Y = (int)GameCoord.Y;
+            ScreenCoord = new Vector2(x, y);
         }
 
         

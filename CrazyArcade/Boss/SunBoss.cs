@@ -28,8 +28,7 @@ namespace CrazyArcade.Boss
             set
             {
                 pos = value;
-                this.X = (int)value.X;
-                this.Y = (int)value.Y;
+                GameCoord = value;
             }
         }
         public Vector2 GameCoord { get => gamePos; set => gamePos = value; }

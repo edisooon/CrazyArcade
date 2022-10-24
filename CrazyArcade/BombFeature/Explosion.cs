@@ -25,8 +25,7 @@ namespace CrazyArcade.BombFeature
         }
         public void UpdateCoord(Vector2 value)
         {
-            this.X = (int)value.X;
-            this.Y = (int)value.Y;
+            GameCoord = value;
         }
         private IGridTransform trans = new NullTransform();
         public IGridTransform Trans { get => trans; set => trans = value; }
@@ -52,7 +51,7 @@ namespace CrazyArcade.BombFeature
 		{
             int explosionTile = 40;
             Vector2 side = new Vector2(0, 0);
-            SceneDelegate.ToAddEntity(new WaterExplosionCenter(X, Y));
+            SceneDelegate.ToAddEntity(new WaterExplosionCenter((int)GameCoord.X, (int)GameCoord.Y));
             for (int i = 0; i < 4; i++)
             {
                 switch (i)
@@ -72,7 +71,7 @@ namespace CrazyArcade.BombFeature
                 }
                 for (int j = 1; j <= distance; j++)
                 {
-                    SceneDelegate.ToAddEntity(new WaterExplosionEdge(i, j == distance, (int)(X + (j * side.X * explosionTile)), (int)(Y + (j * side.Y * explosionTile))));
+                    SceneDelegate.ToAddEntity(new WaterExplosionEdge(i, j == distance, (int)(GameCoord.X + (j * side.X * explosionTile)), (int)(GameCoord.Y + (j * side.Y * explosionTile))));
                 }
             }
         }

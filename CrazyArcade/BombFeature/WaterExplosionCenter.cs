@@ -26,8 +26,7 @@ namespace CrazyArcade.BombFeature
         private Rectangle[] AnimationFrames;
         public WaterExplosionCenter(int X = 0, int Y = 0)
         {
-            this.X = X;
-            this.Y = Y;
+            GameCoord = new Vector2(X, Y);
             AnimationFrames = GetActiveAnimationFrames();
             this.spriteAnims = new SpriteAnimation(TextureSingleton.GetBallons(), AnimationFrames, 15);
             this.internalRectangle = new Rectangle(X, Y, 40, 40);

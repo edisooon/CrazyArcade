@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Numerics;
 using CrazyArcade.CAFramework;
 using Microsoft.Xna.Framework;
@@ -41,6 +42,7 @@ namespace CrazyArcade.Boss
             {
                 return new SunBossAttackStates(bossDelegate, time);
             }
+            Debug.Print(""+getEyeFrame());
             animation[0] = new SpriteAnimation(Singletons.SpriteSheet.SunBoss, eyes[getEyeFrame()]);
             animation[0].Position.X += 22;
             animation[0].Position.Y += 32;
@@ -53,6 +55,8 @@ namespace CrazyArcade.Boss
             int res = dir.Y > 0 ? 4 : 0;
             double radius = Math.Sqrt(Math.Pow(dir.X, 2) + Math.Pow(dir.Y, 2)) + 1;
             res += (int)((dir.X + radius) / (radius * 2 / 4));
+            res = Math.Min(7, res);
+            res = Math.Max(0, res);
             return res;
         }
     }

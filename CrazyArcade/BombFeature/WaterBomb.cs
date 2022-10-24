@@ -44,8 +44,7 @@ namespace CrazyArcade.BombFeature
 
         public void UpdateCoord(Vector2 value)
         {
-            this.X = (int)value.X;
-            this.Y = (int)value.Y;
+            GameCoord = value;
             this.internalRectangle.X = (int)ScreenCoord.X;
             this.internalRectangle.Y = (int)ScreenCoord.Y;
         }
@@ -73,7 +72,7 @@ namespace CrazyArcade.BombFeature
             DetonateTime = 0;
             DetonateTimer = 3000;
             this.spriteAnims = new SpriteAnimation(TextureSingleton.GetBallons(), AnimationFrames, 8);
-            internalRectangle = new Rectangle(X, Y, 40, 40);
+            internalRectangle = new Rectangle((int)GameCoord.X, (int)GameCoord.Y, 40, 40);
         }
         private static Rectangle[] GetAnimationFrames()
         {
@@ -125,12 +124,12 @@ namespace CrazyArcade.BombFeature
             int modifier = 1;
             if (overlap.Width > overlap.Height)
             {
-                if (Y < collisionPartner.blockCollisionBoundingBox.Y) modifier = -1;
+                if (GameCoord.Y < collisionPartner.blockCollisionBoundingBox.Y) modifier = -1;
                 collisionPartner.CollisionHaltLogic(new Point(0, modifier * overlap.Height));
             }
             else
             {
-                if (X < collisionPartner.blockCollisionBoundingBox.X) modifier = -1;
+                if (GameCoord.X < collisionPartner.blockCollisionBoundingBox.X) modifier = -1;
                 collisionPartner.CollisionHaltLogic(new Point(modifier * overlap.Width, 0));
             }
         }

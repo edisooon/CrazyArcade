@@ -54,8 +54,7 @@ namespace CrazyArcade.Boss
 
         public void UpdateCoord(Vector2 value)
         {
-            this.X = (int)value.X;
-            this.Y = (int)value.Y;
+            GameCoord = value;
             this.internalRectangle.X = (int)ScreenCoord.X;
             this.internalRectangle.Y = (int)ScreenCoord.Y;
         }

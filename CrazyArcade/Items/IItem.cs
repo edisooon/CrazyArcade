@@ -22,10 +22,8 @@ namespace CrazyArcade.Items
         public Item(Rectangle destination, Rectangle source, Texture2D texture, int frames, int fps) : base(destination, source, texture, frames, fps)
         {
             spriteAnimation = new SpriteAnimation(texture, frames, fps);
-            this.X = destination.X;
-            this.Y = destination.Y;
-
-            ScreenCoord = new Vector2(X, Y);
+            GameCoord = new Vector2(destination.X, destination.Y);
+            ScreenCoord = new Vector2(destination.X, destination.Y);
         }
 
         public override SpriteAnimation SpriteAnim => this.spriteAnimation;

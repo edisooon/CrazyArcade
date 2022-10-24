@@ -34,8 +34,7 @@ namespace CrazyArcade.Demo1
 		{
             this.spriteAnims = new SpriteAnimation[4];
             direction = Dir.Down;
-            X = 100;
-            Y = 100;
+            GameCoord = new Vector2(100, 100);
 
             this.controller = controller;
             controller.Delegate = this;
@@ -52,36 +51,36 @@ namespace CrazyArcade.Demo1
 
         public void KeyDown()
         {
-            Y += 1;
-            Y = Y > 300 ? 300 : Y;
+            GameCoord = new Vector2(GameCoord.X, (int)GameCoord.Y + 1);
+            GameCoord = GameCoord.Y > 300 ? new Vector2(GameCoord.X, 300) : GameCoord;
             direction = Dir.Down;
         }
 
         public void KeyLeft()
         {
-            X -= 1;
-            X = X < 0 ? 0 : X;
+            GameCoord = new Vector2((int)GameCoord.X - 1, GameCoord.Y);
+            GameCoord = GameCoord.X < 0 ? new Vector2(0, GameCoord.Y) : GameCoord;
             direction = Dir.Left;
         }
 
         public void KeyRight()
         {
-            X += 1;
-            X = X > 300 ? 300 : X;
+            GameCoord = new Vector2((int)GameCoord.X + 1, GameCoord.Y);
+            GameCoord = GameCoord.X > 300 ? new Vector2(300, GameCoord.Y) : GameCoord;
             direction = Dir.Right;
         }
 
 
         public void KeyUp()
         {
-            Y -= 1;
-            Y = Y < 0 ? 0 : Y;
+            GameCoord = new Vector2(GameCoord.X, (int)GameCoord.Y - 1);
+            GameCoord = GameCoord.Y < 0 ? new Vector2(GameCoord.X, 0) : GameCoord;
             direction = Dir.Up;
         }
 
         public void KeySpace()
         {
-            Y += 1;
+            GameCoord = new Vector2(GameCoord.X, (int)GameCoord.Y + 1);
         }
         public void LeftClick(int x, int y)
         {

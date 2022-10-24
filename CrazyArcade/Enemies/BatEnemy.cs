@@ -29,12 +29,10 @@ namespace CrazyArcade.Enemies
         public BatEnemySprite(int x, int y)
         {
             this.spriteAnims = new SpriteAnimation[4];
-            X = x;
-            Y = y;
-            Start = new Vector2((float)X, (float)Y);
-            internalRectangle.X = X;
-            internalRectangle.Y = Y;
-            ScreenCoord = new Vector2(X, Y);
+            internalRectangle.X = (int)GameCoord.X;
+            internalRectangle.Y = (int)GameCoord.Y;
+            ScreenCoord = new Vector2(x, y);
+            Start = new Vector2((float)x, (float)y);//Could be wrong interperetation
 
         }
 
@@ -76,7 +74,7 @@ namespace CrazyArcade.Enemies
             foreach (SpriteAnimation anim in this.spriteAnims)
             {
                 anim.setWidthHeight(30, 30);
-                anim.Position = new Vector2(X, Y);
+                anim.Position = GameCoord;
             }
         }
 
@@ -85,13 +83,13 @@ namespace CrazyArcade.Enemies
 
             // handled animation updated (position and frame) in abstract level
 
-            SpriteAnim.Position = new Vector2(X, Y);
+            SpriteAnim.Position = GameCoord;
             SpriteAnim.setEffect(effect);
             SpriteAnim.Update(time);
-           
 
-            xDifference = X - (int)Start.X;
-            yDifference = Y - (int)Start.Y;
+
+            xDifference = (int)GameCoord.X - (int)Start.X;
+            yDifference = (int)GameCoord.Y - (int)Start.Y;
 
             if (timer > 1f/6)
             {
@@ -104,13 +102,13 @@ namespace CrazyArcade.Enemies
 
                         direction = Dir.Up;
                         effect = SpriteEffects.None;
-                        this.spriteAnims[(int)direction].Position = new Vector2(X, Y);
+                        this.spriteAnims[(int)direction].Position = GameCoord;
 
 
                     }
                     else
                     {
-                        X = X + 10;
+                        GameCoord = new Vector2((int)GameCoord.X + 10, GameCoord.Y);
                     }
                 }
                 else if (direction == Dir.Up)
@@ -120,11 +118,11 @@ namespace CrazyArcade.Enemies
 
                         direction = Dir.Left;
                         effect = SpriteEffects.None;
-                        this.spriteAnims[(int)direction].Position = new Vector2(X, Y);
+                        this.spriteAnims[(int)direction].Position = GameCoord;
                     }
                     else
                     {
-                        Y = Y - 10;
+                        GameCoord = new Vector2(GameCoord.X, (int)GameCoord.Y - 10);
                     }
                 }
                 else if (direction == Dir.Left)
@@ -134,11 +132,11 @@ namespace CrazyArcade.Enemies
 
                         direction = Dir.Down;
                         effect = SpriteEffects.None;
-                        this.spriteAnims[(int)direction].Position = new Vector2(X, Y);
+                        this.spriteAnims[(int)direction].Position = GameCoord;
                     }
                     else
                     {
-                        X = X - 10;
+                        GameCoord = new Vector2((int)GameCoord.X - 10, GameCoord.Y);
                     }
                 }
                 else if (direction == Dir.Down)
@@ -148,11 +146,11 @@ namespace CrazyArcade.Enemies
 
                         direction = Dir.Right;
                         effect = SpriteEffects.FlipHorizontally;
-                        this.spriteAnims[(int)direction].Position = new Vector2(X, Y);
+                        this.spriteAnims[(int)direction].Position = GameCoord;
                     }
                     else
                     {
-                        Y = Y + 10;
+                        GameCoord = new Vector2(GameCoord.X, (int)GameCoord.Y + 10);
                     }
                 }
                 timer = 0;
@@ -161,8 +159,8 @@ namespace CrazyArcade.Enemies
             {
                 timer += (float)time.ElapsedGameTime.TotalMilliseconds;
             }
-            internalRectangle.X = X;
-            internalRectangle.Y = Y;
+            internalRectangle.X = (int)GameCoord.X;
+            internalRectangle.Y = (int)GameCoord.Y;
         }
 
 
