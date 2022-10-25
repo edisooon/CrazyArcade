@@ -88,13 +88,7 @@ namespace CrazyArcade.Levels
         }
         public void Update(GameTime time)
         {
-            if (shiftFlag<50)
-            {
-                //Just a start
-                levelArray[levelNum].ShiftLevel(direction);
-                shiftFlag++;
-            }
-            else if (oldNum != levelNum)
+            if (oldNum != levelNum)
             {
                 levelArray[oldNum].DeleteLevel();
                 Scene.RemoveAllSprite();
