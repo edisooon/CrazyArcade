@@ -7,6 +7,7 @@ using CrazyArcade.CAFramework;
 using CrazyArcade.Blocks;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
+using CrazyArcade.GameGridSystems;
 
 namespace CrazyArcade.Items
 {
@@ -15,17 +16,44 @@ namespace CrazyArcade.Items
     {
         
     }
-    public abstract class Item : CAEntity, IItem, IItemCollision
+    public abstract class Item : CAEntity, IItem, IItemCollision, IGridable
     {
-
+        //----------IGridable Start------------
+        private Vector2 gamePos;
+        private Vector2 pos;
+        public Vector2 ScreenCoord
+        {
+            get => pos;
+            set
+            {
+                pos = value;
+                this.UpdateCoord(value);
+            }
+        }
+        public void UpdateCoord(Vector2 value)
+        {
+            this.X = (int)value.X;
+            this.Y = (int)value.Y;
+        }
+        public Vector2 GameCoord
+        {
+            get => gamePos;
+            set
+            {
+                gamePos = value;
+                ScreenCoord = trans.Trans(value);
+            }
+        }
+        private IGridTransform trans = new NullTransform();
+        public IGridTransform Trans { get => trans; set => trans = value; }
+        //----------IGridable End------------
         protected Rectangle hitbox;
         protected SpriteAnimation spriteAnimation;
-        public Item(Rectangle destination, Rectangle source, Texture2D texture, int frames, int fps)
+        public Item(Vector2 position, Rectangle source, Texture2D texture, int frames, int fps)
         {
             spriteAnimation = new SpriteAnimation(texture, frames, fps);
-            this.X = destination.X;
-            this.Y = destination.Y;
-            hitbox = destination;
+            GameCoord = position;
+            hitbox = new Rectangle(position.X, position.Y, 20, 20);
         }
 
         public override SpriteAnimation SpriteAnim => this.spriteAnimation;
