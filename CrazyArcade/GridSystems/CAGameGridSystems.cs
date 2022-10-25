@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using CrazyArcade.CAFramework;
+using CrazyArcade.Items;
 using Microsoft.Xna.Framework;
 
 namespace CrazyArcade.GameGridSystems

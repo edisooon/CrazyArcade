@@ -16,6 +16,7 @@ using Microsoft.Xna.Framework;
 using System.Diagnostics;
 using CrazyArcade.CAFrameWork.Transition;
 using CrazyArcade.CAFrameWork.CAGame;
+using CrazyArcade.Items;
 
 namespace CrazyArcade.Demo1
 {
@@ -45,6 +46,10 @@ namespace CrazyArcade.Demo1
             level = new Level(this, fileName);
             foreach (IEntity entity in level.DrawLevel())
             {
+                if (entity is Turtle)
+                {
+                    Console.WriteLine("There is turtle!");
+                }
                 this.AddSprite(entity);
             }
         }

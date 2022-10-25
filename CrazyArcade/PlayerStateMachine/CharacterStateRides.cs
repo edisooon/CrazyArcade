@@ -10,9 +10,9 @@ namespace CrazyArcade.PlayerStateMachine
     {
         int turtleSpeed = 2;
         public SpriteAnimation[] spriteAnims;
-        private PlayerCharacter character;
+        private Character character;
 
-        public CharacterStateRides(PlayerCharacter character)
+        public CharacterStateRides(Character character)
         {
             spriteAnims = new SpriteAnimation[4];
             spriteAnims[0] = new SpriteAnimation(TextureSingleton.GetRides(), 12, 4, 4, 96, 32, 3);

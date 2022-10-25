@@ -46,7 +46,17 @@ namespace CrazyArcade.Items
             }
         }
         private IGridTransform trans = new NullTransform();
-        public IGridTransform Trans { get => trans; set => trans = value; }
+        
+        public IGridTransform Trans
+        {
+            get => trans;
+            set
+            {
+                trans = value;
+                ScreenCoord = value.Trans(GameCoord);
+                enabled = true;
+            }
+        }
         //----------IGridable End------------
         protected Rectangle hitbox;
         protected SpriteAnimation spriteAnimation;
@@ -54,11 +64,13 @@ namespace CrazyArcade.Items
         {
             spriteAnimation = new SpriteAnimation(texture, frames, fps);
             GameCoord = position;
-            hitbox = new Rectangle((int)ScreenCoord.X, (int)ScreenCoord.Y, 36, 36);
         }
 
         public override SpriteAnimation SpriteAnim => this.spriteAnimation;
         public Rectangle itemHitbox => this.hitbox;
+
+        private bool enabled = false;
+        public bool Enabled => enabled;
 
         public override void Update(GameTime time)
         {

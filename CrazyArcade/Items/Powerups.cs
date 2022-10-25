@@ -42,7 +42,6 @@ namespace CrazyArcade.Items
         private static Rectangle source = new Rectangle(396, 138, 40, 44);
         public Sneaker(Vector2 position) : base(position, source, Content.TextureSingleton.GetRollerskates(), 3, 5)
         {
-
         }
         public override void CollisionLogic(IItemCollidable collisionPartner)
         {
@@ -59,6 +58,10 @@ namespace CrazyArcade.Items
         {
             collisionPartner.SwitchToMountedState();
         }
+        public override void Update(GameTime time)
+        {
+            base.Update(time);
+        }
     }
     public class Potion : Item
     {
@@ -66,11 +69,16 @@ namespace CrazyArcade.Items
         private static Rectangle source = new Rectangle(330, 65, 43, 59);
         public Potion(Vector2 position) : base(position, source, Content.TextureSingleton.GetPotion(), 5, 5)
         {
-
         }
         public override void CollisionLogic(IItemCollidable collisionPartner)
         {
             collisionPartner.IncreaseBlastLength();
+        }
+
+        public override void Update(GameTime time)
+        {
+            //Console.WriteLine("Potion" + base.ScreenCoord);
+            base.Update(time);
         }
     }
     public class Coin : Item
