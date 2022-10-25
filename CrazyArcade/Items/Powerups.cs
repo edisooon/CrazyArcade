@@ -16,8 +16,8 @@ namespace CrazyArcade.Items
     {
 
         private static Rectangle source = new Rectangle(11, 73, 40, 53);
-        public Balloon(Vector2 position) : base(position, source, Content.TextureSingleton.GetBomb(),5,5)
-        { 
+        public Balloon(Vector2 position) : base(position, source, Content.TextureSingleton.GetBomb(), 5, 5)
+        {
 
         }
         public override void CollisionLogic(IItemCollidable collisionPartner)
@@ -28,8 +28,8 @@ namespace CrazyArcade.Items
     public class CoinBag : Item
     {
 
-        private static Rectangle source = new Rectangle(519,134,50,52);
-        public CoinBag(Vector2 position) : base(position, source, Content.TextureSingleton.GetCoinbag(),2,5)
+        private static Rectangle source = new Rectangle(519, 134, 50, 52);
+        public CoinBag(Vector2 position) : base(position, source, Content.TextureSingleton.GetCoinbag(), 2, 5)
         {
 
         }
@@ -39,7 +39,7 @@ namespace CrazyArcade.Items
     }
     public class Sneaker : Item
     {
-        private static Rectangle source = new Rectangle(396,138,40,44);
+        private static Rectangle source = new Rectangle(396, 138, 40, 44);
         public Sneaker(Vector2 position) : base(position, source, Content.TextureSingleton.GetRollerskates(), 3, 5)
         {
 
@@ -51,16 +51,13 @@ namespace CrazyArcade.Items
     }
     public class Turtle : Item
     {
-        private static Rectangle source = new Rectangle(14,131,37,59);
+        private static Rectangle source = new Rectangle(14, 131, 37, 59);
         public Turtle(Vector2 position) : base(position, source, Content.TextureSingleton.GetTurtle(), 5, 5)
         {
-
         }
         public override void CollisionLogic(IItemCollidable collisionPartner)
         {
-            //Commented out since Mounted State is not implemented in branch this was worked on
-
-            //collisionPartner.SwitchToMountedState();
+            collisionPartner.SwitchToMountedState();
         }
     }
     public class Potion : Item

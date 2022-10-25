@@ -10,7 +10,7 @@ using CrazyArcade.Blocks;
 
 namespace CrazyArcade.Items
 {
-    public interface IItemCollision
+    public interface IItemCollision: IEntity
     {
         //Reused from IPlayerCollidable
         public void CollisionLogic(IItemCollidable collisionPartner);

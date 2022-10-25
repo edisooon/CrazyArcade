@@ -34,6 +34,7 @@ namespace CrazyArcade.Items
         {
             this.X = (int)value.X;
             this.Y = (int)value.Y;
+            hitbox = new Rectangle((int)ScreenCoord.X, (int)ScreenCoord.Y, 36, 36);
         }
         public Vector2 GameCoord
         {

@@ -13,9 +13,9 @@ namespace CrazyArcade.CAFrameWork.CollisionSystem
     {
         private List<IItemCollidable> _itemsCollidable;
         private List<IItemCollision> _itemsColliding;
-        private IScene parentScene;
+        private ISceneDelegate parentScene;
 
-        public ItemCollisionSystem(IScene scene)
+        public ItemCollisionSystem(ISceneDelegate scene)
         {
             this._itemsCollidable = new List<IItemCollidable>();
             this._itemsColliding = new List<IItemCollision>();
@@ -62,9 +62,9 @@ namespace CrazyArcade.CAFrameWork.CollisionSystem
                     }
                 }
             }
-            foreach(IItemCollision ItemToRemove in toRemove)
+            foreach(IItemCollision itemToRemove in toRemove)
             {
-                ItemToRemove.DeleteSelf(parentScene);
+                parentScene.ToRemoveEntity(itemToRemove);
             }
         }
     }
