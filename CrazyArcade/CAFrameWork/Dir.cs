@@ -6,6 +6,7 @@ namespace CrazyArcade.CAFramework
         Up = 0,
         Down = 2,
         Left = 1,
-        Right = 3
+        Right = 3,
+        right = 4
     }
 }
