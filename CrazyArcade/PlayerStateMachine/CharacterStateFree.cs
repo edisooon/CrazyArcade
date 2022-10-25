@@ -72,7 +72,7 @@ namespace CrazyArcade.PlayerStateMachine
         }
         public void ProcessRide()
         {
-            this.character.playerState = new CharacterStateRides(this.character);
+            //this.character.playerState = new CharacterStateRides(this.character);
         }
         public int SetSpeed()
         {

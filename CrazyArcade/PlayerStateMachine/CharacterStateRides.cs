@@ -27,7 +27,8 @@ namespace CrazyArcade.PlayerStateMachine
             mount = newRide;
             d1HeldDown = false;
             d2HeldDown = false;
-            character.parentScene.AddSprite(mount);
+            
+            character.SceneDelegate.ToAddEntity(mount);
         }
 
         public void ProcessAttaction()
