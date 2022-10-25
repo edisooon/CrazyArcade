@@ -10,9 +10,10 @@ using CrazyArcade.Blocks;
 
 namespace CrazyArcade.Items
 {
-    public interface IItemCollision
+    public interface IItemCollision: IEntity
     {
         //Reused from IPlayerCollidable
+        public bool Enabled { get; }
         public void CollisionLogic(IItemCollidable collisionPartner);
         public void DeleteSelf(IScene parentScene);
         public Rectangle itemHitbox { get; }

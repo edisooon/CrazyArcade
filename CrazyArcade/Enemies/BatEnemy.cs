@@ -12,28 +12,19 @@ namespace CrazyArcade.Enemies
 
     {
         private SpriteAnimation[] spriteAnims;
-        private Dir direction;
         private Rectangle[] InputFramesRight;
         private Rectangle[] InputFramesLeft;
         private Rectangle[] InputFramesUp;
         private Rectangle[] InputFramesDown;
-        private Vector2 Start;
-        private int xDifference;
-        private int yDifference;
         private Dir[] dirList;
         float timer;
-        SpriteEffects effect;
 
         public override SpriteAnimation SpriteAnim => spriteAnims[(int)direction];
 
-        public BatEnemySprite(int x, int y)
+        
+        public BatEnemySprite(int x, int y): base(x, y)
         {
             this.spriteAnims = new SpriteAnimation[4];
-            X = x;
-            Y = y;
-            Start = new Vector2((float)X, (float)Y);
-            internalRectangle.X = X;
-            internalRectangle.Y = Y;
         }
 
         public override void Load()
@@ -88,72 +79,12 @@ namespace CrazyArcade.Enemies
             SpriteAnim.Update(time);
            
 
-            xDifference = X - (int)Start.X;
-            yDifference = Y - (int)Start.Y;
+            xDifference = GameCoord.X - Start.X;
+            yDifference = GameCoord.Y - Start.Y;
 
             if (timer > 1f/6)
             {
-                if (direction == Dir.Right)
-
-                {
-
-                    if (xDifference >= 200)
-                    {
-
-                        direction = Dir.Up;
-                        effect = SpriteEffects.None;
-                        this.spriteAnims[(int)direction].Position = new Vector2(X, Y);
-
-
-                    }
-                    else
-                    {
-                        X = X + 10;
-                    }
-                }
-                else if (direction == Dir.Up)
-                {
-                    if (yDifference <= 0)
-                    {
-
-                        direction = Dir.Left;
-                        effect = SpriteEffects.None;
-                        this.spriteAnims[(int)direction].Position = new Vector2(X, Y);
-                    }
-                    else
-                    {
-                        Y = Y - 10;
-                    }
-                }
-                else if (direction == Dir.Left)
-                {
-                    if (xDifference <= 0)
-                    {
-
-                        direction = Dir.Down;
-                        effect = SpriteEffects.None;
-                        this.spriteAnims[(int)direction].Position = new Vector2(X, Y);
-                    }
-                    else
-                    {
-                        X = X - 10;
-                    }
-                }
-                else if (direction == Dir.Down)
-                {
-                    if (yDifference >= 200)
-                    {
-
-                        direction = Dir.Right;
-                        effect = SpriteEffects.FlipHorizontally;
-                        this.spriteAnims[(int)direction].Position = new Vector2(X, Y);
-                    }
-                    else
-                    {
-                        Y = Y + 10;
-                    }
-                }
-                timer = 0;
+                move(direction);
             }
             else
             {
@@ -163,7 +94,30 @@ namespace CrazyArcade.Enemies
             internalRectangle.Y = Y;
         }
 
+        protected override Vector2[] SpeedVector => speedVector;
 
+        /*
+            Up = 0,
+            Left = 1,
+            Down = 2,
+            Right = 3
+         */
+        Vector2[] speedVector =
+        {
+            new Vector2(0.0f, -0.1f),
+            new Vector2(-0.1f, 0.0f),
+            new Vector2(0.0f, 0.1f),
+            new Vector2(0.1f, 0.0f),
+        };
+        public override void UpdateAnimation(Dir dir)
+        {
+            this.spriteAnims[(int)direction].Position = new Vector2(X, Y);
+        }
+
+        void updateCoord()
+        {
+
+        }
 
     }
 }

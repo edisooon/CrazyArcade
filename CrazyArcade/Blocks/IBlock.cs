@@ -9,6 +9,7 @@ using System.Runtime.CompilerServices;
 using CrazyArcade.CAFramework;
 using CrazyArcade.Content;
 using System.Diagnostics;
+using CrazyArcade.GameGridSystems;
 
 namespace CrazyArcade.Blocks
 {
@@ -18,25 +19,52 @@ namespace CrazyArcade.Blocks
     {
 
     }
-    public abstract class Block : CAEntity, IBlock, IPlayerCollidable
+    public abstract class Block : CAEntity, IBlock, IPlayerCollidable, IGridable
     {
+        //----------IGridable Start------------
+        private Vector2 gamePos;
+        private Vector2 pos;
+        public Vector2 ScreenCoord
+        {
+            get => pos;
+            set
+            {
+                pos = value;
+                this.UpdateCoord(value);
+            }
+        }
+        public void UpdateCoord(Vector2 value)
+        {
+            this.X = (int)value.X;
+            this.Y = (int)value.Y;
+        }
+        public Vector2 GameCoord
+        {
+            get => gamePos;
+            set
+            {
+                gamePos = value;
+                ScreenCoord = trans.Trans(value);
+            }
+        }
+        private IGridTransform trans = new NullTransform();
+        public IGridTransform Trans { get => trans; set => trans = value; }
+        //----------IGridable End------------
         protected SpriteAnimation spriteAnimation;
 
         private Rectangle internalRectangle = new Rectangle(0, 0, 40, 40);
 
-        public Block(Rectangle destination, Rectangle source, Texture2D texture)
+        public Block(Vector2 position, Rectangle source, Texture2D texture)
         {
             spriteAnimation = new SpriteAnimation(texture, source);
-            this.X = destination.X;
-            this.Y = destination.Y;
+            GameCoord = position;
             internalRectangle.X = X;
             internalRectangle.Y = Y;
         }
-        public Block(Rectangle destination, Rectangle source, Texture2D texture,int frames, int fps)
+        public Block(Vector2 position, Rectangle source, Texture2D texture,int frames, int fps)
         {
             spriteAnimation = new SpriteAnimation(texture, frames, fps);
-            this.X = destination.X;
-            this.Y = destination.Y;
+            GameCoord = position;
             internalRectangle.X = X;
             internalRectangle.Y = Y;
         }

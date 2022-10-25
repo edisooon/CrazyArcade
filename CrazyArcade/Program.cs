@@ -1,4 +1,4 @@
 ﻿
-using var game = new CrazyArcade.Game1();
+using var game = new CrazyArcade.CAGame();
 game.Run();
 

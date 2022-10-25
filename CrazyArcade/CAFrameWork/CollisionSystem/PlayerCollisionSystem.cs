@@ -46,12 +46,14 @@ namespace CrazyArcade.CAFrameWork.CollisionSystem
                 foreach (IPlayerCollisionBehavior playerBehavior in playerBehaviors)
                 {
                     Rectangle checkRectangle = Rectangle.Intersect(trigger.boundingBox, playerBehavior.blockCollisionBoundingBox);
-                    if (trigger is SunBossProjectile) Console.Out.Write(trigger.boundingBox);
+                    if (trigger is SunBossProjectile)
+                    {
+                        //Console.Out.Write(trigger.boundingBox);
+                    }
                     if (checkRectangle.Width != 0 || checkRectangle.Height != 0)
                     {
                         trigger.CollisionLogic(checkRectangle, playerBehavior);
                     }
-                    //Console.Out.WriteLine(playerBehavior.blockCollisionBoundingBox);
                 }
             }
         }

@@ -29,11 +29,11 @@ using Microsoft.Xna.Framework.Content;
 
 namespace CrazyArcade.Levels
 {
-    public class LevelManager : IGameSystem, IControllable
-
+    public class LevelManager
     {
-        private IController controller;
-        private CAScene Scene;
+        public static LevelManager manager = new LevelManager();
+        //private IController controller;
+        //private CAScene Scene;
         private string mapFile;
         private string levelFile;
         private MapSchema mapSchema;
@@ -45,29 +45,44 @@ namespace CrazyArcade.Levels
         private int oldNum;
         private int shiftFlag;
         private Dir direction;
-        public IController Controller
+        //public IController Controller
+        //{
+        //    get => controller;
+        //    set
+        //    {
+        //        controller = value;
+        //        controller.Delegate = this;
+        //    }
+        //}
+        public LevelManager()
         {
-            get => controller;
-            set
-            {
-                controller = value;
-                controller.Delegate = this;
-            }
-        }
-        public LevelManager(CAScene scene, IController controller)
-        {
-            this.Scene = scene;
             mapFile = "Map.json";
             levelNum = 0;
             oldNum = 0;
             getLevelFiles();
             loadLevels();
             levelArray[levelNum].DrawLevel();
-            this.controller = controller;
-            controller.Delegate = this;
+            //controller.Delegate = this;
             shiftFlag = 50;
         }
-        
+        //public getLevel(int levelNum)
+        //{
+        //    return lev
+        //}
+        //public LevelManager(CAScene scene, IController controller)
+        //{
+        //    this.Scene = scene;
+        //    mapFile = "Map.json";
+        //    levelNum = 0;
+        //    oldNum = 0;
+        //    getLevelFiles();
+        //    loadLevels();
+        //    levelArray[levelNum].DrawLevel();
+        //    this.controller = controller;
+        //    controller.Delegate = this;
+        //    shiftFlag = 50;
+        //}
+
         private void getLevelFiles()
         {
             mapReader = new CreateMap(mapFile);
@@ -81,98 +96,102 @@ namespace CrazyArcade.Levels
             for (int i = 0; i < length; i++)
             {
                 levelFile = levelFiles[i];
-                levelArray[i] = new Level(Scene, levelFile);
+                //levelArray[i] = new Level(levelFile);
             }
-
-
         }
-        public void Update(GameTime time)
-        {
-            if (oldNum != levelNum)
-            {
-                levelArray[oldNum].DeleteLevel();
-                Scene.RemoveAllSprite();
-                levelArray[levelNum].DrawLevel();
-                oldNum = levelNum;
-            }
 
-            
-        }
+        //public void Update(GameTime time)
+        //{
+        //    if (shiftFlag<50)
+        //    {
+        //        //Just a start
+        //        levelArray[levelNum].ShiftLevel(direction);
+        //        shiftFlag++;
+        //    }
+        //    else if (oldNum != levelNum)
+        //    {
+        //        levelArray[oldNum].DeleteLevel();
+        //        Scene.RemoveAllSprite();
+        //        levelArray[levelNum].DrawLevel();
+        //        oldNum = levelNum;
+        //    }
+
+        //}
         
 
-        public void RightClick()
+        //public void RightClick()
 
-        {
+        //{
             
-            if (levelNum > 0 && (shiftFlag == 50))
-            {
-                oldNum = levelNum;
-                levelNum--;
-                direction = Dir.Right;
-            }
+        //    if (levelNum > 0 && (shiftFlag == 50))
+        //    {
+        //        oldNum = levelNum;
+        //        levelNum--;
+        //        direction = Dir.Right;
+        //    }
             
-        }
+        //}
 
-        public void LeftClick()
-        {
+        //public void LeftClick()
+        //{
 
-            if ((levelNum < levelFiles.Length-1 )&&(shiftFlag == 50))
-            {
-                oldNum = levelNum;
-                levelNum++;
-                direction = Dir.Left;
+        //    if ((levelNum < levelFiles.Length-1 )&&(shiftFlag == 50))
+        //    {
+        //        oldNum = levelNum;
+        //        levelNum++;
+        //        direction = Dir.Left;
 
-            }
+        //    }
             
-        }
-        public void AddSprite(IEntity sprite)
-        {
+        //}
+        //public void AddSprite(IEntity sprite)
+        //{
 
-        }
-        public void RemoveSprite(IEntity sprite)
-        {
+        //}
+        //public void RemoveSprite(IEntity sprite)
+        //{
 
-        }
-        public void RemoveAll()
-        {
+        //}
+        //public void RemoveAll()
+        //{
 
-        }
-        public void KeyUp()
-        {
+        //}
+        //public void KeyUp()
+        //{
 
-        }
+        //}
 
-        public void KeyDown()
-        {
+        //public void KeyDown()
+        //{
 
-        }
+        //}
 
-        public void KeyLeft()
-        {
+        //public void KeyLeft()
+        //{
 
-        }
+        //}
 
-        public void KeyRight()
-        {
+        //public void KeyRight()
+        //{
 
-        }
+        //}
 
-        public void KeySpace()
-        {
+        //public void KeySpace()
+        //{
 
-        }
-        public void Key_o()
-        {
+        //}
+        //public void Key_o()
+        //{
 
-        }
-        public void Key_p()
-        {
+        //}
+        //public void Key_p()
+        //{
 
-        }
-        public void LeftClick(int x, int y)
-        {
+        //}
+        //public void LeftClick(int x, int y)
+        //{
 
-        }
+        //}
 
     }
 }

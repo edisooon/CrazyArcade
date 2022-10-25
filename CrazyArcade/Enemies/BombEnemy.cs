@@ -12,29 +12,20 @@ namespace CrazyArcade.Enemies
 
 	{
         private SpriteAnimation[] spriteAnims;
-        private Dir direction;
         private Rectangle[] InputFramesRight;
         private Rectangle[] InputFramesLeft;
         private Rectangle[] InputFramesUp;
         private Rectangle[] InputFramesDown;
-        private Vector2 Start;
-        private int xDifference;
-        private int yDifference;
         private Dir[] dirList;
         float timer;
         int fps;
 
         public override SpriteAnimation SpriteAnim => spriteAnims[(int)direction];
 
-        public BombEnemySprite(int x, int y)
+        public BombEnemySprite(int x, int y): base(x, y)
 		{
             this.spriteAnims = new SpriteAnimation[4];
-            direction =Dir.Down;
-            X = x;
-            Y = y; 
-            Start = new Vector2((float)X,(float)Y);
-            internalRectangle.X = X;
-            internalRectangle.Y = Y;
+            direction = Dir.Down;
         }
 
         public override void Load()
@@ -62,7 +53,7 @@ namespace CrazyArcade.Enemies
             this.spriteAnims[(int)Dir.Up] = new SpriteAnimation(TextureSingleton.GetBombEnemy(), InputFramesUp,fps); 
             this.spriteAnims[(int)Dir.Down] = new SpriteAnimation(TextureSingleton.GetBombEnemy(), InputFramesDown,fps);
             this.spriteAnims[(int)Dir.Left] = new SpriteAnimation(TextureSingleton.GetBombEnemy(), InputFramesLeft,fps);
-            this.spriteAnims[(int)Dir.Right] = new SpriteAnimation(TextureSingleton.GetBombEnemy(), InputFramesRight,fps);
+            this.spriteAnims[(int)Dir.Right] = new SpriteAnimation(TextureSingleton.GetBombEnemy(), InputFramesLeft, fps);
             foreach (SpriteAnimation anim in this.spriteAnims)
             {
                 anim.setWidthHeight(30,30);  
@@ -76,67 +67,16 @@ namespace CrazyArcade.Enemies
             // handled animation updated (position and frame) in abstract level
 
             SpriteAnim.Position = new Vector2(X, Y);
+            SpriteAnim.setEffect(effect);
             SpriteAnim.Update(time);
-           
-            xDifference = X-(int)Start.X;
-            yDifference = Y-(int)Start.Y;
-            
-            if (timer > 1f/fps)
-            {
-                if (direction == Dir.Right)
-                {
-                    
-                    if (xDifference >= 200)
-                    {
-                        
-                        direction = Dir.Up;
-                        this.spriteAnims[(int)direction].Position = new Vector2(X, Y);
-                    }
-                    else
-                    {
-                        X = X + 10;
-                    }
-                }
-                else if (direction == Dir.Up)
-                {
-                    if (yDifference <= 0)
-                    {
-            
-                        direction = Dir.Left;
-                        this.spriteAnims[(int)direction].Position = new Vector2(X, Y);
-                    }
-                    else
-                    {
-                        Y = Y - 10;
-                    }
-                }
-                else if (direction == Dir.Left)
-                {
-                    if (xDifference <= 0)
-                    {
 
-                        direction = Dir.Down;
-                        this.spriteAnims[(int)direction].Position = new Vector2(X, Y);
-                    }
-                    else
-                    {
-                        X = X - 10;
-                    }
-                }
-                else if (direction == Dir.Down)
-                {
-                    if (yDifference >= 200)
-                    {
-                        
-                        direction = Dir.Right;
-                        this.spriteAnims[(int)direction].Position = new Vector2(X, Y);
-                    }
-                    else
-                    {
-                        Y = Y + 10;
-                    }
-                }
-                timer = 0;
+
+            xDifference = GameCoord.X - Start.X;
+            yDifference = GameCoord.Y - Start.Y;
+
+            if (timer > 1f / 6)
+            {
+                move(direction);
             }
             else
             {
@@ -144,6 +84,31 @@ namespace CrazyArcade.Enemies
             }
             internalRectangle.X = X;
             internalRectangle.Y = Y;
+        }
+
+        protected override Vector2[] SpeedVector => speedVector;
+
+        /*
+            Up = 0,
+            Left = 1,
+            Down = 2,
+            Right = 3
+         */
+        Vector2[] speedVector =
+        {
+            new Vector2(0.0f, -0.1f),
+            new Vector2(-0.1f, 0.0f),
+            new Vector2(0.0f, 0.1f),
+            new Vector2(0.1f, 0.0f),
+        };
+        public override void UpdateAnimation(Dir dir)
+        {
+            this.spriteAnims[(int)direction].Position = new Vector2(X, Y);
+        }
+
+        void updateCoord()
+        {
+
         }
 
 

@@ -14,14 +14,21 @@ using CrazyArcade.CAFrameWork.CollisionSystem;
 using CrazyArcade.GameGridSystems;
 using Microsoft.Xna.Framework;
 using System.Diagnostics;
+using CrazyArcade.CAFrameWork.Transition;
+using CrazyArcade.CAFrameWork.CAGame;
+using CrazyArcade.Items;
 
 namespace CrazyArcade.Demo1
 {
     public class DemoScene : CAScene
     {
+        Level level;
+        string fileName;
 
-        public DemoScene(Game1 game)
+        public DemoScene(IGameDelegate game, string fileName, Vector2 stageOffset)
         {
+            base.StageOffset = stageOffset;
+            this.fileName = fileName;
             gameRef = game;
         }
         public override void LoadSystems()
@@ -34,14 +41,22 @@ namespace CrazyArcade.Demo1
             this.systems.Add(new BombCollisionSystem(this));
             this.systems.Add(new PlayerCollisionSystem());
             
-            this.systems.Add(new CAGameGridSystems(new Vector2(0, 0), 40));
-            this.systems.Add(new LevelManager(this, new DemoController()));
-
-
+            this.systems.Add(gridSystems);
+            //this.systems.Add(new LevelManager(this, new DemoController()));
+            level = new Level(this, fileName);
+            foreach (IEntity entity in level.DrawLevel())
+            {
+                if (entity is Turtle)
+                {
+                    Console.WriteLine("There is turtle!");
+                }
+                this.AddSprite(entity);
+            }
         }
 
         public override void LoadSprites()
         {
+            
             //This may not be neccessary
             this.AddSprite(new PlayerCharacter(new DemoController(), this));
         }

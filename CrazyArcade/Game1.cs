@@ -12,9 +12,11 @@ using System.Reflection.Metadata;
 using CrazyArcade.Enemies;
 using CrazyArcade.Levels;
 using System.Diagnostics;
+using CrazyArcade.CAFrameWork.CAGame;
+
 namespace CrazyArcade;
 
-public class Game1 : Game
+public class Game1 : Game, IGameDelegate
 {
     private GraphicsDeviceManager _graphics;
     private SpriteBatch _spriteBatch;
@@ -33,7 +35,7 @@ public class Game1 : Game
 
     protected override void Initialize()
     {
-        scene = new DemoScene(this);
+        scene = new DemoScene(this, "Level_0.json", new Vector2(0,0));
         TextureSingleton.LoadAllTextures(Content);
         
 

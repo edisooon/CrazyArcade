@@ -11,14 +11,14 @@ namespace CrazyArcade.PlayerStateMachine
 {
     //overall goal is to keep ride synced with player, speed, location, and direction.
     //This class should only be able to lead to the free state, implementing the extra life
-    public class PlayerStateRides : ICharacterState
+    public class CharacterStateRides : ICharacterState
     {
         Ride mount;
         private Character character;
         private bool d1HeldDown;
         private bool d2HeldDown;
 
-        public PlayerStateRides(Character character, int ride)
+        public CharacterStateRides(Character character, int ride)
         {
             //int ride used to indicate turtle, pirate turtle, UFO, or owl [0-3]
             //only use 0 for now
@@ -27,7 +27,8 @@ namespace CrazyArcade.PlayerStateMachine
             mount = newRide;
             d1HeldDown = false;
             d2HeldDown = false;
-            character.parentScene.AddSprite(mount);
+            
+            character.SceneDelegate.ToAddEntity(mount);
         }
 
         public void ProcessAttaction()
@@ -37,7 +38,6 @@ namespace CrazyArcade.PlayerStateMachine
 
             //character.playerState = character.PlayerStateFree;
             //add ride here?
-            
         }
 
         public void ProcessItem()
@@ -56,7 +56,7 @@ namespace CrazyArcade.PlayerStateMachine
             character.CalculateMovement();
             character.UpdatePosition();
             character.animationHandleInt = (int)character.direction;
-            character.playerState = new PlayerStateRides(character, 0);
+            character.playerState = new CharacterStateRides(character, 0);
             character.spriteAnims = character.playerState.SetSprites();
             character.playerState.SetSpeed();
             if (character.CurrentSpeed.X == 0 && character.CurrentSpeed.Y == 0)

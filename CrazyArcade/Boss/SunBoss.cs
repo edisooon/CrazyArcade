@@ -44,7 +44,6 @@ namespace CrazyArcade.Boss
         public override void Update(GameTime time)
         {
             base.Update(time);
-            //Console.Out.Write("update sun boss\n");
             states = states.Update(time);
         }
 
@@ -67,8 +66,6 @@ namespace CrazyArcade.Boss
 
         public void Move(Vector2 distance)
         {
-            //Console.Out.Write(distance.X);
-            //Console.Out.Write(distance.Y);
             this.GameCoord += distance;
         }
 

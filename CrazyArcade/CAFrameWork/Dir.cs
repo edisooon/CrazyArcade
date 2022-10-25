@@ -3,9 +3,10 @@ namespace CrazyArcade.CAFramework
 {
     public enum Dir
     {
-        Up,
-        Down,
-        Left,
-        Right
+        Up = 0,
+        Down = 2,
+        Left = 1,
+        Right = 3,
+        right = 4
     }
 }
