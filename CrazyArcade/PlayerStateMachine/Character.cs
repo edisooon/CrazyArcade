@@ -4,6 +4,7 @@ using CrazyArcade.CAFramework;
 using CrazyArcade.Demo1;
 using CrazyArcade.GameGridSystems;
 using Microsoft.Xna.Framework;
+using CrazyArcade.Items;
 
 namespace CrazyArcade.PlayerStateMachine
 {
@@ -11,7 +12,7 @@ namespace CrazyArcade.PlayerStateMachine
      * State machine is implemented here
      * 
      */
-	public class Character: CharacterBase, IBombCollectable
+    public class Character: CharacterBase, IBombCollectable, IItemCollidable
     {
 		public SpriteAnimation[] spriteAnims;
         public CAScene parentScene;
@@ -59,6 +60,27 @@ namespace CrazyArcade.PlayerStateMachine
         public void recollectBomb()
         {
             bombsOut = bombsOut-- >= 0 ? bombsOut-- : 0;
+        }
+        //@implement IItemCollidable
+        public bool canHaveItem()
+        {
+            return (playerState is CharacterStateFree || playerState is CharacterStateRides);
+        }
+        public void IncreaseBlastLength()
+        {
+            this.currentBlastLength++;
+        }
+        public void SwitchToMountedState()
+        {
+            this.playerState.ProcessRide();
+        }
+        public void IncreaseSpeed()
+        {
+            this.ModifiedSpeed++;
+        }
+        public void IncreaseBombCount()
+        {
+            this.bombCapacity++;
         }
     }
 }

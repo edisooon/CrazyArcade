@@ -1,7 +1,6 @@
-﻿
-
-using CrazyArcade.CAFramework;
+﻿using CrazyArcade.CAFramework;
 using CrazyArcade.Content;
+using CrazyArcade.Items;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 using System;
