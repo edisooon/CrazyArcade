@@ -18,10 +18,7 @@ namespace CrazyArcade.PlayerStateMachine
         Character player;
         public SpriteAnimation[] spriteAnims { get; set; }
 
-        public int animationHandleInt;
-
-        //public override SpriteAnimation SpriteAnim => spriteAnims[4];
-        int vertOffset;
+ 
         int dir;
         //int rideType; // 0 - 3, turtle, pirate turtle, ufo, owl
 

@@ -27,6 +27,7 @@ namespace CrazyArcade.PlayerStateMachine
             mount = newRide;
             d1HeldDown = false;
             d2HeldDown = false;
+            character.parentScene.AddSprite(mount);
         }
 
         public void ProcessAttaction()
@@ -36,7 +37,7 @@ namespace CrazyArcade.PlayerStateMachine
 
             //character.playerState = character.PlayerStateFree;
             //add ride here?
-            character.parentScene.AddSprite(mount);
+            
         }
 
         public void ProcessItem()
@@ -55,6 +56,9 @@ namespace CrazyArcade.PlayerStateMachine
             character.CalculateMovement();
             character.UpdatePosition();
             character.animationHandleInt = (int)character.direction;
+            character.playerState = new PlayerStateRides(character, 0);
+            character.spriteAnims = character.playerState.SetSprites();
+            character.playerState.SetSpeed();
             if (character.CurrentSpeed.X == 0 && character.CurrentSpeed.Y == 0)
             {
                 character.SpriteAnim.playing = false;
@@ -85,13 +89,16 @@ namespace CrazyArcade.PlayerStateMachine
         }
 
         public int SetSpeed()
+
         {
-            return (int)character.CurrentSpeed.Length();//how come this is not vector type
+            character.ModifiedSpeed = 7;
+            return 1;
         }
 
         public SpriteAnimation[] SetSprites()
         {
-            return mount.spriteAnims;
+            SpriteAnimation[] newSprites = mount.spriteAnims;
+            return newSprites;
         }
     }
 }

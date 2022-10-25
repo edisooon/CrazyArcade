@@ -70,20 +70,7 @@ namespace CrazyArcade.Levels
             }
         }
         
-        public void ShiftLevel(Dir direction)
-        {
-            offset = 1.0f;
-            foreach (CAEntity entity in EntityList)
-            {
-                if (entity is IGridable)
-                {
-                    coord = (entity as IGridable).ScreenCoord;
-                    if (direction == Dir.Left);
-                    coord.X += offset;
-
-                }
-            }
-        }
+        
         private void LoadBorder()
         {
             scale = .9f;
