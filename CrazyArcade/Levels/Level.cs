@@ -42,8 +42,7 @@ namespace CrazyArcade.Levels
         float scale;
         Vector2 border;
         Vector2 startPosition;
-        Vector2 coord;
-        float offset;
+
         public Level(CAScene scene, string levelName)
         {
             currentLevel = new CreateLevel(levelName);
