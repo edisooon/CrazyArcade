@@ -3,6 +3,7 @@ using CrazyArcade.CAFramework;
 using CrazyArcade.Content;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
+using CrazyArcade.Items;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -68,11 +69,10 @@ namespace CrazyArcade.PlayerStateMachine
         }
         public void ProcessItem()
         {
-            //nothing yet
         }
         public void ProcessRide()
         {
-            //nothing yet
+            //this.character.playerState = new CharacterStateRides(this.character);
         }
         public int SetSpeed()
         {

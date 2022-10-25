@@ -15,7 +15,7 @@ namespace CrazyArcade.Items
     {
         
     }
-    public abstract class Item : Block, IItem
+    public abstract class Item : CAEntity, IItem, IItemCollision
     {
 
         public Item(Vector2 position, Rectangle source, Texture2D texture, int frames, int fps) : base(position, source, texture, frames, fps)
@@ -25,6 +25,7 @@ namespace CrazyArcade.Items
         }
 
         public override SpriteAnimation SpriteAnim => this.spriteAnimation;
+        public Rectangle itemHitbox => this.hitbox;
 
         public override void Update(GameTime time)
         {
@@ -32,6 +33,12 @@ namespace CrazyArcade.Items
         }
         public override void Load()
         {
+        }
+        public abstract void CollisionLogic(IItemCollidable collisionPartner);
+        //Assumes that @this is in the IScene that is passed
+        public void DeleteSelf(IScene parentScene)
+        {
+            parentScene.RemoveSprite(this);
         }
     }
 }

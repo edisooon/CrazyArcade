@@ -5,6 +5,7 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
+using CrazyArcade.PlayerStateMachine;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
@@ -19,6 +20,10 @@ namespace CrazyArcade.Items
         { 
 
         }
+        public override void CollisionLogic(IItemCollidable collisionPartner)
+        {
+            collisionPartner.IncreaseBombCount();
+        }
     }
     public class CoinBag : Item
     {
@@ -28,6 +33,9 @@ namespace CrazyArcade.Items
         {
 
         }
+        public override void CollisionLogic(IItemCollidable collisionPartner)
+        {
+        }
     }
     public class Sneaker : Item
     {
@@ -36,6 +44,10 @@ namespace CrazyArcade.Items
         {
 
         }
+        public override void CollisionLogic(IItemCollidable collisionPartner)
+        {
+            collisionPartner.IncreaseSpeed();
+        }
     }
     public class Turtle : Item
     {
@@ -43,6 +55,12 @@ namespace CrazyArcade.Items
         public Turtle(Vector2 position) : base(position, source, Content.TextureSingleton.GetTurtle(), 5, 5)
         {
 
+        }
+        public override void CollisionLogic(IItemCollidable collisionPartner)
+        {
+            //Commented out since Mounted State is not implemented in branch this was worked on
+
+            //collisionPartner.SwitchToMountedState();
         }
     }
     public class Potion : Item
@@ -53,6 +71,10 @@ namespace CrazyArcade.Items
         {
 
         }
+        public override void CollisionLogic(IItemCollidable collisionPartner)
+        {
+            collisionPartner.IncreaseBlastLength();
+        }
     }
     public class Coin : Item
     {
@@ -60,6 +82,9 @@ namespace CrazyArcade.Items
         public Coin(Vector2 position) : base(position, source, Content.TextureSingleton.GetCoin(), 10, 10)
         {
 
+        }
+        public override void CollisionLogic(IItemCollidable collisionPartner)
+        {
         }
     }
 }
