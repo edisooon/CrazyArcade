@@ -18,17 +18,15 @@ namespace CrazyArcade.PlayerStateMachine
         Character player;
         public SpriteAnimation[] spriteAnims { get; set; }
 
-
+ 
         int dir;
         //int rideType; // 0 - 3, turtle, pirate turtle, ufo, owl
 
 
-        public Ride(Character character, int ride)
-        {
+        public Ride(Character character, int ride) {
             player = character;
-            generateRide(ride % 4);
-            if (character != null)
-            {
+            generateRide(ride%4);
+            if (character != null) {
                 X = character.X;
                 Y = character.Y;
                 dir = ((int)character.direction);//might break
@@ -36,7 +34,7 @@ namespace CrazyArcade.PlayerStateMachine
         }
         public override void Load()
         {
-
+            
         }
 
         public override void Update(GameTime time)
@@ -44,17 +42,15 @@ namespace CrazyArcade.PlayerStateMachine
             //does nothing
         }
 
-        public void generateRide(int ride)
-        {
+        public void generateRide(int ride) {
             spriteAnims = new SpriteAnimation[4];
             //rows = ride
             //columns = x off, y off-ydiff, width, height, ydiff
             //int[,] sprites = new int[4,5] {{5,3,96,31,2},{111, 3, 42, 31,2},{ 218, 5, 50, 30, 1},{333, 4, 36, 35,6}};
             //get the right one for the selected ride
             //int[] rideSprite = new int[5] { sprites[ride, 0], sprites[ride, 1], sprites[ride, 2], sprites[ride, 3], sprites[ ride, 4]};
-
-            for (int i = 0; i < 4; i++)
-            {
+            
+            for (int i = 0; i < 4; i++) {
                 /**spriteAnims[i] = new SpriteAnimation(TextureSingleton.GetRides(), //texture
                     2, //frames
                     rideSprite[0], //xoff
@@ -65,8 +61,8 @@ namespace CrazyArcade.PlayerStateMachine
                 spriteAnims[i] = new SpriteAnimation(TextureSingleton.GetRides(), //texture
                     2, //frames
                     0, //xoff
-                    72 * i, //yoff
-                    48 * 2, //width
+                    72*i, //yoff
+                    48*2, //width
                     72, //height
                     3);//fps
             }

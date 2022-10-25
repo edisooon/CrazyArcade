@@ -42,8 +42,7 @@ namespace CrazyArcade.Levels
         float scale;
         Vector2 border;
         Vector2 startPosition;
-        Vector2 coord;
-        float offset;
+
         public Level(CAScene scene, string levelName)
         {
             currentLevel = new CreateLevel(levelName);
@@ -67,20 +66,7 @@ namespace CrazyArcade.Levels
             }
         }
         
-        public void ShiftLevel(Dir direction)
-        {
-            offset = 1.0f;
-            foreach (CAEntity entity in EntityList)
-            {
-                if (entity is IGridable)
-                {
-                    coord = (entity as IGridable).ScreenCoord;
-                    //if (direction == Dir.Left);
-                    coord.X += offset;
-
-                }
-            }
-        }
+        
         private void LoadBorder()
         {
             scale = .9f;

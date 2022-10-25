@@ -38,7 +38,6 @@ namespace CrazyArcade.PlayerStateMachine
 
             //character.playerState = character.PlayerStateFree;
             //add ride here?
-
         }
 
         public void ProcessItem()

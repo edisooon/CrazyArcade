@@ -58,10 +58,6 @@ namespace CrazyArcade.Items
         {
             collisionPartner.SwitchToMountedState();
         }
-        public override void Update(GameTime time)
-        {
-            base.Update(time);
-        }
     }
     public class Potion : Item
     {
