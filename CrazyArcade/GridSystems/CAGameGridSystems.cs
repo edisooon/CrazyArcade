@@ -12,7 +12,7 @@ namespace CrazyArcade.GameGridSystems
     }
 	public class CAGameGridSystems: IGameSystem, IGridTransform, IGridSystems
     {
-        public static int BlockLength => 40;
+        public static int BlockLength => 36;
         List<IGridable> list = new List<IGridable>();
         Vector2 camera = new Vector2(0, 0);
         private Vector2 stageOffset;
@@ -29,7 +29,6 @@ namespace CrazyArcade.GameGridSystems
 
         public Vector2 Trans(Vector2 vec)
         {
-            Console.WriteLine(stageOffset.X);
             vec = Scale(vec);
             vec -= camera;
             vec += stageOffset;

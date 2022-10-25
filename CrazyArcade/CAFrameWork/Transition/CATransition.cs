@@ -28,12 +28,10 @@ namespace CrazyArcade.CAFrameWork.Transition
         {
             if (completed)
             {
-                Console.WriteLine("Completed");
                 return;
             }
             if (countTime > totalTime)
             {
-                Console.WriteLine("Complete transition");
                 if (handler != null)
                 {
                     Handler.Complete(oldState, newState);
@@ -43,7 +41,6 @@ namespace CrazyArcade.CAFrameWork.Transition
                 completed = true;
                 return;
             }
-            Console.WriteLine("update transition");
             TimeSpan current = time.TotalGameTime;
             TimeSpan diff = current - previousTimeFrame;
             countTime += diff;
@@ -56,6 +53,8 @@ namespace CrazyArcade.CAFrameWork.Transition
             previousTimeFrame = current;
             oldState.Update(time);
             newState.Update(time);
+            Console.WriteLine("Old camera: " + oldState.Camera + " old offset: " + oldState.StageOffset);
+            Console.WriteLine("New camera: " + newState.Camera + " new offset: " + newState.StageOffset);
 
         }
 

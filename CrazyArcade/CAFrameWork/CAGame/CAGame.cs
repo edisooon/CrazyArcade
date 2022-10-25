@@ -19,6 +19,7 @@ namespace CrazyArcade;
 
 public class CAGame : Game, IGameDelegate, ITransitionCompleteHandler
 {
+    static Vector2 StageOffset = new Vector2(200, 15);
     static Vector2 transitionDisplacement = new Vector2(800, 0);
     private GraphicsDeviceManager _graphics;
     private SpriteBatch _spriteBatch;
@@ -45,7 +46,7 @@ public class CAGame : Game, IGameDelegate, ITransitionCompleteHandler
 
     protected override void Initialize()
     {
-        scene = new DemoScene(this, "Level_0.json");
+        scene = new DemoScene(this, "Level_0.json", StageOffset);
         TextureSingleton.LoadAllTextures(Content);
 
 
@@ -86,9 +87,9 @@ public class CAGame : Game, IGameDelegate, ITransitionCompleteHandler
     }
     private void makeTransition(GameTime gameTime, Vector2 displacement)
     {
-        ISceneState newState = new DemoScene(this, levelFileNames[stageNum]);
+        ISceneState newState = new DemoScene(this, levelFileNames[stageNum], StageOffset);
         newState.Load();
-        newState.StageOffset += transitionDisplacement;
+        newState.StageOffset += displacement;
         transition = new CATransition(this.scene,
             newState, displacement, gameTime, new TimeSpan(0, 0, 1));
         transition.Handler = this;
@@ -101,11 +102,9 @@ public class CAGame : Game, IGameDelegate, ITransitionCompleteHandler
         _spriteBatch.Begin();
         if (transition != null)
         {
-            Console.WriteLine("Transition");
             transition.Draw(gameTime, _spriteBatch);
         } else
         {
-            Console.WriteLine("Scene");
             scene.Draw(gameTime, _spriteBatch);
         }
 
@@ -114,9 +113,8 @@ public class CAGame : Game, IGameDelegate, ITransitionCompleteHandler
 
     public void Complete(ISceneState oldState, ISceneState newState)
     {
-        Console.WriteLine("Complete Transition");
         scene = newState;
-        newState.StageOffset = new Vector2(0, 0);
+        newState.StageOffset = StageOffset;
         newState.Camera = new Vector2(0, 0);
         transition = null;
     }

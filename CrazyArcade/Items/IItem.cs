@@ -18,11 +18,9 @@ namespace CrazyArcade.Items
     public abstract class Item : Block, IItem
     {
 
-        public Item(Rectangle destination, Rectangle source, Texture2D texture, int frames, int fps) : base(destination, source, texture, frames, fps)
+        public Item(Vector2 position, Rectangle source, Texture2D texture, int frames, int fps) : base(position, source, texture, frames, fps)
         {
             spriteAnimation = new SpriteAnimation(texture, frames, fps);
-            this.X = destination.X;
-            this.Y = destination.Y;
 
         }
 

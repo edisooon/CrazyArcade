@@ -24,8 +24,9 @@ namespace CrazyArcade.Demo1
         Level level;
         string fileName;
 
-        public DemoScene(IGameDelegate game, string fileName)
+        public DemoScene(IGameDelegate game, string fileName, Vector2 stageOffset)
         {
+            base.StageOffset = stageOffset;
             this.fileName = fileName;
             gameRef = game;
         }

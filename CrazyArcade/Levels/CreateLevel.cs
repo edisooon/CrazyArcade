@@ -54,7 +54,7 @@ namespace CrazyArcade.Levels
 
 		public Vector2 GetStartPosition(int[] coord)
 		{
-			return new Vector2((float)(166 + (36 * coord[0])), (float)(18 + (36 * coord[1])));
+			return new Vector2(coord[0], coord[1]);
 		}
 		public Vector2[] GetStartPositionArray(int[][] coordArray)
 		{

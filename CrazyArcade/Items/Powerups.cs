@@ -15,7 +15,7 @@ namespace CrazyArcade.Items
     {
 
         private static Rectangle source = new Rectangle(11, 73, 40, 53);
-        public Balloon(Rectangle destinationRectangle) : base(destinationRectangle, source, Content.TextureSingleton.GetBomb(),5,5)
+        public Balloon(Vector2 position) : base(position, source, Content.TextureSingleton.GetBomb(),5,5)
         { 
 
         }
@@ -24,7 +24,7 @@ namespace CrazyArcade.Items
     {
 
         private static Rectangle source = new Rectangle(519,134,50,52);
-        public CoinBag(Rectangle destinationRectangle) : base(destinationRectangle, source, Content.TextureSingleton.GetCoinbag(),2,5)
+        public CoinBag(Vector2 position) : base(position, source, Content.TextureSingleton.GetCoinbag(),2,5)
         {
 
         }
@@ -32,7 +32,7 @@ namespace CrazyArcade.Items
     public class Sneaker : Item
     {
         private static Rectangle source = new Rectangle(396,138,40,44);
-        public Sneaker(Rectangle destinationRectangle) : base(destinationRectangle, source, Content.TextureSingleton.GetRollerskates(), 3, 5)
+        public Sneaker(Vector2 position) : base(position, source, Content.TextureSingleton.GetRollerskates(), 3, 5)
         {
 
         }
@@ -40,7 +40,7 @@ namespace CrazyArcade.Items
     public class Turtle : Item
     {
         private static Rectangle source = new Rectangle(14,131,37,59);
-        public Turtle(Rectangle destinationRectangle) : base(destinationRectangle, source, Content.TextureSingleton.GetTurtle(), 5, 5)
+        public Turtle(Vector2 position) : base(position, source, Content.TextureSingleton.GetTurtle(), 5, 5)
         {
 
         }
@@ -49,7 +49,7 @@ namespace CrazyArcade.Items
     {
 
         private static Rectangle source = new Rectangle(330, 65, 43, 59);
-        public Potion(Rectangle destinationRectangle) : base(destinationRectangle, source, Content.TextureSingleton.GetPotion(), 5, 5)
+        public Potion(Vector2 position) : base(position, source, Content.TextureSingleton.GetPotion(), 5, 5)
         {
 
         }
@@ -57,7 +57,7 @@ namespace CrazyArcade.Items
     public class Coin : Item
     {
         public static Rectangle source = new Rectangle(0, 0, 60, 60);
-        public Coin(Rectangle destinationRectangle) : base(destinationRectangle, source, Content.TextureSingleton.GetCoin(), 10, 10)
+        public Coin(Vector2 position) : base(position, source, Content.TextureSingleton.GetCoin(), 10, 10)
         {
 
         }
