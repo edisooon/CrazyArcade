@@ -64,7 +64,7 @@ namespace CrazyArcade.PlayerStateMachine
         //@implement IItemCollidable
         public bool canHaveItem()
         {
-            return (playerState is CharacterStateFree || playerState is PlayerStateRides);
+            return (playerState is CharacterStateFree || playerState is CharacterStateRides);
         }
         public void IncreaseBlastLength()
         {
@@ -72,7 +72,7 @@ namespace CrazyArcade.PlayerStateMachine
         }
         public void SwitchToMountedState()
         {
-            //this.playerState = new CharacterStateRides(this, 0);
+            this.playerState = new CharacterStateRides(this, 0);
         }
         public void IncreaseSpeed()
         {
