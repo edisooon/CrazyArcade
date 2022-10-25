@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using CrazyArcade.Items;
+using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,7 +10,7 @@ namespace CrazyArcade.Blocks
 {
     public abstract class BreakableBlock : Block, IBlock
     {
-        public BreakableBlock(Rectangle destination, Rectangle source) : base(destination, source, Content.TextureSingleton.GetDesertBlocks())
+        public BreakableBlock(Vector2 position, Rectangle source) : base(position, source, Content.TextureSingleton.GetDesertBlocks())
         {
 
         }
@@ -17,7 +18,7 @@ namespace CrazyArcade.Blocks
     public class BlueCrate : BreakableBlock
     {
         private static Rectangle source = new Rectangle(10, 306, 40, 63);
-        public BlueCrate(Rectangle destination) : base(destination, source)
+        public BlueCrate(Vector2 position) : base(position, source)
         {
 
         }
@@ -25,7 +26,7 @@ namespace CrazyArcade.Blocks
     public class GreenCrate : BreakableBlock
     {
         private static Rectangle source = new Rectangle(60, 306, 40, 63);
-        public GreenCrate(Rectangle destination) : base(destination, source)
+        public GreenCrate(Vector2 position) : base(position, source)
         {
 
         }
@@ -33,7 +34,7 @@ namespace CrazyArcade.Blocks
     public class CyanCrate : BreakableBlock
     {
         private static Rectangle source = new Rectangle(110, 306, 40, 63);
-        public CyanCrate(Rectangle destination) : base(destination, source)
+        public CyanCrate(Vector2 position) : base(position, source)
         {
 
         }

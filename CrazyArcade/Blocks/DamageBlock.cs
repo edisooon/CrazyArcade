@@ -26,14 +26,14 @@ namespace CrazyArcade.Blocks
     public class FlowerCactus : DamageBlock
     {
         private static Rectangle source = new Rectangle(61, 227, 38, 59);
-        public FlowerCactus(Rectangle destinationRectangle) : base(destinationRectangle, source)
+        public FlowerCactus(Vector2 position) : base(position, source)
         {
         }
     }
     public class LightFlowerCactus : DamageBlock
     {
         private static Rectangle source = new Rectangle(111, 227, 38, 59);
-        public LightFlowerCactus(Rectangle destinationRectangle) : base(destinationRectangle, source)
+        public LightFlowerCactus(Vector2 position) : base(position, source)
         {
 
         }
