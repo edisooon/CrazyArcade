@@ -53,7 +53,7 @@ namespace CrazyArcade.Items
         {
             spriteAnimation = new SpriteAnimation(texture, frames, fps);
             GameCoord = position;
-            hitbox = new Rectangle(position.X, position.Y, 20, 20);
+            hitbox = new Rectangle((int)ScreenCoord.X, (int)ScreenCoord.Y, 36, 36);
         }
 
         public override SpriteAnimation SpriteAnim => this.spriteAnimation;
