@@ -33,6 +33,9 @@ namespace CrazyArcade.CAFramework
         public virtual int X { get => x; set => x = value; }
         public virtual int Y { get => y; set => y = value; }
 
+        protected int DrawOrder = 0;
+        public int ActualDrawOrder => DrawOrder;
+
         public abstract void Load();
         public virtual void Update(GameTime time)
         {
