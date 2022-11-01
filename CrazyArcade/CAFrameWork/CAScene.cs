@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Linq;
 using CrazyArcade.CAFramework;
 using CrazyArcade.CAFramework.Controller;
 using CrazyArcade.CAFrameWork.CAGame;
@@ -72,7 +73,7 @@ namespace CrazyArcade.CAFramework
 
         public void Draw(GameTime time, SpriteBatch batch)
         {
-            foreach(IEntity entity in entities)
+            foreach(IEntity entity in entities.OrderBy(e => e.ActualDrawOrder))
             {
                 entity.Draw(time, batch);
             }

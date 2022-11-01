@@ -23,6 +23,7 @@ namespace CrazyArcade.Demo1
         protected Point bboxOffset = new Point(16, 47);
         protected bool blockBboxOn = true;
 
+
         //----------IGridable Start------------
         private Vector2 gamePos;
         private Vector2 pos;
