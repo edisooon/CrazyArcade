@@ -5,6 +5,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -17,11 +18,13 @@ namespace CrazyArcade.UI
         private Dictionary<string,IGUIComposite> GUILookup;
         public GUI()
         {
+            Debug.WriteLine("draw");
             RemoveAllItems();
             AddGUIItem(new GUITestComposition("test1"));
         }
         public void Draw(GameTime time, SpriteBatch batch)
         {
+            Debug.WriteLine("draw");
             foreach (IGUIComposite item in GUIItems.OrderBy(e => e.DrawOrder))
             {
                 item.Draw(time, batch);

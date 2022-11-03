@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using CrazyArcade.Content;
+using System.Diagnostics;
 
 namespace CrazyArcade.UI.GUI_Components
 {
