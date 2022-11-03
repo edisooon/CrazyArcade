@@ -69,7 +69,6 @@ public class Game1 : Game, IGameDelegate
 
 
         _spriteBatch.Begin();
-
         scene.Draw(gameTime, _spriteBatch);
         gameGUI.Draw(gameTime, _spriteBatch);
 

@@ -58,7 +58,7 @@ namespace CrazyArcade.Demo1
         {
             
             //This may not be neccessary
-            this.AddSprite(new PlayerCharacter(new DemoController(), this));
+            //this.AddSprite(new PlayerCharacter(new DemoController(), this));
         }
 
     }

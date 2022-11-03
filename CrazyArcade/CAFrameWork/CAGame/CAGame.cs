@@ -14,6 +14,7 @@ using CrazyArcade.Levels;
 using System.Diagnostics;
 using CrazyArcade.CAFrameWork.CAGame;
 using CrazyArcade.CAFrameWork.Transition;
+using CrazyArcade.UI;
 
 namespace CrazyArcade;
 
@@ -23,6 +24,7 @@ public class CAGame : Game, IGameDelegate, ITransitionCompleteHandler
     static Vector2 transitionDisplacement = new Vector2(800, 0);
     private GraphicsDeviceManager _graphics;
     private SpriteBatch _spriteBatch;
+    public GUI gameGUI;
     public ISceneState scene;
     public LevelSchema Level1;
     public ReadJSON test;
@@ -48,7 +50,7 @@ public class CAGame : Game, IGameDelegate, ITransitionCompleteHandler
     {
         scene = new DemoScene(this, "Level_0.json", StageOffset);
         TextureSingleton.LoadAllTextures(Content);
-
+        gameGUI = new GUI();
 
         test = new ReadJSON("Level_0.json", ReadJSON.fileType.LevelFile);
         Level1 = test.levelObject;
@@ -107,7 +109,7 @@ public class CAGame : Game, IGameDelegate, ITransitionCompleteHandler
         {
             scene.Draw(gameTime, _spriteBatch);
         }
-
+        gameGUI.Draw(gameTime, _spriteBatch);
         _spriteBatch.End();
     }
 
