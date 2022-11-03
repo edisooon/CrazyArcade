@@ -1,31 +1,31 @@
-﻿using Microsoft.Xna.Framework;
+﻿using CrazyArcade.Items;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using CrazyArcade.Content;
 
 namespace CrazyArcade.UI.GUI_Components
 {
-    abstract public class GUIText : IGUIComponent
+    public class GUIText : GUIBase
     {
-        private int componentDrawOrder = 0;
-        public int InternalDrawOrder { get => componentDrawOrder; set { componentDrawOrder = value; } }
-        private bool visible = true;
-        public bool InternalVisible { get => visible; set { visible = value; } }
-        private Vector2 position = new(0,0);
-        public Vector2 InternalPosition { get => position; set { position = value; } }
-        private SpriteFont font;
-        private String drawText = "TEXT NOT SET";
-
-        public void Draw(GameTime time, SpriteBatch batch)
+        public GUIText(string name, string drawText)
         {
-            batch.DrawString(font, drawText, position, Color.Black);
+            this.name = name;
+            this.drawText = drawText;
         }
-        public void ChangeDrawText(String newText)
+        private SpriteFont font = TextureSingleton.getTestFont();
+        private string drawText;
+        public void ChangeDrawText(string newText)
         {
             drawText = newText;
+        }
+        public override void Draw(GameTime time, SpriteBatch batch, Vector2 basePosition)
+        {
+            batch.DrawString(font, drawText, position + basePosition, Color.Black);
         }
     }
 }

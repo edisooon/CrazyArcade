@@ -15,7 +15,9 @@ namespace CrazyArcade.UI.GUI_Compositions
         bool Visible { get; set; }
         Vector2 Position { get; set; }
         List<IGUIComponent> Components { get; set; }
-        String Name { get; set; }
+        Dictionary<string, IGUIComponent> ComponentDict { get; set; }
+        string Name { get; set; }
         public void Draw(GameTime time, SpriteBatch batch);
+        public void AddComponent(IGUIComponent newComponent);
     }
 }

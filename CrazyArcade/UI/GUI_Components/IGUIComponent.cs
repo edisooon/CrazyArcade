@@ -10,9 +10,11 @@ namespace CrazyArcade.UI.GUI_Components
 {
     public interface IGUIComponent
     {
+        string InternalName { get; set; }
         int InternalDrawOrder { get; set; }
         bool InternalVisible { get; set; }
         Vector2 InternalPosition { get; set; }
-        public void Draw(GameTime time, SpriteBatch batch);
+        public void Draw(GameTime time, SpriteBatch batch, Vector2 basePosition);
+        public void SetPosition(Vector2 position);
     }
 }

@@ -121,6 +121,13 @@
 /processorParam:TextureFormat=Color
 /build:DesertBlocks.png
 
+#begin File.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:File.spritefont;testFont.spritefont
+
 #begin JsonLevels/level_0.json
 /copy:JsonLevels/level_0.json
 

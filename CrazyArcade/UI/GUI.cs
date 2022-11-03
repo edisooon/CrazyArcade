@@ -14,10 +14,11 @@ namespace CrazyArcade.UI
     public class GUI
     {
         private List<IGUIComposite> GUIItems;
-        private Dictionary<String,IGUIComposite> GUILookup;
+        private Dictionary<string,IGUIComposite> GUILookup;
         public GUI()
         {
             RemoveAllItems();
+            AddGUIItem(new GUITestComposition("test1"));
         }
         public void Draw(GameTime time, SpriteBatch batch)
         {
