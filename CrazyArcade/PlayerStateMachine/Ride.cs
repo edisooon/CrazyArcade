@@ -20,12 +20,13 @@ namespace CrazyArcade.PlayerStateMachine
 
  
         int dir;
+        int rideAmount = 4;
         //int rideType; // 0 - 3, turtle, pirate turtle, ufo, owl
 
 
         public Ride(Character character, int ride) {
             player = character;
-            generateRide(ride%4);
+            generateRide(ride%rideAmount);
             if (character != null) {
                 X = character.X;
                 Y = character.Y;
@@ -42,29 +43,22 @@ namespace CrazyArcade.PlayerStateMachine
             //does nothing
         }
 
-        public void generateRide(int ride) {
+        public void generateRide() {
             spriteAnims = new SpriteAnimation[4];
             //rows = ride
             //columns = x off, y off-ydiff, width, height, ydiff
             //int[,] sprites = new int[4,5] {{5,3,96,31,2},{111, 3, 42, 31,2},{ 218, 5, 50, 30, 1},{333, 4, 36, 35,6}};
             //get the right one for the selected ride
             //int[] rideSprite = new int[5] { sprites[ride, 0], sprites[ride, 1], sprites[ride, 2], sprites[ride, 3], sprites[ ride, 4]};
-            
-            for (int i = 0; i < 4; i++) {
-                /**spriteAnims[i] = new SpriteAnimation(TextureSingleton.GetRides(), //texture
-                    2, //frames
-                    rideSprite[0], //xoff
-                    rideSprite[1] + i * (rideSprite[3] + rideSprite[4]), //yoff
-                    rideSprite[2], //width
-                    rideSprite[3], //height
-                    3);//fps**/
-                spriteAnims[i] = new SpriteAnimation(TextureSingleton.GetRides(), //texture
-                    2, //frames
-                    0, //xoff
-                    72*i, //yoff
-                    48*2, //width
-                    72, //height
-                    3);//fps
+            int frames = 2;
+            int xoff = 0;
+            int yoff = 72;
+            int width = 96;
+            int height = 72;
+            int fps = 3;
+            for (int i = 0; i < rideAmount; i++) {
+                spriteAnims[i] = new SpriteAnimation(TextureSingleton.GetRides(),frames, xoff, yoff*i, width, height, fps);
+
             }
             //vertOffset = rideSprite[3];
             //spriteAnims[0] = new SpriteAnimation(TextureSingleton.GetRides(), 12, 4, 4, 96, 32, 3); //back

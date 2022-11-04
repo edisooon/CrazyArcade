@@ -23,12 +23,12 @@ namespace CrazyArcade.PlayerStateMachine
             //int ride used to indicate turtle, pirate turtle, UFO, or owl [0-3]
             //only use 0 for now
             this.character = character;
-            Ride newRide = new(character, ride);
-            mount = newRide;
+            mount = new(character, ride);
             d1HeldDown = false;
             d2HeldDown = false;
             
             character.SceneDelegate.ToAddEntity(mount);
+            mount.generateRide();
         }
 
         public void ProcessAttaction()
@@ -63,35 +63,30 @@ namespace CrazyArcade.PlayerStateMachine
             {
                 character.SpriteAnim.playing = false;
                 character.SpriteAnim.setFrame(0);
+                mount.SpriteAnim.playing = false;
+                character.SpriteAnim.setFrame(0);
             }
             else
             {
                 character.SpriteAnim.playing = true;
-            }
-            if (Keyboard.GetState().IsKeyDown(Keys.E))
-            {
-                character.playerState = new CharacterStateBubble(character);
-                character.spriteAnims = character.playerState.SetSprites();
-                character.playerState.SetSpeed();
+                mount.SpriteAnim.playing = true;
             }
             if (Keyboard.GetState().IsKeyDown(Keys.D1) && !d1HeldDown)
             {
                 d1HeldDown = true;
-                character.currentBlastLength = character.currentBlastLength + 1 < 5 ? character.currentBlastLength + 1 : 5;
+                
             }
             d1HeldDown = Keyboard.GetState().IsKeyDown(Keys.D1);
             if (Keyboard.GetState().IsKeyDown(Keys.D2) && !d2HeldDown)
             {
                 d2HeldDown = true;
-                character.bombCapacity = character.bombCapacity + 1 < 3 ? character.bombCapacity + 1 : 3;
             }
             d2HeldDown = Keyboard.GetState().IsKeyDown(Keys.D2);
         }
 
         public int SetSpeed()
-
         {
-            character.ModifiedSpeed = 7;
+            character.ModifiedSpeed = 5;
             return 1;
         }
 
