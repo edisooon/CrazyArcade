@@ -42,7 +42,7 @@ namespace CrazyArcade.UI
         }
         public static void ChangeComponentText(string compositeName, string componentName, string newText)
         {
-            internalGUI.GUILookup[compositeName].ComponentDict[componentName].ChangeComponent(newText);
+            internalGUI.GUILookup[compositeName].ComponentDict[componentName].ChangeComponentText(newText);
         }
         
     }

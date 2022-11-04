@@ -1,4 +1,5 @@
-﻿using CrazyArcade.Content;
+﻿using CrazyArcade.CAFramework;
+using CrazyArcade.Content;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
@@ -15,11 +16,17 @@ namespace CrazyArcade.UI.GUI_Components
         public int InternalDrawOrder { get => componentDrawOrder; set { componentDrawOrder = value; } }
         protected bool visible = true;
         public bool InternalVisible { get => visible; set { visible = value; } }
-        protected Vector2 position = new(0,0);
+        protected bool isTextComponent = false;
+        public bool IsTextComponent { get => isTextComponent; set { isTextComponent = value; } }
+        protected Vector2 position = new(0, 0);
         public Vector2 InternalPosition { get => position; set { position = value; } }
         protected string name;
         public string InternalName { get => name; set { name = value; } }
-
+        protected string drawText = "";
+        public string DrawText { get => drawText; set { drawText = value; } }
+        private SpriteAnimation spriteAnim = new(TextureSingleton.GetNull(), 1, 0, 0, 0);
+        public SpriteAnimation Sprite { get => spriteAnim; set { spriteAnim = value; } }
+        protected SpriteFont font = null;
         //Set to as a default as well as to test
         public void SetPosition(Vector2 newPosition)
         {
@@ -31,9 +38,20 @@ namespace CrazyArcade.UI.GUI_Components
         }
         public virtual void Draw(GameTime time, SpriteBatch batch, Vector2 basePosition)
         {
+            if (isTextComponent) batch.DrawString(font, drawText, position + basePosition, Color.Black);
+            else
+            {
+                Sprite.Update(time);
+                Sprite.Draw(batch, InternalPosition.X + basePosition.X, InternalPosition.Y + basePosition.Y);
+            }
         }
-        public virtual void ChangeComponent(string newText)
+        public virtual void ChangeComponentTexture(string newText)
         {
+            
+        }
+        public virtual void ChangeComponentText(string newText)
+        {
+            drawText = newText;
         }
     }
 }

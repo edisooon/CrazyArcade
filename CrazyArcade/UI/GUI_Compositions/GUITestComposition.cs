@@ -14,8 +14,10 @@ namespace CrazyArcade.UI.GUI_Compositions
         public GUITestComposition(string name, Vector2 pos)
         {
             IGUIComponent newComponent = new GUIText("1", "test draw text");
-            newComponent.SetPosition(pos);
+            SetPosition(pos);
             this.name = name;
+            AddComponent(newComponent);
+            newComponent = new GUITestTexture("test2");
             AddComponent(newComponent);
         }
     }
