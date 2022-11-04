@@ -15,9 +15,9 @@ namespace CrazyArcade.UI.GUI_Compositions
         public int DrawOrder { get => externalDrawOrder; set { externalDrawOrder = value; } }
         protected bool externalVisible = true;
         public bool Visible { get => externalVisible; set { externalVisible = value; } }
-        protected Vector2 externalPosition = new Vector2(0, 0);
+        protected Vector2 externalPosition = new(0, 0);
         public Vector2 Position { get => externalPosition; set { externalPosition = value; } }
-        protected List<IGUIComponent> componentList = new List<IGUIComponent>();
+        protected List<IGUIComponent> componentList = new ();
         public List<IGUIComponent> Components { get => componentList; set { componentList = value; } }
         protected string name;
         public string Name { get => name; set { name = value; } }
@@ -39,6 +39,10 @@ namespace CrazyArcade.UI.GUI_Compositions
         {
             componentList.Remove(ComponentMap[componentName]);
             ComponentMap.Remove(componentName);
+        }
+        public void SetPosition(Vector2 position)
+        {
+            this.Position = position;
         }
     }
 }

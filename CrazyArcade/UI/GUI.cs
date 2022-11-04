@@ -19,7 +19,6 @@ namespace CrazyArcade.UI
         public GUI()
         {
             RemoveAllItems();
-            AddGUIItem(new GUITestComposition("test1"));
         }
         public void Draw(GameTime time, SpriteBatch batch)
         {

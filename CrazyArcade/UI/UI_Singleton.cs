@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CrazyArcade.UI.GUI_Compositions;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,6 +11,7 @@ namespace CrazyArcade.UI
     {
         private static UI_Singleton instance = null;
         private static readonly object padlock = new object();
+        public static GUI internalGUI;
 
         UI_Singleton()
         {
@@ -29,5 +31,12 @@ namespace CrazyArcade.UI
                 }
             }
         }
+        
+        public static void AddNewElement(IGUIComposite newElement)
+        {
+            internalGUI.AddGUIItem(newElement);
+        }
+
+        
     }
 }

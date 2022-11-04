@@ -11,10 +11,10 @@ namespace CrazyArcade.UI.GUI_Compositions
 {
     public class GUITestComposition : GUIComposition
     {
-        public GUITestComposition(string name)
+        public GUITestComposition(string name, Vector2 pos)
         {
             IGUIComponent newComponent = new GUIText("1", "test draw text");
-            newComponent.SetPosition(new Vector2(100,100));
+            newComponent.SetPosition(pos);
             this.name = name;
             AddComponent(newComponent);
         }

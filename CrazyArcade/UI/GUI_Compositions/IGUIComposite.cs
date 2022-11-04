@@ -19,5 +19,7 @@ namespace CrazyArcade.UI.GUI_Compositions
         string Name { get; set; }
         public void Draw(GameTime time, SpriteBatch batch);
         public void AddComponent(IGUIComponent newComponent);
+        public void RemoveComponent(string componentName);
+        public void SetPosition(Vector2 position);
     }
 }

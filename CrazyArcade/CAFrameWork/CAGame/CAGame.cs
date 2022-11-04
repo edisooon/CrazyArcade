@@ -15,6 +15,8 @@ using System.Diagnostics;
 using CrazyArcade.CAFrameWork.CAGame;
 using CrazyArcade.CAFrameWork.Transition;
 using CrazyArcade.UI;
+using System.Runtime.CompilerServices;
+using CrazyArcade.UI.GUI_Compositions;
 
 namespace CrazyArcade;
 
@@ -28,6 +30,10 @@ public class CAGame : Game, IGameDelegate, ITransitionCompleteHandler
     public ISceneState scene;
     public LevelSchema Level1;
     public ReadJSON test;
+    //Random for test purposes and counter
+    Random rnd = new Random();
+    int newElements = 0;
+    //
     private ITransition transition = null;
     string[] levelFileNames = {
         "Level_0.json",
@@ -51,6 +57,7 @@ public class CAGame : Game, IGameDelegate, ITransitionCompleteHandler
         scene = new DemoScene(this, "Level_0.json", StageOffset);
         TextureSingleton.LoadAllTextures(Content);
         gameGUI = new GUI();
+        UI_Singleton.internalGUI = gameGUI;
 
         test = new ReadJSON("Level_0.json", ReadJSON.fileType.LevelFile);
         Level1 = test.levelObject;
@@ -85,6 +92,13 @@ public class CAGame : Game, IGameDelegate, ITransitionCompleteHandler
             }
             scene.Update(gameTime);
         }
+        //If you are seeing this comment, then the test code below is still active
+         if (Mouse.GetState().LeftButton == ButtonState.Pressed)
+        {
+            UI_Singleton.AddNewElement(new GUITestComposition(newElements.ToString(), new Vector2(rnd.Next(0,500), rnd.Next(0, 500))));
+            newElements++;
+        }
+        //Test code section is done
         base.Update(gameTime);
     }
     private void makeTransition(GameTime gameTime, Vector2 displacement)
