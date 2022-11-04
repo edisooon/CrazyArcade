@@ -2,6 +2,7 @@
   "Background": [ 214, 176, 94 ],
   "Border": [ 13, 13 ],
   "Blocks": {
+    "Door": [[]],
     "LightSand": [
       [ 1, 5 ],
       [ 3, 5 ],
