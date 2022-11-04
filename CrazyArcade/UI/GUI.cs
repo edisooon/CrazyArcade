@@ -15,7 +15,7 @@ namespace CrazyArcade.UI
     public class GUI
     {
         private List<IGUIComposite> GUIItems;
-        private Dictionary<string,IGUIComposite> GUILookup;
+        public Dictionary<string,IGUIComposite> GUILookup;
         public GUI()
         {
             RemoveAllItems();

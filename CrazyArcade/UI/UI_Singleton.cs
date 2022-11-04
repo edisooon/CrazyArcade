@@ -36,7 +36,14 @@ namespace CrazyArcade.UI
         {
             internalGUI.AddGUIItem(newElement);
         }
-
+        public static void ClearGUI()
+        {
+            internalGUI.RemoveAllItems();
+        }
+        public static void ChangeComponentText(string compositeName, string componentName, string newText)
+        {
+            internalGUI.GUILookup[compositeName].ComponentDict[componentName].ChangeComponent(newText);
+        }
         
     }
 }

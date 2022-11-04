@@ -32,5 +32,8 @@ namespace CrazyArcade.UI.GUI_Components
         public virtual void Draw(GameTime time, SpriteBatch batch, Vector2 basePosition)
         {
         }
+        public virtual void ChangeComponent(string newText)
+        {
+        }
     }
 }

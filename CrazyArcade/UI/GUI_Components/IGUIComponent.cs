@@ -16,5 +16,6 @@ namespace CrazyArcade.UI.GUI_Components
         Vector2 InternalPosition { get; set; }
         public void Draw(GameTime time, SpriteBatch batch, Vector2 basePosition);
         public void SetPosition(Vector2 position);
+        public void ChangeComponent(string newText);
     }
 }

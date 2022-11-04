@@ -28,5 +28,9 @@ namespace CrazyArcade.UI.GUI_Components
         {
             batch.DrawString(font, drawText, position + basePosition, Color.Black);
         }
+        public override void ChangeComponent(string newText)
+        {
+            drawText = newText;
+        }
     }
 }
