@@ -17,6 +17,7 @@ using System.Diagnostics;
 using CrazyArcade.CAFrameWork.Transition;
 using CrazyArcade.CAFrameWork.CAGame;
 using CrazyArcade.Items;
+using CrazyArcade.CAFrameWork.GridBoxSystem;
 
 namespace CrazyArcade.Demo1
 {
@@ -37,7 +38,7 @@ namespace CrazyArcade.Demo1
             this.systems.Add(new ItemCollisionSystem(this));
             this.systems.Add(new CAControllerSystem());
             this.systems.Add(new CAGameLogicSystem());
-
+            this.systems.Add(new GridBoxSystem());
             this.systems.Add(new BombCollisionSystem(this));
             this.systems.Add(new PlayerCollisionSystem());
             
