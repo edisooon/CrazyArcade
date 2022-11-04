@@ -17,6 +17,7 @@ using System.Diagnostics;
 using CrazyArcade.CAFrameWork.Transition;
 using CrazyArcade.CAFrameWork.CAGame;
 using CrazyArcade.Items;
+using CrazyArcade.CAFrameWork.GameStates;
 
 namespace CrazyArcade.Demo1
 {
@@ -25,11 +26,12 @@ namespace CrazyArcade.Demo1
         Level level;
         string fileName;
 
-        public DemoScene(IGameDelegate game, string fileName, Vector2 stageOffset)
+        public DemoScene(CAGame game, string fileName, Vector2 stageOffset)
         {
             base.StageOffset = stageOffset;
             this.fileName = fileName;
             gameRef = game;
+            gameState = new DefaultGameState(this);
         }
         public override void LoadSystems()
         {

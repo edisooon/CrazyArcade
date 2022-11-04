@@ -5,6 +5,7 @@ using CrazyArcade.Demo1;
 using CrazyArcade.GameGridSystems;
 using Microsoft.Xna.Framework;
 using CrazyArcade.Items;
+using CrazyArcade.CAFrameWork.GameStates;
 
 namespace CrazyArcade.PlayerStateMachine
 {
@@ -21,6 +22,8 @@ namespace CrazyArcade.PlayerStateMachine
         public int currentBlastLength;
         public int bombCapacity = 4;
         public int bombsOut;
+
+        public int deathCount;
 
 
         public override SpriteAnimation SpriteAnim => spriteAnims[animationHandleInt];
@@ -52,6 +55,8 @@ namespace CrazyArcade.PlayerStateMachine
             this.playerState = new CharacterStateBubble(this);
             this.spriteAnims = this.playerState.SetSprites();
             this.playerState.SetSpeed();
+            //For testing purposes only, ends game when player hits enemy or projectile
+            parentScene.gameState.SwitchToGameOver();
         }
         public override void Load()
         {

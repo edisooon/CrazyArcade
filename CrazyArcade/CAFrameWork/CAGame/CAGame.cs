@@ -14,6 +14,7 @@ using CrazyArcade.Levels;
 using System.Diagnostics;
 using CrazyArcade.CAFrameWork.CAGame;
 using CrazyArcade.CAFrameWork.Transition;
+using CrazyArcade.CAFrameWork.GameStates;
 
 namespace CrazyArcade;
 
@@ -83,7 +84,10 @@ public class CAGame : Game, IGameDelegate, ITransitionCompleteHandler
             }
             scene.Update(gameTime);
         }
-        base.Update(gameTime);
+        if (scene is CAScene && (scene as CAScene).gameState is DefaultGameState)
+        {
+            base.Update(gameTime);
+        }
     }
     private void makeTransition(GameTime gameTime, Vector2 displacement)
     {

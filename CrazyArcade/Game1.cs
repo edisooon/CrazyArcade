@@ -35,7 +35,7 @@ public class Game1 : Game, IGameDelegate
 
     protected override void Initialize()
     {
-        scene = new DemoScene(this, "Level_0.json", new Vector2(0,0));
+        //scene = new DemoScene(this, "Level_0.json", new Vector2(0,0));
         TextureSingleton.LoadAllTextures(Content);
         
 
