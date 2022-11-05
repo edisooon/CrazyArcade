@@ -104,6 +104,11 @@ namespace CrazyArcade.PlayerStateMachine
             spriteAnims[(int)Dir.Down] = new SpriteAnimation(TextureSingleton.GetPlayer1(), new Rectangle(60, 460, 44, 52));
             spriteAnims[(int)Dir.Left] = new SpriteAnimation(TextureSingleton.GetPlayer1(), new Rectangle(110, 460, 42, 56));
             spriteAnims[(int)Dir.Right] = new SpriteAnimation(TextureSingleton.GetPlayer1(), new Rectangle(156, 460, 42, 56));
+
+            for (int i = 0; i < 4; i++)
+            {
+                spriteAnims[i].Scale = character.SpriteAnim.Scale;
+            }
             return spriteAnims;
         }
     }

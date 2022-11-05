@@ -47,7 +47,7 @@ namespace CrazyArcade.PlayerStateMachine
         {
             if (direction == Dir.Up || direction == Dir.Down)
             {
-                xOffset = 5;
+                xOffset = 6;
             }
             else if (direction == Dir.Left)
             {

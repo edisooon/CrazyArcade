@@ -20,7 +20,9 @@ namespace CrazyArcade.PlayerStateMachine
         public int animationHandleInt;
         public int currentBlastLength;
         public int bombCapacity = 4;
+
         public int bombsOut;
+        private int loseRideFlag = 0;
 
 
         public override SpriteAnimation SpriteAnim => spriteAnims[animationHandleInt];
@@ -49,17 +51,21 @@ namespace CrazyArcade.PlayerStateMachine
         public override void CollisionDestroyLogic()
         {
             if (this.playerState is CharacterStateBubble) return;
-            if (this.playerState is CharacterStateTurtle)
+            if (this.playerState is CharacterStateTurtle )
             {
                 
                 this.playerState = new CharacterStateFree(this);
-
+                loseRideFlag = 1;
+            }
+            else if (loseRideFlag == 0)
+            {
+                this.playerState = new CharacterStateBubble(this);
             }
             else
             {
-                this.playerState = new CharacterStateBubble(this);
-
+                loseRideFlag = 0;
             }
+            
             this.spriteAnims = this.playerState.SetSprites();
             this.playerState.SetSpeed();
         }
