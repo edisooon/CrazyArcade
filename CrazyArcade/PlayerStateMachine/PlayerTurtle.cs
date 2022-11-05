@@ -4,7 +4,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
 
-//Note: this is kept in the PlayerStateMachine namespace due to the lack of higher orginization for entities and the project in general.
+
 namespace CrazyArcade.PlayerStateMachine
 {
     public class PlayerTurtle : CAEntity
@@ -27,6 +27,7 @@ namespace CrazyArcade.PlayerStateMachine
             this.scene = scene;
             X = player.X;
             Y = player.Y;
+            yOffset = 35;
             DrawOrder = player.ActualDrawOrder -2;
             this.spriteAnims = new SpriteAnimation[4];
             // public SpriteAnimation(Texture2D texture, int startX, int startY, int width, int height, int frames, int offset, int fps) : base(texture, startX, startY, frames, width, height, offset )
@@ -58,7 +59,7 @@ namespace CrazyArcade.PlayerStateMachine
                 xOffset = 0;
             }
             X = player.X + xOffset;
-            Y = player.Y + 35;
+            Y = player.Y + yOffset;
             direction = player.direction;
             currentAnimation = spriteAnims[(int)direction];
             currentAnimation.Update(time);

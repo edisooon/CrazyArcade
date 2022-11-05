@@ -36,17 +36,17 @@ namespace CrazyArcade.PlayerStateMachine
         }
         public void ProcessAttaction()
         {
-            //can't
+
         }
 
         public void ProcessItem()
         {
-            //nope
+
         }
 
         public void ProcessRide()
         {
-            //Nope
+
         }
 
         public void ProcessState(GameTime time)

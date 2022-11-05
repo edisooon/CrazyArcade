@@ -22,7 +22,7 @@ namespace CrazyArcade.PlayerStateMachine
         public int bombCapacity = 4;
 
         public int bombsOut;
-        private int loseRideFlag = 0;
+        private int loseRideFlag = 5;
 
 
         public override SpriteAnimation SpriteAnim => spriteAnims[animationHandleInt];
@@ -55,15 +55,15 @@ namespace CrazyArcade.PlayerStateMachine
             {
                 
                 this.playerState = new CharacterStateFree(this);
-                loseRideFlag = 1;
+                loseRideFlag = 0;
             }
-            else if (loseRideFlag == 0)
+            else if (loseRideFlag >= 5)
             {
                 this.playerState = new CharacterStateBubble(this);
             }
             else
             {
-                loseRideFlag = 0;
+                loseRideFlag++;
             }
             
             this.spriteAnims = this.playerState.SetSprites();
