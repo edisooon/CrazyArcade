@@ -27,7 +27,9 @@ namespace CrazyArcade.PlayerStateMachine
             turtle = new PlayerTurtle(character, character.parentScene);
             character.parentScene.AddSprite(turtle);
             this.spriteAnims = new SpriteAnimation[4];
+
             this.character = character;
+
             d1HeldDown = false;
             d2HeldDown = false;
 
@@ -91,16 +93,17 @@ namespace CrazyArcade.PlayerStateMachine
         }
         public int SetSpeed()
         {
-            character.ModifiedSpeed = character.DefaultSpeed*2f;
+            character.ModifiedSpeed = character.DefaultSpeed*1.2f;
             return 1;
         }
 
         public SpriteAnimation[] SetSprites()
         {
-            spriteAnims[(int)Dir.Up] = new SpriteAnimation(TextureSingleton.GetPlayer1(), 12, 14, 44, 56, 6, 4, 10);
-            spriteAnims[(int)Dir.Down] = new SpriteAnimation(TextureSingleton.GetPlayer1(), 12, 78, 44, 56, 6, 4, 10);
-            spriteAnims[(int)Dir.Left] = new SpriteAnimation(TextureSingleton.GetPlayer1(), 12, 142, 44, 56, 6, 4, 10);
-            spriteAnims[(int)Dir.Right] = new SpriteAnimation(TextureSingleton.GetPlayer1(), 12, 206, 44, 56, 6, 4, 10);
+
+            spriteAnims[(int)Dir.Up] = new SpriteAnimation(TextureSingleton.GetPlayer1(), new Rectangle(12, 460, 44, 52));
+            spriteAnims[(int)Dir.Down] = new SpriteAnimation(TextureSingleton.GetPlayer1(), new Rectangle(60, 460, 44, 52));
+            spriteAnims[(int)Dir.Left] = new SpriteAnimation(TextureSingleton.GetPlayer1(), new Rectangle(110, 460, 42, 56));
+            spriteAnims[(int)Dir.Right] = new SpriteAnimation(TextureSingleton.GetPlayer1(), new Rectangle(156, 460, 42, 56));
             return spriteAnims;
         }
     }

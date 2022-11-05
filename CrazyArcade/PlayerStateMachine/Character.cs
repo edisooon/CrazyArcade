@@ -85,6 +85,8 @@ namespace CrazyArcade.PlayerStateMachine
         public void SwitchToMountedState()
         {
             this.playerState = new CharacterStateTurtle(this);
+            spriteAnims = this.playerState.SetSprites();
+            this.playerState.SetSpeed();
         }
         public void IncreaseSpeed()
         {

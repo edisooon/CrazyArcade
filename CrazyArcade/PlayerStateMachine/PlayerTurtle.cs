@@ -27,7 +27,7 @@ namespace CrazyArcade.PlayerStateMachine
             this.scene = scene;
             X = player.X;
             Y = player.Y;
-            DrawOrder = -2;
+            DrawOrder = player.ActualDrawOrder -2;
             this.spriteAnims = new SpriteAnimation[4];
             // public SpriteAnimation(Texture2D texture, int startX, int startY, int width, int height, int frames, int offset, int fps) : base(texture, startX, startY, frames, width, height, offset )
             spriteAnims[(int)Dir.Up] = new SpriteAnimation(turtleTexture, 15, 5, 29, 30, 2, 18, 6);
