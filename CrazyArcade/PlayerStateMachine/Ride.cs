@@ -19,14 +19,14 @@ namespace CrazyArcade.PlayerStateMachine
         public SpriteAnimation[] spriteAnims { get; set; }
 
  
-        int dir;
-        int rideAmount = 4;
+        public int dir;
+
         //int rideType; // 0 - 3, turtle, pirate turtle, ufo, owl
 
 
         public Ride(Character character, int ride) {
             player = character;
-            generateRide(ride%rideAmount);
+            generateRide();
             if (character != null) {
                 X = character.X;
                 Y = character.Y;
@@ -43,7 +43,7 @@ namespace CrazyArcade.PlayerStateMachine
             //does nothing
         }
 
-        public void generateRide() {
+        private void generateRide() {
             spriteAnims = new SpriteAnimation[4];
             //rows = ride
             //columns = x off, y off-ydiff, width, height, ydiff
@@ -56,7 +56,7 @@ namespace CrazyArcade.PlayerStateMachine
             int width = 96;
             int height = 72;
             int fps = 3;
-            for (int i = 0; i < rideAmount; i++) {
+            for (int i = 0; i < 4; i++) {
                 spriteAnims[i] = new SpriteAnimation(TextureSingleton.GetRides(),frames, xoff, yoff*i, width, height, fps);
 
             }
