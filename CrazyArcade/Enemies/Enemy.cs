@@ -13,7 +13,7 @@ namespace CrazyArcade.Enemies
         public SpriteAnimation[] spriteAnims;
         public SpriteAnimation spriteAnim;
         public  CAScene scene;
-        protected Dir direction;
+        public Dir direction;
         protected float xDifference;
         protected float yDifference;
         protected SpriteEffects effect;
@@ -24,6 +24,7 @@ namespace CrazyArcade.Enemies
         public IEnemyState state;
         public SpriteAnimation deathAnimation;
         private float timer;
+        protected int fps = 10;
         public Vector2 ScreenCoord
         {
             get => pos;
@@ -65,6 +66,7 @@ namespace CrazyArcade.Enemies
             this.scene = scene;
             GameCoord = new Vector2(x, y-2);
             Start = GameCoord;
+            
         }
         protected Rectangle internalRectangle = new Rectangle(0, 0, 30, 30);
 
@@ -73,12 +75,9 @@ namespace CrazyArcade.Enemies
         public void CollisionLogic(Rectangle overlap, IPlayerCollisionBehavior collisionPartner)
         {
             collisionPartner.CollisionDestroyLogic();
+            state = new EnemyDeathState(this);
+            
 
-        }
-        public void animateDeath()
-        {
-            spriteAnims[0] = deathAnimation;
-            spriteAnim = spriteAnims[0];
         }
         public override void Update(GameTime time)
         {
@@ -87,15 +86,27 @@ namespace CrazyArcade.Enemies
 
             SpriteAnim.Position = new Vector2(X, Y);
             SpriteAnim.setEffect(effect);
-            SpriteAnim.Update(time);
+            
+
 
 
             xDifference = GameCoord.X - Start.X;
             yDifference = GameCoord.Y - Start.Y;
-
+            if (state != null)
+            {
+                state.Update(time);
+            }
             if (timer > 1f / 6)
             {
-                move(direction);
+                if (state is not EnemyDeathState)
+                {
+                    move(direction);
+                }
+                
+                
+                
+                
+                timer = 0;
             }
             else
             {
@@ -109,17 +120,21 @@ namespace CrazyArcade.Enemies
             switch (dir)
             {
                 case Dir.Right:
+                    
                     return xDifference >= 4;
+                    
                 case Dir.Up:
+
                     return yDifference <= 0;
+
                 case Dir.Down:
+                    
                     return yDifference >= 4;
                 case Dir.Left:
                     return xDifference <= 0;
             }
             return false;
         }
-        public abstract void UpdateAnimation(Dir dir);
 
         protected abstract Vector2[] SpeedVector { get; }
 
@@ -131,12 +146,15 @@ namespace CrazyArcade.Enemies
                 effect = direction == Dir.Right ? SpriteEffects.FlipHorizontally : SpriteEffects.None;
                 UpdateAnimation(dir);
             }
-            else
-            {
+            
                 GameCoord += SpeedVector[(int)dir];
-            }
+            
         }
+        public void UpdateAnimation(Dir dir)
+        {
 
+            this.spriteAnims[(int)direction].Position = new Vector2(X, Y);
+        }
     }
 }
 

@@ -1,4 +1,5 @@
 ﻿using CrazyArcade.CAFramework;
+using CrazyArcade.PlayerStateMachine;
 using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
@@ -6,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Timers;
 using static System.Formats.Asn1.AsnWriter;
 
 namespace CrazyArcade.Enemies
@@ -14,7 +16,7 @@ namespace CrazyArcade.Enemies
     {
         void ChangeDirection();
         void BeKilled();
-        void Update();
+        void Update(GameTime time);
 
     }
     public class EnemyLeftState : IEnemyState
@@ -36,7 +38,7 @@ namespace CrazyArcade.Enemies
 
         }
 
-        public void Update()
+        public void Update(GameTime time)
         {
 
         }
@@ -58,7 +60,7 @@ namespace CrazyArcade.Enemies
         {
 
         }
-        public void Update() { 
+        public void Update(GameTime time) { 
         }
     }
     public class EnemyUpState : IEnemyState
@@ -79,7 +81,7 @@ namespace CrazyArcade.Enemies
 
         }
 
-        public void Update()
+        public void Update(GameTime time)
         {
         }
     }
@@ -101,7 +103,7 @@ namespace CrazyArcade.Enemies
 
         }
 
-        public void Update()
+        public void Update(GameTime time)
         {
 
         }
@@ -111,18 +113,23 @@ namespace CrazyArcade.Enemies
     {
         private Enemy enemy;
         public CAScene scene;
-        private int timer;
+        private float timer;
         private float opacity;
-       
+        private float fadeTime;
         public EnemyDeathState(Enemy enemy)
         {
             this.enemy=enemy;
             scene = enemy.scene;
-            enemy.animateDeath();
-            timer = 0;
-            opacity = 1f;
 
             
+            enemy.spriteAnims = new SpriteAnimation[1];
+            enemy.spriteAnims[0] = enemy.deathAnimation;
+            enemy.direction=0;
+
+            timer = 0;
+            opacity = 1f;
+            fadeTime = 600f;
+
         }
         public void ChangeDirection()
         {
@@ -133,20 +140,22 @@ namespace CrazyArcade.Enemies
             
         }
 
-        public void Update()
+        public void Update(GameTime time)
         {
 
-            if (timer == 5)
+
+            enemy.UpdateAnimation((Dir)0);
+            if (timer > fadeTime)
             {
                 scene.RemoveSprite(enemy);
             }
             else
             {
-                opacity = 1f - (.25f * (float)timer);
-                enemy.spriteAnim.Color = Color.White * opacity;
-                timer++;
+                enemy.spriteAnims[0].Color = Color.White * (1f - timer/fadeTime);
+                timer += (float)time.ElapsedGameTime.TotalMilliseconds;
             }
             
+
         }
     }
 }

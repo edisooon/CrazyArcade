@@ -11,12 +11,12 @@ namespace CrazyArcade.Enemies
     public class BatEnemySprite : Enemy
 
     {
-        private SpriteAnimation[] spriteAnims;
+       
         private Rectangle[] InputFramesRight;
         private Rectangle[] InputFramesLeft;
         private Rectangle[] InputFramesUp;
         private Rectangle[] InputFramesDown;
- 
+        private Texture2D texture;
 
         public override SpriteAnimation SpriteAnim => spriteAnims[(int)direction];
 
@@ -30,7 +30,7 @@ namespace CrazyArcade.Enemies
         {
             direction = Dir.Down;
             effect = SpriteEffects.None;
-
+            texture = TextureSingleton.GetBombermanIIEnemies();
             InputFramesRight = new Rectangle[4];
             InputFramesUp = new Rectangle[4];
             InputFramesLeft = new Rectangle[4];
@@ -56,20 +56,21 @@ namespace CrazyArcade.Enemies
             InputFramesDown[3] = new Rectangle(21, 134, 16, 16);
 
             //Texture2D texture
-
-            this.spriteAnims[(int)Dir.Up] = new SpriteAnimation(TextureSingleton.GetBombermanIIEnemies(), InputFramesUp, 6);
-            this.spriteAnims[(int)Dir.Down] = new SpriteAnimation(TextureSingleton.GetBombermanIIEnemies(), InputFramesDown, 6);
-            this.spriteAnims[(int)Dir.Left] = new SpriteAnimation(TextureSingleton.GetBombermanIIEnemies(), InputFramesLeft, 6);
-            this.spriteAnims[(int)Dir.Right] = new SpriteAnimation(TextureSingleton.GetBombermanIIEnemies(), InputFramesRight, 6);
+            //death animation for enemyDeathState
+            // public SpriteAnimation(Texture2D texture, int startX, int startY, int width, int height, int frames, int offset, int fps) 
+            deathAnimation = new SpriteAnimation(texture, 165,134, 16, 16, 1, 0, 1);
+            deathAnimation.setWidthHeight(30, 30);
+            deathAnimation.Position = new Vector2(X, Y);
+            this.spriteAnims[(int)Dir.Up] = new SpriteAnimation(texture, InputFramesUp, fps);
+            this.spriteAnims[(int)Dir.Down] = new SpriteAnimation(texture, InputFramesDown, fps);
+            this.spriteAnims[(int)Dir.Left] = new SpriteAnimation(texture, InputFramesLeft, fps);
+            this.spriteAnims[(int)Dir.Right] = new SpriteAnimation(texture, InputFramesRight, fps);
             foreach (SpriteAnimation anim in this.spriteAnims)
             {
                 anim.setWidthHeight(30, 30);
                 anim.Position = new Vector2(X, Y);
             }
         }
-
-        
-
         protected override Vector2[] SpeedVector => speedVector;
 
         /*
@@ -80,15 +81,12 @@ namespace CrazyArcade.Enemies
          */
         Vector2[] speedVector =
         {
-            new Vector2(0.0f, -0.1f),
-            new Vector2(-0.1f, 0.0f),
-            new Vector2(0.0f, 0.1f),
-            new Vector2(0.1f, 0.0f),
+            new Vector2(0.0f, -0.15f),
+            new Vector2(-0.15f, 0.0f),
+            new Vector2(0.0f, 0.15f),
+            new Vector2(0.15f, 0.0f),
         };
-        public override void UpdateAnimation(Dir dir)
-        {
-            this.spriteAnims[(int)direction].Position = new Vector2(X, Y);
-        }
+
 
         void updateCoord()
         {
