@@ -75,6 +75,7 @@ namespace CrazyArcade.Enemies
         public void CollisionLogic(Rectangle overlap, IPlayerCollisionBehavior collisionPartner)
         {
             collisionPartner.CollisionDestroyLogic();
+            //To show the state only, this line of code needs to be moved once bomb -> enemy collision is implemented to CollisionDestroyLogic 
             state = new EnemyDeathState(this);
             
 
