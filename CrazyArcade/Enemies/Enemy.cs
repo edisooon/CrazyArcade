@@ -10,16 +10,20 @@ namespace CrazyArcade.Enemies
 {
     public abstract class Enemy: CAEntity, IPlayerCollidable, IGridable
     {
-
+        public SpriteAnimation[] spriteAnims;
+        public SpriteAnimation spriteAnim;
+        public  CAScene scene;
         protected Dir direction;
         protected float xDifference;
         protected float yDifference;
         protected SpriteEffects effect;
-
         protected Vector2 Start;
         //----------IGridable Start------------
         private Vector2 gamePos;
         private Vector2 pos;
+        public IEnemyState state;
+        public SpriteAnimation deathAnimation;
+        private float timer;
         public Vector2 ScreenCoord
         {
             get => pos;
@@ -54,8 +58,11 @@ namespace CrazyArcade.Enemies
             }
         }
         //----------IGridable End------------
-        public Enemy(int x, int y)
+        public Enemy(int x, int y, CAScene scene)
+
         {
+            timer = 0;
+            this.scene = scene;
             GameCoord = new Vector2(x, y-2);
             Start = GameCoord;
         }
@@ -66,9 +73,37 @@ namespace CrazyArcade.Enemies
         public void CollisionLogic(Rectangle overlap, IPlayerCollisionBehavior collisionPartner)
         {
             collisionPartner.CollisionDestroyLogic();
+
         }
+        public void animateDeath()
+        {
+            spriteAnims[0] = deathAnimation;
+            spriteAnim = spriteAnims[0];
+        }
+        public override void Update(GameTime time)
+        {
+
+            // handled animation updated (position and frame) in abstract level
+
+            SpriteAnim.Position = new Vector2(X, Y);
+            SpriteAnim.setEffect(effect);
+            SpriteAnim.Update(time);
 
 
+            xDifference = GameCoord.X - Start.X;
+            yDifference = GameCoord.Y - Start.Y;
+
+            if (timer > 1f / 6)
+            {
+                move(direction);
+            }
+            else
+            {
+                timer += (float)time.ElapsedGameTime.TotalMilliseconds;
+            }
+            internalRectangle.X = X;
+            internalRectangle.Y = Y;
+        }
         private bool ChangeDir(Dir dir)
         {
             switch (dir)

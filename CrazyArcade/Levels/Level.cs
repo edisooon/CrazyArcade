@@ -224,28 +224,28 @@ namespace CrazyArcade.Levels
 
             foreach (Vector2 vector in itemLocations)
             {
-                EntityList.Add(new BombEnemySprite((int)vector.X, (int)vector.Y));
+                EntityList.Add(new BombEnemySprite((int)vector.X, (int)vector.Y, Scene));
             }
 
             itemLocations = currentLevel.GetItemLocation(CreateLevel.LevelItem.SquidPosition);
 
             foreach (Vector2 vector in itemLocations)
             {
-                EntityList.Add(new SquidEnemySprite((int)vector.X, (int)vector.Y));
+                EntityList.Add(new SquidEnemySprite((int)vector.X, (int)vector.Y, Scene));
             }
 
             itemLocations = currentLevel.GetItemLocation(CreateLevel.LevelItem.BatPosition);
 
             foreach (Vector2 vector in itemLocations)
             {
-                EntityList.Add(new BatEnemySprite((int)vector.X, (int)vector.Y));
+                EntityList.Add(new BatEnemySprite((int)vector.X, (int)vector.Y, Scene));
             }
 
             itemLocations = currentLevel.GetItemLocation(CreateLevel.LevelItem.RobotPosition);
 
             foreach (Vector2 vector in itemLocations)
             {
-                EntityList.Add(new RobotEnemySprite((int)vector.X, (int)vector.Y));
+                EntityList.Add(new RobotEnemySprite((int)vector.X, (int)vector.Y, Scene));
             }
 
             itemLocations = currentLevel.GetItemLocation(CreateLevel.LevelItem.OctoBossPosition);

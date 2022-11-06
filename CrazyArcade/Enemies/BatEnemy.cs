@@ -16,13 +16,12 @@ namespace CrazyArcade.Enemies
         private Rectangle[] InputFramesLeft;
         private Rectangle[] InputFramesUp;
         private Rectangle[] InputFramesDown;
-        private Dir[] dirList;
-        float timer;
+ 
 
         public override SpriteAnimation SpriteAnim => spriteAnims[(int)direction];
 
         
-        public BatEnemySprite(int x, int y): base(x, y)
+        public BatEnemySprite(int x, int y, CAScene scene) : base(x, y, scene)
         {
             this.spriteAnims = new SpriteAnimation[4];
         }
@@ -31,7 +30,7 @@ namespace CrazyArcade.Enemies
         {
             direction = Dir.Down;
             effect = SpriteEffects.None;
-            dirList = new Dir[4];
+
             InputFramesRight = new Rectangle[4];
             InputFramesUp = new Rectangle[4];
             InputFramesLeft = new Rectangle[4];
@@ -57,7 +56,7 @@ namespace CrazyArcade.Enemies
             InputFramesDown[3] = new Rectangle(21, 134, 16, 16);
 
             //Texture2D texture
-            timer = 0;
+
             this.spriteAnims[(int)Dir.Up] = new SpriteAnimation(TextureSingleton.GetBombermanIIEnemies(), InputFramesUp, 6);
             this.spriteAnims[(int)Dir.Down] = new SpriteAnimation(TextureSingleton.GetBombermanIIEnemies(), InputFramesDown, 6);
             this.spriteAnims[(int)Dir.Left] = new SpriteAnimation(TextureSingleton.GetBombermanIIEnemies(), InputFramesLeft, 6);
@@ -69,30 +68,7 @@ namespace CrazyArcade.Enemies
             }
         }
 
-        public override void Update(GameTime time)
-        {
-
-            // handled animation updated (position and frame) in abstract level
-
-            SpriteAnim.Position = new Vector2(X, Y);
-            SpriteAnim.setEffect(effect);
-            SpriteAnim.Update(time);
-           
-
-            xDifference = GameCoord.X - Start.X;
-            yDifference = GameCoord.Y - Start.Y;
-
-            if (timer > 1f/6)
-            {
-                move(direction);
-            }
-            else
-            {
-                timer += (float)time.ElapsedGameTime.TotalMilliseconds;
-            }
-            internalRectangle.X = X;
-            internalRectangle.Y = Y;
-        }
+        
 
         protected override Vector2[] SpeedVector => speedVector;
 

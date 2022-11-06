@@ -1,17 +1,12 @@
-using System;
-using System.Threading;
 using CrazyArcade.CAFramework;
-using CrazyArcade.CAFramework.Controller;
 using CrazyArcade.Content;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Input;
 namespace CrazyArcade.Enemies
 {
 	public class BombEnemySprite: Enemy
 
 	{
-        private SpriteAnimation[] spriteAnims;
+        
         private Rectangle[] InputFramesRight;
         private Rectangle[] InputFramesLeft;
         private Rectangle[] InputFramesUp;
@@ -22,14 +17,14 @@ namespace CrazyArcade.Enemies
 
         public override SpriteAnimation SpriteAnim => spriteAnims[(int)direction];
 
-        public BombEnemySprite(int x, int y): base(x, y)
+        public BombEnemySprite(int x, int y, CAScene scene) : base(x, y, scene)
 		{
             this.spriteAnims = new SpriteAnimation[4];
-            direction = Dir.Down;
+            
         }
-
         public override void Load()
         {
+            direction = Dir.Down;
             fps = 6;
             dirList = new Dir[4];
             InputFramesRight = new Rectangle[3];
@@ -61,30 +56,7 @@ namespace CrazyArcade.Enemies
             }
         }
 
-        public override void Update(GameTime time)
-        {
-
-            // handled animation updated (position and frame) in abstract level
-
-            SpriteAnim.Position = new Vector2(X, Y);
-            SpriteAnim.setEffect(effect);
-            SpriteAnim.Update(time);
-
-
-            xDifference = GameCoord.X - Start.X;
-            yDifference = GameCoord.Y - Start.Y;
-
-            if (timer > 1f / 6)
-            {
-                move(direction);
-            }
-            else
-            {
-                timer += (float)time.ElapsedGameTime.TotalMilliseconds;
-            }
-            internalRectangle.X = X;
-            internalRectangle.Y = Y;
-        }
+        
 
         protected override Vector2[] SpeedVector => speedVector;
 
