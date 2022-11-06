@@ -10,6 +10,7 @@ namespace CrazyArcade.CAFramework
         void Update(GameTime time);
         void Draw(GameTime time, SpriteBatch batch);
         ISceneDelegate SceneDelegate { set; }
+        public int ActualDrawOrder { get; }
     }
 }
 

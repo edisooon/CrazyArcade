@@ -35,6 +35,7 @@ namespace CrazyArcade.PlayerStateMachine
             bubbleInt = 0;
             X = player.X + bubbleCenter.X;
             Y = player.Y + bubbleCenter.Y;
+            DrawOrder = player.ActualDrawOrder + 1;
             //Note, there is a way to do this within the animation system, however changes are being made straight to the code itself for
             //reasons of time constraints.
             currentBubble = new SpriteAnimation[3];

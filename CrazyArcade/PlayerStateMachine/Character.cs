@@ -22,6 +22,7 @@ namespace CrazyArcade.PlayerStateMachine
         public int bombCapacity = 4;
         public int bombsOut;
 
+
         public override SpriteAnimation SpriteAnim => spriteAnims[animationHandleInt];
 
         public Character(CAScene scene)
@@ -35,6 +36,7 @@ namespace CrazyArcade.PlayerStateMachine
             bombsOut = 0;
             GameCoord = new Vector2(3, 3);
             currentBlastLength = defaultBlastLength;
+            DrawOrder = 1;
             //this.bboxOffset = new Point(20, 20);
         }
         public override void Update(GameTime time)
