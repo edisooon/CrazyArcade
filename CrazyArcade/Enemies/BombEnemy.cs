@@ -14,7 +14,7 @@ namespace CrazyArcade.Enemies
         private Rectangle[] InputFramesUp;
         private Rectangle[] InputFramesDown;
         private Dir[] dirList;
-        float timer;
+
 
         private Texture2D texture;
         public override SpriteAnimation SpriteAnim => spriteAnims[(int)direction];

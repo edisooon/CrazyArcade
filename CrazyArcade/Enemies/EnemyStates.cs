@@ -142,16 +142,15 @@ namespace CrazyArcade.Enemies
 
         public void Update(GameTime time)
         {
-
-
             enemy.UpdateAnimation((Dir)0);
             if (timer > fadeTime)
             {
-                scene.RemoveSprite(enemy);
+                enemy.SceneDelegate.ToRemoveEntity(enemy);
             }
             else
             {
-                enemy.spriteAnims[0].Color = Color.White * (1f - timer/fadeTime);
+                opacity = 1f - timer / fadeTime;
+                enemy.spriteAnims[0].Color = Color.White * opacity;
                 timer += (float)time.ElapsedGameTime.TotalMilliseconds;
             }
             

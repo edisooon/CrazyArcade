@@ -14,7 +14,7 @@ namespace CrazyArcade.Enemies
         private Rectangle[] InputFramesUp;
         private Rectangle[] InputFramesDown;
         private Dir[] dirList;
-        float timer;
+
         Texture2D texture;
 
         public override SpriteAnimation SpriteAnim => spriteAnims[(int)direction];
@@ -52,7 +52,7 @@ namespace CrazyArcade.Enemies
             InputFramesDown[2] = new Rectangle(86, 345, 16, 22);
             InputFramesDown[3] = new Rectangle(69, 343, 16, 24);
             //Texture2D texture
-            timer = 0;
+
             //death animation for enemyDeathState
             // public SpriteAnimation(Texture2D texture, int startX, int startY, int width, int height, int frames, int offset, int fps) 
             deathAnimation = new SpriteAnimation(texture, 188, 344, 16, 23, 1, 0, 1);
