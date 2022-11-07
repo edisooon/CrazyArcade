@@ -67,7 +67,6 @@ namespace CrazyArcade.Levels
         {
 
             startPosition = currentLevel.GetStartPosition(new int[2] { X, Y });
-            //Destination = new Rectangle((int)startPosition.X, (int)startPosition.Y, size, size);
             Entity = new LightSandBlock(startPosition);
             Entity.SpriteAnim.Scale = scale;
             EntityList.Add(Entity);
@@ -78,7 +77,6 @@ namespace CrazyArcade.Levels
             
             //TODO Find a way to reduce duplicate code
             scale = .9f;
-            size = 36;
             //IMPORTANT!!!! uncomment tbis when Door Block class is implemented.
             //itemLocations = currentLevel.GetItemLocation(CreateLevel.LevelItem.DoorPosition);
 
