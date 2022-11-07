@@ -14,6 +14,8 @@ using CrazyArcade.Levels;
 using System.Diagnostics;
 using CrazyArcade.CAFrameWork.CAGame;
 using CrazyArcade.CAFrameWork.Transition;
+using static CrazyArcade.Levels.ReadJSON;
+using Microsoft.Xna.Framework.Audio;
 
 namespace CrazyArcade;
 
@@ -22,16 +24,15 @@ public class CAGame : Game, IGameDelegate, ITransitionCompleteHandler
     static Vector2 StageOffset = new Vector2(200, 15);
     static Vector2 transitionDisplacement = new Vector2(800, 0);
     private GraphicsDeviceManager _graphics;
-    private SpriteBatch _spriteBatch;
     public ISceneState scene;
+    private SpriteBatch _spriteBatch;
     public LevelSchema Level1;
     public ReadJSON test;
+    public ReadJSON map;
+    public SoundEffect backgroundMusic;
+    public SoundEffectInstance backgroundMusicInstance;
     private ITransition transition = null;
-    string[] levelFileNames = {
-        "Level_0.json",
-        "Level_1.json",
-        "Level_2.json"
-    };
+    string[] levelFileNames;
     //-------test-----------
     int stageNum = 0;
     //----------------------
@@ -48,18 +49,23 @@ public class CAGame : Game, IGameDelegate, ITransitionCompleteHandler
     {
         scene = new DemoScene(this, "Level_0.json", StageOffset);
         TextureSingleton.LoadAllTextures(Content);
-
-
-        test = new ReadJSON("Level_0.json", ReadJSON.fileType.LevelFile);
-        Level1 = test.levelObject;
-
         base.Initialize();
+        
     }
 
     protected override void LoadContent()
     {
-        _spriteBatch = new SpriteBatch(GraphicsDevice);
+        backgroundMusic = Content.Load<SoundEffect>("playground");
+        backgroundMusicInstance = backgroundMusic.CreateInstance();
 
+        backgroundMusicInstance.Pitch = 0.2f;
+        backgroundMusicInstance.IsLooped = true;
+        backgroundMusicInstance.Play();
+        _spriteBatch = new SpriteBatch(GraphicsDevice);
+        test = new ReadJSON("Level_0.json", ReadJSON.fileType.LevelFile);
+        Level1 = test.levelObject;
+        map = new ReadJSON("Map.json", ReadJSON.fileType.MapFile);
+        levelFileNames = map.mapObject.Levels;
 
         scene.Load();
     }
@@ -76,7 +82,7 @@ public class CAGame : Game, IGameDelegate, ITransitionCompleteHandler
                 stageNum--;
                 makeTransition(gameTime, -transitionDisplacement);
             }
-            else if (Mouse.GetState().RightButton == ButtonState.Pressed && stageNum < 2)
+            else if (Mouse.GetState().RightButton == ButtonState.Pressed && stageNum < levelFileNames.Length-1)
             {
                 stageNum++;
                 makeTransition(gameTime, transitionDisplacement);
