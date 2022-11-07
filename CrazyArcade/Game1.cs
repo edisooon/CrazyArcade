@@ -21,6 +21,7 @@ public class Game1 : Game, IGameDelegate
 {
     private GraphicsDeviceManager _graphics;
     private SpriteBatch _spriteBatch;
+    public GUI gameGUI;
     public IScene scene;
     public LevelSchema Level1;
     public ReadJSON test;
@@ -47,6 +48,7 @@ public class Game1 : Game, IGameDelegate
     protected override void Initialize()
     {
         scene = new DemoScene(this, "Level_0.json", new Vector2(0,0));
+        gameGUI = new GUI();
         TextureSingleton.LoadAllTextures(Content);
         
 
@@ -69,7 +71,6 @@ public class Game1 : Game, IGameDelegate
 
     protected override void Update(GameTime gameTime)
     {
-
         scene.Update(gameTime);
 
         base.Update(gameTime);
@@ -81,8 +82,8 @@ public class Game1 : Game, IGameDelegate
 
 
         _spriteBatch.Begin();
-
         scene.Draw(gameTime, _spriteBatch);
+        gameGUI.Draw(gameTime, _spriteBatch);
 
         _spriteBatch.End();
     }

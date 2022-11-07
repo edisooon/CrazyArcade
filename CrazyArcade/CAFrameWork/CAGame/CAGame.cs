@@ -16,6 +16,10 @@ using CrazyArcade.CAFrameWork.CAGame;
 using CrazyArcade.CAFrameWork.Transition;
 using static CrazyArcade.Levels.ReadJSON;
 using Microsoft.Xna.Framework.Audio;
+using CrazyArcade.UI;
+using System.Runtime.CompilerServices;
+using CrazyArcade.UI.GUI_Compositions;
+using CrazyArcade.UI.GUI_Loading;
 
 namespace CrazyArcade;
 
@@ -24,6 +28,8 @@ public class CAGame : Game, IGameDelegate, ITransitionCompleteHandler
     static Vector2 StageOffset = new Vector2(200, 15);
     static Vector2 transitionDisplacement = new Vector2(800, 0);
     private GraphicsDeviceManager _graphics;
+    private SpriteBatch _spriteBatch;
+    public GUI gameGUI;
     public ISceneState scene;
     private SpriteBatch _spriteBatch;
     public LevelSchema Level1;
@@ -31,6 +37,10 @@ public class CAGame : Game, IGameDelegate, ITransitionCompleteHandler
     public ReadJSON map;
     public SoundEffect backgroundMusic;
     public SoundEffectInstance backgroundMusicInstance;
+    //Random for test purposes and counter
+    Random rnd = new Random();
+    int newElements = 0;
+    //
     private ITransition transition = null;
     string[] levelFileNames;
     //-------test-----------
@@ -42,13 +52,22 @@ public class CAGame : Game, IGameDelegate, ITransitionCompleteHandler
         Content.RootDirectory = "Content";
         IsMouseVisible = true;
         SpriteSheet.Content = Content;
+        //Load it here
 
     }
 
     protected override void Initialize()
     {
+        gameGUI = new GUI();
+        UI_Singleton.internalGUI = gameGUI;
         scene = new DemoScene(this, "Level_0.json", StageOffset);
         TextureSingleton.LoadAllTextures(Content);
+        TestLoad guiLoad = new TestLoad();
+        guiLoad.LoadGUI();
+
+        test = new ReadJSON("Level_0.json", ReadJSON.fileType.LevelFile);
+        Level1 = test.levelObject;
+
         base.Initialize();
         
     }
@@ -57,6 +76,8 @@ public class CAGame : Game, IGameDelegate, ITransitionCompleteHandler
     {
         backgroundMusic = Content.Load<SoundEffect>("playground");
         backgroundMusicInstance = backgroundMusic.CreateInstance();
+        //Load it here
+        _spriteBatch = new SpriteBatch(GraphicsDevice);
 
         backgroundMusicInstance.Pitch = 0.2f;
         backgroundMusicInstance.IsLooped = true;
@@ -113,7 +134,7 @@ public class CAGame : Game, IGameDelegate, ITransitionCompleteHandler
         {
             scene.Draw(gameTime, _spriteBatch);
         }
-
+        gameGUI.Draw(gameTime, _spriteBatch);
         _spriteBatch.End();
     }
 
