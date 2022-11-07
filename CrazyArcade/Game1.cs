@@ -13,6 +13,7 @@ using CrazyArcade.Enemies;
 using CrazyArcade.Levels;
 using System.Diagnostics;
 using CrazyArcade.CAFrameWork.CAGame;
+using Microsoft.Xna.Framework.Audio;
 
 namespace CrazyArcade;
 
@@ -23,6 +24,8 @@ public class Game1 : Game, IGameDelegate
     public IScene scene;
     public LevelSchema Level1;
     public ReadJSON test;
+    public SoundEffect backgroundMusic;
+    public SoundEffectInstance backgroundMusicInstance;
 
     public Game1()
     {
@@ -30,7 +33,8 @@ public class Game1 : Game, IGameDelegate
         Content.RootDirectory = "Content";
         IsMouseVisible = true;
         SpriteSheet.Content = Content;
-        
+        backgroundMusic = (SoundEffect)Content.Load<SoundEffect>("playground");
+        backgroundMusicInstance = backgroundMusic.CreateInstance();
     }
 
     protected override void Initialize()
@@ -42,6 +46,10 @@ public class Game1 : Game, IGameDelegate
         test = new ReadJSON("Level_0.json",ReadJSON.fileType.LevelFile);
         Level1 = test.levelObject;
 
+        backgroundMusicInstance.Pitch = 0.1f;
+        backgroundMusicInstance.IsLooped = true;
+        backgroundMusicInstance.Play();
+
         base.Initialize();
     }
 
@@ -49,6 +57,8 @@ public class Game1 : Game, IGameDelegate
     {
         _spriteBatch = new SpriteBatch(GraphicsDevice);
 
+
+        
 
         scene.Load();
     }
