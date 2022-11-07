@@ -19,11 +19,12 @@ namespace CrazyArcade.PlayerStateMachine
         public ICharacterState playerState;
         public int animationHandleInt;
         public int currentBlastLength;
-        public int bombCapacity = 4;
-
-        public int bombsOut;
+        
+        public int bombCapacity = 2;
+        private int bombOut;
+        public int BombsOut => bombOut;
+        static int CCount = 0;
         private int loseRideFlag = 5;
-
 
         public override SpriteAnimation SpriteAnim => spriteAnims[animationHandleInt];
 
@@ -35,15 +36,17 @@ namespace CrazyArcade.PlayerStateMachine
             playerState.SetSpeed();
             direction = Dir.Down;
             this.parentScene = scene;
-            bombsOut = 0;
+            bombOut = 0;
             GameCoord = new Vector2(3, 3);
             currentBlastLength = defaultBlastLength;
             DrawOrder = 1;
+            Console.WriteLine("Count: " + ++CCount);
             //this.bboxOffset = new Point(20, 20);
         }
         public override void Update(GameTime time)
         {
             playerState.ProcessState(time);
+            //Console.WriteLine("bombsOut: " + BombsOut);
             base.Update(time);
         }
 
@@ -75,9 +78,10 @@ namespace CrazyArcade.PlayerStateMachine
         }
 
         //@Implement IBombCollectable
-        public void recollectBomb()
+        public void RecollectBomb()
         {
-            bombsOut = bombsOut-- >= 0 ? bombsOut-- : 0;
+            bombOut = bombOut-- >= 0 ? bombOut-- : 0;
+            Console.WriteLine("Recollect: " + BombsOut);
         }
         //@implement IItemCollidable
         public bool canHaveItem()
@@ -101,6 +105,12 @@ namespace CrazyArcade.PlayerStateMachine
         public void IncreaseBombCount()
         {
             this.bombCapacity++;
+        }
+
+        public void SpendBomb()
+        {
+            bombOut++;
+            Console.WriteLine("Spend: " + BombsOut);
         }
     }
 }

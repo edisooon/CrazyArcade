@@ -1,5 +1,6 @@
 ﻿using CrazyArcade.Blocks;
 using CrazyArcade.CAFramework;
+using CrazyArcade.CAFrameWork.GridBoxSystem;
 using CrazyArcade.Content;
 using CrazyArcade.Demo1;
 using CrazyArcade.GameGridSystems;
@@ -14,7 +15,7 @@ using System.Threading.Tasks;
 
 namespace CrazyArcade.BombFeature
 {
-    public class WaterBomb : CAEntity, IPlayerCollidable, IExplosionCollidable, IExplodable
+    public class WaterBomb : CAGridBoxEntity, IPlayerCollidable, IExplosionCollidable, IExplodable
     {
         int BlastLength;
         float DetonateTimer;
@@ -30,7 +31,7 @@ namespace CrazyArcade.BombFeature
         //---------------Gridable Start------------------
         private Vector2 gamePos;
         private Vector2 pos;
-        public Vector2 ScreenCoord
+        public override Vector2 ScreenCoord
         {
             get => pos;
             set
@@ -40,7 +41,7 @@ namespace CrazyArcade.BombFeature
             }
         }
         private IGridTransform trans = new NullTransform();
-        public IGridTransform Trans { get => trans; set => trans = value; }
+        public override IGridTransform Trans { get => trans; set => trans = value; }
 
         public void UpdateCoord(Vector2 value)
         {
@@ -50,7 +51,7 @@ namespace CrazyArcade.BombFeature
             this.internalRectangle.Y = (int)ScreenCoord.Y;
         }
 
-        public Vector2 GameCoord { get => gamePos; set => gamePos = value; }
+        public override Vector2 GameCoord { get => gamePos; set => gamePos = value; }
         //---------------Gridable End------------------
 
         private IExplosionDetector detector;
@@ -61,7 +62,7 @@ namespace CrazyArcade.BombFeature
 
         private Rectangle[] AnimationFrames;
         
-        public WaterBomb(Vector2 grid, int BlastLength, IBombCollectable character)
+        public WaterBomb(Vector2 grid, int BlastLength, IBombCollectable character) : base(new GridBoxPosition(grid, (int)GridObjectDepth.Box))
         {
 
             Vector2 bombPosition = grid;
@@ -92,7 +93,7 @@ namespace CrazyArcade.BombFeature
         }
         public override void Load()
         {
-            //Nothing
+            owner.SpendBomb();
         }
         private void DeleteSelf()
         {
@@ -102,8 +103,6 @@ namespace CrazyArcade.BombFeature
         {
             if(DetonateTime > DetonateTimer)
             {
-                DeleteSelf();
-                owner.recollectBomb();
                 detector.Ignite(this);
             }
             else
@@ -139,11 +138,16 @@ namespace CrazyArcade.BombFeature
 
         public IExplosion explode()
         {
+            DeleteSelf();
             canExplode = false;
-            owner.recollectBomb();
             return new Explosion(new Point((int)GameCoord.X, (int)GameCoord.Y), BlastLength, this.SceneDelegate, this.trans);
         }
-
+        public override void Deload()
+        {
+            base.Deload();
+            //Console.WriteLine("Deload");
+            owner.RecollectBomb();
+        }
         public void Collide(IExplosion bomb)
         {
             detector.Ignite(this);

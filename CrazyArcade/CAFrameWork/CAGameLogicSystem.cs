@@ -22,7 +22,7 @@ namespace CrazyArcade.CAFramework
         public void AddSprite(IEntity sprite)
         {
             //sprites.Add(sprite);
-            QueueAdd(sprite);
+            sprites.Add(sprite);
         }
 
         public void RemoveAll()
@@ -33,33 +33,15 @@ namespace CrazyArcade.CAFramework
         public void RemoveSprite(IEntity sprite)
         {
             //return sprites.Remove(sprite);
-            QueueRemove(sprite);
+            sprites.Remove(sprite);
         }
-
+        
         public void Update(GameTime time)
         {
             foreach (IEntity sprite in sprites)
             {
                 sprite.Update(time);
             }
-            foreach (IEntity removeSprite in removeSpriteList)
-            {
-                sprites.Remove(removeSprite);
-            }
-            foreach (IEntity addSprite in addSpriteList)
-            {
-                sprites.Add(addSprite);
-            }
-            removeSpriteList.Clear();
-            addSpriteList.Clear();
-        }
-        private void QueueRemove(IEntity sprite)
-        {
-            removeSpriteList.Add(sprite);
-        }
-        private void QueueAdd(IEntity sprite)
-        {
-            addSpriteList.Add(sprite);
         }
     }
 }

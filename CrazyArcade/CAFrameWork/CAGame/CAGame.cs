@@ -41,11 +41,13 @@ public class CAGame : Game, IGameDelegate, ITransitionCompleteHandler
         Content.RootDirectory = "Content";
         IsMouseVisible = true;
         SpriteSheet.Content = Content;
+        //Load it here
 
     }
 
     protected override void Initialize()
     {
+        //Load it here
         scene = new DemoScene(this, "Level_0.json", StageOffset);
         TextureSingleton.LoadAllTextures(Content);
 
@@ -58,6 +60,7 @@ public class CAGame : Game, IGameDelegate, ITransitionCompleteHandler
 
     protected override void LoadContent()
     {
+        //Load it here
         _spriteBatch = new SpriteBatch(GraphicsDevice);
 
 
