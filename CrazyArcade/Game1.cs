@@ -33,8 +33,15 @@ public class Game1 : Game, IGameDelegate
         Content.RootDirectory = "Content";
         IsMouseVisible = true;
         SpriteSheet.Content = Content;
-        backgroundMusic = (SoundEffect)Content.Load<SoundEffect>("playground");
+
+        backgroundMusic = Content.Load<SoundEffect>("playground");
         backgroundMusicInstance = backgroundMusic.CreateInstance();
+
+        backgroundMusicInstance.Pitch = 0.2f;
+        backgroundMusicInstance.IsLooped = true;
+        backgroundMusicInstance.Play();
+
+
     }
 
     protected override void Initialize()
@@ -43,24 +50,21 @@ public class Game1 : Game, IGameDelegate
         TextureSingleton.LoadAllTextures(Content);
         
 
+
         test = new ReadJSON("Level_0.json",ReadJSON.fileType.LevelFile);
         Level1 = test.levelObject;
 
-        backgroundMusicInstance.Pitch = 0.1f;
-        backgroundMusicInstance.IsLooped = true;
-        backgroundMusicInstance.Play();
 
         base.Initialize();
     }
 
     protected override void LoadContent()
     {
-        _spriteBatch = new SpriteBatch(GraphicsDevice);
-
-
         
-
+        _spriteBatch = new SpriteBatch(GraphicsDevice);
         scene.Load();
+
+
     }
 
     protected override void Update(GameTime gameTime)

@@ -130,6 +130,9 @@
 #begin JsonLevels/level_2.json
 /copy:JsonLevels/level_2.json
 
+#begin JsonLevels/level_3.json
+/copy:JsonLevels/level_3.json
+
 #begin JsonLevels/Map.json
 /copy:JsonLevels/Map.json
 
