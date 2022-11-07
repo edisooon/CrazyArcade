@@ -15,7 +15,10 @@ namespace CrazyArcade.UI.GUI_Components
         public GUITestTexture(string name)
         {
             this.name = name;
-            Sprite = new SpriteAnimation(TextureSingleton.GetBallons(), new Rectangle(0,0,40,40));
+            Sprite = new SpriteAnimation(TextureSingleton.GetSplashImage(), new Rectangle(0,0,996,995));
+            ToggleRectangleFlag();
+            ChangeComponentTextureOutputRect(50, 50);
+            SetPosition(new Vector2(0, 23));
         }
     }
 }

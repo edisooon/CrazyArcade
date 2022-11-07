@@ -26,6 +26,7 @@ namespace CrazyArcade.UI.GUI_Components
         public string DrawText { get => drawText; set { drawText = value; } }
         private SpriteAnimation spriteAnim = new(TextureSingleton.GetNull(), 1, 0, 0, 0);
         public SpriteAnimation Sprite { get => spriteAnim; set { spriteAnim = value; } }
+        
         protected SpriteFont font = null;
         //Set to as a default as well as to test
         public void SetPosition(Vector2 newPosition)
@@ -41,8 +42,9 @@ namespace CrazyArcade.UI.GUI_Components
             if (isTextComponent) batch.DrawString(font, drawText, position + basePosition, Color.Black);
             else
             {
+                Sprite.Position = basePosition + InternalPosition;
                 Sprite.Update(time);
-                Sprite.Draw(batch, InternalPosition.X + basePosition.X, InternalPosition.Y + basePosition.Y);
+                Sprite.Draw(batch, 0, 0);
             }
         }
         public virtual void ChangeComponentTexture(SpriteAnimation sprite)

@@ -13,7 +13,7 @@ namespace CrazyArcade.UI.GUI_Compositions
     {
         public GUITestComposition(string name, Vector2 pos)
         {
-            IGUIComponent newComponent = new GUIText("1", "test draw text");
+            IGUIComponent newComponent = new GUIText("1", "Example GUI draw");
             SetPosition(pos);
             this.name = name;
             AddComponent(newComponent);
