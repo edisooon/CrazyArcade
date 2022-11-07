@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using Vector2 = Microsoft.Xna.Framework.Vector2;
 using Rectangle = Microsoft.Xna.Framework.Rectangle;
 
+
 namespace CrazyArcade.Levels
 {
     internal class Level
