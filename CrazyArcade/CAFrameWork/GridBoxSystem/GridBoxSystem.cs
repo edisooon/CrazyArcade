@@ -52,7 +52,7 @@ namespace CrazyArcade.CAFrameWork.GridBoxSystem
             if (sprite is IGridBox)
             {
                 IGridBox gridBox = (sprite as IGridBox);
-                if (CheckAvailable(gridBox.Position))
+                if (map.ContainsKey(gridBox.Position) && map[gridBox.Position] == gridBox)
                 {
                     map.Remove(gridBox.Position);
                 }

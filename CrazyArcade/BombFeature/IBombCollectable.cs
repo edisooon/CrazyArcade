@@ -3,7 +3,8 @@ namespace CrazyArcade.BombFeature
 {
 	public interface IBombCollectable
 	{
-		void recollectBomb();
+		void RecollectBomb();
+		void SpendBomb();
 	}
 }
 

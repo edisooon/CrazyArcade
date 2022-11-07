@@ -93,7 +93,7 @@ namespace CrazyArcade.BombFeature
         }
         public override void Load()
         {
-            //Nothing
+            owner.SpendBomb();
         }
         private void DeleteSelf()
         {
@@ -103,8 +103,6 @@ namespace CrazyArcade.BombFeature
         {
             if(DetonateTime > DetonateTimer)
             {
-                DeleteSelf();
-                owner.recollectBomb();
                 detector.Ignite(this);
             }
             else
@@ -140,11 +138,16 @@ namespace CrazyArcade.BombFeature
 
         public IExplosion explode()
         {
+            DeleteSelf();
             canExplode = false;
-            owner.recollectBomb();
             return new Explosion(new Point((int)GameCoord.X, (int)GameCoord.Y), BlastLength, this.SceneDelegate, this.trans);
         }
-
+        public override void Deload()
+        {
+            base.Deload();
+            //Console.WriteLine("Deload");
+            owner.RecollectBomb();
+        }
         public void Collide(IExplosion bomb)
         {
             detector.Ignite(this);

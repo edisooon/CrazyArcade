@@ -69,7 +69,6 @@ namespace CrazyArcade.CAFrameWork.CollisionSystem
 
         public void Update(GameTime time)
         {
-
         }
     }
 }

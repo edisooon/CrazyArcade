@@ -83,7 +83,7 @@ namespace CrazyArcade.Items
         //Assumes that @this is in the IScene that is passed
         public void DeleteSelf(IScene parentScene)
         {
-            parentScene.RemoveSprite(this);
+            SceneDelegate.ToRemoveEntity(this);
         }
     }
 }

@@ -124,8 +124,11 @@ namespace CrazyArcade.CAFramework
             {
                 system.RemoveSprite(sprite);
             }
-            entities.Remove(sprite);
-            sprite.Deload();
+            if (entities.Contains(sprite))
+            {
+                sprite.Deload();
+                entities.Remove(sprite);
+            }
         }
 
         public void ToAddEntity(IEntity entity)

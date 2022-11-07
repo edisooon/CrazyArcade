@@ -54,12 +54,11 @@ namespace CrazyArcade.Demo1
                 this.AddSprite(entity);
             }
         }
-
         public override void LoadSprites()
         {
             
             //This may not be neccessary
-            this.AddSprite(new PlayerCharacter(new DemoController(), this));
+            //this.AddSprite(new PlayerCharacter(new DemoController(), this));
         }
 
     }
