@@ -17,6 +17,7 @@ using CrazyArcade.CAFrameWork.Transition;
 using CrazyArcade.UI;
 using System.Runtime.CompilerServices;
 using CrazyArcade.UI.GUI_Compositions;
+using CrazyArcade.UI.GUI_Loading;
 
 namespace CrazyArcade;
 
@@ -54,10 +55,12 @@ public class CAGame : Game, IGameDelegate, ITransitionCompleteHandler
 
     protected override void Initialize()
     {
-        scene = new DemoScene(this, "Level_0.json", StageOffset);
-        TextureSingleton.LoadAllTextures(Content);
         gameGUI = new GUI();
         UI_Singleton.internalGUI = gameGUI;
+        scene = new DemoScene(this, "Level_0.json", StageOffset);
+        TextureSingleton.LoadAllTextures(Content);
+        TestLoad guiLoad = new TestLoad();
+        guiLoad.LoadGUI();
 
         test = new ReadJSON("Level_0.json", ReadJSON.fileType.LevelFile);
         Level1 = test.levelObject;
