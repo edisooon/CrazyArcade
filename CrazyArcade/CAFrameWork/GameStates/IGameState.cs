@@ -10,7 +10,7 @@ namespace CrazyArcade.CAFrameWork.GameStates
 {
     public interface IGameState
     {
-        public DemoScene DefaultScene { get; }
+        public CAScene DefaultScene { get; }
         public void SwitchToGameOver();
     }
 }

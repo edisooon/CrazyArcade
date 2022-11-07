@@ -12,13 +12,13 @@ namespace CrazyArcade.CAFrameWork.GameStates
 {
     public class GameOverState : IGameState
     {
-        private DemoScene parentScene;
-        public GameOverState(DemoScene scene)
+        private CAScene parentScene;
+        public GameOverState(CAScene scene)
         {
             parentScene = scene;
             parentScene.gameRef.scene = new GameOverScene(this.parentScene.gameRef, this);
         }
-        public DemoScene DefaultScene => parentScene;
+        public CAScene DefaultScene => parentScene;
 
         public void SwitchToGameOver()
         {
