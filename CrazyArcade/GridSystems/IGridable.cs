@@ -1,9 +1,10 @@
 ﻿using System;
+using CrazyArcade.CAFramework;
 using Microsoft.Xna.Framework;
 
 namespace CrazyArcade.GameGridSystems
 {
-	public interface IGridable
+	public interface IGridable: IEntity
     {
 		/*	contains helper methods to transform coordinates
 		 *	this will be assigned by the grid systems

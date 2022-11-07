@@ -14,6 +14,10 @@ using CrazyArcade.Levels;
 using System.Diagnostics;
 using CrazyArcade.CAFrameWork.CAGame;
 using CrazyArcade.CAFrameWork.Transition;
+using CrazyArcade.UI;
+using System.Runtime.CompilerServices;
+using CrazyArcade.UI.GUI_Compositions;
+using CrazyArcade.UI.GUI_Loading;
 using CrazyArcade.CAFrameWork.GameStates;
 
 namespace CrazyArcade;
@@ -24,9 +28,14 @@ public class CAGame : Game, IGameDelegate, ITransitionCompleteHandler
     static Vector2 transitionDisplacement = new Vector2(800, 0);
     private GraphicsDeviceManager _graphics;
     private SpriteBatch _spriteBatch;
+    public GUI gameGUI;
     public ISceneState scene;
     public LevelSchema Level1;
     public ReadJSON test;
+    //Random for test purposes and counter
+    Random rnd = new Random();
+    int newElements = 0;
+    //
     private ITransition transition = null;
     string[] levelFileNames = {
         "Level_0.json",
@@ -42,6 +51,7 @@ public class CAGame : Game, IGameDelegate, ITransitionCompleteHandler
         Content.RootDirectory = "Content";
         IsMouseVisible = true;
         SpriteSheet.Content = Content;
+        //Load it here
 
     }
     public void NewInstance()
@@ -50,9 +60,12 @@ public class CAGame : Game, IGameDelegate, ITransitionCompleteHandler
     }
     protected override void Initialize()
     {
+        gameGUI = new GUI();
+        UI_Singleton.internalGUI = gameGUI;
         scene = new DemoScene(this, "Level_0.json", StageOffset);
         TextureSingleton.LoadAllTextures(Content);
-
+        TestLoad guiLoad = new TestLoad();
+        guiLoad.LoadGUI();
 
         test = new ReadJSON("Level_0.json", ReadJSON.fileType.LevelFile);
         Level1 = test.levelObject;
@@ -62,6 +75,7 @@ public class CAGame : Game, IGameDelegate, ITransitionCompleteHandler
 
     protected override void LoadContent()
     {
+        //Load it here
         _spriteBatch = new SpriteBatch(GraphicsDevice);
 
 
@@ -111,7 +125,7 @@ public class CAGame : Game, IGameDelegate, ITransitionCompleteHandler
         {
             scene.Draw(gameTime, _spriteBatch);
         }
-
+        gameGUI.Draw(gameTime, _spriteBatch);
         _spriteBatch.End();
     }
 

@@ -61,6 +61,7 @@ namespace CrazyArcade.PlayerStateMachine
 
         public void KeySpace()
         {
+            Console.WriteLine("space");
             playerState.ProcessAttaction();
         }
 

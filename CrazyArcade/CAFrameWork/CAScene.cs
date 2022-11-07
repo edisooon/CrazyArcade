@@ -87,13 +87,13 @@ namespace CrazyArcade.CAFramework
         }
         public void UpdateSprite(GameTime time)
         {
-            foreach (IEntity removeSprite in removeEntities)
-            {
-                this.RemoveSprite(removeSprite);
-            }
             foreach (IEntity addSprite in newEntities)
             {
                 this.AddSprite(addSprite);
+            }
+            foreach (IEntity removeSprite in removeEntities)
+            {
+                this.RemoveSprite(removeSprite);
             }
             removeEntities.Clear();
             newEntities.Clear();
@@ -125,7 +125,11 @@ namespace CrazyArcade.CAFramework
             {
                 system.RemoveSprite(sprite);
             }
-            entities.Remove(sprite);
+            if (entities.Contains(sprite))
+            {
+                sprite.Deload();
+                entities.Remove(sprite);
+            }
         }
 
         public void ToAddEntity(IEntity entity)
