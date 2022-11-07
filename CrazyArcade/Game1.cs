@@ -2,18 +2,16 @@ using CrazyArcade.CAFramework;
 using CrazyArcade.Content;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Input;
+
 using CrazyArcade.Demo1;
 using CrazyArcade.Singletons;
-using CrazyArcade.BombFeature;
-using System;
-using Microsoft.Xna.Framework.Content;
-using System.Reflection.Metadata;
-using CrazyArcade.Enemies;
+
 using CrazyArcade.Levels;
-using System.Diagnostics;
+
 using CrazyArcade.CAFrameWork.CAGame;
+
 using Microsoft.Xna.Framework.Audio;
+using CrazyArcade.UI;
 
 namespace CrazyArcade;
 

@@ -5,20 +5,12 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using CrazyArcade.Demo1;
 using CrazyArcade.Singletons;
-using CrazyArcade.BombFeature;
 using System;
-using Microsoft.Xna.Framework.Content;
-using System.Reflection.Metadata;
-using CrazyArcade.Enemies;
 using CrazyArcade.Levels;
-using System.Diagnostics;
 using CrazyArcade.CAFrameWork.CAGame;
 using CrazyArcade.CAFrameWork.Transition;
-using static CrazyArcade.Levels.ReadJSON;
 using Microsoft.Xna.Framework.Audio;
 using CrazyArcade.UI;
-using System.Runtime.CompilerServices;
-using CrazyArcade.UI.GUI_Compositions;
 using CrazyArcade.UI.GUI_Loading;
 
 namespace CrazyArcade;
@@ -31,7 +23,6 @@ public class CAGame : Game, IGameDelegate, ITransitionCompleteHandler
     private SpriteBatch _spriteBatch;
     public GUI gameGUI;
     public ISceneState scene;
-    private SpriteBatch _spriteBatch;
     public LevelSchema Level1;
     public ReadJSON test;
     public ReadJSON map;
