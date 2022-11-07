@@ -44,7 +44,10 @@ public class CAGame : Game, IGameDelegate, ITransitionCompleteHandler
         SpriteSheet.Content = Content;
 
     }
-
+    public void NewInstance()
+    {
+        this.Initialize();
+    }
     protected override void Initialize()
     {
         scene = new DemoScene(this, "Level_0.json", StageOffset);
@@ -84,10 +87,7 @@ public class CAGame : Game, IGameDelegate, ITransitionCompleteHandler
             }
             scene.Update(gameTime);
         }
-        if (scene is CAScene && (scene as CAScene).gameState is DefaultGameState)
-        {
-            base.Update(gameTime);
-        }
+        base.Update(gameTime);
     }
     private void makeTransition(GameTime gameTime, Vector2 displacement)
     {

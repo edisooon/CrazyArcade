@@ -36,6 +36,7 @@ namespace CrazyArcade.Demo1
         public override void LoadSystems()
         {
             //this.systems.Add(new BlockCollisionSystem());
+            this.systems.Add(new GameStateSwitcher(this));
             this.systems.Add(new ItemCollisionSystem(this));
             this.systems.Add(new CAControllerSystem());
             this.systems.Add(new CAGameLogicSystem());

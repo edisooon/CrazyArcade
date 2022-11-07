@@ -18,10 +18,11 @@ namespace CrazyArcade.CAFrameWork.GameStates
 {
     public class GameOverScene : CAScene
     {
-        public GameOverScene(CrazyArcade.CAGame gameRef, GameOverState state)
+        public GameOverScene(CrazyArcade.CAGame gameRef, IGameState state)
         {
             this.gameRef = gameRef;
             this.gameState = state;
+            this.Load();
         }
         public override void LoadSprites()
         {
@@ -34,9 +35,9 @@ namespace CrazyArcade.CAFrameWork.GameStates
         }
         public override void Update(GameTime time)
         {
-            if(Keyboard.GetState().IsKeyDown(Keys.Space))
+            if(Keyboard.GetState().IsKeyDown(Keys.R))
             {
-                this.gameRef.scene = this.gameState.Restore;
+                this.gameRef.NewInstance();
             }
             else if(Keyboard.GetState().IsKeyDown(Keys.Escape))
             {
