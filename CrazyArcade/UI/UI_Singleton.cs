@@ -58,7 +58,10 @@ namespace CrazyArcade.UI
         }
         public static void AddEmptyComposite(string name)
         {
-            internalGUI.AddGUIItem(new EmptyComposite(name));
+            if (!internalGUI.GUILookup.ContainsKey(name))
+            {
+                internalGUI.AddGUIItem(new EmptyComposite(name));
+            }
         }
         public static void MoveCompositePosition(string compositeName, Vector2 newPos)
         {
