@@ -24,8 +24,9 @@ namespace CrazyArcade.PlayerStateMachine
         {
             this.character = character;
             character.animationHandleInt = 0;
-            turtle = new PlayerTurtle(character, character.parentScene);
-            character.parentScene.AddSprite(turtle);
+            turtle = new PlayerTurtle(character);
+            //character.parentScene.AddSprite(turtle);
+            character.SceneDelegate.ToAddEntity(turtle);
             this.spriteAnims = new SpriteAnimation[4];
 
             this.character = character;

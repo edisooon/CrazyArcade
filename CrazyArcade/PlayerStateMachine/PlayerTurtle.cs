@@ -10,7 +10,6 @@ namespace CrazyArcade.PlayerStateMachine
     public class PlayerTurtle : CAEntity
     {
         public Character player;
-        public CAScene scene;
 
         private Dir direction;
         private SpriteAnimation[] spriteAnims;
@@ -20,11 +19,10 @@ namespace CrazyArcade.PlayerStateMachine
         private int yOffset;
 
         public override SpriteAnimation SpriteAnim => spriteAnims[(int)direction];
-        public PlayerTurtle(Character player, CAScene scene)
+        public PlayerTurtle(Character player)
         {
             turtleTexture = TextureSingleton.GetRides();
             this.player = player;
-            this.scene = scene;
             X = player.X;
             Y = player.Y;
             yOffset = 35;
@@ -76,7 +74,7 @@ namespace CrazyArcade.PlayerStateMachine
 
         public void Delete_Self()
         {
-            scene.RemoveSprite(this);
+            player.SceneDelegate.ToRemoveEntity(this);
         }
     }
 }

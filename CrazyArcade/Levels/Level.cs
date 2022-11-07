@@ -4,27 +4,11 @@ using CrazyArcade.Boss;
 using CrazyArcade.CAFramework;
 using CrazyArcade.Items;
 using CrazyArcade.Blocks;
-using CrazyArcade.Levels;
 using CrazyArcade.PlayerStateMachine;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Input;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
-using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
-using System.Diagnostics;
-using System.Numerics;
 using Vector2 = Microsoft.Xna.Framework.Vector2;
-using System.Drawing;
 using Rectangle = Microsoft.Xna.Framework.Rectangle;
-using System.Reflection.Metadata.Ecma335;
-using System.Runtime.Intrinsics;
-using static System.Formats.Asn1.AsnWriter;
-using CrazyArcade.GameGridSystems;
+
 
 namespace CrazyArcade.Levels
 {
