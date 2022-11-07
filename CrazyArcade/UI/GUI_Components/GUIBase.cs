@@ -45,9 +45,9 @@ namespace CrazyArcade.UI.GUI_Components
                 Sprite.Draw(batch, InternalPosition.X + basePosition.X, InternalPosition.Y + basePosition.Y);
             }
         }
-        public virtual void ChangeComponentTexture(string newText)
+        public virtual void ChangeComponentTexture(SpriteAnimation sprite)
         {
-            
+            Sprite = sprite;
         }
         public virtual void ChangeComponentText(string newText)
         {

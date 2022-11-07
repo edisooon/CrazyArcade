@@ -37,6 +37,14 @@ namespace CrazyArcade.UI
             GUIItems.Remove(item);
             GUILookup.Remove(item.Name);
         }
+        public void RemoveGUIItem(string name)
+        {
+            if (GUILookup.ContainsKey(name)) 
+            {
+                GUIItems.Remove(GUILookup[name]);
+                GUILookup.Remove(name);
+            }
+        }
         public void RemoveAllItems()
         {
             GUIItems = new List<IGUIComposite>();

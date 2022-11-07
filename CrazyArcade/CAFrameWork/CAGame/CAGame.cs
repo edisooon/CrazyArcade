@@ -92,13 +92,6 @@ public class CAGame : Game, IGameDelegate, ITransitionCompleteHandler
             }
             scene.Update(gameTime);
         }
-        //If you are seeing this comment, then the test code below is still active
-         if (Mouse.GetState().LeftButton == ButtonState.Pressed)
-        {
-            UI_Singleton.AddNewElement(new GUITestComposition(newElements.ToString(), new Vector2(rnd.Next(0,500), rnd.Next(0, 500))));
-            newElements++;
-        }
-        //Test code section is done
         base.Update(gameTime);
     }
     private void makeTransition(GameTime gameTime, Vector2 displacement)
