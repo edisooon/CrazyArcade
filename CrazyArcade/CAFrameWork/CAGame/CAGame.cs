@@ -50,6 +50,7 @@ public class CAGame : Game, IGameDelegate, ITransitionCompleteHandler
         Content.RootDirectory = "Content";
         IsMouseVisible = true;
         SpriteSheet.Content = Content;
+        //Load it here
 
     }
 
@@ -70,6 +71,7 @@ public class CAGame : Game, IGameDelegate, ITransitionCompleteHandler
 
     protected override void LoadContent()
     {
+        //Load it here
         _spriteBatch = new SpriteBatch(GraphicsDevice);
 
 

@@ -53,6 +53,19 @@ namespace CrazyArcade.CAFramework
                 Anim.Draw(batch, this.X, this.Y);
             }
         }
+        public void RemoveFromStage()
+        {
+            if (SceneDelegate != null)
+            {
+                SceneDelegate.ToRemoveEntity(this);
+            }
+        }
+
+        //Execute before being removed from scene
+        public virtual void Deload()
+        {
+            //Implement destroy behavior is needed
+        }
     }
 }
 

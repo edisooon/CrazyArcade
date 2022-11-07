@@ -10,16 +10,21 @@ namespace CrazyArcade.Enemies
 {
     public abstract class Enemy: CAEntity, IPlayerCollidable, IGridable
     {
-
-        protected Dir direction;
+        public SpriteAnimation[] spriteAnims;
+        public SpriteAnimation spriteAnim;
+        public  CAScene scene;
+        public Dir direction;
         protected float xDifference;
         protected float yDifference;
         protected SpriteEffects effect;
-
         protected Vector2 Start;
         //----------IGridable Start------------
         private Vector2 gamePos;
         private Vector2 pos;
+        public IEnemyState state;
+        public SpriteAnimation deathAnimation;
+        private float timer;
+        protected int fps = 10;
         public Vector2 ScreenCoord
         {
             get => pos;
@@ -54,10 +59,14 @@ namespace CrazyArcade.Enemies
             }
         }
         //----------IGridable End------------
-        public Enemy(int x, int y)
+        public Enemy(int x, int y, CAScene scene)
+
         {
+            timer = 0;
+            this.scene = scene;
             GameCoord = new Vector2(x, y-2);
             Start = GameCoord;
+            
         }
         protected Rectangle internalRectangle = new Rectangle(0, 0, 30, 30);
 
@@ -66,25 +75,67 @@ namespace CrazyArcade.Enemies
         public void CollisionLogic(Rectangle overlap, IPlayerCollisionBehavior collisionPartner)
         {
             collisionPartner.CollisionDestroyLogic();
+            //To show the state only, this line of code needs to be moved once bomb -> enemy collision is implemented to CollisionDestroyLogic 
+            state = new EnemyDeathState(this);
+            
+
         }
+        public override void Update(GameTime time)
+        {
+
+            // handled animation updated (position and frame) in abstract level
+
+            SpriteAnim.Position = new Vector2(X, Y);
+            SpriteAnim.setEffect(effect);
+            
 
 
+
+            xDifference = GameCoord.X - Start.X;
+            yDifference = GameCoord.Y - Start.Y;
+            if (state != null)
+            {
+                state.Update(time);
+            }
+            if (timer > 1f / 6)
+            {
+                if (state is not EnemyDeathState)
+                {
+                    move(direction);
+                }
+                
+                
+                
+                
+                timer = 0;
+            }
+            else
+            {
+                timer += (float)time.ElapsedGameTime.TotalMilliseconds;
+            }
+            internalRectangle.X = X;
+            internalRectangle.Y = Y;
+        }
         private bool ChangeDir(Dir dir)
         {
             switch (dir)
             {
                 case Dir.Right:
+                    
                     return xDifference >= 4;
+                    
                 case Dir.Up:
+
                     return yDifference <= 0;
+
                 case Dir.Down:
+                    
                     return yDifference >= 4;
                 case Dir.Left:
                     return xDifference <= 0;
             }
             return false;
         }
-        public abstract void UpdateAnimation(Dir dir);
 
         protected abstract Vector2[] SpeedVector { get; }
 
@@ -96,12 +147,15 @@ namespace CrazyArcade.Enemies
                 effect = direction == Dir.Right ? SpriteEffects.FlipHorizontally : SpriteEffects.None;
                 UpdateAnimation(dir);
             }
-            else
-            {
+            
                 GameCoord += SpeedVector[(int)dir];
-            }
+            
         }
+        public void UpdateAnimation(Dir dir)
+        {
 
+            this.spriteAnims[(int)direction].Position = new Vector2(X, Y);
+        }
     }
 }
 

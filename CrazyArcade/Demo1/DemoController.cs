@@ -1,4 +1,5 @@
 ﻿using CrazyArcade.CAFramework.Controller;
+using CrazyArcade.PlayerStateMachine;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 using System;
@@ -67,7 +68,6 @@ namespace CrazyArcade.Demo1
             }
 
             if (Keyboard.GetState().IsKeyDown(Keys.Space) && !spacePrevPressed)
-
             {
                 Delegate.KeySpace();
                 spacePrevPressed = true;

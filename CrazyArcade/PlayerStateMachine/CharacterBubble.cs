@@ -14,7 +14,6 @@ namespace CrazyArcade.PlayerStateMachine
     public class PlayerBubble : CAEntity
     {
         public Character player;
-        public CAScene scene;
         private SpriteAnimation[] currentBubble;
         public int bubbleInt;
 
@@ -31,7 +30,6 @@ namespace CrazyArcade.PlayerStateMachine
         {
             
             this.player = player;
-            this.scene = scene;
             bubbleInt = 0;
             X = player.X + bubbleCenter.X;
             Y = player.Y + bubbleCenter.Y;
@@ -80,7 +78,7 @@ namespace CrazyArcade.PlayerStateMachine
         }
         public void Delete_Self()
         {
-            scene.RemoveSprite(this);
+            SceneDelegate.ToRemoveEntity(this);
         }
     }
 }

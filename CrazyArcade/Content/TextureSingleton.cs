@@ -26,7 +26,7 @@ namespace CrazyArcade.Content
         }
         private static void DefineArrays()
         {
-            fileNames = new string[] {"Balloons","BombEnemy", "Bubble", "DesertBlocks", "Pirate", "Player1", "Powerups", "TurtleMount", "OctoBoss", "Sneaker", "Turtle", "Bomb", "Coin", "Coinbag", "Potion", "bomberman_enemies", "bombermanII_enemies","blue_background","splash" };
+            fileNames = new string[] {"Balloons","BombEnemy", "Bubble", "DesertBlocks", "Pirate", "Player1", "Powerups", "Rides", "OctoBoss", "Sneaker", "Turtle", "Bomb", "Coin", "Coinbag", "Potion", "bomberman_enemies", "bombermanII_enemies","blue_background","splash" };
             spriteSheets = new Texture2D[fileNames.Length];
             fonts = new SpriteFont[1];
         }

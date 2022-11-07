@@ -4,27 +4,11 @@ using CrazyArcade.Boss;
 using CrazyArcade.CAFramework;
 using CrazyArcade.Items;
 using CrazyArcade.Blocks;
-using CrazyArcade.Levels;
 using CrazyArcade.PlayerStateMachine;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Input;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
-using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
-using System.Diagnostics;
-using System.Numerics;
 using Vector2 = Microsoft.Xna.Framework.Vector2;
-using System.Drawing;
 using Rectangle = Microsoft.Xna.Framework.Rectangle;
-using System.Reflection.Metadata.Ecma335;
-using System.Runtime.Intrinsics;
-using static System.Formats.Asn1.AsnWriter;
-using CrazyArcade.GameGridSystems;
+
 
 namespace CrazyArcade.Levels
 {
@@ -36,9 +20,7 @@ namespace CrazyArcade.Levels
         private CAScene Scene;
         private CreateLevel currentLevel;
         private Vector2[] itemLocations;
-        private Rectangle Destination;
         private CAEntity Entity;
-        int size;
         float scale;
         Vector2 border;
         Vector2 startPosition;
@@ -84,9 +66,8 @@ namespace CrazyArcade.Levels
         }
         private void LoadStone(int X, int Y)
         {
-            size = 0;
+
             startPosition = currentLevel.GetStartPosition(new int[2] { X, Y });
-            //Destination = new Rectangle((int)startPosition.X, (int)startPosition.Y, size, size);
             Entity = new LightSandBlock(startPosition);
             Entity.SpriteAnim.Scale = scale;
             EntityList.Add(Entity);
@@ -94,16 +75,24 @@ namespace CrazyArcade.Levels
         private void LoadSprites()
         {
 
-            //Blocks
+            
             //TODO Find a way to reduce duplicate code
             scale = .9f;
-            size = 36;
+            //IMPORTANT!!!! uncomment tbis when Door Block class is implemented.
+            //itemLocations = currentLevel.GetItemLocation(CreateLevel.LevelItem.DoorPosition);
+
+            //foreach (Vector2 vector in itemLocations)
+            //{
+                
+            //    Entity = new Door(vector);
+            //    Entity.SpriteAnim.Scale = scale;
+            //    EntityList.Add(Entity);
+            //}
             itemLocations = currentLevel.GetItemLocation(CreateLevel.LevelItem.LightSandPosition);
 
             foreach (Vector2 vector in itemLocations)
             {
-                //Debug.WriteLine(vector.Y);
-                //Destination = new Rectangle((int)vector.X, (int)vector.Y, size, size);
+
                 Entity = new LightSandBlock(vector);
                 Entity.SpriteAnim.Scale = scale;
                 EntityList.Add(Entity);
@@ -113,8 +102,7 @@ namespace CrazyArcade.Levels
 
             foreach (Vector2 vector in itemLocations)
             {
-                //Debug.WriteLine(vector.Y);
-                //Destination = new Rectangle((int)vector.X, (int)vector.Y, size, size);
+                
                 Entity = new SandBlock(vector);
                 Entity.SpriteAnim.Scale = scale;
                 EntityList.Add(Entity);
@@ -123,8 +111,7 @@ namespace CrazyArcade.Levels
 
             foreach (Vector2 vector in itemLocations)
             {
-                //Debug.WriteLine(vector.Y);
-                //Destination = new Rectangle((int)vector.X, (int)vector.Y, size, size);
+                
                 Entity = new Rock(vector);
                 Entity.SpriteAnim.Scale = scale;
                 EntityList.Add(Entity);
@@ -134,8 +121,7 @@ namespace CrazyArcade.Levels
 
             foreach (Vector2 vector in itemLocations)
             {
-                //Debug.WriteLine(vector.Y);
-                //Destination = new Rectangle((int)vector.X, (int)vector.Y, size, size);
+                
                 Entity = new Tree(vector);
                 Entity.SpriteAnim.Scale = scale;
                 EntityList.Add(Entity);
@@ -145,8 +131,7 @@ namespace CrazyArcade.Levels
 
             foreach (Vector2 vector in itemLocations)
             {
-                //Debug.WriteLine(vector.Y);
-                //Destination = new Rectangle((int)vector.X, (int)vector.Y, size, size);
+                
                 Entity = new DarkTree(vector);
                 Entity.SpriteAnim.Scale = .9f;
                 EntityList.Add(Entity);
@@ -157,8 +142,7 @@ namespace CrazyArcade.Levels
 
             foreach (Vector2 vector in itemLocations)
             {
-                //Debug.WriteLine(vector.Y);
-                //Destination = new Rectangle((int)vector.X, (int)vector.Y, size, size);
+                
                 Entity = new Cactus(vector);
                 Entity.SpriteAnim.Scale = .9f;
                 EntityList.Add(Entity);
@@ -168,8 +152,7 @@ namespace CrazyArcade.Levels
 
             foreach (Vector2 vector in itemLocations)
             {
-                //Debug.WriteLine(vector.Y);
-                //Destination = new Rectangle((int)vector.X, (int)vector.Y, size, size);
+               
                 Entity = new CoinBag(vector);
                 EntityList.Add(Entity);
             }
@@ -179,7 +162,7 @@ namespace CrazyArcade.Levels
             foreach (Vector2 vector in itemLocations)
             {
 
-                //Destination = new Rectangle((int)vector.X, (int)vector.Y, size, size);
+                
                 EntityList.Add(new Balloon(vector));
 
             }
@@ -189,7 +172,7 @@ namespace CrazyArcade.Levels
             foreach (Vector2 vector in itemLocations)
             {
 
-                //Destination = new Rectangle((int)vector.X, (int)vector.Y, size, size);
+                
                 EntityList.Add(new Sneaker(vector));
             }
 
@@ -197,8 +180,7 @@ namespace CrazyArcade.Levels
 
             foreach (Vector2 vector in itemLocations)
             {
-                //Debug.WriteLine(vector.Y);
-                //Destination = new Rectangle((int)vector.X, (int)vector.Y, size, size);
+                
                 EntityList.Add(new Turtle(vector));
             }
 
@@ -206,8 +188,7 @@ namespace CrazyArcade.Levels
 
             foreach (Vector2 vector in itemLocations)
             {
-                //Debug.WriteLine(vector.Y);
-                //Destination = new Rectangle((int)vector.X, (int)vector.Y, size, size);
+                
                 EntityList.Add(new Potion(vector));
             }
 
@@ -215,8 +196,7 @@ namespace CrazyArcade.Levels
 
             foreach (Vector2 vector in itemLocations)
             {
-                //Debug.WriteLine(vector.Y);
-                //Destination = new Rectangle((int)vector.X, (int)vector.Y, size, size);
+                
                 EntityList.Add(new Coin(vector));
             }
 
@@ -224,28 +204,28 @@ namespace CrazyArcade.Levels
 
             foreach (Vector2 vector in itemLocations)
             {
-                EntityList.Add(new BombEnemySprite((int)vector.X, (int)vector.Y));
+                EntityList.Add(new BombEnemySprite((int)vector.X, (int)vector.Y, Scene));
             }
 
             itemLocations = currentLevel.GetItemLocation(CreateLevel.LevelItem.SquidPosition);
 
             foreach (Vector2 vector in itemLocations)
             {
-                EntityList.Add(new SquidEnemySprite((int)vector.X, (int)vector.Y));
+                EntityList.Add(new SquidEnemySprite((int)vector.X, (int)vector.Y, Scene));
             }
 
             itemLocations = currentLevel.GetItemLocation(CreateLevel.LevelItem.BatPosition);
 
             foreach (Vector2 vector in itemLocations)
             {
-                EntityList.Add(new BatEnemySprite((int)vector.X, (int)vector.Y));
+                EntityList.Add(new BatEnemySprite((int)vector.X, (int)vector.Y, Scene));
             }
 
             itemLocations = currentLevel.GetItemLocation(CreateLevel.LevelItem.RobotPosition);
 
             foreach (Vector2 vector in itemLocations)
             {
-                EntityList.Add(new RobotEnemySprite((int)vector.X, (int)vector.Y));
+                EntityList.Add(new RobotEnemySprite((int)vector.X, (int)vector.Y, Scene));
             }
 
             itemLocations = currentLevel.GetItemLocation(CreateLevel.LevelItem.OctoBossPosition);
