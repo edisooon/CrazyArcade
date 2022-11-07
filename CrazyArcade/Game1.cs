@@ -33,7 +33,7 @@ public class Game1 : Game, IGameDelegate
         Content.RootDirectory = "Content";
         IsMouseVisible = true;
         SpriteSheet.Content = Content;
-
+        //testing bug
         backgroundMusic = Content.Load<SoundEffect>("playground");
         backgroundMusicInstance = backgroundMusic.CreateInstance();
 

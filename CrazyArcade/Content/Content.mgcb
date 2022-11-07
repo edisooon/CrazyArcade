@@ -133,6 +133,15 @@
 #begin JsonLevels/level_3.json
 /copy:JsonLevels/level_3.json
 
+#begin JsonLevels/level_4.json
+/copy:JsonLevels/level_4.json
+
+#begin JsonLevels/level_5.json
+/copy:JsonLevels/level_5.json
+
+#begin JsonLevels/level_6.json
+/copy:JsonLevels/level_6.json
+
 #begin JsonLevels/Map.json
 /copy:JsonLevels/Map.json
 
