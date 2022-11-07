@@ -43,7 +43,6 @@ namespace CrazyArcade.PlayerStateMachine
         {
             character.CalculateMovement();
             character.UpdatePosition();
-            
             if (elapsedTime > popTime)
             {
                 character.playerState = new CharacterStateFree(character);

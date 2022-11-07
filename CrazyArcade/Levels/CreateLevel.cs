@@ -32,6 +32,7 @@ namespace CrazyArcade.Levels
 		public enum LevelItem
 		{
 			PlayerPosition,
+			DoorPosition,
 			LightSandPosition,
 			DarkSandPosition,
 			StonePosition,
@@ -90,11 +91,14 @@ namespace CrazyArcade.Levels
 					array[0] = GetStartPosition(levelObject.Player);
 					return array;
 					
-				case (int)LevelItem.LightSandPosition:
-					array = GetStartPositionArray(levelObject.Blocks.LightSand);
+				case (int)LevelItem.DoorPosition:
+					array = GetStartPositionArray(levelObject.Blocks.Door);
 					return array;
-					
-				case (int)LevelItem.DarkSandPosition:
+
+                case (int)LevelItem.LightSandPosition:
+                    array = GetStartPositionArray(levelObject.Blocks.LightSand);
+                    return array;
+                case (int)LevelItem.DarkSandPosition:
 					array = GetStartPositionArray(levelObject.Blocks.DarkSand);
 					return array;
 					

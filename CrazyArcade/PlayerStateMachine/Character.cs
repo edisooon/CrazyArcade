@@ -19,10 +19,12 @@ namespace CrazyArcade.PlayerStateMachine
         public ICharacterState playerState;
         public int animationHandleInt;
         public int currentBlastLength;
+        
         public int bombCapacity = 2;
         private int bombOut;
         public int BombsOut => bombOut;
         static int CCount = 0;
+        private int loseRideFlag = 5;
 
         public override SpriteAnimation SpriteAnim => spriteAnims[animationHandleInt];
 
@@ -52,7 +54,21 @@ namespace CrazyArcade.PlayerStateMachine
         public override void CollisionDestroyLogic()
         {
             if (this.playerState is CharacterStateBubble) return;
-            this.playerState = new CharacterStateBubble(this);
+            if (this.playerState is CharacterStateTurtle )
+            {
+                
+                this.playerState = new CharacterStateFree(this);
+                loseRideFlag = 0;
+            }
+            else if (loseRideFlag >= 5)
+            {
+                this.playerState = new CharacterStateBubble(this);
+            }
+            else
+            {
+                loseRideFlag++;
+            }
+            
             this.spriteAnims = this.playerState.SetSprites();
             this.playerState.SetSpeed();
         }
@@ -70,7 +86,7 @@ namespace CrazyArcade.PlayerStateMachine
         //@implement IItemCollidable
         public bool canHaveItem()
         {
-            return (playerState is CharacterStateFree || playerState is CharacterStateRides);
+            return (playerState is CharacterStateFree || playerState is CharacterStateTurtle);
         }
         public void IncreaseBlastLength()
         {
@@ -78,7 +94,9 @@ namespace CrazyArcade.PlayerStateMachine
         }
         public void SwitchToMountedState()
         {
-            this.playerState = new CharacterStateRides(this, 0);
+            this.playerState = new CharacterStateTurtle(this);
+            spriteAnims = this.playerState.SetSprites();
+            this.playerState.SetSpeed();
         }
         public void IncreaseSpeed()
         {

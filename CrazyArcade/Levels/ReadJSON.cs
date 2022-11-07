@@ -73,6 +73,7 @@ public class LevelSchema
 
 public class LevelBlocks
 {
+    public int[][] Door { get; set; }
     public int[][] LightSand { get; set; }
 
     public int[][] DarkSand { get; set; }
@@ -81,6 +82,7 @@ public class LevelBlocks
     public int[][] Cactus { get; set; }
     public int[][] DarkTree { get; set; }
     public int[][] LightTree { get; set; }
+    
 
 }
 
