@@ -26,7 +26,7 @@ namespace CrazyArcade.Content
         }
         private static void DefineArrays()
         {
-            fileNames = new string[] {"Balloons","BombEnemy", "Bubble", "DesertBlocks", "Pirate", "Player1", "Powerups", "TurtleMount", "OctoBoss", "Sneaker", "Turtle", "Bomb", "Coin", "Coinbag", "Potion", "bomberman_enemies", "bombermanII_enemies" };
+            fileNames = new string[] {"Balloons","BombEnemy", "Bubble", "DesertBlocks", "Pirate", "Player1", "Powerups", "TurtleMount", "OctoBoss", "Sneaker", "Turtle", "Bomb", "Coin", "Coinbag", "Potion", "bomberman_enemies", "bombermanII_enemies","blue_background" };
             spriteSheets = new Texture2D[fileNames.Length];
             fonts = new SpriteFont[1];
         }
@@ -116,6 +116,10 @@ namespace CrazyArcade.Content
         public static Texture2D GetBombermanIIEnemies()
         {
             return spriteSheets[16];
+        }
+        public static Texture2D GetBlueBackground()
+        {
+            return spriteSheets[17];
         }
         public static SpriteFont getTestFont()
         {

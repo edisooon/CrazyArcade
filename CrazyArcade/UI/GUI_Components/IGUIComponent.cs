@@ -22,5 +22,7 @@ namespace CrazyArcade.UI.GUI_Components
         public void SetPosition(Vector2 position);
         public void ChangeComponentText(string newText);
         public void ChangeComponentTexture(SpriteAnimation spriteAnimation);
+        public void ChangeComponentTextureOutputRect(int newWidth, int newHeight);
+        public void ToggleRectangleFlag();
     }
 }

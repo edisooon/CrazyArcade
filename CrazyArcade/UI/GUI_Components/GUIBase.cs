@@ -53,5 +53,17 @@ namespace CrazyArcade.UI.GUI_Components
         {
             drawText = newText;
         }
+
+        public void ChangeComponentTextureOutputRect(int newWidth, int newHeight)
+        {
+            Sprite.Width = newWidth;
+            Sprite.Height = newHeight;
+        }
+
+        public void ToggleRectangleFlag()
+        {
+            if (Sprite.rectangleFlag == 0) Sprite.rectangleFlag = 1;
+            else Sprite.rectangleFlag = 0;
+        }
     }
 }

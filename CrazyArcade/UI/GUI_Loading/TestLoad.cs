@@ -16,6 +16,7 @@ namespace CrazyArcade.UI.GUI_Loading
             UI_Singleton.AddPreDesignedComposite(new GUITestComposition("1", new Vector2(100, 100)));
             UI_Singleton.AddPreDesignedComposite(new GUITestComposition("2", new Vector2(200, 200)));
             UI_Singleton.AddPreDesignedComposite(new GUITestComposition("3", new Vector2(300, 300)));
+            //UI_Singleton.AddPreDesignedComposite(new BackgroundTest());
         }
     }
 }
