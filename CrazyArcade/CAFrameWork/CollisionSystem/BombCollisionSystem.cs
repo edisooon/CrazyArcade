@@ -31,6 +31,7 @@ namespace CrazyArcade.CAFrameWork.CollisionSystem
 
         public void Detect(IExplosion explosion)
         {
+            // O->->I->
             foreach (IExplosionCollidable collidable in triggers)
             {
                 Point triggerCenter = new Point((int)((collidable as IGridable).GameCoord.X + 0.5),
