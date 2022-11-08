@@ -14,8 +14,6 @@ namespace CrazyArcade.Levels
 {
     internal class Level
     {
-        
-
         private List<CAEntity> EntityList;
         private CAScene Scene;
         private CreateLevel currentLevel;

@@ -24,7 +24,7 @@ public class CAGame : Game, IGameDelegate, ITransitionCompleteHandler
     private SpriteBatch _spriteBatch;
     public GUI gameGUI;
     public ISceneState scene;
-    public LevelSchema Level1;
+    public LevelSchema CurrentLevel;
     public ReadJSON test;
     public ReadJSON map;
     public SoundEffect backgroundMusic;
@@ -61,7 +61,7 @@ public class CAGame : Game, IGameDelegate, ITransitionCompleteHandler
         guiLoad.LoadGUI();
 
         test = new ReadJSON("Level_0.json", ReadJSON.fileType.LevelFile);
-        Level1 = test.levelObject;
+        CurrentLevel = test.levelObject;
 
         base.Initialize();
         
@@ -79,7 +79,7 @@ public class CAGame : Game, IGameDelegate, ITransitionCompleteHandler
         backgroundMusicInstance.Play();
         _spriteBatch = new SpriteBatch(GraphicsDevice);
         test = new ReadJSON("Level_0.json", ReadJSON.fileType.LevelFile);
-        Level1 = test.levelObject;
+        CurrentLevel = test.levelObject;
         map = new ReadJSON("Map.json", ReadJSON.fileType.MapFile);
         levelFileNames = map.mapObject.Levels;
 
@@ -115,10 +115,12 @@ public class CAGame : Game, IGameDelegate, ITransitionCompleteHandler
         transition = new CATransition(this.scene,
             newState, displacement, gameTime, new TimeSpan(0, 0, 1));
         transition.Handler = this;
+        test = new ReadJSON(levelFileNames[stageNum], ReadJSON.fileType.LevelFile);
+        CurrentLevel = test.levelObject;
     }
     protected override void Draw(GameTime gameTime)
     {
-        GraphicsDevice.Clear(new Color(Level1.Background[0], Level1.Background[1], Level1.Background[2]));
+        GraphicsDevice.Clear(new Color(CurrentLevel.Background[0], CurrentLevel.Background[1], CurrentLevel.Background[2]));
 
 
         _spriteBatch.Begin();
