@@ -202,7 +202,7 @@
 
 #begin playground.mp3
 /importer:Mp3Importer
-/processor:SoundEffectProcessor
+/processor:SongProcessor
 /processorParam:Quality=Best
 /build:playground.mp3
 

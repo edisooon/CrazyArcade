@@ -13,6 +13,7 @@ using Microsoft.Xna.Framework.Audio;
 using CrazyArcade.UI;
 using CrazyArcade.UI.GUI_Loading;
 using CrazyArcade.CAFrameWork.GameStates;
+using Microsoft.Xna.Framework.Media;
 
 namespace CrazyArcade;
 
@@ -29,6 +30,7 @@ public class CAGame : Game, IGameDelegate, ITransitionCompleteHandler
     public ReadJSON map;
     public SoundEffect backgroundMusic;
     public SoundEffectInstance backgroundMusicInstance;
+    public Song song;
     //Random for test purposes and counter
     Random rnd = new Random();
     int newElements = 0;
@@ -59,7 +61,8 @@ public class CAGame : Game, IGameDelegate, ITransitionCompleteHandler
         TextureSingleton.LoadAllTextures(Content);
         TestLoad guiLoad = new TestLoad();
         guiLoad.LoadGUI();
-
+        song = Content.Load<Song>("playground");
+        MediaPlayer.Play(song);
         test = new ReadJSON("Level_0.json", ReadJSON.fileType.LevelFile);
         Level1 = test.levelObject;
 
@@ -69,14 +72,11 @@ public class CAGame : Game, IGameDelegate, ITransitionCompleteHandler
 
     protected override void LoadContent()
     {
-        backgroundMusic = Content.Load<SoundEffect>("playground");
-        backgroundMusicInstance = backgroundMusic.CreateInstance();
+        
         //Load it here
         _spriteBatch = new SpriteBatch(GraphicsDevice);
 
-        backgroundMusicInstance.Pitch = 0.2f;
-        backgroundMusicInstance.IsLooped = true;
-        backgroundMusicInstance.Play();
+
         _spriteBatch = new SpriteBatch(GraphicsDevice);
         test = new ReadJSON("Level_0.json", ReadJSON.fileType.LevelFile);
         Level1 = test.levelObject;

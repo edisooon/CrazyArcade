@@ -33,14 +33,7 @@ public class Game1 : Game, IGameDelegate
         IsMouseVisible = true;
         SpriteSheet.Content = Content;
         //testing bug
-        backgroundMusic = Content.Load<SoundEffect>("playground");
-        backgroundMusicInstance = backgroundMusic.CreateInstance();
-
-        backgroundMusicInstance.Pitch = 0.2f;
-        backgroundMusicInstance.IsLooped = true;
-        backgroundMusicInstance.Play();
-
-
+        
     }
 
     protected override void Initialize()
