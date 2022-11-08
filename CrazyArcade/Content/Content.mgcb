@@ -149,6 +149,18 @@
 #begin JsonLevels/level_2.json
 /copy:JsonLevels/level_2.json
 
+#begin JsonLevels/level_3.json
+/copy:JsonLevels/level_3.json
+
+#begin JsonLevels/level_4.json
+/copy:JsonLevels/level_4.json
+
+#begin JsonLevels/level_5.json
+/copy:JsonLevels/level_5.json
+
+#begin JsonLevels/level_6.json
+/copy:JsonLevels/level_6.json
+
 #begin JsonLevels/Map.json
 /copy:JsonLevels/Map.json
 
@@ -187,6 +199,12 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Player1.png
+
+#begin playground.mp3
+/importer:Mp3Importer
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:playground.mp3
 
 #begin Potion.png
 /importer:TextureImporter
