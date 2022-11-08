@@ -19,8 +19,8 @@ namespace CrazyArcade.Demo1
         public Dir direction = Dir.Down;
         public int defaultBlastLength = 1;
         public Vector2 moveInputs = new(0, 0);
-        protected Rectangle blockBoundingBox = new Rectangle(0, 0, 9, 9);
-        protected Point bboxOffset = new Point(16, 47);
+        protected Rectangle blockBoundingBox = new Rectangle(0, 0, 30, 30);
+        protected Point bboxOffset = new Point(6, 27);
         protected bool blockBboxOn = true;
 
 
