@@ -6,6 +6,7 @@ using CrazyArcade.GameGridSystems;
 using Microsoft.Xna.Framework;
 using CrazyArcade.Items;
 using CrazyArcade.CAFrameWork.GameStates;
+using CrazyArcade.PlayerStateMachine.PlayerItemInteractions;
 
 namespace CrazyArcade.PlayerStateMachine
 {
@@ -17,6 +18,7 @@ namespace CrazyArcade.PlayerStateMachine
     {
 		public SpriteAnimation[] spriteAnims;
         public CAScene parentScene;
+        public ItemContainer playerItems = new();
         public ICharacterState playerState;
         public int animationHandleInt;
         public int currentBlastLength;
