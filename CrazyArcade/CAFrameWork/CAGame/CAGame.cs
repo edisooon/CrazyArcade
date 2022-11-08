@@ -28,8 +28,7 @@ public class CAGame : Game, IGameDelegate, ITransitionCompleteHandler
     public LevelSchema Level1;
     public ReadJSON test;
     public ReadJSON map;
-    public SoundEffect backgroundMusic;
-    public SoundEffectInstance backgroundMusicInstance;
+
     public Song song;
     //Random for test purposes and counter
     Random rnd = new Random();
