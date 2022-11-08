@@ -63,6 +63,7 @@ namespace CrazyArcade.Items
         public Item(Vector2 position, Rectangle source, Texture2D texture, int frames, int fps)
         {
             spriteAnimation = new SpriteAnimation(texture, frames, fps);
+            spriteAnimation.Scale = 0.6f;
             GameCoord = position;
         }
 
