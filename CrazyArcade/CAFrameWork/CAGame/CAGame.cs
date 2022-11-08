@@ -12,6 +12,7 @@ using CrazyArcade.CAFrameWork.Transition;
 using Microsoft.Xna.Framework.Audio;
 using CrazyArcade.UI;
 using CrazyArcade.UI.GUI_Loading;
+using CrazyArcade.CAFrameWork.GameStates;
 
 namespace CrazyArcade;
 
@@ -46,7 +47,10 @@ public class CAGame : Game, IGameDelegate, ITransitionCompleteHandler
         //Load it here
 
     }
-
+    public void NewInstance()
+    {
+        this.Initialize();
+    }
     protected override void Initialize()
     {
         gameGUI = new GUI();

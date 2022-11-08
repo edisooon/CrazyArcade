@@ -5,6 +5,7 @@ using System.Linq;
 using CrazyArcade.CAFramework;
 using CrazyArcade.CAFramework.Controller;
 using CrazyArcade.CAFrameWork.CAGame;
+using CrazyArcade.CAFrameWork.GameStates;
 using CrazyArcade.CAFrameWork.Transition;
 using CrazyArcade.GameGridSystems;
 using Microsoft.Xna.Framework;
@@ -17,7 +18,8 @@ namespace CrazyArcade.CAFramework
         protected List<IGameSystem> systems;
         //preserved for the purposes of having one draw per entity
         protected List<IEntity> entities = new List<IEntity>();
-        public IGameDelegate gameRef;
+        public IGameState gameState;
+        public CAGame gameRef;
 
         private List<IEntity> newEntities = new List<IEntity>();
         private List<IEntity> removeEntities = new List<IEntity>();
@@ -68,7 +70,6 @@ namespace CrazyArcade.CAFramework
                 }
                 UpdateSprite(time);
             }
-            
         }
 
         public void Draw(GameTime time, SpriteBatch batch)
