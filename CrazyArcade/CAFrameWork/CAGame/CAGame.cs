@@ -18,6 +18,7 @@ using CrazyArcade.UI;
 using System.Runtime.CompilerServices;
 using CrazyArcade.UI.GUI_Compositions;
 using CrazyArcade.UI.GUI_Loading;
+using CrazyArcade.CAFrameWork.GameStates;
 
 namespace CrazyArcade;
 
@@ -53,7 +54,10 @@ public class CAGame : Game, IGameDelegate, ITransitionCompleteHandler
         //Load it here
 
     }
-
+    public void NewInstance()
+    {
+        this.Initialize();
+    }
     protected override void Initialize()
     {
         gameGUI = new GUI();

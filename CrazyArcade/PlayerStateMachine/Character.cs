@@ -5,6 +5,7 @@ using CrazyArcade.Demo1;
 using CrazyArcade.GameGridSystems;
 using Microsoft.Xna.Framework;
 using CrazyArcade.Items;
+using CrazyArcade.CAFrameWork.GameStates;
 
 namespace CrazyArcade.PlayerStateMachine
 {
