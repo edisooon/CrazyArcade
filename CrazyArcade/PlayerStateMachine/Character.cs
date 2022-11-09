@@ -92,7 +92,7 @@ namespace CrazyArcade.PlayerStateMachine
         }
         public void IncreaseBlastLength()
         {
-            this.currentBlastLength++;
+            playerItems.AddItem(new BlastLengthModifier());
         }
         public void SwitchToMountedState()
         {
