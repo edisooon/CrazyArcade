@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CrazyArcade.UI.GUI_Compositions;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -13,9 +14,14 @@ namespace CrazyArcade.PlayerStateMachine.PlayerItemInteractions
          * a better way of making it less coupled, please let me know.
          */
         public Dictionary<string, ItemModifier> ItemBox = new();
-        private int defaultBlastLength = 1;
-        private int defaultBombMaximum = 1;
-        public int bombModifier = 0;
+        private static readonly int defaultBlastLength = 1;
+        private static readonly int defaultBombMaximum = 1;
+        public int bombModifier;
+        public int blastModifier;
+        public ItemContainer()
+        {
+            ResetStats();
+        }
         public void AddItem(ItemModifier item)
         {
             if (ItemBox.ContainsKey(item.name))
@@ -25,6 +31,12 @@ namespace CrazyArcade.PlayerStateMachine.PlayerItemInteractions
                     item.currentCount++;
                 }
             }
+            else
+            {
+                ItemBox.Add(item.name, item);
+                item.ItemContainer = this;
+            }
+            RecalculateStats();
         }
         public void RemoveOneItem(ItemModifier item)
         {
@@ -36,10 +48,25 @@ namespace CrazyArcade.PlayerStateMachine.PlayerItemInteractions
                     ItemBox.Remove(item.name);
                 }
             }
+            RecalculateStats();
         }
         public void RemoveEntireItem(ItemModifier item)
         {
             ItemBox.Remove(item.name);
+            RecalculateStats();
+        }
+        private void ResetStats()
+        {
+            bombModifier = defaultBombMaximum;
+            blastModifier = defaultBlastLength;
+        }
+        private void RecalculateStats()
+        {
+            ResetStats();
+            foreach (var mod in ItemBox)
+            {
+                mod.Value.ModifyStat();
+            }
         }
     }
 }

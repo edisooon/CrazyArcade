@@ -12,9 +12,10 @@ namespace CrazyArcade.PlayerStateMachine.PlayerItemInteractions
     {
         public string name;
         public SpriteAnimation itemRep = new(TextureSingleton.GetNull(), 1, 0, 0, 0);
-        public int maxCount = 1;
+        public int maxCount = 100;
         public int currentCount = 1;
-        public virtual void modifyStat()
+        public ItemContainer ItemContainer;
+        public virtual void ModifyStat()
         {
             //this will be overritten by future implementers
         }
