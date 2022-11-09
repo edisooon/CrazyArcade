@@ -49,7 +49,7 @@ namespace CrazyArcade.Boss
         }
         private int getEyeFrame()
         {
-            Vector2 dir = bossDelegate.GetCharacterRelativePosition();
+            Vector2 dir = -bossDelegate.GetCharacterRelativePosition();
             int res = dir.Y > 0 ? 4 : 0;
             double radius = Math.Sqrt(Math.Pow(dir.X, 2) + Math.Pow(dir.Y, 2)) + 1;
             res += (int)((dir.X + radius) / (radius * 2 / 4));

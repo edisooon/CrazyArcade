@@ -36,6 +36,10 @@ namespace CrazyArcade.Boss
         private IGridTransform trans = new NullTransform();
         public IGridTransform Trans { get => trans; set => trans = value; }
 
+        private int health = 2;
+        public bool IsDead => Health <= 0;
+        public int Health => health;
+
         public override void Load()
         {
             states = new SunBossStartStates(this, new GameTime());
@@ -59,9 +63,11 @@ namespace CrazyArcade.Boss
 
         public Vector2 GetCharacterPosition()
         {
-            Random rand = new Random();
-            return new Vector2(5 + (float)rand.Next(0, 100) / 100,
-                5 + (float)rand.Next(0, 100) / 100);
+            if (SceneDelegate.PlayerPositions.Count > 0)
+            {
+                return SceneDelegate.PlayerPositions[0];
+            }
+            return new Vector2();
         }
 
         public void Move(Vector2 distance)
@@ -77,6 +83,15 @@ namespace CrazyArcade.Boss
         public Vector2 GetCenter()
         {
             return new Vector2(GameCoord.X + unitSize, GameCoord.Y + unitSize);
+        }
+
+        public void DecreaseHealth()
+        {
+            health--;
+        }
+        public void Dead()
+        {
+            SceneDelegate.ToRemoveEntity(this);
         }
     }
 }

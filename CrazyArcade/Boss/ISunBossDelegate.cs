@@ -12,6 +12,10 @@ namespace CrazyArcade.Boss
         void Move(Vector2 distance);
         ISceneDelegate Command();
         Vector2 GetCenter();
+        bool IsDead { get; }
+        int Health { get; }
+        void DecreaseHealth();
+        void Dead();
     }
 }
 
