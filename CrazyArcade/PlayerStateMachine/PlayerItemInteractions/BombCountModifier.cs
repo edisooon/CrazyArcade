@@ -11,9 +11,10 @@ namespace CrazyArcade.PlayerStateMachine.PlayerItemInteractions
         public BombCountModifier()
         {
             name = "bombItem";
+            itemRep = new CAFramework.SpriteAnimation //Start here
         }
         public override void ModifyStat()
-        {
+        {5
             ItemContainer.bombModifier += currentCount;
         }
     }
