@@ -23,6 +23,7 @@ namespace CrazyArcade.PlayerStateMachine
         public int animationHandleInt;
         public int currentBlastLength { get => playerItems.blastModifier; set { playerItems.blastModifier = value; } }
         public int bombCapacity {get => playerItems.bombModifier; set { playerItems.bombModifier = value; } }
+        public int freeModifiedSpeed { get => playerItems.speedModifier; }
         private int bombOut;
         public int BombsOut => bombOut;
         static int CCount = 0;
@@ -32,7 +33,7 @@ namespace CrazyArcade.PlayerStateMachine
 
         public Character(CAScene scene)
         {
-            ModifiedSpeed = DefaultSpeed;
+            //ModifiedSpeed = DefaultSpeed;
             playerState = new CharacterStateFree(this);
             spriteAnims = playerState.SetSprites();
             playerState.SetSpeed();
@@ -102,7 +103,7 @@ namespace CrazyArcade.PlayerStateMachine
         }
         public void IncreaseSpeed()
         {
-            this.ModifiedSpeed++;
+            playerItems.AddItem(new SpeedModifier());
         }
         public void IncreaseBombCount()
         {

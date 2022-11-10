@@ -17,7 +17,7 @@ namespace CrazyArcade.UI.GUI_Compositions
             IGUIComponent newComponent = new ItemBoxItem("mainTexture", texture);
             AddComponent(newComponent);
             newComponent = new GUIText("itemCount", "DECLARE ME");
-            newComponent.SetPosition(new Vector2(0,50));
+            newComponent.SetPosition(new Vector2(30,40));
             AddComponent(newComponent);
         }
     }

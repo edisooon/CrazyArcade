@@ -9,16 +9,17 @@ using System.Threading.Tasks;
 
 namespace CrazyArcade.PlayerStateMachine.PlayerItemInteractions
 {
-    public class BombCountModifier : ItemModifier
+    public class SpeedModifier : ItemModifier
     {
-        public BombCountModifier()
+        public SpeedModifier()
         {
-            name = "bombItem";
-            itemRep = new SpriteAnimation(TextureSingleton.GetBomb(), new Rectangle(0, 0, 64, 64));
+            name = "shoeItem";
+            itemRep = new SpriteAnimation(TextureSingleton.GetRollerskates(), new Rectangle(0, 0, 64, 64));
         }
         public override void ModifyStat()
         {
-            ItemContainer.bombModifier += currentCount;
+            ItemContainer.speedModifier += currentCount;
         }
     }
 }
+

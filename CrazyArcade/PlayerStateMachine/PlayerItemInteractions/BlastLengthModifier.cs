@@ -1,4 +1,7 @@
-﻿using System;
+﻿using CrazyArcade.CAFramework;
+using CrazyArcade.Content;
+using Microsoft.Xna.Framework;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,6 +14,7 @@ namespace CrazyArcade.PlayerStateMachine.PlayerItemInteractions
         public BlastLengthModifier()
         {
             name = "blastItem";
+            itemRep = new SpriteAnimation(TextureSingleton.GetPotion(), new Rectangle(0, 0, 64, 64));
         }
         public override void ModifyStat()
         {
