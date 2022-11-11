@@ -9,13 +9,15 @@ namespace CrazyArcade.Boss
         bool DidGetDemaged();
         Vector2 GetCharacterRelativePosition();
         Vector2 GetCharacterPosition();
-        void Move(Vector2 distance);
+        bool Move(Vector2 distance);
         ISceneDelegate Command();
         Vector2 GetCenter();
         bool IsDead { get; }
         int Health { get; }
         void DecreaseHealth();
         void Dead();
+        Rectangle Range { get; }
+
     }
 }
 

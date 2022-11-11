@@ -35,7 +35,7 @@ namespace CrazyArcade.Demo1
                 List<Vector2> res = new List<Vector2>();
                 foreach(PlayerCharacter player in players)
                 {
-                    res.Add(player.GameCoord);
+                    res.Add(player.GameCoord + new Vector2(0.2f, 0.4f));
                 }
                 return res;
             }
