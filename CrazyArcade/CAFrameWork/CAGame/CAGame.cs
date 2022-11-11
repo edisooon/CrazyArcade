@@ -27,6 +27,7 @@ public class CAGame : Game, IGameDelegate, ITransitionCompleteHandler
     public LevelSchema CurrentLevel;
     public ReadJSON test;
     public ReadJSON map;
+    public String[] LevelSongTitles;
     public SoundEffect backgroundMusic;
     public SoundEffectInstance backgroundMusicInstance;
     //Random for test purposes and counter
@@ -82,7 +83,7 @@ public class CAGame : Game, IGameDelegate, ITransitionCompleteHandler
         CurrentLevel = test.levelObject;
         map = new ReadJSON("Map.json", ReadJSON.fileType.MapFile);
         levelFileNames = map.mapObject.Levels;
-
+        LevelSongTitles = new string[] { "playground","playground","playground","comical","bridge","dream","kodama", "worldbeat", "funtimes" };
         scene.Load();
     }
 
@@ -97,11 +98,25 @@ public class CAGame : Game, IGameDelegate, ITransitionCompleteHandler
             {
                 stageNum--;
                 makeTransition(gameTime, -transitionDisplacement);
+
+                backgroundMusicInstance.Stop();
+                backgroundMusic = Content.Load<SoundEffect>(LevelSongTitles[stageNum]);
+                backgroundMusicInstance = backgroundMusic.CreateInstance();
+                backgroundMusicInstance.Pitch = 0.2f;
+                backgroundMusicInstance.IsLooped = true;
+                backgroundMusicInstance.Play();
             }
             else if (Mouse.GetState().RightButton == ButtonState.Pressed && stageNum < levelFileNames.Length-1)
             {
                 stageNum++;
                 makeTransition(gameTime, transitionDisplacement);
+
+                backgroundMusicInstance.Stop();
+                backgroundMusic = Content.Load<SoundEffect>(LevelSongTitles[stageNum]);
+                backgroundMusicInstance = backgroundMusic.CreateInstance();
+                backgroundMusicInstance.Pitch = 0.2f;
+                backgroundMusicInstance.IsLooped = true;
+                backgroundMusicInstance.Play();
             }
             scene.Update(gameTime);
         }
