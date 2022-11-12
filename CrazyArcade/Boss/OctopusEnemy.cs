@@ -22,13 +22,13 @@ namespace CrazyArcade.Boss
 
         public Rectangle inputFrame;
 
-
         public OctopusEnemy(int x, int y, CAScene scene) : base(x, y, scene)
         {
             texture = TextureSingleton.GetOctoBoss();
             spriteAnims = new SpriteAnimation[4];
             X = x;
             Y = y;
+            GameCoord = new Vector2(x,y);
         }
 
         public override void Load()
@@ -64,6 +64,7 @@ namespace CrazyArcade.Boss
                 anim.setWidthHeight(30, 30);
                 anim.Position = new Vector2(X, Y);
             }
+            spriteAnim = spriteAnims[(int)direction];
         }
 
         protected override Vector2[] SpeedVector => speedVector;
