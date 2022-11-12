@@ -5,7 +5,7 @@ using CrazyArcade.Content;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-namespace CrazyArcade.Demo1
+namespace CrazyArcade.Boss
 {
     public class OctopusEnemy : CAEntity
     {
@@ -22,7 +22,7 @@ namespace CrazyArcade.Demo1
         public OctopusEnemy(int x, int y)
         {
             texture = TextureSingleton.GetOctoBoss();
-            spriteAnims = new SpriteAnimation(texture,2,5);
+            spriteAnims = new SpriteAnimation(texture, 2, 5);
             X = x;
             Y = y;
         }
@@ -34,7 +34,7 @@ namespace CrazyArcade.Demo1
         }
 
 
-        
+
 
     }
 }
