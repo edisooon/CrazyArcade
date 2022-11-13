@@ -12,6 +12,9 @@ namespace CrazyArcade.BombFeature
     internal class TestScene : CAScene
     {
         private BombManager bombManager;
+
+        public override List<Vector2> PlayerPositions => throw new NotImplementedException();
+
         public TestScene()
         {
             bombManager = new(new BombTestController(), this);

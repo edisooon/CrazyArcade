@@ -27,6 +27,7 @@
     <None Remove="CAFrameWork\CAGame\" />
     <None Remove="CAFrameWork\GridBoxSystem\" />
     <None Remove="CAFrameWork\InputSystem\" />
+    <None Remove="Utilities\" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Icon.ico" />
@@ -44,6 +45,7 @@
     <Folder Include="CAFrameWork\CAGame\" />
     <Folder Include="CAFrameWork\GridBoxSystem\" />
     <Folder Include="CAFrameWork\InputSystem\" />
+    <Folder Include="Utilities\" />
   </ItemGroup>
   <Target Name="RestoreDotnetTools" BeforeTargets="Restore">
     <Message Text="Restoring dotnet tools" Importance="High" />
