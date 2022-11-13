@@ -27,9 +27,6 @@ namespace CrazyArcade.Boss
         {
             texture = TextureSingleton.GetOctoBoss();
             spriteAnims = new SpriteAnimation[4];
-            X = x;
-            Y = y;
-            GameCoord = new Vector2(x,y);
         }
 
         public override void Load()
@@ -38,15 +35,18 @@ namespace CrazyArcade.Boss
             dirList = new Dir[4];
             effect = SpriteEffects.None;
             texture = TextureSingleton.GetOctoBoss();
-            InputFramesRight = new Rectangle[1];
-            InputFramesUp = new Rectangle[1];
-            InputFramesLeft = new Rectangle[1];
+            InputFramesRight = new Rectangle[2];
+            InputFramesUp = new Rectangle[2];
+            InputFramesLeft = new Rectangle[2];
             InputFramesDown = new Rectangle[2];
-            InputFramesRight[0] = new Rectangle(803, 21, 104, 148);
-
-            InputFramesLeft[0] = new Rectangle(614, 23, 102, 144);
-
+            InputFramesRight[0] = new Rectangle(614, 23, 102, 144); 
+            InputFramesLeft[0] = new Rectangle(803, 21, 104, 148);
             InputFramesUp[0] = new Rectangle(421, 26, 107, 138);
+
+
+            InputFramesRight[1] = new Rectangle(614, 23, 102, 144);
+            InputFramesLeft[1] = new Rectangle(803, 21, 104, 148);
+            InputFramesUp[1] = new Rectangle(421, 26, 107, 138);
 
             InputFramesDown[0] = new Rectangle(41, 23, 107, 144);
             InputFramesDown[1] = new Rectangle(231, 24, 108, 141);
@@ -72,6 +72,18 @@ namespace CrazyArcade.Boss
 
         protected override Vector2[] SpeedVector => speedVector;
 
+        protected void move(Dir dir)
+        {
+            if (ChangeDir(dir))
+            {
+                direction = (Dir)((((int)dir) + 1) % 4);
+                effect = direction == Dir.Right ? SpriteEffects.FlipHorizontally : SpriteEffects.None;
+                UpdateAnimation(dir);
+            }
+
+            GameCoord += SpeedVector[(int)dir];
+
+        }
 
         Vector2[] speedVector =
         {

@@ -1,0 +1,30 @@
+{
+    "Background": [ 102, 0, 153 ],
+    "Border": [ 13, 13 ],
+    "Blocks": {
+        "Door": [ [ 11, 11 ] ],
+        "Stone": [
+        ],
+        "LightSand": [
+        ]
+    },
+    "Items": {
+
+    },
+    "Player": [ 0, 0 ],
+    "Enemies": {
+        "Bat": [
+        ],
+        "Robot": [
+        ],
+        "Bomb": [
+        ]
+    },
+    "Boss": {
+        "Sun": [
+        ],
+        "Octo": [
+            [ 2, 7 ]
+        ]
+    }
+}

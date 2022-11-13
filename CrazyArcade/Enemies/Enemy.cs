@@ -87,10 +87,6 @@ namespace CrazyArcade.Enemies
 
             SpriteAnim.Position = new Vector2(X, Y);
             SpriteAnim.setEffect(effect);
-            
-
-
-
             xDifference = GameCoord.X - Start.X;
             yDifference = GameCoord.Y - Start.Y;
             if (state != null)
@@ -103,10 +99,6 @@ namespace CrazyArcade.Enemies
                 {
                     move(direction);
                 }
-                
-                
-                
-                
                 timer = 0;
             }
             else
@@ -116,7 +108,7 @@ namespace CrazyArcade.Enemies
             internalRectangle.X = X;
             internalRectangle.Y = Y;
         }
-        private bool ChangeDir(Dir dir)
+        protected bool ChangeDir(Dir dir)
         {
             switch (dir)
             {
@@ -153,7 +145,6 @@ namespace CrazyArcade.Enemies
         }
         public void UpdateAnimation(Dir dir)
         {
-
             this.spriteAnims[(int)direction].Position = new Vector2(X, Y);
         }
     }
