@@ -15,6 +15,7 @@ namespace CrazyArcade.Boss
         private Rectangle[] InputFramesLeft;
         private Rectangle[] InputFramesUp;
         private Rectangle[] InputFramesDown;
+        private Dir[] dirList;
         private Color tint;
         public Rectangle outputFrame1;
         public override SpriteAnimation SpriteAnim => spriteAnims[(int)direction];
@@ -34,6 +35,7 @@ namespace CrazyArcade.Boss
         public override void Load()
         {
             direction = Dir.Down;
+            dirList = new Dir[4];
             effect = SpriteEffects.None;
             texture = TextureSingleton.GetOctoBoss();
             InputFramesRight = new Rectangle[1];
@@ -61,10 +63,11 @@ namespace CrazyArcade.Boss
             this.spriteAnims[(int)Dir.Right] = new SpriteAnimation(texture, InputFramesRight, fps);
             foreach (SpriteAnimation anim in this.spriteAnims)
             {
-                anim.setWidthHeight(30, 30);
+                anim.setWidthHeight(110, 145);
                 anim.Position = new Vector2(X, Y);
             }
             spriteAnim = spriteAnims[(int)direction];
+            deathAnimation = spriteAnim;
         }
 
         protected override Vector2[] SpeedVector => speedVector;
