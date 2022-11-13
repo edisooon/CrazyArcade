@@ -74,7 +74,7 @@ namespace CrazyArcade.Levels
         {
 
             startPosition = currentLevel.GetStartPosition(new int[2] { X, Y });
-            Entity = new LightSandBlock(startPosition);
+            Entity = new Rock(startPosition);
             Entity.SpriteAnim.Scale = scale;
             EntityList.Add(Entity);
         }
