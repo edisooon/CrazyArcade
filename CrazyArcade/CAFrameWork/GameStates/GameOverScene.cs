@@ -18,10 +18,9 @@ namespace CrazyArcade.CAFrameWork.GameStates
 {
     public class GameOverScene : CAScene
     {
-        public GameOverScene(CrazyArcade.CAGame gameRef, IGameState state)
+        public GameOverScene(IGameDelegate gameRef)
         {
             this.gameRef = gameRef;
-            this.gameState = state;
             this.Load();
         }
 
@@ -44,7 +43,7 @@ namespace CrazyArcade.CAFrameWork.GameStates
             }
             else if(Keyboard.GetState().IsKeyDown(Keys.Escape))
             {
-                this.gameRef.Exit();
+                this.gameRef.Quit();
             }
         }
     }

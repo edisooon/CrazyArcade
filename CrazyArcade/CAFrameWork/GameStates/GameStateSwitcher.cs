@@ -32,9 +32,14 @@ namespace CrazyArcade.CAFrameWork.GameStates
 
         public void Update(GameTime time)
         {
-            if(Keyboard.GetState().IsKeyDown(Keys.O))
+            KeyboardState state = Keyboard.GetState();
+            if (state.IsKeyDown(Keys.O))
             {
-                sceneRef.gameState.SwitchToGameOver();
+                sceneRef.EndGame();
+            }
+            if(state.IsKeyDown(Keys.Back))
+            {
+                sceneRef.Pause();
             }
         }
     }

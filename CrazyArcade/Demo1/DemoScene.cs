@@ -41,12 +41,11 @@ namespace CrazyArcade.Demo1
             }
         }
 
-        public DemoScene(CAGame game, string fileName, Vector2 stageOffset)
+        public DemoScene(IGameDelegate game, string fileName, Vector2 stageOffset)
         {
             base.StageOffset = stageOffset;
             this.fileName = fileName;
             gameRef = game;
-            gameState = new DefaultGameState(this);
         }
         public override void LoadSystems()
         {
@@ -76,6 +75,14 @@ namespace CrazyArcade.Demo1
             
             //This may not be neccessary
             //this.AddSprite(new PlayerCharacter(new DemoController(), this));
+        }
+        public override void EndGame()
+        {
+            gameRef.Scene = new GameOverScene(gameRef);
+        }
+        public override void Pause()
+        {
+            gameRef.Scene = new PauseScene(gameRef, this);
         }
 
     }
