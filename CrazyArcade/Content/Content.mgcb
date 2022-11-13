@@ -85,12 +85,6 @@
 /processorParam:TextureFormat=Color
 /build:bombermanII_enemies.png
 
-#begin bridge.mp3
-/importer:Mp3Importer
-/processor:SoundEffectProcessor
-/processorParam:Quality=Best
-/build:bridge.mp3
-
 #begin Bubble.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -127,12 +121,6 @@
 /processorParam:TextureFormat=Color
 /build:Coinbag.png
 
-#begin comical.mp3
-/importer:Mp3Importer
-/processor:SoundEffectProcessor
-/processorParam:Quality=Best
-/build:comical.mp3
-
 #begin DesertBlocks.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -145,11 +133,17 @@
 /processorParam:TextureFormat=Color
 /build:DesertBlocks.png
 
-#begin dream.mp3
-/importer:Mp3Importer
-/processor:SoundEffectProcessor
-/processorParam:Quality=Best
-/build:dream.mp3
+#begin door.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:door.png
 
 #begin File.spritefont
 /importer:FontDescriptionImporter
@@ -157,12 +151,6 @@
 /processorParam:PremultiplyAlpha=True
 /processorParam:TextureFormat=Compressed
 /build:File.spritefont;testFont.spritefont
-
-#begin funtimes.mp3
-/importer:Mp3Importer
-/processor:SoundEffectProcessor
-/processorParam:Quality=Best
-/build:funtimes.mp3
 
 #begin JsonLevels/level_0.json
 /copy:JsonLevels/level_0.json
@@ -185,68 +173,11 @@
 #begin JsonLevels/level_6.json
 /copy:JsonLevels/level_6.json
 
-#begin JsonLevels/level_7.json
-/copy:JsonLevels/level_7.json
-
-#begin JsonLevels/level_8.json
-/copy:JsonLevels/level_8.json
-
 #begin JsonLevels/Map.json
 /copy:JsonLevels/Map.json
 
-#begin justkidding.mp3
-/importer:Mp3Importer
-/processor:SoundEffectProcessor
-/processorParam:Quality=Best
-/build:justkidding.mp3
-
-#begin kodama.mp3
-/importer:Mp3Importer
-/processor:SoundEffectProcessor
-/processorParam:Quality=Best
-/build:kodama.mp3
-
-#begin nature.mp3
-/importer:Mp3Importer
-/processor:SoundEffectProcessor
-/processorParam:Quality=Best
-/build:nature.mp3
-
-#begin octo1 (4).png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:octo1 (4).png
-
-#begin octo1 (5).png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:octo1 (5).png
-
-#begin octo1 (6).png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:octo1 (6).png
+#begin JsonLevels/oct_test.json
+/copy:JsonLevels/oct_test.json
 
 #begin OctoBoss.png
 /importer:TextureImporter
@@ -259,6 +190,18 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:OctoBoss.png
+
+#begin OctobossFull.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:OctobossFull.png
 
 #begin Pirate.png
 /importer:TextureImporter
@@ -286,7 +229,7 @@
 
 #begin playground.mp3
 /importer:Mp3Importer
-/processor:SoundEffectProcessor
+/processor:SongProcessor
 /processorParam:Quality=Best
 /build:playground.mp3
 
@@ -409,10 +352,4 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:walk.png
-
-#begin worldbeat.mp3
-/importer:Mp3Importer
-/processor:SoundEffectProcessor
-/processorParam:Quality=Best
-/build:worldbeat.mp3
 

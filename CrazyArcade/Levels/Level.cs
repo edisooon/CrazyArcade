@@ -77,15 +77,15 @@ namespace CrazyArcade.Levels
             //TODO Find a way to reduce duplicate code
             scale = .9f;
             //IMPORTANT!!!! uncomment tbis when Door Block class is implemented.
-            //itemLocations = currentLevel.GetItemLocation(CreateLevel.LevelItem.DoorPosition);
+            itemLocations = currentLevel.GetItemLocation(CreateLevel.LevelItem.DoorPosition);
 
-            //foreach (Vector2 vector in itemLocations)
-            //{
+            foreach (Vector2 vector in itemLocations)
+            {
                 
-            //    Entity = new Door(vector);
-            //    Entity.SpriteAnim.Scale = scale;
-            //    EntityList.Add(Entity);
-            //}
+                Entity = new Door(vector);
+                Entity.SpriteAnim.Scale = scale;
+                EntityList.Add(Entity);
+            }
             itemLocations = currentLevel.GetItemLocation(CreateLevel.LevelItem.LightSandPosition);
 
             foreach (Vector2 vector in itemLocations)
