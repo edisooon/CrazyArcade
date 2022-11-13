@@ -45,7 +45,6 @@ namespace CrazyArcade.BombFeature
             this.SceneDelegate = sceneDelegate;
 			this.center = center;
             for (int i = 0; i < 4; i++) this.distance[i] = blastLength;
-            explodeEdges();
         }
 
         public Explosion(Point center, int leftLength, int rightLength, int upLength, int downLength, ISceneDelegate sceneDelegate, IGridTransform trans)

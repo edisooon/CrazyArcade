@@ -147,10 +147,6 @@ namespace CrazyArcade.BombFeature
 
         public IExplosion explode(int leftLength, int rightLength, int upLength, int downLength)
         {
-            if (leftLength != -1) this.leftLength = leftLength;
-            if (rightLength != -1) this.rightLength = leftLength;
-            if (upLength != -1) this.upLength = leftLength;
-            if (downLength != -1) this.downLength = leftLength;
             DeleteSelf();
             canExplode = false;
             return new Explosion(new Point((int)GameCoord.X, (int)GameCoord.Y), leftLength, rightLength, upLength, downLength, this.SceneDelegate, this.trans);
