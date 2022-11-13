@@ -19,6 +19,7 @@ using CrazyArcade.CAFrameWork.CAGame;
 using CrazyArcade.Items;
 using CrazyArcade.CAFrameWork.GridBoxSystem;
 using CrazyArcade.CAFrameWork.GameStates;
+using CrazyArcade.CAFrameWork.InputSystem;
 
 namespace CrazyArcade.Demo1
 {
@@ -53,8 +54,9 @@ namespace CrazyArcade.Demo1
             //this.systems.Add(new BlockCollisionSystem());
             this.systems.Add(new GameStateSwitcher(this));
             this.systems.Add(new ItemCollisionSystem(this));
-            this.systems.Add(new CAControllerSystem());
+            //this.systems.Add(new CAControllerSystem());
             this.systems.Add(new CAGameLogicSystem());
+            this.systems.Add(new InputSystems());
             this.systems.Add(new GridBoxSystem());
             this.systems.Add(new BombCollisionSystem(this));
             this.systems.Add(new PlayerCollisionSystem());
@@ -75,7 +77,7 @@ namespace CrazyArcade.Demo1
         {
             
             //This may not be neccessary
-            //this.AddSprite(new PlayerCharacter(new DemoController(), this));
+            this.AddSprite(new KeyBoardInput());
         }
 
     }

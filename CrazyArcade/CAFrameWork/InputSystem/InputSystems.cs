@@ -7,8 +7,8 @@ namespace CrazyArcade.CAFrameWork.InputSystem
 {
 	public class InputSystems: IGameSystem
 	{
-        List<IInput> inputs;
-        List<IInputController> controllers;
+        List<IInput> inputs = new List<IInput>();
+        List<IInputController> controllers = new List<IInputController>();
         HashSet<int> inputKeys;
 		public InputSystems()
 		{
@@ -56,7 +56,10 @@ namespace CrazyArcade.CAFrameWork.InputSystem
                 Dictionary<int, Action> commands = controller.getCommands();
                 foreach(int key in inputKeys)
                 {
-                    commands[key]();
+                    if (commands.ContainsKey(key) && commands[key] != null)
+                    {
+                        commands[key]();
+                    }
                 }
             }
         }
