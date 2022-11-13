@@ -15,7 +15,7 @@ namespace CrazyArcade.Items
         //Reused from IPlayerCollidable
         public bool Enabled { get; }
         public void CollisionLogic(IItemCollidable collisionPartner);
-        public void DeleteSelf(IScene parentScene);
+        public void DeleteSelf(ISceneDelegate parentScene);
         public Rectangle itemHitbox { get; }
     }
 }

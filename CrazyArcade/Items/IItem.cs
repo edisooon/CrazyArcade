@@ -8,6 +8,7 @@ using CrazyArcade.Blocks;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
 using CrazyArcade.GameGridSystems;
+using CrazyArcade.BombFeature;
 
 namespace CrazyArcade.Items
 {
@@ -16,7 +17,7 @@ namespace CrazyArcade.Items
     {
         
     }
-    public abstract class Item : CAEntity, IItem, IItemCollision, IGridable
+    public abstract class Item : CAEntity, IItem, IItemCollision, IGridable, IExplosionCollidable
     {
         //----------IGridable Start------------
         private Vector2 gamePos;
@@ -60,8 +61,10 @@ namespace CrazyArcade.Items
         //----------IGridable End------------
         protected Rectangle hitbox;
         protected SpriteAnimation spriteAnimation;
-        public Item(Vector2 position, Rectangle source, Texture2D texture, int frames, int fps)
+        ISceneDelegate parentScene;
+        public Item(ISceneDelegate parentScene, Vector2 position, Rectangle source, Texture2D texture, int frames, int fps)
         {
+            this.parentScene = parentScene;
             spriteAnimation = new SpriteAnimation(texture, frames, fps);
             spriteAnimation.Scale = 0.6f;
             GameCoord = position;
@@ -82,9 +85,14 @@ namespace CrazyArcade.Items
         }
         public abstract void CollisionLogic(IItemCollidable collisionPartner);
         //Assumes that @this is in the IScene that is passed
-        public void DeleteSelf(IScene parentScene)
+        public void DeleteSelf(ISceneDelegate parentScene)
         {
-            SceneDelegate.ToRemoveEntity(this);
+            parentScene.ToRemoveEntity(this);
+        }
+
+        public void Collide(IExplosion bomb)
+        {
+            DeleteSelf(parentScene);
         }
     }
 }
