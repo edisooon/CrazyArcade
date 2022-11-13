@@ -22,8 +22,8 @@ namespace CrazyArcade.CAFrameWork.CollisionSystem
         {
             if (sprite is IExplosionCollidable)
             {
-                triggers.Add(sprite as IExplosionCollidable);
                 if (sprite is IBlock) breakableBlocks.Add(sprite as IExplosionCollidable);
+                else triggers.Add(sprite as IExplosionCollidable);
             }
             if (sprite is IExplodable)
             {
@@ -123,8 +123,9 @@ namespace CrazyArcade.CAFrameWork.CollisionSystem
         {
             if (sprite is IExplosionCollidable)
             {
-                triggers.Remove(sprite as IExplosionCollidable);
+
                 if(sprite is IBlock) breakableBlocks.Remove(sprite as IExplosionCollidable);
+                else triggers.Remove(sprite as IExplosionCollidable);
             }
         }
 
