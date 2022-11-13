@@ -23,7 +23,7 @@ namespace CrazyArcade.CAFrameWork.CollisionSystem
             if (sprite is IExplosionCollidable)
             {
                 triggers.Add(sprite as IExplosionCollidable);
-                if (sprite is Block) breakableBlocks.Add(sprite as IExplosionCollidable);
+                if (sprite is IBlock) breakableBlocks.Add(sprite as IExplosionCollidable);
             }
             if (sprite is IExplodable)
             {
@@ -43,14 +43,14 @@ namespace CrazyArcade.CAFrameWork.CollisionSystem
                 if (explosion.Center.X == triggerCenter.X)
                 {
                     int dist = Math.Abs(explosion.Center.Y - triggerCenter.Y);
-                    if (explosion.Center.Y < triggerCenter.Y && dist < downBlastLength) collided = true;
-                    else if (explosion.Center.Y > triggerCenter.Y && dist < upBlastLength) collided = true;
+                    if (explosion.Center.Y < triggerCenter.Y && dist <= downBlastLength) collided = true;
+                    else if (explosion.Center.Y > triggerCenter.Y && dist <= upBlastLength) collided = true;
                 }
                 else if (explosion.Center.Y == triggerCenter.Y)
                 {
                     int dist = Math.Abs(explosion.Center.X - triggerCenter.X);
-                    if (explosion.Center.X < triggerCenter.X && dist < rightBlastLength) collided = true;
-                    if (explosion.Center.X > triggerCenter.X && dist < leftBlastLength) collided = true;
+                    if (explosion.Center.X < triggerCenter.X && dist <= rightBlastLength) collided = true;
+                    if (explosion.Center.X > triggerCenter.X && dist <= leftBlastLength) collided = true;
                 }
                 if (collided)
                 {
@@ -83,27 +83,27 @@ namespace CrazyArcade.CAFrameWork.CollisionSystem
                 if(explosion.Center.X == triggerCenter.X)
                 {
                     int dist = Math.Abs(explosion.Center.Y - triggerCenter.Y);
-                    if (explosion.Center.Y < triggerCenter.Y && dist < downBlastLength)
+                    if (explosion.Center.Y < triggerCenter.Y && dist <= downBlastLength)
                     {
                         detectedBlocks[3] = breakableBlock;
-                        downBlastLength = dist;
-                    }else if (explosion.Center.Y > triggerCenter.Y && dist < upBlastLength)
+                        downBlastLength = dist-1;
+                    }else if (explosion.Center.Y > triggerCenter.Y && dist <= upBlastLength)
                     {
                         detectedBlocks[0] = breakableBlock;
-                        upBlastLength = dist;
+                        upBlastLength = dist-1;
                     }
                 }else if (explosion.Center.Y == triggerCenter.Y)
                 {
                     int dist = Math.Abs(explosion.Center.X - triggerCenter.X);
-                    if (explosion.Center.X < triggerCenter.X && dist < rightBlastLength)
+                    if (explosion.Center.X < triggerCenter.X && dist <= rightBlastLength)
                     {
                         detectedBlocks[1] = breakableBlock;
-                        rightBlastLength = dist;
+                        rightBlastLength = dist-1;
                     }
-                    if (explosion.Center.X > triggerCenter.X && dist < leftBlastLength)
+                    if (explosion.Center.X > triggerCenter.X && dist <= leftBlastLength)
                     {
                         detectedBlocks[2] = breakableBlock;
-                        leftBlastLength = dist;
+                        leftBlastLength = dist-1;
                     }
                 }
             }
@@ -121,7 +121,11 @@ namespace CrazyArcade.CAFrameWork.CollisionSystem
 
         public void RemoveSprite(IEntity sprite)
         {
-            if (sprite is IExplosionCollidable) triggers.Remove(sprite as IExplosionCollidable);
+            if (sprite is IExplosionCollidable)
+            {
+                triggers.Remove(sprite as IExplosionCollidable);
+                if(sprite is IBlock) breakableBlocks.Remove(sprite as IExplosionCollidable);
+            }
         }
 
         public void Update(GameTime time)

@@ -54,9 +54,9 @@ namespace CrazyArcade.BombFeature
             this.SceneDelegate = sceneDelegate;
             this.center = center;
             this.distance[0] = upLength;
-            this.distance[1] = rightLength;
+            this.distance[1] = downLength;
             this.distance[2] = leftLength;
-            this.distance[3] = downLength;
+            this.distance[3] = rightLength;
             explodeEdges();
         }
 
