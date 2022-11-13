@@ -5,6 +5,7 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
+using CrazyArcade.Blocks;
 using CrazyArcade.CAFramework;
 using CrazyArcade.PlayerStateMachine;
 using Microsoft.Xna.Framework;
@@ -21,9 +22,10 @@ namespace CrazyArcade.Items
         {
 
         }
-        public override void CollisionLogic(IItemCollidable collisionPartner)
+        public override void CollisionLogic(Rectangle overlap, IPlayerCollisionBehavior collisionPartner)
         {
             collisionPartner.IncreaseBombCount();
+            this.DeleteSelf(parentScene);
         }
     }
     public class CoinBag : Item
@@ -34,8 +36,9 @@ namespace CrazyArcade.Items
         {
 
         }
-        public override void CollisionLogic(IItemCollidable collisionPartner)
+        public override void CollisionLogic(Rectangle overlap, IPlayerCollisionBehavior collisionPartner)
         {
+            this.DeleteSelf(parentScene);
         }
     }
     public class Sneaker : Item
@@ -44,9 +47,10 @@ namespace CrazyArcade.Items
         public Sneaker(ISceneDelegate parentScence, Vector2 position) : base(parentScence, position, source, Content.TextureSingleton.GetRollerskates(), 3, 5)
         {
         }
-        public override void CollisionLogic(IItemCollidable collisionPartner)
+        public override void CollisionLogic(Rectangle overlap, IPlayerCollisionBehavior collisionPartner)
         {
             collisionPartner.IncreaseSpeed();
+            this.DeleteSelf(parentScene);
         }
     }
     public class Turtle : Item
@@ -55,10 +59,12 @@ namespace CrazyArcade.Items
         public Turtle(ISceneDelegate parentScence, Vector2 position) : base(parentScence, position, source, Content.TextureSingleton.GetTurtle(), 5, 5)
         {
         }
-        public override void CollisionLogic(IItemCollidable collisionPartner)
+        public override void CollisionLogic(Rectangle overlap, IPlayerCollisionBehavior collisionPartner)
         {
             collisionPartner.SwitchToMountedState();
+            this.DeleteSelf(parentScene);
         }
+
     }
     public class Potion : Item
     {
@@ -67,9 +73,10 @@ namespace CrazyArcade.Items
         public Potion(ISceneDelegate parentScence, Vector2 position) : base(parentScence, position, source, Content.TextureSingleton.GetPotion(), 5, 5)
         {
         }
-        public override void CollisionLogic(IItemCollidable collisionPartner)
+        public override void CollisionLogic(Rectangle overlap, IPlayerCollisionBehavior collisionPartner)
         {
             collisionPartner.IncreaseBlastLength();
+            this.DeleteSelf(parentScene);
         }
 
         public override void Update(GameTime time)
@@ -85,8 +92,9 @@ namespace CrazyArcade.Items
         {
 
         }
-        public override void CollisionLogic(IItemCollidable collisionPartner)
+        public override void CollisionLogic(Rectangle overlap, IPlayerCollisionBehavior collisionPartner)
         {
+            this.DeleteSelf(parentScene);
         }
     }
 }

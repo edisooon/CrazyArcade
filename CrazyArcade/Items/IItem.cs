@@ -15,9 +15,9 @@ namespace CrazyArcade.Items
     //Interface made to catagorise those that implement it, items
     public interface IItem : IEntity
     {
-        
+
     }
-    public abstract class Item : CAEntity, IItem, IItemCollision, IGridable, IExplosionCollidable
+    public abstract class Item : CAEntity, IItem, IGridable, IExplosionCollidable, IPlayerCollidable
     {
         //----------IGridable Start------------
         private Vector2 gamePos;
@@ -47,7 +47,7 @@ namespace CrazyArcade.Items
             }
         }
         private IGridTransform trans = new NullTransform();
-        
+
         public IGridTransform Trans
         {
             get => trans;
@@ -55,13 +55,12 @@ namespace CrazyArcade.Items
             {
                 trans = value;
                 ScreenCoord = value.Trans(GameCoord);
-                enabled = true;
             }
         }
         //----------IGridable End------------
         protected Rectangle hitbox;
         protected SpriteAnimation spriteAnimation;
-        ISceneDelegate parentScene;
+        protected ISceneDelegate parentScene;
         public Item(ISceneDelegate parentScene, Vector2 position, Rectangle source, Texture2D texture, int frames, int fps)
         {
             this.parentScene = parentScene;
@@ -71,10 +70,8 @@ namespace CrazyArcade.Items
         }
 
         public override SpriteAnimation SpriteAnim => this.spriteAnimation;
-        public Rectangle itemHitbox => this.hitbox;
 
-        private bool enabled = false;
-        public bool Enabled => enabled;
+        public Rectangle boundingBox => this.hitbox;
 
         public override void Update(GameTime time)
         {
@@ -83,7 +80,6 @@ namespace CrazyArcade.Items
         public override void Load()
         {
         }
-        public abstract void CollisionLogic(IItemCollidable collisionPartner);
         //Assumes that @this is in the IScene that is passed
         public void DeleteSelf(ISceneDelegate parentScene)
         {
@@ -94,5 +90,7 @@ namespace CrazyArcade.Items
         {
             DeleteSelf(parentScene);
         }
+
+        public abstract void CollisionLogic(Rectangle overlap, IPlayerCollisionBehavior collisionPartner);
     }
 }

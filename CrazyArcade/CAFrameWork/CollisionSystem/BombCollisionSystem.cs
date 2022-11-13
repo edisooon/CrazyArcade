@@ -123,7 +123,6 @@ namespace CrazyArcade.CAFrameWork.CollisionSystem
         {
             if (sprite is IExplosionCollidable)
             {
-
                 if(sprite is IBlock) breakableBlocks.Remove(sprite as IExplosionCollidable);
                 else triggers.Remove(sprite as IExplosionCollidable);
             }
