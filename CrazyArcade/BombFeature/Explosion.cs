@@ -7,9 +7,9 @@ namespace CrazyArcade.BombFeature
 {
 	public class Explosion: CAEntity, IExplosion
 	{
-		private int distance;
+		private int[] distance = new int[4];
 		private Point center;
-        public int Distance => distance;
+        public int[] Distance => distance;
         public Point Center => center;
 
         private Vector2 gamePos;
@@ -38,17 +38,30 @@ namespace CrazyArcade.BombFeature
             }
         }
 
-        public Explosion(Point center, int distance, ISceneDelegate sceneDelegate, IGridTransform trans)
+        public Explosion(Point center, int blastLength, ISceneDelegate sceneDelegate, IGridTransform trans)
 		{
             this.trans = trans;
             this.GameCoord = new Vector2(center.X, center.Y);
             this.SceneDelegate = sceneDelegate;
 			this.center = center;
-			this.distance = distance;
+            for (int i = 0; i < 4; i++) this.distance[i] = blastLength;
             explodeEdges();
         }
 
-		public void explodeEdges()
+        public Explosion(Point center, int leftLength, int rightLength, int upLength, int downLength, ISceneDelegate sceneDelegate, IGridTransform trans)
+        {
+            this.trans = trans;
+            this.GameCoord = new Vector2(center.X, center.Y);
+            this.SceneDelegate = sceneDelegate;
+            this.center = center;
+            this.distance[0] = upLength;
+            this.distance[1] = rightLength;
+            this.distance[2] = leftLength;
+            this.distance[3] = downLength;
+            explodeEdges();
+        }
+
+        public void explodeEdges()
 		{
             int explosionTile = 40;
             Vector2 side = new Vector2(0, 0);
@@ -70,9 +83,9 @@ namespace CrazyArcade.BombFeature
                         side = new Vector2(1, 0);
                         break;
                 }
-                for (int j = 1; j <= distance; j++)
+                for (int j = 1; j <= distance[i]; j++)
                 {
-                    SceneDelegate.ToAddEntity(new WaterExplosionEdge(i, j == distance, (int)(X + (j * side.X * explosionTile)), (int)(Y + (j * side.Y * explosionTile))));
+                    SceneDelegate.ToAddEntity(new WaterExplosionEdge(i, j == distance[i], (int)(X + (j * side.X * explosionTile)), (int)(Y + (j * side.Y * explosionTile))));
                 }
             }
         }

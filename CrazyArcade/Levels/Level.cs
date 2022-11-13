@@ -68,7 +68,7 @@ namespace CrazyArcade.Levels
         {
 
             startPosition = currentLevel.GetStartPosition(new int[2] { X, Y });
-            Entity = new LightSandBlock(startPosition);
+            Entity = new LightSandBlock(Scene, startPosition);
             Entity.SpriteAnim.Scale = scale;
             EntityList.Add(Entity);
         }
@@ -93,7 +93,7 @@ namespace CrazyArcade.Levels
             foreach (Vector2 vector in itemLocations)
             {
 
-                Entity = new LightSandBlock(vector);
+                Entity = new LightSandBlock(Scene, vector);
                 Entity.SpriteAnim.Scale = scale;
                 EntityList.Add(Entity);
             }
@@ -103,7 +103,7 @@ namespace CrazyArcade.Levels
             foreach (Vector2 vector in itemLocations)
             {
                 
-                Entity = new SandBlock(vector);
+                Entity = new SandBlock(Scene, vector);
                 Entity.SpriteAnim.Scale = scale;
                 EntityList.Add(Entity);
             }

@@ -18,6 +18,11 @@ namespace CrazyArcade.BombFeature
     public class WaterBomb : CAGridBoxEntity, IPlayerCollidable, IExplosionCollidable, IExplodable
     {
         int BlastLength;
+        int leftLength;
+        int rightLength;
+        int upLength;
+        int downLength;
+
         float DetonateTimer;
         float DetonateTime;
         Boolean characterHasLeft = false;
@@ -71,6 +76,10 @@ namespace CrazyArcade.BombFeature
             gamePos = bombPosition;
 
             this.BlastLength = BlastLength;
+            this.leftLength = BlastLength;
+            this.rightLength = BlastLength;
+            this.upLength = BlastLength;
+            this.downLength = BlastLength;
             this.owner = character;
             AnimationFrames = GetAnimationFrames();
             DetonateTime = 0;
@@ -136,12 +145,22 @@ namespace CrazyArcade.BombFeature
             }
         }
 
-        public IExplosion explode()
+        public IExplosion explode(int leftLength, int rightLength, int upLength, int downLength)
         {
+            if (leftLength != -1) this.leftLength = leftLength;
+            if (rightLength != -1) this.rightLength = leftLength;
+            if (upLength != -1) this.upLength = leftLength;
+            if (downLength != -1) this.downLength = leftLength;
             DeleteSelf();
             canExplode = false;
+            return new Explosion(new Point((int)GameCoord.X, (int)GameCoord.Y), leftLength, rightLength, upLength, downLength, this.SceneDelegate, this.trans);
+        }
+
+        public IExplosion fakeExplode()
+        {
             return new Explosion(new Point((int)GameCoord.X, (int)GameCoord.Y), BlastLength, this.SceneDelegate, this.trans);
         }
+
         public override void Deload()
         {
             base.Deload();

@@ -12,6 +12,7 @@ namespace CrazyArcade.CAFrameWork.CollisionSystem
 	public class BombCollisionSystem: IGameSystem, IExplosionDetector
 	{
         List<IExplosionCollidable> triggers = new List<IExplosionCollidable>();
+        List<IExplosionCollidable> breakableBlocks = new List<IExplosionCollidable>();
         private ISceneDelegate sceneDelegate;
         public BombCollisionSystem(ISceneDelegate sceneDelegate) {
             this.sceneDelegate = sceneDelegate;
@@ -22,6 +23,7 @@ namespace CrazyArcade.CAFrameWork.CollisionSystem
             if (sprite is IExplosionCollidable)
             {
                 triggers.Add(sprite as IExplosionCollidable);
+                if (sprite is Block) breakableBlocks.Add(sprite as IExplosionCollidable);
             }
             if (sprite is IExplodable)
             {
@@ -31,15 +33,25 @@ namespace CrazyArcade.CAFrameWork.CollisionSystem
 
         public void Detect(IExplosion explosion)
         {
+            int leftBlastLength = explosion.Distance[2], rightBlastLength = explosion.Distance[1], upBlastLength = explosion.Distance[0], downBlastLength = explosion.Distance[3];
             // O->->I->
             foreach (IExplosionCollidable collidable in triggers)
             {
                 Point triggerCenter = new Point((int)((collidable as IGridable).GameCoord.X + 0.5),
                     (int)((collidable as IGridable).GameCoord.Y + 0.5));
-                bool collided = explosion.Center.X == triggerCenter.X
-                    && Math.Abs(explosion.Center.Y - triggerCenter.Y) <= explosion.Distance;
-                collided = collided || explosion.Center.Y == triggerCenter.Y
-                    && Math.Abs(explosion.Center.X - triggerCenter.X) <= explosion.Distance;
+                bool collided = false;
+                if (explosion.Center.X == triggerCenter.X)
+                {
+                    int dist = Math.Abs(explosion.Center.Y - triggerCenter.Y);
+                    if (explosion.Center.Y < triggerCenter.Y && dist < downBlastLength) collided = true;
+                    else if (explosion.Center.Y > triggerCenter.Y && dist < upBlastLength) collided = true;
+                }
+                else if (explosion.Center.Y == triggerCenter.Y)
+                {
+                    int dist = Math.Abs(explosion.Center.X - triggerCenter.X);
+                    if (explosion.Center.X < triggerCenter.X && dist < rightBlastLength) collided = true;
+                    if (explosion.Center.X > triggerCenter.X && dist < leftBlastLength) collided = true;
+                }
                 if (collided)
                 {
                     collidable.Collide(explosion);
@@ -51,11 +63,55 @@ namespace CrazyArcade.CAFrameWork.CollisionSystem
         {
             if (explodable.CanExplode)
             {
-                IExplosion explosion = explodable.explode();
+                IExplosion fakeExplosion = explodable.fakeExplode();
+                int[] blastLengthArr = DetectBreakableBlocks(fakeExplosion);
+                IExplosion explosion = explodable.explode(blastLengthArr[0], blastLengthArr[1], blastLengthArr[2], blastLengthArr[3]);
                 sceneDelegate.ToAddEntity(explosion);
                 Detect(explosion);
                 sceneDelegate.ToRemoveEntity(explodable);
             }
+        }
+
+        private int[] DetectBreakableBlocks(IExplosion explosion)
+        {
+            int leftBlastLength = explosion.Distance[2], rightBlastLength = explosion.Distance[1], upBlastLength = explosion.Distance[0], downBlastLength = explosion.Distance[3];
+            IExplosionCollidable[] detectedBlocks = new IExplosionCollidable[4];
+            foreach (IExplosionCollidable breakableBlock in breakableBlocks)
+            {
+                Point triggerCenter = new Point((int)((breakableBlock as IGridable).GameCoord.X + 0.5),
+                    (int)((breakableBlock as IGridable).GameCoord.Y + 0.5));
+                if(explosion.Center.X == triggerCenter.X)
+                {
+                    int dist = Math.Abs(explosion.Center.Y - triggerCenter.Y);
+                    if (explosion.Center.Y < triggerCenter.Y && dist < downBlastLength)
+                    {
+                        detectedBlocks[3] = breakableBlock;
+                        downBlastLength = dist;
+                    }else if (explosion.Center.Y > triggerCenter.Y && dist < upBlastLength)
+                    {
+                        detectedBlocks[0] = breakableBlock;
+                        upBlastLength = dist;
+                    }
+                }else if (explosion.Center.Y == triggerCenter.Y)
+                {
+                    int dist = Math.Abs(explosion.Center.X - triggerCenter.X);
+                    if (explosion.Center.X < triggerCenter.X && dist < rightBlastLength)
+                    {
+                        detectedBlocks[1] = breakableBlock;
+                        rightBlastLength = dist;
+                    }
+                    if (explosion.Center.X > triggerCenter.X && dist < leftBlastLength)
+                    {
+                        detectedBlocks[2] = breakableBlock;
+                        leftBlastLength = dist;
+                    }
+                }
+            }
+            foreach (IExplosionCollidable detectedBlock in detectedBlocks)
+            {
+                if(detectedBlock!=null) detectedBlock.Collide(explosion);
+            }
+            return new int[] {leftBlastLength, rightBlastLength, upBlastLength, downBlastLength };
         }
 
         public void RemoveAll()
