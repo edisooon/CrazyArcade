@@ -8,15 +8,16 @@ using CrazyArcade.Blocks;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
 using CrazyArcade.GameGridSystems;
+using CrazyArcade.BombFeature;
 
 namespace CrazyArcade.Items
 {
     //Interface made to catagorise those that implement it, items
     public interface IItem : IEntity
     {
-        
+
     }
-    public abstract class Item : CAEntity, IItem, IItemCollision, IGridable
+    public abstract class Item : CAEntity, IItem, IGridable, IExplosionCollidable, IPlayerCollidable
     {
         //----------IGridable Start------------
         private Vector2 gamePos;
@@ -46,7 +47,7 @@ namespace CrazyArcade.Items
             }
         }
         private IGridTransform trans = new NullTransform();
-        
+
         public IGridTransform Trans
         {
             get => trans;
@@ -54,24 +55,23 @@ namespace CrazyArcade.Items
             {
                 trans = value;
                 ScreenCoord = value.Trans(GameCoord);
-                enabled = true;
             }
         }
         //----------IGridable End------------
         protected Rectangle hitbox;
         protected SpriteAnimation spriteAnimation;
-        public Item(Vector2 position, Rectangle source, Texture2D texture, int frames, int fps)
+        protected ISceneDelegate parentScene;
+        public Item(ISceneDelegate parentScene, Vector2 position, Rectangle source, Texture2D texture, int frames, int fps)
         {
+            this.parentScene = parentScene;
             spriteAnimation = new SpriteAnimation(texture, frames, fps);
             spriteAnimation.Scale = 0.6f;
             GameCoord = position;
         }
 
         public override SpriteAnimation SpriteAnim => this.spriteAnimation;
-        public Rectangle itemHitbox => this.hitbox;
 
-        private bool enabled = false;
-        public bool Enabled => enabled;
+        public Rectangle boundingBox => this.hitbox;
 
         public override void Update(GameTime time)
         {
@@ -80,11 +80,18 @@ namespace CrazyArcade.Items
         public override void Load()
         {
         }
-        public abstract void CollisionLogic(IItemCollidable collisionPartner);
         //Assumes that @this is in the IScene that is passed
-        public void DeleteSelf(IScene parentScene)
+        public void DeleteSelf(ISceneDelegate parentScene)
         {
-            SceneDelegate.ToRemoveEntity(this);
+            parentScene.ToRemoveEntity(this);
         }
+
+        public bool Collide(IExplosion bomb)
+        {
+            DeleteSelf(parentScene);
+            return true;
+        }
+
+        public abstract void CollisionLogic(Rectangle overlap, IPlayerCollisionBehavior collisionPartner);
     }
 }

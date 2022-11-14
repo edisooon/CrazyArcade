@@ -5,10 +5,11 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System.Diagnostics;
 using CrazyArcade.GameGridSystems;
+using CrazyArcade.BombFeature;
 
 namespace CrazyArcade.Enemies
 {
-    public abstract class Enemy: CAEntity, IPlayerCollidable, IGridable
+    public abstract class Enemy: CAEntity, IPlayerCollidable, IGridable, IExplosionCollidable
     {
         public SpriteAnimation[] spriteAnims;
         public SpriteAnimation spriteAnim;
@@ -66,7 +67,7 @@ namespace CrazyArcade.Enemies
             this.scene = scene;
             GameCoord = new Vector2(x, y-2);
             Start = GameCoord;
-            
+            state = new EnemyDownState(this);
         }
         protected Rectangle internalRectangle = new Rectangle(0, 0, 30, 30);
 
@@ -76,7 +77,7 @@ namespace CrazyArcade.Enemies
         {
             collisionPartner.CollisionDestroyLogic();
             //To show the state only, this line of code needs to be moved once bomb -> enemy collision is implemented to CollisionDestroyLogic 
-            state = new EnemyDeathState(this);
+            //state = new EnemyDeathState(this);
             
 
         }
@@ -91,7 +92,7 @@ namespace CrazyArcade.Enemies
             yDifference = GameCoord.Y - Start.Y;
             if (state != null)
             {
-                state.Update(time);
+                
             }
             if (timer > 1f / 6)
             {
@@ -110,12 +111,12 @@ namespace CrazyArcade.Enemies
         }
         protected bool ChangeDir(Dir dir)
         {
-            switch (dir)
+            switch (direction)
             {
                 case Dir.Right:
                     
                     return xDifference >= 4;
-                    
+                 
                 case Dir.Up:
 
                     return yDifference <= 0;
@@ -131,21 +132,28 @@ namespace CrazyArcade.Enemies
 
         protected abstract Vector2[] SpeedVector { get; }
 
-        protected void move(Dir dir)
+        public void move()
         {
-            if (ChangeDir(dir))
+            //Temporary and need to be removed later after enemy movement fully implemented with block collision
+            if (ChangeDir())
             {
-                direction = (Dir)((((int)dir) + 1) % 4);
+                state.ChangeDirection();
                 effect = direction == Dir.Right ? SpriteEffects.FlipHorizontally : SpriteEffects.None;
-                UpdateAnimation(dir);
+                UpdateAnimation();
             }
-            
-                GameCoord += SpeedVector[(int)dir];
+            //up to here
+            GameCoord += SpeedVector[(int)direction];
             
         }
-        public void UpdateAnimation(Dir dir)
+        public void UpdateAnimation()
         {
             this.spriteAnims[(int)direction].Position = new Vector2(X, Y);
+        }
+
+        public bool Collide(IExplosion bomb)
+        {
+            state = new EnemyDeathState(this);
+            return true;
         }
     }
 }

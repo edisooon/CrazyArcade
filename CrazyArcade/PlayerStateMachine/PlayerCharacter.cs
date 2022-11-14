@@ -12,79 +12,63 @@ using CrazyArcade.Content;
 using Microsoft.Xna.Framework;
 using CrazyArcade.BombFeature;
 using System.Diagnostics;
+using CrazyArcade.CAFrameWork.InputSystem;
+using Microsoft.Xna.Framework.Input;
 
 namespace CrazyArcade.PlayerStateMachine
 {
-    public class PlayerCharacter : Character, IControllable
+    public class PlayerCharacter : Character, IInputController
     {
-        public IController Controller
+        Dictionary<int, Action> commands = new Dictionary<int, Action>();
+        public PlayerCharacter(int[] keySet) : base()
         {
-            get => controller;
-            set
+            Action[] actions = new Action[5];
+            actions[0] = KeyUp;
+            actions[1] = KeyDown;
+            actions[2] = KeyLeft;
+            actions[3] = KeyRight;
+            actions[4] = KeySpace;
+            for (int i = 0; i < keySet.Length; i++)
             {
-                controller = value;
-                controller.Delegate = this; 
+                commands[keySet[i]] = actions[i];
             }
         }
-
-        private IController controller;
-
-        public PlayerCharacter(IController controller, CAScene scene): base(scene)
-        {
-            this.controller = controller;
-            controller.Delegate = this;
-        }
-        public void KeyUp()
+        private void KeyUp()
         {
             moveInputs.Y -= 1;
             direction = Dir.Up;
 
         }
 
-        public void KeyDown()
+        private void KeyDown()
         {
             moveInputs.Y += 1;
             direction = Dir.Down;
+            Console.WriteLine("Down");
         }
 
-        public void KeyLeft()
+        private void KeyLeft()
         {
             moveInputs.X -= 1;
             direction = Dir.Left;
+            Console.WriteLine("Left");
         }
 
-        public void KeyRight()
+        private void KeyRight()
         {
             moveInputs.X += 1;
             direction = Dir.Right;
         }
 
-        public void KeySpace()
+        private void KeySpace()
         {
             Console.WriteLine("space");
             playerState.ProcessAttaction();
         }
 
-        public void RightClick()
+        public Dictionary<int, Action> getCommands()
         {
-
-        }
-        public void LeftClick()
-        {
-
-        }
-
-        public void LeftClick(int x, int y)
-        {
-
-        }
-        public void Key_o()
-        {
-
-        }
-        public void Key_p()
-        {
-
+            return commands;
         }
     }
 }

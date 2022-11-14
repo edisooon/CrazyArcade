@@ -1,39 +1,11 @@
-using CrazyArcade.Demo1;
-using CrazyArcade.Enemies;
-using CrazyArcade.Boss;
+
 using CrazyArcade.CAFramework;
-using CrazyArcade.Items;
-using CrazyArcade.Blocks;
-using CrazyArcade.Levels;
-using CrazyArcade.PlayerStateMachine;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Input;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
-using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
-using System.Diagnostics;
-using System.Numerics;
-using Vector2 = Microsoft.Xna.Framework.Vector2;
-using System.Drawing;
-using Rectangle = Microsoft.Xna.Framework.Rectangle;
-using System.Reflection.Metadata.Ecma335;
-using System.Runtime.Intrinsics;
-using static System.Formats.Asn1.AsnWriter;
-using CrazyArcade.CAFramework.Controller;
-using Microsoft.Xna.Framework.Content;
 
 namespace CrazyArcade.Levels
 {
     public class LevelManager
     {
         public static LevelManager manager = new LevelManager();
-        //private IController controller;
-        //private CAScene Scene;
         private string mapFile;
         private string levelFile;
         private MapSchema mapSchema;
@@ -45,15 +17,7 @@ namespace CrazyArcade.Levels
         private int oldNum;
         private int shiftFlag;
         private Dir direction;
-        //public IController Controller
-        //{
-        //    get => controller;
-        //    set
-        //    {
-        //        controller = value;
-        //        controller.Delegate = this;
-        //    }
-        //}
+
         public LevelManager()
         {
             mapFile = "Map.json";
@@ -62,26 +26,8 @@ namespace CrazyArcade.Levels
             getLevelFiles();
             loadLevels();
             levelArray[levelNum].DrawLevel();
-            //controller.Delegate = this;
             shiftFlag = 50;
         }
-        //public getLevel(int levelNum)
-        //{
-        //    return lev
-        //}
-        //public LevelManager(CAScene scene, IController controller)
-        //{
-        //    this.Scene = scene;
-        //    mapFile = "Map.json";
-        //    levelNum = 0;
-        //    oldNum = 0;
-        //    getLevelFiles();
-        //    loadLevels();
-        //    levelArray[levelNum].DrawLevel();
-        //    this.controller = controller;
-        //    controller.Delegate = this;
-        //    shiftFlag = 50;
-        //}
 
         private void getLevelFiles()
         {
@@ -96,102 +42,9 @@ namespace CrazyArcade.Levels
             for (int i = 0; i < length; i++)
             {
                 levelFile = levelFiles[i];
-                //levelArray[i] = new Level(levelFile);
+           
             }
         }
-
-        //public void Update(GameTime time)
-        //{
-        //    if (shiftFlag<50)
-        //    {
-        //        //Just a start
-        //        levelArray[levelNum].ShiftLevel(direction);
-        //        shiftFlag++;
-        //    }
-        //    else if (oldNum != levelNum)
-        //    {
-        //        levelArray[oldNum].DeleteLevel();
-        //        Scene.RemoveAllSprite();
-        //        levelArray[levelNum].DrawLevel();
-        //        oldNum = levelNum;
-        //    }
-
-        //}
-        
-
-        //public void RightClick()
-
-        //{
-            
-        //    if (levelNum > 0 && (shiftFlag == 50))
-        //    {
-        //        oldNum = levelNum;
-        //        levelNum--;
-        //        direction = Dir.Right;
-        //    }
-            
-        //}
-
-        //public void LeftClick()
-        //{
-
-        //    if ((levelNum < levelFiles.Length-1 )&&(shiftFlag == 50))
-        //    {
-        //        oldNum = levelNum;
-        //        levelNum++;
-        //        direction = Dir.Left;
-
-        //    }
-            
-        //}
-        //public void AddSprite(IEntity sprite)
-        //{
-
-        //}
-        //public void RemoveSprite(IEntity sprite)
-        //{
-
-        //}
-        //public void RemoveAll()
-        //{
-
-        //}
-        //public void KeyUp()
-        //{
-
-        //}
-
-        //public void KeyDown()
-        //{
-
-        //}
-
-        //public void KeyLeft()
-        //{
-
-        //}
-
-        //public void KeyRight()
-        //{
-
-        //}
-
-        //public void KeySpace()
-        //{
-
-        //}
-        //public void Key_o()
-        //{
-
-        //}
-        //public void Key_p()
-        //{
-
-        //}
-        //public void LeftClick(int x, int y)
-        //{
-
-        //}
 
     }
 }
