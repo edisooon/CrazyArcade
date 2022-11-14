@@ -9,7 +9,9 @@ namespace CrazyArcade.Boss
 {
 	public class SunBoss: CAEntity, ISunBossDelegate, IGridable//, IExplosionCollidable
 	{
-
+        //----------------Test purpose-------------------
+        ITimer timer;
+        //-----------------------------------------------
         ISceneDelegate sceneDelegate;
         private float unitSize = 44/40;
         private int lives = 3;
@@ -38,6 +40,12 @@ namespace CrazyArcade.Boss
         private IGridTransform trans = new NullTransform();
         public IGridTransform Trans { get => trans; set => trans = value; }
 
+        private int health = 2;
+        public bool IsDead => Health <= 0;
+        public int Health => health;
+
+        public Rectangle Range => new Rectangle(0, 0, 11, 11);
+
         public override void Load()
         {
             states = new SunBossStartStates(this, new GameTime());
@@ -45,30 +53,51 @@ namespace CrazyArcade.Boss
 
         public override void Update(GameTime time)
         {
+            //----------------Test purpose-------------------
+            if (timer == null)
+            {
+                timer = new CATimer(time.TotalGameTime);
+            }
+            timer.Update(time.TotalGameTime);
+            //-----------------------------------------------
             base.Update(time);
             states = states.Update(time);
         }
 
         public bool DidGetDemaged()
         {
+            //----------------Test purpose-------------------
+            if (timer.TotalMili > 4000)
+            {
+                timer = null;
+                return true;
+            }
             return false;
+            //-----------------------------------------------
         }
 
         public Vector2 GetCharacterRelativePosition()
         {
-            return GetCharacterPosition() - this.gamePos;
+            return GetCharacterPosition() - this.GetCenter();
         }
 
         public Vector2 GetCharacterPosition()
         {
-            Random rand = new Random();
-            return new Vector2(5 + (float)rand.Next(0, 100) / 100,
-                5 + (float)rand.Next(0, 100) / 100);
+            if (SceneDelegate.PlayerPositions.Count > 0)
+            {
+                return SceneDelegate.PlayerPositions[0];
+            }
+            return new Vector2();
         }
 
-        public void Move(Vector2 distance)
+        public bool Move(Vector2 distance)
         {
-            this.GameCoord += distance;
+            if (Range.Contains(this.GameCoord + distance))
+            {
+                this.GameCoord += distance;
+                return true;
+            }
+            return false;
         }
 
         public ISceneDelegate Command()
@@ -78,7 +107,16 @@ namespace CrazyArcade.Boss
 
         public Vector2 GetCenter()
         {
-            return new Vector2(GameCoord.X + unitSize, GameCoord.Y + unitSize);
+            return new Vector2(GameCoord.X + unitSize / 2, GameCoord.Y + unitSize / 2);
+        }
+
+        public void DecreaseHealth()
+        {
+            health--;
+        }
+        public void Dead()
+        {
+            SceneDelegate.ToRemoveEntity(this);
         }
 
         public void DeleteSelf()

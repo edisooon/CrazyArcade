@@ -22,7 +22,7 @@ namespace CrazyArcade.PlayerStateMachine
             this.character = character;
             character.animationHandleInt = 0;
             bubble = new PlayerBubble(character, character.parentScene);
-            character.parentScene.AddSprite(bubble);
+            character.SceneDelegate.ToAddEntity(bubble);
         }
         public void ProcessAttaction()
         {

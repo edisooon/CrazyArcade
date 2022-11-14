@@ -67,7 +67,7 @@ namespace CrazyArcade.Enemies
             this.scene = scene;
             GameCoord = new Vector2(x, y-2);
             Start = GameCoord;
-            
+            state = new EnemyDownState(this);
         }
         protected Rectangle internalRectangle = new Rectangle(0, 0, 30, 30);
 
@@ -88,26 +88,19 @@ namespace CrazyArcade.Enemies
 
             SpriteAnim.Position = new Vector2(X, Y);
             SpriteAnim.setEffect(effect);
-            
-
-
-
             xDifference = GameCoord.X - Start.X;
             yDifference = GameCoord.Y - Start.Y;
             if (state != null)
             {
-                state.Update(time);
+                
             }
             if (timer > 1f / 6)
             {
-                if (state is not EnemyDeathState)
-                {
-                    move(direction);
-                }
-                
-                
-                
-                
+
+                state.Update(time);
+
+
+
                 timer = 0;
             }
             else
@@ -117,14 +110,15 @@ namespace CrazyArcade.Enemies
             internalRectangle.X = X;
             internalRectangle.Y = Y;
         }
-        private bool ChangeDir(Dir dir)
+        //checks if the sprite needs to change direction based on the location of the sprite. This will need to be replaced later with a function that checks if enemy collides with a block, it should move direction.
+        private bool ChangeDir()
         {
-            switch (dir)
+            switch (direction)
             {
                 case Dir.Right:
                     
                     return xDifference >= 4;
-                    
+                 
                 case Dir.Up:
 
                     return yDifference <= 0;
@@ -140,19 +134,20 @@ namespace CrazyArcade.Enemies
 
         protected abstract Vector2[] SpeedVector { get; }
 
-        protected void move(Dir dir)
+        public void move()
         {
-            if (ChangeDir(dir))
+            //Temporary and need to be removed later after enemy movement fully implemented with block collision
+            if (ChangeDir())
             {
-                direction = (Dir)((((int)dir) + 1) % 4);
+                state.ChangeDirection();
                 effect = direction == Dir.Right ? SpriteEffects.FlipHorizontally : SpriteEffects.None;
-                UpdateAnimation(dir);
+                UpdateAnimation();
             }
-            
-                GameCoord += SpeedVector[(int)dir];
+            //up to here
+            GameCoord += SpeedVector[(int)direction];
             
         }
-        public void UpdateAnimation(Dir dir)
+        public void UpdateAnimation()
         {
 
             this.spriteAnims[(int)direction].Position = new Vector2(X, Y);

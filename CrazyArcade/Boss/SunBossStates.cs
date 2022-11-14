@@ -20,6 +20,7 @@ namespace CrazyArcade.Boss
             timer.Update(time.TotalGameTime);
             return this;
         }
+
     }
 }
 
