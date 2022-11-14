@@ -11,7 +11,6 @@ namespace CrazyArcade.Enemies
     public class BatEnemySprite : Enemy
 
     {
-       
         private Rectangle[] InputFramesRight;
         private Rectangle[] InputFramesLeft;
         private Rectangle[] InputFramesUp;

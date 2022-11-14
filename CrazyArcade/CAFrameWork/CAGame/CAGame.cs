@@ -25,11 +25,12 @@ public class CAGame : Game, IGameDelegate, ITransitionCompleteHandler
     private SpriteBatch _spriteBatch;
     public GUI gameGUI;
     public ISceneState scene;
-    public LevelSchema Level1;
+    public LevelSchema CurrentLevel;
     public ReadJSON test;
     public ReadJSON map;
-
-    public Song song;
+    public String[] LevelSongTitles;
+    public SoundEffect backgroundMusic;
+    public SoundEffectInstance backgroundMusicInstance;
     //Random for test purposes and counter
     Random rnd = new Random();
     int newElements = 0;
@@ -46,6 +47,8 @@ public class CAGame : Game, IGameDelegate, ITransitionCompleteHandler
         IsMouseVisible = true;
         SpriteSheet.Content = Content;
         //Load it here
+        backgroundMusic = Content.Load<SoundEffect>("playground");
+        backgroundMusicInstance = backgroundMusic.CreateInstance();
 
     }
     public void NewInstance()
@@ -60,10 +63,8 @@ public class CAGame : Game, IGameDelegate, ITransitionCompleteHandler
         TextureSingleton.LoadAllTextures(Content);
         TestLoad guiLoad = new TestLoad();
         guiLoad.LoadGUI();
-        song = Content.Load<Song>("playground");
-        MediaPlayer.Play(song);
         test = new ReadJSON("Level_0.json", ReadJSON.fileType.LevelFile);
-        Level1 = test.levelObject;
+        CurrentLevel = test.levelObject;
 
         base.Initialize();
         
@@ -78,10 +79,10 @@ public class CAGame : Game, IGameDelegate, ITransitionCompleteHandler
 
         _spriteBatch = new SpriteBatch(GraphicsDevice);
         test = new ReadJSON("Level_0.json", ReadJSON.fileType.LevelFile);
-        Level1 = test.levelObject;
+        CurrentLevel = test.levelObject;
         map = new ReadJSON("Map.json", ReadJSON.fileType.MapFile);
         levelFileNames = map.mapObject.Levels;
-
+        LevelSongTitles = new string[] { "playground","playground","playground","comical","bridge","dream","kodama", "worldbeat", "funtimes" };
         scene.Load();
     }
 
@@ -96,11 +97,25 @@ public class CAGame : Game, IGameDelegate, ITransitionCompleteHandler
             {
                 stageNum--;
                 makeTransition(gameTime, -transitionDisplacement);
+
+                backgroundMusicInstance.Stop();
+                backgroundMusic = Content.Load<SoundEffect>(LevelSongTitles[stageNum]);
+                backgroundMusicInstance = backgroundMusic.CreateInstance();
+                backgroundMusicInstance.Pitch = 0.2f;
+                backgroundMusicInstance.IsLooped = true;
+                backgroundMusicInstance.Play();
             }
             else if (Mouse.GetState().RightButton == ButtonState.Pressed && stageNum < levelFileNames.Length-1)
             {
                 stageNum++;
                 makeTransition(gameTime, transitionDisplacement);
+
+                backgroundMusicInstance.Stop();
+                backgroundMusic = Content.Load<SoundEffect>(LevelSongTitles[stageNum]);
+                backgroundMusicInstance = backgroundMusic.CreateInstance();
+                backgroundMusicInstance.Pitch = 0.2f;
+                backgroundMusicInstance.IsLooped = true;
+                backgroundMusicInstance.Play();
             }
             scene.Update(gameTime);
         }
@@ -114,10 +129,12 @@ public class CAGame : Game, IGameDelegate, ITransitionCompleteHandler
         transition = new CATransition(this.scene,
             newState, displacement, gameTime, new TimeSpan(0, 0, 1));
         transition.Handler = this;
+        test = new ReadJSON(levelFileNames[stageNum], ReadJSON.fileType.LevelFile);
+        CurrentLevel = test.levelObject;
     }
     protected override void Draw(GameTime gameTime)
     {
-        GraphicsDevice.Clear(new Color(Level1.Background[0], Level1.Background[1], Level1.Background[2]));
+        GraphicsDevice.Clear(new Color(CurrentLevel.Background[0], CurrentLevel.Background[1], CurrentLevel.Background[2]));
 
 
         _spriteBatch.Begin();
