@@ -18,6 +18,7 @@ namespace CrazyArcade.BombFeature
     public class WaterBomb : CAGridBoxEntity, IPlayerCollidable, IExplosionCollidable, IExplodable
     {
         int BlastLength;
+
         float DetonateTimer;
         float DetonateTime;
         Boolean characterHasLeft = false;
@@ -142,15 +143,16 @@ namespace CrazyArcade.BombFeature
             canExplode = false;
             return new Explosion(new Point((int)GameCoord.X, (int)GameCoord.Y), BlastLength, this.SceneDelegate, this.trans);
         }
+
         public override void Deload()
         {
             base.Deload();
-            //Console.WriteLine("Deload");
             owner.RecollectBomb();
         }
-        public void Collide(IExplosion bomb)
+        public bool Collide(IExplosion bomb)
         {
             detector.Ignite(this);
+            return false;
         }
     }
 }

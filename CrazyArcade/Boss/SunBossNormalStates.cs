@@ -20,6 +20,8 @@ namespace CrazyArcade.Boss
             }
             Vector2 direction = bossDelegate.GetCharacterRelativePosition();
             float len = (float)Math.Sqrt(Math.Pow(direction.X, 2) + Math.Pow(direction.Y, 2));
+            Vector2 adjust = new Vector2(bossDelegate.Range.Center.X, bossDelegate.Range.Center.Y) - bossDelegate.GetCenter();
+            direction += adjust / 5;
             speed = new Vector2(direction.X / len, direction.Y / len);
             speed /= 40;
 		}
@@ -32,12 +34,12 @@ namespace CrazyArcade.Boss
             base.Update(time);
             int diff = timer.FrameDiff.Milliseconds;
             Vector2 distance = new Vector2((speed.X * diff / 8), (speed.Y * diff / 8));
-            bossDelegate.Move(distance);
+            
             if (bossDelegate.DidGetDemaged())
             {
-
+                return new SunBossHurtStates(bossDelegate, time);
             }
-            if (timer.TotalMili > 2000)
+            if (!bossDelegate.Move(distance))
             {
                 return new SunBossAttackStates(bossDelegate, time);
             }
@@ -50,10 +52,18 @@ namespace CrazyArcade.Boss
         private int getEyeFrame()
         {
             Vector2 dir = bossDelegate.GetCharacterRelativePosition();
-            int res = dir.Y > 0 ? 4 : 0;
-            double radius = Math.Sqrt(Math.Pow(dir.X, 2) + Math.Pow(dir.Y, 2)) + 1;
-            res += (int)((dir.X + radius) / (radius * 2 / 4));
-            return res;
+
+            if (dir.X != 0)
+            {
+                double radius = Math.Atan(-dir.Y / dir.X);
+                radius += dir.X < 0 ? Math.PI : 0;
+                radius += Math.PI / 4;
+                radius = radius / (2 * Math.PI) * 8;
+                return ((int)radius + 10) % 8;
+            } else
+            {
+                return dir.Y < 0 ? 4 : 0;
+            }
         }
     }
     

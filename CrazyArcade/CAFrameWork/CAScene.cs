@@ -27,6 +27,8 @@ namespace CrazyArcade.CAFramework
         protected IGridSystems gridSystems = new CAGameGridSystems(new Vector2(0, 0), 40);
         public Vector2 Camera { get => gridSystems.Camera; set => gridSystems.Camera = value; }
         public Vector2 StageOffset { get => gridSystems.StageOffset; set => gridSystems.StageOffset = value; }
+        public abstract List<Vector2> PlayerPositions { get; }
+
         public void EndAfterTransition()
         {
 

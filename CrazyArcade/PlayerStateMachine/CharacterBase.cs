@@ -11,7 +11,7 @@ using CrazyArcade.GameGridSystems;
 
 namespace CrazyArcade.Demo1
 {
-    public abstract class CharacterBase : CAEntity, IGridable, IPlayerCollisionBehavior
+    public abstract class CharacterBase : CAEntity, IGridable
     {
         public float DefaultSpeed = 5;
         public float ModifiedSpeed;
@@ -74,16 +74,5 @@ namespace CrazyArcade.Demo1
         {
             CurrentSpeed = moveInputs * ModifiedSpeed;
         }
-        //--------IPlayerCollisionBehavior Start------------
-        public void CollisionHaltLogic(Point move)
-        {
-            GameCoord -= trans.RevScale(new Vector2(move.X, move.Y));
-        }
-
-        public virtual void CollisionDestroyLogic()
-        {
-
-        }
-        //--------IPlayerCollisionBehavior End------------
     }
 }
