@@ -16,13 +16,13 @@ namespace CrazyArcade.PlayerStateMachine.PlayerItemInteractions
          * a better way of making it less coupled, please let me know.
          */
         public Dictionary<string, ItemModifier> ItemBox = new();
-        private List<ItemModifier> GuiList = new();
+        private List<ItemModifier> guiList = new();
         private static readonly int defaultBlastLength = 1;
         private static readonly int defaultBombMaximum = 1;
         private static readonly int defaultSpeed = 5;
-        public int bombModifier;
-        public int blastModifier;
-        public int speedModifier;
+        public int BombModifier;
+        public int BlastModifier;
+        public int SpeedModifier;
         private int itemCount = 0;
         private Vector2 anchorPoint = new(50, 50);
         public ItemContainer()
@@ -42,7 +42,7 @@ namespace CrazyArcade.PlayerStateMachine.PlayerItemInteractions
             else
             {
                 ItemBox.Add(item.name, item);
-                GuiList.Add(item);
+                guiList.Add(item);
                 itemCount++;
                 item.ItemContainer = this;
                 GenerateGuiElement(item, itemCount);
@@ -56,7 +56,7 @@ namespace CrazyArcade.PlayerStateMachine.PlayerItemInteractions
                 item.currentCount--;
                 if (item.currentCount <= 0)
                 {
-                    GuiList.Remove(ItemBox[item.name]);
+                    guiList.Remove(ItemBox[item.name]);
                     ItemBox.Remove(item.name);
                     UI_Singleton.RemoveComposition(item.name);
                     itemCount--;
@@ -75,9 +75,9 @@ namespace CrazyArcade.PlayerStateMachine.PlayerItemInteractions
         }
         private void ResetStats()
         {
-            bombModifier = defaultBombMaximum;
-            blastModifier = defaultBlastLength;
-            speedModifier = defaultSpeed;
+            BombModifier = defaultBombMaximum;
+            BlastModifier = defaultBlastLength;
+            SpeedModifier = defaultSpeed;
         }
         private void RecalculateStats()
         {

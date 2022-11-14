@@ -21,9 +21,9 @@ namespace CrazyArcade.PlayerStateMachine
         public ItemContainer playerItems = new();
         public ICharacterState playerState;
         public int animationHandleInt;
-        public int currentBlastLength { get => playerItems.blastModifier; set { playerItems.blastModifier = value; } }
-        public int bombCapacity {get => playerItems.bombModifier; set { playerItems.bombModifier = value; } }
-        public int freeModifiedSpeed { get => playerItems.speedModifier; }
+        public int currentBlastLength { get => playerItems.BlastModifier; set { playerItems.BlastModifier = value; } }
+        public int bombCapacity {get => playerItems.BombModifier; set { playerItems.BombModifier = value; } }
+        public int freeModifiedSpeed { get => playerItems.SpeedModifier; }
         private int bombOut;
         public int BombsOut => bombOut;
         static int CCount = 0;

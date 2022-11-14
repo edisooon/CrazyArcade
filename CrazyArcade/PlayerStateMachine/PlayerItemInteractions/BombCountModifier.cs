@@ -18,7 +18,7 @@ namespace CrazyArcade.PlayerStateMachine.PlayerItemInteractions
         }
         public override void ModifyStat()
         {
-            ItemContainer.bombModifier += currentCount;
+            ItemContainer.BombModifier += currentCount;
         }
     }
 }
