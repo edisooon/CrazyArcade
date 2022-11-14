@@ -10,6 +10,7 @@ using Vector2 = Microsoft.Xna.Framework.Vector2;
 using Rectangle = Microsoft.Xna.Framework.Rectangle;
 using Microsoft.Xna.Framework.Input;
 using CrazyArcade.CAFrameWork.InputSystem;
+using CrazyArcade.CAFrameWork.Transition;
 
 namespace CrazyArcade.Levels
 {
@@ -87,7 +88,7 @@ namespace CrazyArcade.Levels
 
             foreach (Vector2 vector in itemLocations)
             {
-                Entity = new Door(vector);
+                Entity = new Door(vector, 2, Dir.Right);
                 Entity.SpriteAnim.Scale = scale;
                 EntityList.Add(Entity);
             }

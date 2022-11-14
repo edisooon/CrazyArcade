@@ -10,9 +10,9 @@ namespace CrazyArcade.CAFrameWork.GridBoxSystem
 	}
 	public struct GridBoxPosition
 	{
-		int X;
-		int Y;
-		int Depth;
+		public int X;
+        public int Y;
+        public int Depth;
         public GridBoxPosition(int x, int y, int depth)
         {
 			X = x;

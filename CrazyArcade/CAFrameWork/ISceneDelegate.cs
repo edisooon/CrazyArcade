@@ -9,6 +9,7 @@ namespace CrazyArcade.CAFramework
 		void ToAddEntity(IEntity entity);
 		void ToRemoveEntity(IEntity entity);
 		List<Vector2> PlayerPositions { get; }
+		void Transition(int stage, Dir dir);
 	}
 }
 

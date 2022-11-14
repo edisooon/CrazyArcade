@@ -1,50 +1,31 @@
 ﻿using System;
 using CrazyArcade.Blocks;
+using CrazyArcade.CAFramework;
 using CrazyArcade.CAFrameWork.GridBoxSystem;
 using CrazyArcade.GameGridSystems;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace CrazyArcade.CAFrameWork.Transition
 {
-	public class Door: CAGridBoxEntity, IPlayerCollidable
+	public class Door: Block, IPlayerCollidable
     {
-		public Door(GridBoxPosition position): base(position)
-        {
-		}
-        //---------------Gridable Start------------------
-        private Vector2 gamePos;
-        private Vector2 pos;
-        public override Vector2 ScreenCoord
-        {
-            get => pos;
-            set
-            {
-                pos = value;
-                this.UpdateCoord(value);
-            }
-        }
-        private IGridTransform trans = new NullTransform();
-        public override IGridTransform Trans { get => trans; set => trans = value; }
-
-        public void UpdateCoord(Vector2 value)
-        {
-            this.X = (int)value.X;
-            this.Y = (int)value.Y;
-        }
-
-        public override Vector2 GameCoord { get => gamePos; set => gamePos = value; }
-
-        public Rectangle boundingBox => new Rectangle();
-
-        //---------------Gridable End------------------
+        
         public override void Load()
         {
             
         }
-
-        public void CollisionLogic(Rectangle overlap, IPlayerCollisionBehavior collisionPartner)
+        private int stage;
+        private Dir dir;
+        private static Rectangle source = new Rectangle(0, 0, 80, 80);
+        public Door(Vector2 position, int to, Dir dir) : base(position, source, Content.TextureSingleton.GetDoor())
         {
-
+            stage = to;
+            this.dir = dir;
+        }
+        public override void CollisionLogic(Rectangle overlap, IPlayerCollisionBehavior collisionPartner)
+        {
+            SceneDelegate.Transition(stage, dir);
         }
     }
 }

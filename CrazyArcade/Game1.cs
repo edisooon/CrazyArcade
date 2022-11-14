@@ -15,7 +15,7 @@ using CrazyArcade.UI;
 
 namespace CrazyArcade;
 
-public class Game1 : Game, IGameDelegate
+public class Game1 : Game
 {
     private GraphicsDeviceManager _graphics;
     private SpriteBatch _spriteBatch;

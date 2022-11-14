@@ -85,9 +85,10 @@ public class CAGame : Game, IGameDelegate, ITransitionCompleteHandler
         LevelSongTitles = new string[] { "playground","playground","playground","comical","bridge","dream","kodama", "worldbeat", "funtimes" };
         scene.Load();
     }
-
+    private GameTime time;
     protected override void Update(GameTime gameTime)
     {
+        time = gameTime;
         if (transition != null)
         {
             transition.Update(gameTime);
@@ -155,6 +156,16 @@ public class CAGame : Game, IGameDelegate, ITransitionCompleteHandler
         newState.StageOffset = StageOffset;
         newState.Camera = new Vector2(0, 0);
         transition = null;
+    }
+
+    public void StageTransitTo(int stageNum, int dir)
+    {
+        if (dir == (int)Dir.Left)
+            makeTransition(time, -transitionDisplacement);
+        else
+        {
+            makeTransition(time, transitionDisplacement);
+        }
     }
 }
 
