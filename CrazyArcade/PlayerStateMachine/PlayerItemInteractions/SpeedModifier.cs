@@ -13,12 +13,12 @@ namespace CrazyArcade.PlayerStateMachine.PlayerItemInteractions
     {
         public SpeedModifier()
         {
-            name = "shoeItem";
-            itemRep = new SpriteAnimation(TextureSingleton.GetRollerskates(), new Rectangle(0, 0, 64, 64));
+            Name = "shoeItem";
+            ItemRep = new SpriteAnimation(TextureSingleton.GetRollerskates(), new Rectangle(0, 0, 64, 64));
         }
         public override void ModifyStat()
         {
-            ItemContainer.SpeedModifier += currentCount;
+            ItemContainer.SpeedModifier += CurrentCount;
         }
     }
 }

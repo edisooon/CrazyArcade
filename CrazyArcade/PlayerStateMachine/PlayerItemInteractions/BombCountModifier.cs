@@ -13,12 +13,12 @@ namespace CrazyArcade.PlayerStateMachine.PlayerItemInteractions
     {
         public BombCountModifier()
         {
-            name = "bombItem";
-            itemRep = new SpriteAnimation(TextureSingleton.GetBomb(), new Rectangle(0, 0, 64, 64));
+            Name = "bombItem";
+            ItemRep = new SpriteAnimation(TextureSingleton.GetBomb(), new Rectangle(0, 0, 64, 64));
         }
         public override void ModifyStat()
         {
-            ItemContainer.BombModifier += currentCount;
+            ItemContainer.BombModifier += CurrentCount;
         }
     }
 }

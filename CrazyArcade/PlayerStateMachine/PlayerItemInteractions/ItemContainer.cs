@@ -31,17 +31,17 @@ namespace CrazyArcade.PlayerStateMachine.PlayerItemInteractions
         }
         public void AddItem(ItemModifier item)
         {
-            if (ItemBox.ContainsKey(item.name))
+            if (ItemBox.ContainsKey(item.Name))
             {
-                if (item.currentCount < item.maxCount)
+                if (item.CurrentCount < item.MaxCount)
                 {
-                    item.currentCount++;
+                    item.CurrentCount++;
                     UpdateGuiItemCount(item);
                 }
             }
             else
             {
-                ItemBox.Add(item.name, item);
+                ItemBox.Add(item.Name, item);
                 guiList.Add(item);
                 itemCount++;
                 item.ItemContainer = this;
@@ -51,14 +51,14 @@ namespace CrazyArcade.PlayerStateMachine.PlayerItemInteractions
         }
         public void RemoveOneItem(ItemModifier item)
         {
-            if (ItemBox.ContainsKey(item.name))
+            if (ItemBox.ContainsKey(item.Name))
             {
-                item.currentCount--;
-                if (item.currentCount <= 0)
+                item.CurrentCount--;
+                if (item.CurrentCount <= 0)
                 {
-                    guiList.Remove(ItemBox[item.name]);
-                    ItemBox.Remove(item.name);
-                    UI_Singleton.RemoveComposition(item.name);
+                    guiList.Remove(ItemBox[item.Name]);
+                    ItemBox.Remove(item.Name);
+                    UI_Singleton.RemoveComposition(item.Name);
                     itemCount--;
                 } 
                 else
@@ -70,7 +70,7 @@ namespace CrazyArcade.PlayerStateMachine.PlayerItemInteractions
         }
         public void RemoveEntireItem(ItemModifier item)
         {
-            ItemBox.Remove(item.name);
+            ItemBox.Remove(item.Name);
             RecalculateStats();
         }
         private void ResetStats()
@@ -89,13 +89,13 @@ namespace CrazyArcade.PlayerStateMachine.PlayerItemInteractions
         }
         private void GenerateGuiElement(ItemModifier item, int count)
         {
-            UI_Singleton.AddPreDesignedComposite(new ItemCountComposition(item.name, item.itemRep));
+            UI_Singleton.AddPreDesignedComposite(new ItemCountComposition(item.Name, item.ItemRep));
             UpdateGuiItemCount(item);
-            UI_Singleton.MoveCompositePosition(item.name, anchorPoint + new Vector2((count % 2) * 50, ((count-1) / 2) * 50));
+            UI_Singleton.MoveCompositePosition(item.Name, anchorPoint + new Vector2((count % 2) * 50, ((count-1) / 2) * 50));
         }
         private static void UpdateGuiItemCount(ItemModifier item)
         {
-            UI_Singleton.ChangeComponentText(item.name, "itemCount", "X" + item.currentCount.ToString());
+            UI_Singleton.ChangeComponentText(item.Name, "itemCount", "X" + item.CurrentCount.ToString());
         }
     }
 }
