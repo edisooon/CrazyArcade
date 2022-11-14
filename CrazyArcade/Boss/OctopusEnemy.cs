@@ -8,17 +8,21 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using CrazyArcade.GameGridSystems;
 using CrazyArcade.Blocks;
+using CrazyArcade.BombFeature;
+using System.Threading;
+using CrazyArcade.CAFrameWork.GameStates;
+using System.Timers;
 
 namespace CrazyArcade.Boss
 {
     //TODO:{
-    //  Organize code
+    //  Organize code CHK
     //  Add attack methods
     //  Make States
     //  Add wounded animations
     //  Define movement pattern
     //}
-    public class OctopusEnemy : CAEntity, IGridable, IPlayerCollidable
+    public class OctopusEnemy : CAEntity, IGridable, IPlayerCollidable, IBombCollectable
     {
         //Animation
         private Texture2D texture;
@@ -28,10 +32,12 @@ namespace CrazyArcade.Boss
         private Rectangle[] InputFramesLeft;
         private Rectangle[] InputFramesUp;
         private Rectangle[] InputFramesDown;
+        public override SpriteAnimation SpriteAnim => spriteAnims[(int)direction];
 
         //Life cycle stuff
         public SpriteAnimation deathAnimation;
         public IEnemyState state;
+        public int health;
 
         //Background Stuff
         public CAScene scene;
@@ -41,7 +47,9 @@ namespace CrazyArcade.Boss
         protected float xDifference;
         protected float yDifference;
         public Dir direction;
-        protected Rectangle internalRectangle = new Rectangle(0, 0, 110, 145);
+        protected Rectangle internalRectangle = new Rectangle(0, 0, 110, 145); 
+        protected Vector2[] SpeedVector;
+        public float speed = 0.15f;
 
         //Out of Use
         //public Rectangle outputFrame1;
@@ -55,6 +63,7 @@ namespace CrazyArcade.Boss
         private Vector2 pos;
         private float timer;
         protected int fps = 10;
+
         public Vector2 ScreenCoord
         {
             get => pos;
@@ -91,32 +100,21 @@ namespace CrazyArcade.Boss
                 internalRectangle.Y = Y;
             }
         }
-        //
-        public override SpriteAnimation SpriteAnim => spriteAnims[(int)direction];
-
-        //IPlayerCollidable Stuff
-        public Rectangle boundingBox => internalRectangle;
-        public void CollisionLogic(Rectangle overlap, IPlayerCollisionBehavior collisionPartner)
-        {
-            collisionPartner.CollisionDestroyLogic();
-            //To show the state only, this line of code needs to be moved once bomb -> enemy collision is implemented to CollisionDestroyLogic 
-
-            //pseudo code:
-            //if(collisionPartner is bomb blast){
-            //  lower health;
-            //  if(health<1){
-            //      state = new EnemyDeathState(this);
-            //  }
-            //}
-        }
+        //---------------------------------------------------------------------------------
         public OctopusEnemy(int x, int y, CAScene scene) : base()
         {
+            //Spacial
+            //X = x;
+            //Y = y;
+            Start = GameCoord;
+            GameCoord = new Vector2(x, y - 2);
+
+            //background
             timer = 0;
             this.scene = scene;
-            GameCoord = new Vector2(x, y - 2);
-            Start = GameCoord;
-            X = x;
-            Y = y;
+            health = 100;
+
+            //Animation
             texture = TextureSingleton.GetOctoBoss();
             spriteAnims = new SpriteAnimation[4];
         }
@@ -159,6 +157,57 @@ namespace CrazyArcade.Boss
             deathAnimation.Position = new Vector2(X, Y);
         }
 
+        public override void Update(GameTime time)
+        {
+            state.Update(time);
+        }
+
+        public void defaultUpdate(GameTime time)
+        {
+
+            // handled animation updated (position and frame) in abstract level
+
+            SpriteAnim.Position = new Vector2(X, Y);
+            xDifference = GameCoord.X - Start.X;
+            yDifference = GameCoord.Y - Start.Y;
+            if (state != null)
+            {
+                state.Update(time);
+            }
+            if (timer > 1f / 6)
+            {
+                if (state is not EnemyDeathState)// or attack state
+                {
+                    move(direction);
+                }
+                timer = 0;
+            }
+            else
+            {
+                timer += (float)time.ElapsedGameTime.TotalMilliseconds;
+            }
+            internalRectangle.X = X;
+            internalRectangle.Y = Y;
+        }
+
+        public void UpdateAnimation(Dir dir)
+        {
+            this.spriteAnims[(int)direction].Position = new Vector2(X, Y);
+        }
+
+        //IPlayerCollidable Stuff
+        public Rectangle boundingBox => internalRectangle;
+        public void CollisionLogic(Rectangle overlap, IPlayerCollisionBehavior collisionPartner)
+        {
+            collisionPartner.CollisionDestroyLogic();
+            //To show the state only, this line of code needs to be moved once bomb -> enemy collision is implemented to CollisionDestroyLogic 
+
+            //pseudo code:
+            //if(collisionPartner is bomb blast){
+            //  state = new OctopusWounded(this);
+            //}
+        }
+
         protected bool ChangeDir(Dir dir)
         {
             switch (dir)
@@ -179,18 +228,12 @@ namespace CrazyArcade.Boss
             }
             return false;
         }
-        protected Vector2[] SpeedVector => speedVector;
-
-        Vector2[] speedVector =
-        {
-            new Vector2(0.0f, -0.15f),
-            new Vector2(-0.15f, 0.0f),
-            new Vector2(0.0f, 0.15f),
-            new Vector2(0.15f, 0.0f),
-        };
+        
 
         protected void move(Dir dir)
         {
+            Vector2[] SpeedVector = new Vector2[] { new Vector2(0.0f, -1.0f * speed), new Vector2(-1.0f * speed, 0.0f), new Vector2(0.0f, speed), new Vector2(speed, 0.0f) };
+
             if (ChangeDir(dir))
             {
                 direction = (Dir)((((int)dir) + 1) % 4);
@@ -202,50 +245,201 @@ namespace CrazyArcade.Boss
 
         }
 
-        protected void shoot() { 
+        public void shoot() {
             //change to attacking state aka make still
             //Launch balloons
+            Vector2 destination;
+            if (this.direction == Dir.Right) { 
+                destination = new Vector2(this.X + 3, this.Y);
+            }
+            else if (this.direction == Dir.Left)
+            {
+                destination = new Vector2(this.X - 3, this.Y);
+            }
+            else if (this.direction == Dir.Up)
+            {
+                destination = new Vector2(this.X, this.Y - 3);
+            }
+            else {
+                destination = new Vector2(this.X, this.Y + 3);
+            }
+            WaterBomb projectile = new WaterBomb(destination,5,this,true);
             //resume movement if necessary
         }
 
-        protected void squareBlast()
+        public void squareBlast()
         {
             //change to attacking state aka make still
             //execute square blast attack
+            WaterExplosionEdge[] waterExplosionEdges = new WaterExplosionEdge[18];
+            int[,] edgeCoords = { { 3, 3}, { 4, 3 }, { 5, 3 }, { 6, 3 }, { 7, 3 },
+                                  { 3, 8}, { 4, 8 }, { 5, 8 }, { 6, 8 }, { 7, 8 }, 
+                                  { 2, 4 }, { 2, 5 }, { 2, 6 }, { 2, 6 },
+                                  { 8, 4 }, { 8, 5 }, { 8, 6 }, { 8, 6 }};
             //resume movement if necessary
         }
-
-        public override void Update(GameTime time)
+        public void toggleHurtSprites(Boolean hurt) {
+            if (hurt)
+            {
+                tint = Color.Red;
+                this.spriteAnims[(int)Dir.Up] = new SpriteAnimation(texture, 1, 1560, 18, 110, 153, fps);
+                InputFramesDown[0] = new Rectangle(991, 26, 107, 135);
+                InputFramesDown[1] = new Rectangle(1181, 22, 108, 145);
+                this.spriteAnims[(int)Dir.Down] = new SpriteAnimation(texture, InputFramesDown, fps);
+                //left one doesn't change
+                this.spriteAnims[(int)Dir.Right] = new SpriteAnimation(texture, 1, 1371, 17, 108, 156, fps);
+                //update to show change if necessary
+            }
+            else {
+                this.Load();
+            }
+        }
+        //IBombCollectable stuff
+        public void RecollectBomb()
         {
-
-            // handled animation updated (position and frame) in abstract level
-
-            SpriteAnim.Position = new Vector2(X, Y);
-            xDifference = GameCoord.X - Start.X;
-            yDifference = GameCoord.Y - Start.Y;
-            if (state != null)
-            {
-                state.Update(time);
-            }
-            if (timer > 1f / 6)
-            {
-                if (state is not EnemyDeathState)
-                {
-                    move(direction);
-                }
-                timer = 0;
-            }
-            else
-            {
-                timer += (float)time.ElapsedGameTime.TotalMilliseconds;
-            }
-            internalRectangle.X = X;
-            internalRectangle.Y = Y;
+            //Infinite Bombs
         }
 
-        public void UpdateAnimation(Dir dir)
+        public void SpendBomb()
         {
-            this.spriteAnims[(int)direction].Position = new Vector2(X, Y);
+            //Infinite Bombs
         }
     }
+    //Octopus Specific States
+    public class OctopusAttack : IEnemyState
+    {
+        private OctopusEnemy enemy;
+        public CAScene scene;
+
+        public OctopusAttack(OctopusEnemy enemy)
+        {
+            this.enemy = enemy;
+            scene = enemy.scene;
+            //execute attack
+        }
+        public void ChangeDirection()
+        {
+
+        }
+        public void BeKilled()
+        {
+
+        }
+
+        public void Update(GameTime time)
+        {
+            //this guy stays still
+        }
+    }
+    public class OctopusNormal : IEnemyState
+    {
+        private OctopusEnemy enemy;
+        public CAScene scene;
+
+        public OctopusNormal(OctopusEnemy enemy)
+        {
+            this.enemy = enemy;
+            scene = enemy.scene;
+        }
+        public void ChangeDirection()
+        {
+
+        }
+        public void BeKilled()
+        {
+
+        }
+
+        public void Update(GameTime time)
+        {
+            enemy.defaultUpdate(time);
+        }
+    }
+    public class OctopusWounded : IEnemyState
+    {
+        private OctopusEnemy enemy;
+        public CAScene scene;
+        private int timer;
+        private int startTimeStamp;
+        private int timeLength = 2000;
+
+        public OctopusWounded(OctopusEnemy enemy)
+        {
+            this.enemy = enemy;
+            scene = enemy.scene;
+            enemy.toggleHurtSprites(true);
+            timer = timeLength; //in milliseconds
+            enemy.health -= 10;
+            if (enemy.health <= 0)
+            {
+                //make dead
+            }
+        }
+        public void ChangeDirection()
+        {
+
+        }
+        public void BeKilled()
+        {
+            
+        }
+
+        public void Update(GameTime time)
+        {
+            int tollerance = 0;
+            if (timer >= timeLength-tollerance && timer <= timeLength+tollerance) {
+                startTimeStamp = time.ElapsedGameTime.Milliseconds;
+            }
+            else{
+                timer -= time.ElapsedGameTime.Milliseconds-startTimeStamp;
+                 if(timer < 1){
+                    enemy.toggleHurtSprites(false);
+                    enemy.state = new OctopusNormal(enemy);
+                }
+            }
+            
+        }
+    }
+    public class OctopusDead : IEnemyState
+    {
+        private OctopusEnemy enemy;
+        public CAScene scene;
+        private float timer;
+        private float opacity;
+        private float fadeTime;
+
+        public OctopusDead(OctopusEnemy enemy) {
+            this.enemy = enemy;
+            enemy.spriteAnims = new SpriteAnimation[1];
+            enemy.spriteAnims[0] = enemy.deathAnimation;
+            enemy.direction=0;
+
+            timer = 0;
+            opacity = 1f;
+            fadeTime = 600f;
+        }
+    public void ChangeDirection()
+    {
+
+    }
+    public void BeKilled()
+    {
+
+    }
+
+    public void Update(GameTime time)
+    {
+        enemy.UpdateAnimation((Dir)0);
+        if (timer > fadeTime)
+        {
+            enemy.SceneDelegate.ToRemoveEntity(enemy);
+        }
+        else
+        {
+            opacity = 1f - timer / fadeTime;
+            enemy.spriteAnims[0].Color = Color.White * opacity;
+            timer += (float)time.ElapsedGameTime.TotalMilliseconds;
+        }
+    }
+}
 }
