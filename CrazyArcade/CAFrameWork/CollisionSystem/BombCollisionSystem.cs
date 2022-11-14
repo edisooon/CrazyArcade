@@ -50,7 +50,12 @@ namespace CrazyArcade.CAFrameWork.CollisionSystem
                 triggerCenter.Y -= bounds.Y;
                 if (bounds.Contains(triggerCenter))
                 {
-                    res[triggerCenter.X, triggerCenter.Y].Add(collidable);
+                    if (collidable is SunBoss) {
+                        SunBoss boss = collidable as SunBoss;
+                        putSunBossIntoMatrix(res, triggerCenter.X, triggerCenter.Y, boss.GameRadius, boss);
+                    } else {
+                        res[triggerCenter.X, triggerCenter.Y].Add(collidable);
+                    }
                 } else
                 {
                     Console.WriteLine("Position not exists: " + triggerCenter);
@@ -58,6 +63,18 @@ namespace CrazyArcade.CAFrameWork.CollisionSystem
             }
             return res;
         }
+
+        private void putSunBossIntoMatrix(List<IExplosionCollidable>[,] res, int centerX, int centerY, int radius, SunBoss boss)
+        {
+            for (int i = 0; i < bounds.Width; i++)
+            {
+                for (int k = 0; k < bounds.Height; k++)
+                {
+                    if (Math.Sqrt((centerX - i) ^ 2 + (centerY - k)) <= radius) res[i, k].Add(boss as IExplosionCollidable);
+                }
+            }
+        }
+
         private int detect(IExplosion explosion, int length, Vector2 dir, List<IExplosionCollidable>[,] matrix)
         {
             Console.WriteLine("Detecting");

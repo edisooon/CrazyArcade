@@ -7,14 +7,16 @@ using CrazyArcade.BombFeature;
 
 namespace CrazyArcade.Boss
 {
-	public class SunBoss: CAEntity, ISunBossDelegate, IGridable//, IExplosionCollidable
+	public class SunBoss: CAEntity, ISunBossDelegate, IGridable, IExplosionCollidable
 	{
         //----------------Test purpose-------------------
         ITimer timer;
         //-----------------------------------------------
         ISceneDelegate sceneDelegate;
         private float unitSize = 44/40;
-        private int lives = 3;
+        private int gameRadius = 2;
+        public int GameRadius { get => gameRadius; }
+        private bool wasAttacked = false;
         public SunBoss(ISceneDelegate sceneDelegate)
 		{
             this.sceneDelegate = sceneDelegate;
@@ -66,14 +68,15 @@ namespace CrazyArcade.Boss
 
         public bool DidGetDemaged()
         {
-            //----------------Test purpose-------------------
-            if (timer.TotalMili > 4000)
+            if (wasAttacked)
             {
-                timer = null;
+                wasAttacked = false;
                 return true;
             }
-            return false;
-            //-----------------------------------------------
+            else
+            {
+                return false;
+            }
         }
 
         public Vector2 GetCharacterRelativePosition()
@@ -124,10 +127,10 @@ namespace CrazyArcade.Boss
             sceneDelegate.ToRemoveEntity(this);
         }
 
-        public void Collide(IExplosion bomb)
+        public bool Collide(IExplosion bomb)
         {
-            if (--lives == 0) DeleteSelf();
-            this.SpriteAnim.Color = Color.Red;
+            wasAttacked = true;
+            return false;
         }
     }
 }
