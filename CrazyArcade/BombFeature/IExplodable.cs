@@ -16,8 +16,8 @@ namespace CrazyArcade.BombFeature
 		 *	
 		 */
 		IExplosionDetector Detector { get; set; }
-		IExplosion explode(int leftLength, int rightLength, int upLength, int downLength);
-		IExplosion fakeExplode();
+		IExplosion explode();
+		//IExplosion fakeExplode();
 	}
 }
 

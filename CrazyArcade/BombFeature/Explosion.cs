@@ -7,9 +7,9 @@ namespace CrazyArcade.BombFeature
 {
 	public class Explosion: CAEntity, IExplosion
 	{
-		private int[] distance = new int[4];
+		private int distance;
 		private Point center;
-        public int[] Distance => distance;
+        public int Distance => distance;
         public Point Center => center;
 
         private Vector2 gamePos;
@@ -44,23 +44,11 @@ namespace CrazyArcade.BombFeature
             this.GameCoord = new Vector2(center.X, center.Y);
             this.SceneDelegate = sceneDelegate;
 			this.center = center;
-            for (int i = 0; i < 4; i++) this.distance[i] = blastLength;
+            this.distance = blastLength;
         }
 
-        public Explosion(Point center, int leftLength, int rightLength, int upLength, int downLength, ISceneDelegate sceneDelegate, IGridTransform trans)
-        {
-            this.trans = trans;
-            this.GameCoord = new Vector2(center.X, center.Y);
-            this.SceneDelegate = sceneDelegate;
-            this.center = center;
-            this.distance[0] = upLength;
-            this.distance[1] = downLength;
-            this.distance[2] = leftLength;
-            this.distance[3] = rightLength;
-            explodeEdges();
-        }
 
-        public void explodeEdges()
+        public void ExplodeEdges(int[] distance)
 		{
             int explosionTile = 40;
             Vector2 side = new Vector2(0, 0);
@@ -93,6 +81,11 @@ namespace CrazyArcade.BombFeature
         public override void Load()
         {
 
+        }
+
+        public void Display(int[] lengths)
+        {
+            ExplodeEdges(lengths);
         }
     }
 }

@@ -158,9 +158,10 @@ namespace CrazyArcade.Enemies
             this.spriteAnims[(int)direction].Position = new Vector2(X, Y);
         }
 
-        public void Collide(IExplosion bomb)
+        public bool Collide(IExplosion bomb)
         {
             state = new EnemyDeathState(this);
+            return true;
         }
     }
 }

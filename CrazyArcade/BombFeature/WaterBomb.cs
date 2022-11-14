@@ -145,15 +145,10 @@ namespace CrazyArcade.BombFeature
             }
         }
 
-        public IExplosion explode(int leftLength, int rightLength, int upLength, int downLength)
+        public IExplosion explode()
         {
             DeleteSelf();
             canExplode = false;
-            return new Explosion(new Point((int)GameCoord.X, (int)GameCoord.Y), leftLength, rightLength, upLength, downLength, this.SceneDelegate, this.trans);
-        }
-
-        public IExplosion fakeExplode()
-        {
             return new Explosion(new Point((int)GameCoord.X, (int)GameCoord.Y), BlastLength, this.SceneDelegate, this.trans);
         }
 
@@ -163,9 +158,10 @@ namespace CrazyArcade.BombFeature
             //Console.WriteLine("Deload");
             owner.RecollectBomb();
         }
-        public void Collide(IExplosion bomb)
+        public bool Collide(IExplosion bomb)
         {
             detector.Ignite(this);
+            return false;
         }
     }
 }

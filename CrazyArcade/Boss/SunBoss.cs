@@ -7,7 +7,7 @@ using CrazyArcade.BombFeature;
 
 namespace CrazyArcade.Boss
 {
-	public class SunBoss: CAEntity, ISunBossDelegate, IGridable, IExplosionCollidable
+	public class SunBoss: CAEntity, ISunBossDelegate, IGridable//, IExplosionCollidable
 	{
 
         ISceneDelegate sceneDelegate;

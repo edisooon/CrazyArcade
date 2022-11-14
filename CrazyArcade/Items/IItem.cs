@@ -86,9 +86,10 @@ namespace CrazyArcade.Items
             parentScene.ToRemoveEntity(this);
         }
 
-        public void Collide(IExplosion bomb)
+        public bool Collide(IExplosion bomb)
         {
             DeleteSelf(parentScene);
+            return true;
         }
 
         public abstract void CollisionLogic(Rectangle overlap, IPlayerCollisionBehavior collisionPartner);

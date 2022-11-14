@@ -24,9 +24,10 @@ namespace CrazyArcade.Blocks
             parentScene.ToRemoveEntity(this);
         }
 
-        public void Collide(IExplosion bomb)
+        public bool Collide(IExplosion bomb)
         {
             DeleteSelf();
+            return false;
         }
     }
     public class BlueCrate : BreakableBlock
