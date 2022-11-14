@@ -29,6 +29,7 @@ namespace CrazyArcade.PlayerStateMachine
         public int BombsOut => bombOut;
         static int CCount = 0;
         private int loseRideFlag = 5;
+        public int lives;
 
         public override SpriteAnimation SpriteAnim => spriteAnims[animationHandleInt];
 
@@ -43,6 +44,7 @@ namespace CrazyArcade.PlayerStateMachine
             GameCoord = new Vector2(3, 3);
             //currentBlastLength = defaultBlastLength;
             DrawOrder = 1;
+            lives = 2;
             Console.WriteLine("Count: " + ++CCount);
             //this.bboxOffset = new Point(20, 20);
         }
@@ -70,6 +72,11 @@ namespace CrazyArcade.PlayerStateMachine
             }
             else if (loseRideFlag >= 5)
             {
+                lives--;
+                if(lives == 0)
+                {
+                    SceneDelegate.EndGame();
+                }
                 this.playerState = new CharacterStateBubble(this);
             }
             else
