@@ -38,6 +38,7 @@ namespace CrazyArcade.Boss
         public SpriteAnimation deathAnimation;
         public IEnemyState state;
         public int health;
+        public Boolean justAttacked = true;
 
         //Background Stuff
         public CAScene scene;
@@ -50,6 +51,9 @@ namespace CrazyArcade.Boss
         protected Rectangle internalRectangle = new Rectangle(0, 0, 110, 145); 
         protected Vector2[] SpeedVector;
         public float speed = 0.15f;
+        private int squareSize = 4;
+        private int xoffSet = 3;
+        private int yoffSet = 2;
 
         //Out of Use
         //public Rectangle outputFrame1;
@@ -107,7 +111,7 @@ namespace CrazyArcade.Boss
             //X = x;
             //Y = y;
             Start = GameCoord;
-            GameCoord = new Vector2(x, y - 2);
+            GameCoord = new Vector2(x, y);
 
             //background
             timer = 0;
@@ -204,29 +208,33 @@ namespace CrazyArcade.Boss
             collisionPartner.CollisionDestroyLogic();
             //To show the state only, this line of code needs to be moved once bomb -> enemy collision is implemented to CollisionDestroyLogic 
 
-            //pseudo code:
-            //if(collisionPartner is bomb blast){
-            //  state = new OctopusWounded(this);
-            //}
+            if(collisionPartner is WaterExplosionCenter || collisionPartner is WaterExplosionEdge){
+              state = new OctopusWounded(this);
+            }
         }
 
         protected bool ChangeDir(Dir dir)
         {
-            switch (dir)
-            {
+            switch (dir){
                 case Dir.Right:
-
-                    return xDifference >= 4;
-
+                    justAttacked = false;
+                    return xDifference >= squareSize + xoffSet;
                 case Dir.Up:
 
-                    return yDifference <= 0;
+                    return yDifference <= yoffSet;
 
                 case Dir.Down:
-
-                    return yDifference >= 4;
+                    return yDifference >= squareSize+yoffSet;
                 case Dir.Left:
-                    return xDifference <= 0;
+                    if (xDifference <= xoffSet)
+                    {
+                        if (justAttacked)
+                        {
+                            speed *= 2;
+                        }
+                        return true;
+                    }
+                    return false;
             }
             return false;
         }
@@ -241,6 +249,18 @@ namespace CrazyArcade.Boss
                 direction = (Dir)((((int)dir) + 1) % 4);
                 //effect = direction == Dir.Left ? SpriteEffects.FlipHorizontally : SpriteEffects.None;
                 UpdateAnimation(dir);
+            }
+            // go to center
+            else if (dir == Dir.Left && xDifference < 5 && !justAttacked) {
+                direction = Dir.Down;
+            }
+            else if (dir == Dir.Down && xDifference < squareSize+xoffSet && yDifference>(squareSize/2)+yoffSet-1&& !justAttacked) {
+                justAttacked = true;
+                speed /= 2;
+                //state = new OctopusAttack(this,1);
+                this.squareBlast();
+                direction = Dir.Up;
+                //changeDir will put it back on course
             }
 
             GameCoord += SpeedVector[(int)dir];
@@ -312,25 +332,43 @@ namespace CrazyArcade.Boss
     {
         private OctopusEnemy enemy;
         public CAScene scene;
+        private float timer;
+        private float startTimeStamp;
+        private float timeLength = 300.0f;
 
-        public OctopusAttack(OctopusEnemy enemy)
+        public OctopusAttack(OctopusEnemy enemy, int attack)
         {
             this.enemy = enemy;
             scene = enemy.scene;
-            //execute attack
+            if (attack == 1)
+            {
+                enemy.squareBlast();
+            }
+            else {
+                enemy.shoot();
+            }
+            timer = timeLength; //in milliseconds
         }
         public void ChangeDirection()
-        {
-
-        }
-        public void BeKilled()
         {
 
         }
 
         public void Update(GameTime time)
         {
-            //this guy stays still
+            float tollerance = 0.0f;
+            if (timer >= timeLength - tollerance && timer <= timeLength + tollerance)
+            {
+                startTimeStamp = (float)time.ElapsedGameTime.Milliseconds;
+            }
+            else
+            {
+                timer -= time.ElapsedGameTime.Milliseconds - startTimeStamp;
+                if (timer < 1)
+                {
+                    enemy.state = new OctopusNormal(enemy);
+                }
+            }
         }
     }
     public class OctopusNormal : IEnemyState
@@ -347,10 +385,6 @@ namespace CrazyArcade.Boss
         {
 
         }
-        public void BeKilled()
-        {
-
-        }
 
         public void Update(GameTime time)
         {
@@ -363,7 +397,7 @@ namespace CrazyArcade.Boss
         public CAScene scene;
         private int timer;
         private int startTimeStamp;
-        private int timeLength = 2000;
+        private int timeLength = 300;
 
         public OctopusWounded(OctopusEnemy enemy)
         {
@@ -380,10 +414,6 @@ namespace CrazyArcade.Boss
         public void ChangeDirection()
         {
 
-        }
-        public void BeKilled()
-        {
-            
         }
 
         public void Update(GameTime time)
@@ -420,14 +450,10 @@ namespace CrazyArcade.Boss
             opacity = 1f;
             fadeTime = 600f;
         }
-    public void ChangeDirection()
-    {
+        public void ChangeDirection()
+        {
 
-    }
-    public void BeKilled()
-    {
-
-    }
+        }
 
     public void Update(GameTime time)
     {
