@@ -36,7 +36,7 @@ namespace CrazyArcade.Enemies
 
         public void Update(GameTime time)
         {
-            enemy.move();
+            enemy.move(Dir.Left);
         }
     }
     public class EnemyRightState : IEnemyState
@@ -55,7 +55,7 @@ namespace CrazyArcade.Enemies
         }
 
         public void Update(GameTime time) {
-            enemy.move();
+            enemy.move(Dir.Right);
         }
     }
     public class EnemyUpState : IEnemyState
@@ -75,7 +75,7 @@ namespace CrazyArcade.Enemies
 
         public void Update(GameTime time)
         {
-            enemy.move();
+            enemy.move(Dir.Up);
         }
     }
     public class EnemyDownState : IEnemyState
@@ -95,7 +95,7 @@ namespace CrazyArcade.Enemies
 
         public void Update(GameTime time)
         {
-            enemy.move();
+            enemy.move(Dir.Down);
         }
     }
 

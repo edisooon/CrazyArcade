@@ -78,7 +78,7 @@ namespace CrazyArcade.Boss
             {
                 direction = (Dir)((((int)dir) + 1) % 4);
                 effect = direction == Dir.Right ? SpriteEffects.FlipHorizontally : SpriteEffects.None;
-                UpdateAnimation(dir);
+                UpdateAnimation();
             }
 
             GameCoord += SpeedVector[(int)dir];
