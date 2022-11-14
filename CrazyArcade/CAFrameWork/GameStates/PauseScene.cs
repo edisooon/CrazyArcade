@@ -7,6 +7,7 @@ using CrazyArcade.CAFramework;
 using CrazyArcade.CAFrameWork.CAGame;
 using CrazyArcade.CAFrameWork.Transition;
 using CrazyArcade.Items;
+using CrazyArcade.UI;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 
@@ -25,7 +26,7 @@ namespace CrazyArcade.CAFrameWork.GameStates
 
         public override void LoadSprites()
         {
-            this.AddSprite(new Sneaker(new Vector2(400,200)));
+            //this.AddSprite(new Sneaker(new Vector2(400,200)));
         }
 
         public override void LoadSystems()

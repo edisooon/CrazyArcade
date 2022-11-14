@@ -85,6 +85,9 @@ namespace CrazyArcade.Demo1
         {
             gameRef.Scene = new PauseScene(gameRef, this);
         }
-
+        public override void Victory()
+        {
+            gameRef.Scene = new VictoryScene(gameRef);
+        }
     }
 }

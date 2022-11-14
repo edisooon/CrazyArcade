@@ -12,6 +12,7 @@ namespace CrazyArcade.CAFramework
 		List<Vector2> PlayerPositions { get; }
 		void EndGame();
 		void Pause();
+		void Victory();
 	}
 }
 

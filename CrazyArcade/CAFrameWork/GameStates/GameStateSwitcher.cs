@@ -41,6 +41,10 @@ namespace CrazyArcade.CAFrameWork.GameStates
             {
                 sceneRef.Pause();
             }
+            if(state.IsKeyDown(Keys.V))
+            {
+                sceneRef.Victory();
+            }
         }
     }
 }

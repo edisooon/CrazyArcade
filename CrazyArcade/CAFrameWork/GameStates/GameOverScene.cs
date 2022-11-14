@@ -10,6 +10,7 @@ using CrazyArcade.CAFrameWork.CAGame;
 using CrazyArcade.Demo1;
 using CrazyArcade.Items;
 using CrazyArcade.PlayerStateMachine;
+using CrazyArcade.UI;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 using static System.Formats.Asn1.AsnWriter;
@@ -26,10 +27,15 @@ namespace CrazyArcade.CAFrameWork.GameStates
 
         public override List<Vector2> PlayerPositions => throw new NotImplementedException();
 
+        public override void Load()
+        {
+            UI_Singleton.ClearGUI();
+            UI_Singleton.AddPreDesignedComposite(new GameOverGUIComposition());
+        }
         public override void LoadSprites()
         {
             //Temporary, will be changed to game over text
-            this.AddSprite(new Balloon(new Vector2(400, 200)));
+            //this.AddSprite(new Balloon(new Vector2(400, 200)));
         }
 
         public override void LoadSystems()
