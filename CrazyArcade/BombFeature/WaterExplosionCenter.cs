@@ -16,7 +16,7 @@ namespace CrazyArcade.BombFeature
         static int FrameLength = 40;
         private SpriteAnimation spriteAnims;
         float AliveTime = 0;
-        float Lifespan = 1000;
+        float Lifespan = 500;
         public override SpriteAnimation SpriteAnim => spriteAnims;
 
         public Rectangle internalRectangle;

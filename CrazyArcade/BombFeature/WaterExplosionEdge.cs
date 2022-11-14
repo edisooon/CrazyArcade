@@ -31,7 +31,7 @@ namespace CrazyArcade.BombFeature
             spriteAnims = new SpriteAnimation[2];
             this.X = X;
             this.Y = Y;
-            Lifespan = 1000;
+            Lifespan = 500;
             AliveTime = 0;
             living = 0;
             Direction = direction;
