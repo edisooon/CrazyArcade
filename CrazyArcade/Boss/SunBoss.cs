@@ -13,7 +13,7 @@ namespace CrazyArcade.Boss
         ITimer timer;
         //-----------------------------------------------
         ISceneDelegate sceneDelegate;
-        private float unitSize = 44/40;
+        private float unitSize = 176/40;
         private int gameRadius = 2;
         public int GameRadius { get => gameRadius; }
         private bool wasAttacked = false;
@@ -24,7 +24,18 @@ namespace CrazyArcade.Boss
 		}
 
         IStates states;
-        public override List<SpriteAnimation> SpriteAnimList => states.Animation;
+        public override List<SpriteAnimation> SpriteAnimList {
+            get
+            {
+                List<SpriteAnimation> res = new List<SpriteAnimation>();
+                foreach(SpriteAnimation anim in states.Animation)
+                {
+                    anim.Scale = 2;
+                    res.Add(anim);
+                }
+                return res;
+            }
+        }
 
         private Vector2 gamePos;
         private Vector2 pos;
@@ -48,7 +59,7 @@ namespace CrazyArcade.Boss
 
         public Rectangle Range => new Rectangle(0, 0, 11, 11);
 
-        public Rectangle hitBox => new Rectangle(this.X, this.Y, 88, 88);
+        public Rectangle hitBox => new Rectangle(this.X + 22, this.Y + 22, 132, 132);
 
         public override void Load()
         {
@@ -97,7 +108,7 @@ namespace CrazyArcade.Boss
 
         public bool Move(Vector2 distance)
         {
-            if (Range.Contains(this.GameCoord + distance))
+            if (Range.Contains(this.GetCenter() + distance))
             {
                 this.GameCoord += distance;
                 return true;
