@@ -29,14 +29,13 @@ namespace CrazyArcade.PlayerStateMachine
 
         public override SpriteAnimation SpriteAnim => spriteAnims[animationHandleInt];
 
-        public Character(CAScene scene)
+        public Character()
         {
             ModifiedSpeed = DefaultSpeed;
             playerState = new CharacterStateFree(this);
             spriteAnims = playerState.SetSprites();
             playerState.SetSpeed();
             direction = Dir.Down;
-            this.parentScene = scene;
             bombOut = 0;
             GameCoord = new Vector2(3, 3);
             currentBlastLength = defaultBlastLength;

@@ -15,111 +15,101 @@ namespace CrazyArcade.Enemies
     public interface IEnemyState
     {
         void ChangeDirection();
-        void BeKilled();
         void Update(GameTime time);
 
     }
     public class EnemyLeftState : IEnemyState
     {
         private Enemy enemy;
-        public CAScene scene;
+        public ISceneDelegate scene;
 
         public EnemyLeftState(Enemy enemy)
         {
             this.enemy = enemy;
-            scene = enemy.scene;
+            scene = enemy.SceneDelegate;
+            enemy.direction = Dir.Left;
         }
         public void ChangeDirection()
         {
-
-        }
-        public void BeKilled()
-        {
-
+            enemy.state = new EnemyDownState(enemy);
         }
 
         public void Update(GameTime time)
         {
-
+            enemy.move();
         }
     }
     public class EnemyRightState : IEnemyState
     {
         private Enemy enemy;
-        public CAScene scene;
+        public ISceneDelegate scene;
         public EnemyRightState(Enemy enemy)
         {
             this.enemy = enemy;
-            scene = enemy.scene;
+            scene = enemy.SceneDelegate;
+            enemy.direction = Dir.Right;
         }
         public void ChangeDirection()
         {
-
+            enemy.state = new EnemyUpState(enemy);
         }
-        public void BeKilled()
-        {
 
-        }
-        public void Update(GameTime time) { 
+        public void Update(GameTime time) {
+            enemy.move();
         }
     }
     public class EnemyUpState : IEnemyState
     {
         private Enemy enemy;
-        public CAScene scene;
+        public ISceneDelegate scene;
         public EnemyUpState(Enemy enemy)
         {
             this.enemy = enemy;
-            scene = enemy.scene;
+            scene = enemy.SceneDelegate;
+            enemy.direction = Dir.Up;
         }
         public void ChangeDirection()
         {
-
-        }
-        public void BeKilled()
-        {
-
+            enemy.state = new EnemyLeftState(enemy);
         }
 
         public void Update(GameTime time)
         {
+            enemy.move();
         }
     }
     public class EnemyDownState : IEnemyState
     {
         private Enemy enemy;
-        public CAScene scene;
+        public ISceneDelegate scene;
         public EnemyDownState(Enemy enemy)
         {
             this.enemy = enemy;
-            scene = enemy.scene;
+            scene = enemy.SceneDelegate;
+            enemy.direction = Dir.Down;
         }
         public void ChangeDirection()
         {
-
-        }
-        public void BeKilled()
-        {
-
+            enemy.state = new EnemyRightState(enemy);
         }
 
         public void Update(GameTime time)
         {
-
+            enemy.move();
         }
     }
 
     public class EnemyDeathState : IEnemyState
     {
         private Enemy enemy;
-        public CAScene scene;
+        public ISceneDelegate scene;
         private float timer;
         private float opacity;
         private float fadeTime;
         public EnemyDeathState(Enemy enemy)
         {
             this.enemy=enemy;
-            scene = enemy.scene;
+            scene = enemy.SceneDelegate;
 
             
             enemy.spriteAnims = new SpriteAnimation[1];
@@ -128,24 +118,21 @@ namespace CrazyArcade.Enemies
 
             timer = 0;
             opacity = 1f;
-            fadeTime = 600f;
+            fadeTime = 300f;
 
         }
         public void ChangeDirection()
         {
 
         }
-        public void BeKilled()
-        {
-            
-        }
+
 
         public void Update(GameTime time)
         {
-            enemy.UpdateAnimation((Dir)0);
+            //enemy.UpdateAnimation((Dir)0);
             if (timer > fadeTime)
             {
-                enemy.SceneDelegate.ToRemoveEntity(enemy);
+                scene.ToRemoveEntity(enemy);
             }
             else
             {
@@ -153,7 +140,6 @@ namespace CrazyArcade.Enemies
                 enemy.spriteAnims[0].Color = Color.White * opacity;
                 timer += (float)time.ElapsedGameTime.TotalMilliseconds;
             }
-            
 
         }
     }
