@@ -86,9 +86,9 @@ namespace CrazyArcade.Levels
             //IMPORTANT!!!! uncomment tbis when Door Block class is implemented.
             itemLocations = currentLevel.GetItemLocation(CreateLevel.LevelItem.DoorPosition);
 
-            foreach (Vector2 vector in itemLocations)
+            for (int i = 0; i < itemLocations.Length; i += 2)
             {
-                Entity = new Door(vector, 2, Dir.Right);
+                Entity = new Door(itemLocations[i], (int)itemLocations[i+1].X, (Dir)itemLocations[i + 1].Y);
                 Entity.SpriteAnim.Scale = scale;
                 EntityList.Add(Entity);
             }
