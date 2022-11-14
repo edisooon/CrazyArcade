@@ -6,9 +6,9 @@ using CrazyArcade.GameGridSystems;
 using Microsoft.Xna.Framework;
 using CrazyArcade.Items;
 using CrazyArcade.CAFrameWork.GameStates;
+using CrazyArcade.PlayerStateMachine.PlayerItemInteractions;
 using CrazyArcade.Blocks;
 using System.Diagnostics;
-
 namespace CrazyArcade.PlayerStateMachine
 {
     /*
@@ -19,11 +19,12 @@ namespace CrazyArcade.PlayerStateMachine
     {
 		public SpriteAnimation[] spriteAnims;
         public CAScene parentScene;
+        public ItemContainer playerItems = new();
         public ICharacterState playerState;
         public int animationHandleInt;
-        public int currentBlastLength;
-        
-        public int bombCapacity = 2;
+        public int currentBlastLength { get => playerItems.BlastModifier; set { playerItems.BlastModifier = value; } }
+        public int bombCapacity {get => playerItems.BombModifier; set { playerItems.BombModifier = value; } }
+        public int freeModifiedSpeed { get => playerItems.SpeedModifier; }
         private int bombOut;
         public int BombsOut => bombOut;
         static int CCount = 0;
@@ -33,14 +34,14 @@ namespace CrazyArcade.PlayerStateMachine
 
         public Character()
         {
-            ModifiedSpeed = DefaultSpeed;
+            //ModifiedSpeed = DefaultSpeed;
             playerState = new CharacterStateFree(this);
             spriteAnims = playerState.SetSprites();
             playerState.SetSpeed();
             direction = Dir.Down;
             bombOut = 0;
             GameCoord = new Vector2(3, 3);
-            currentBlastLength = defaultBlastLength;
+            //currentBlastLength = defaultBlastLength;
             DrawOrder = 1;
             Console.WriteLine("Count: " + ++CCount);
             //this.bboxOffset = new Point(20, 20);
@@ -97,7 +98,7 @@ namespace CrazyArcade.PlayerStateMachine
         }
         public void IncreaseBlastLength()
         {
-            this.currentBlastLength++;
+            playerItems.AddItem(new BlastLengthModifier());
         }
         public void SwitchToMountedState()
         {
@@ -107,11 +108,11 @@ namespace CrazyArcade.PlayerStateMachine
         }
         public void IncreaseSpeed()
         {
-            this.ModifiedSpeed++;
+            playerItems.AddItem(new SpeedModifier());
         }
         public void IncreaseBombCount()
         {
-            this.bombCapacity++;
+            playerItems.AddItem(new BombCountModifier());
         }
 
         public void SpendBomb()
