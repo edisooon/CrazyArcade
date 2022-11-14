@@ -160,12 +160,14 @@ public class CAGame : Game, IGameDelegate, ITransitionCompleteHandler
 
     public void StageTransitTo(int stageNum, int dir)
     {
+        this.stageNum = stageNum;
         if (dir == (int)Dir.Left)
             makeTransition(time, -transitionDisplacement);
         else
         {
             makeTransition(time, transitionDisplacement);
         }
+        scene.Update(time);
     }
 }
 
