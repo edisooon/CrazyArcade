@@ -76,11 +76,6 @@ namespace CrazyArcade.PlayerStateMachine
             }
             else if (loseRideFlag >= 5)
             {
-                lives--;
-                if(lives == 0)
-                {
-                    SceneDelegate.EndGame();
-                }
                 this.playerState = new CharacterStateBubble(this);
             }
             else
