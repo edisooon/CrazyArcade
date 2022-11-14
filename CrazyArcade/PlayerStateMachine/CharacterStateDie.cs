@@ -9,8 +9,10 @@ namespace CrazyArcade.PlayerStateMachine
     public class CharacterStateDie : ICharacterState
     {
         SpriteAnimation[] die;
+        private Character character;
         public CharacterStateDie(Character character)
         {
+            this.character = character;
             die = new SpriteAnimation[1];
             die[0] = new SpriteAnimation(TextureSingleton.GetPlayer1(), 11, 7, 275, 531, 108, 10);
         }
@@ -32,7 +34,11 @@ namespace CrazyArcade.PlayerStateMachine
 
         public void ProcessState(GameTime time)
         {
-            throw new NotImplementedException();
+            //throw new NotImplementedException();
+            if (character.SpriteAnim.getCurrentFrame() == character.SpriteAnim.getTotalFrames() - 1)
+            {
+                character.playerState = new CharacterStateFree(character);
+            }
         }
 
         public int SetSpeed()
