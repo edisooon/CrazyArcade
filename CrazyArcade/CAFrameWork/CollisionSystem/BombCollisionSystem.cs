@@ -96,7 +96,6 @@ namespace CrazyArcade.CAFrameWork.CollisionSystem
             if (explodable.CanExplode)
             {
                 IExplosion explosion = explodable.explode();
-                sceneDelegate.ToAddEntity(explosion);
                 explosion.Display(Detect(explosion));
                 sceneDelegate.ToRemoveEntity(explodable);
             }
