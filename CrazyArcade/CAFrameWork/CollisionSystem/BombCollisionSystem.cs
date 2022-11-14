@@ -80,7 +80,7 @@ namespace CrazyArcade.CAFrameWork.CollisionSystem
             }
             return length;
         }
-        public int[] Detect(IExplosion explosion)
+        public int[] detect(IExplosion explosion)
         {
             List<IExplosionCollidable>[,] matrix = GetMatrix();
             int[] res = new int[4];
@@ -96,7 +96,7 @@ namespace CrazyArcade.CAFrameWork.CollisionSystem
             if (explodable.CanExplode)
             {
                 IExplosion explosion = explodable.explode();
-                explosion.Display(Detect(explosion));
+                explosion.Display(detect(explosion));
                 sceneDelegate.ToRemoveEntity(explodable);
             }
         }
