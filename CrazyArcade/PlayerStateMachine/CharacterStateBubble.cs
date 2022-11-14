@@ -46,10 +46,15 @@ namespace CrazyArcade.PlayerStateMachine
             character.UpdatePosition();
             if (elapsedTime > popTime)
             {
-                character.playerState = new CharacterStateDie(character);
+                character.playerState = new CharacterStateFree(character);
                 character.spriteAnims = character.playerState.SetSprites();
                 bubble.bubbleInt = 2;
                 character.playerState.SetSpeed();
+                character.lives--;
+                if (character.lives == 0)
+                {
+                    character.SceneDelegate.EndGame();
+                }
             }
             elapsedTime += (float)time.ElapsedGameTime.TotalMilliseconds;
         }
