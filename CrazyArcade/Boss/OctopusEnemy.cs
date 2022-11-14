@@ -208,9 +208,9 @@ namespace CrazyArcade.Boss
             collisionPartner.CollisionDestroyLogic();
             //To show the state only, this line of code needs to be moved once bomb -> enemy collision is implemented to CollisionDestroyLogic 
 
-            if(collisionPartner is WaterExplosionCenter || collisionPartner is WaterExplosionEdge){
+            //if(collisionPartner is WaterExplosionCenter || collisionPartner is WaterExplosionEdge){
               state = new OctopusWounded(this);
-            }
+            //}
         }
 
         protected bool ChangeDir(Dir dir)
@@ -259,7 +259,7 @@ namespace CrazyArcade.Boss
                 speed /= 2;
                 //state = new OctopusAttack(this,1);
                 this.squareBlast();
-                this.shoot();
+                //this.shoot();
                 direction = Dir.Up;
                 //changeDir will put it back on course
             }
@@ -287,6 +287,9 @@ namespace CrazyArcade.Boss
                 destination = new Vector2(this.X, this.Y + 3);
             }
             WaterBomb projectile = new WaterBomb(destination,5,this,true);
+            this.scene.ToAddEntity(projectile);
+            //projectile.explode();
+            //this.scene.AddSprite(projectile);
             //resume movement if necessary
         }
 
@@ -297,8 +300,8 @@ namespace CrazyArcade.Boss
             WaterExplosionEdge[] waterExplosionEdges = new WaterExplosionEdge[18];
             int[,] edgeCoords = { { 3, 3}, { 4, 3 }, { 5, 3 }, { 6, 3 }, { 7, 3 },
                                   { 3, 8}, { 4, 8 }, { 5, 8 }, { 6, 8 }, { 7, 8 }, 
-                                  { 2, 4 }, { 2, 5 }, { 2, 6 }, { 2, 6 },
-                                  { 8, 4 }, { 8, 5 }, { 8, 6 }, { 8, 6 }};
+                                  { 2, 4 }, { 2, 5 }, { 2, 6 }, { 2, 7 },
+                                  { 8, 4 }, { 8, 5 }, { 8, 6 }, { 8, 7 }};
             //resume movement if necessary
             for(int i = 0; i < waterExplosionEdges.Length; i++){
                 int d;
@@ -306,8 +309,12 @@ namespace CrazyArcade.Boss
                 else if (i < 10) d = 3;//right
                 else if (i < 14) d = 2;//down
                 else d = 0;//up
-                waterExplosionEdges[i] = new WaterExplosionEdge(d, false, edgeCoords[i,0], edgeCoords[i,1]);
-                this.scene.AddSprite(waterExplosionEdges[i]);
+                waterExplosionEdges[i] = new WaterExplosionEdge(d, false, 90+((xoffSet+edgeCoords[i,0])*40), 40*edgeCoords[i,1]);
+                this.scene.ToAddEntity(waterExplosionEdges[i]);
+            }
+            for (int i = 0; i < waterExplosionEdges.Length; i++)
+            {
+                this.scene.ToAddEntity(waterExplosionEdges[i]);
             }
         }
         public void toggleHurtSprites(Boolean hurt) {
@@ -319,7 +326,8 @@ namespace CrazyArcade.Boss
                 InputFramesDown[1] = new Rectangle(1181, 22, 108, 145);
                 this.spriteAnims[(int)Dir.Down] = new SpriteAnimation(texture, InputFramesDown, fps);
                 //left one doesn't change
-                this.spriteAnims[(int)Dir.Right] = new SpriteAnimation(texture, 1, 1371, 17, 108, 156, fps);
+                InputFramesRight[0] = new Rectangle(1371, 17, 108, 153);
+                this.spriteAnims[(int)Dir.Right] = new SpriteAnimation(texture, InputFramesRight, fps);
                 //update to show change if necessary
             }
             else {
@@ -405,9 +413,9 @@ namespace CrazyArcade.Boss
     {
         private OctopusEnemy enemy;
         public CAScene scene;
-        private int timer;
-        private int startTimeStamp;
-        private int timeLength = 300;
+        private float timer;
+        private float startTimeStamp;
+        private float timeLength = 300.0f;
 
         public OctopusWounded(OctopusEnemy enemy)
         {
@@ -418,7 +426,7 @@ namespace CrazyArcade.Boss
             enemy.health -= 10;
             if (enemy.health <= 0)
             {
-                //make dead
+                enemy.state = new OctopusDead(enemy);
             }
         }
         public void ChangeDirection()
@@ -428,13 +436,13 @@ namespace CrazyArcade.Boss
 
         public void Update(GameTime time)
         {
-            int tollerance = 0;
+            float tollerance = 0.0f;
             if (timer >= timeLength-tollerance && timer <= timeLength+tollerance) {
-                startTimeStamp = time.ElapsedGameTime.Milliseconds;
+                startTimeStamp = (float)time.ElapsedGameTime.Milliseconds;
             }
             else{
-                timer -= time.ElapsedGameTime.Milliseconds-startTimeStamp;
-                 if(timer < 1){
+                timer -= (float)time.ElapsedGameTime.Milliseconds-startTimeStamp;
+                 if(timer < 1.0f){
                     enemy.toggleHurtSprites(false);
                     enemy.state = new OctopusNormal(enemy);
                 }
