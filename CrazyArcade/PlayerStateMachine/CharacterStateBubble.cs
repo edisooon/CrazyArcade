@@ -50,7 +50,6 @@ namespace CrazyArcade.PlayerStateMachine
                 character.spriteAnims = character.playerState.SetSprites();
                 bubble.bubbleInt = 2;
                 character.playerState.SetSpeed();
-                
             }
             elapsedTime += (float)time.ElapsedGameTime.TotalMilliseconds;
         }
