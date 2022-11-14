@@ -13,6 +13,7 @@ spacebar - drop bomb
 
 O - set Game Over
 escape (when game over) - quit game
+R (when game over) - restart game
 
 
 Known Bugs:
