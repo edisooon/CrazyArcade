@@ -229,7 +229,7 @@ namespace CrazyArcade.Levels
 
             foreach (Vector2 vector in itemLocations)
             {
-                EntityList.Add(new OctopusEnemy((int)vector.X, (int)vector.Y));
+                EntityList.Add(new OctopusEnemy((int)vector.X, (int)vector.Y, Scene));
             }
 
             itemLocations = currentLevel.GetItemLocation(CreateLevel.LevelItem.SunBossPosition);
