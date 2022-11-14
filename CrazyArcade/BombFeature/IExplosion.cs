@@ -21,11 +21,11 @@ namespace CrazyArcade.BombFeature
 		 *			  0
 		 */
 		int Distance { get; }
-
-		/*
+		void Display(int[] lengths);
+        /*
 		 *	Uses GameCoordinate
 		 */
-		Point Center { get; }
+        Point Center { get; }
 	}
 }
 

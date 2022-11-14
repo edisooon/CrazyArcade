@@ -18,6 +18,11 @@ namespace CrazyArcade.Blocks
         //The code that is executed when a collision is detected. (Called by the block)
         public void CollisionHaltLogic(Point amountMoved);
         public void CollisionDestroyLogic();
+        public bool canHaveItem();
+        public void IncreaseBlastLength();
+        public void SwitchToMountedState();
+        public void IncreaseSpeed();
+        public void IncreaseBombCount();
         public bool Active { get; set; }
     }
 }

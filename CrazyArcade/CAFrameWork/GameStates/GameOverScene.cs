@@ -18,8 +18,10 @@ namespace CrazyArcade.CAFrameWork.GameStates
 {
     public class GameOverScene : CAScene
     {
-        public GameOverScene(CrazyArcade.CAGame gameRef, IGameState state)
+        ISceneDelegate parentScene;
+        public GameOverScene(ISceneDelegate parentScene, CrazyArcade.CAGame gameRef, IGameState state)
         {
+            this.parentScene = parentScene;
             this.gameRef = gameRef;
             this.gameState = state;
             this.Load();
@@ -30,7 +32,7 @@ namespace CrazyArcade.CAFrameWork.GameStates
         public override void LoadSprites()
         {
             //Temporary, will be changed to game over text
-            this.AddSprite(new CoinBag(new Microsoft.Xna.Framework.Vector2(0, 0)));
+            this.AddSprite(new CoinBag(parentScene, new Microsoft.Xna.Framework.Vector2(0, 0)));
         }
 
         public override void LoadSystems()

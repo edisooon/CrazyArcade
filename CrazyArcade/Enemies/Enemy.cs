@@ -5,10 +5,11 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System.Diagnostics;
 using CrazyArcade.GameGridSystems;
+using CrazyArcade.BombFeature;
 
 namespace CrazyArcade.Enemies
 {
-    public abstract class Enemy: CAEntity, IPlayerCollidable, IGridable
+    public abstract class Enemy: CAEntity, IPlayerCollidable, IGridable, IExplosionCollidable
     {
         public SpriteAnimation[] spriteAnims;
         public SpriteAnimation spriteAnim;
@@ -76,7 +77,7 @@ namespace CrazyArcade.Enemies
         {
             collisionPartner.CollisionDestroyLogic();
             //To show the state only, this line of code needs to be moved once bomb -> enemy collision is implemented to CollisionDestroyLogic 
-            state = new EnemyDeathState(this);
+            //state = new EnemyDeathState(this);
             
 
         }
@@ -150,6 +151,12 @@ namespace CrazyArcade.Enemies
         {
 
             this.spriteAnims[(int)direction].Position = new Vector2(X, Y);
+        }
+
+        public bool Collide(IExplosion bomb)
+        {
+            state = new EnemyDeathState(this);
+            return true;
         }
     }
 }

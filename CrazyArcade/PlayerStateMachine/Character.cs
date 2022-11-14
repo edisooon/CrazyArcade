@@ -6,6 +6,8 @@ using CrazyArcade.GameGridSystems;
 using Microsoft.Xna.Framework;
 using CrazyArcade.Items;
 using CrazyArcade.CAFrameWork.GameStates;
+using CrazyArcade.Blocks;
+using System.Diagnostics;
 
 namespace CrazyArcade.PlayerStateMachine
 {
@@ -13,7 +15,7 @@ namespace CrazyArcade.PlayerStateMachine
      * State machine is implemented here
      * 
      */
-    public class Character: CharacterBase, IBombCollectable, IItemCollidable
+    public class Character: CharacterBase, IBombCollectable, IPlayerCollisionBehavior
     {
 		public SpriteAnimation[] spriteAnims;
         public CAScene parentScene;
@@ -50,8 +52,13 @@ namespace CrazyArcade.PlayerStateMachine
             base.Update(time);
         }
 
+        public void CollisionHaltLogic(Point move)
+        {
+            GameCoord -= Trans.RevScale(new Vector2(move.X, move.Y));
+        }
+
         //@implement IPlayerCollisionBehavior
-        public override void CollisionDestroyLogic()
+        public void CollisionDestroyLogic()
         {
             if (this.playerState is CharacterStateBubble) return;
             if (this.playerState is CharacterStateTurtle )

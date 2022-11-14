@@ -13,8 +13,10 @@ namespace CrazyArcade.CAFrameWork.CollisionSystem
 	{
         List<IExplosionCollidable> triggers = new List<IExplosionCollidable>();
         private ISceneDelegate sceneDelegate;
-        public BombCollisionSystem(ISceneDelegate sceneDelegate) {
+        private Rectangle bounds;
+        public BombCollisionSystem(ISceneDelegate sceneDelegate, Rectangle bounds) {
             this.sceneDelegate = sceneDelegate;
+            this.bounds = bounds;
         }
 
         public void AddSprite(IEntity sprite)
@@ -29,22 +31,64 @@ namespace CrazyArcade.CAFrameWork.CollisionSystem
             }
         }
 
-        public void Detect(IExplosion explosion)
+        List<IExplosionCollidable>[,] GetMatrix()
         {
-            // O->->I->
+            List<IExplosionCollidable>[,] res =
+                new List<IExplosionCollidable>[bounds.Width + 1, bounds.Height + 1];
+            for (int i = 0; i < bounds.Width; i++)
+            {
+                for (int k = 0; k < bounds.Height; k++)
+                {
+                    res[i, k] = new List<IExplosionCollidable>();
+                }
+            }
             foreach (IExplosionCollidable collidable in triggers)
             {
                 Point triggerCenter = new Point((int)((collidable as IGridable).GameCoord.X + 0.5),
                     (int)((collidable as IGridable).GameCoord.Y + 0.5));
-                bool collided = explosion.Center.X == triggerCenter.X
-                    && Math.Abs(explosion.Center.Y - triggerCenter.Y) <= explosion.Distance;
-                collided = collided || explosion.Center.Y == triggerCenter.Y
-                    && Math.Abs(explosion.Center.X - triggerCenter.X) <= explosion.Distance;
-                if (collided)
+                triggerCenter.X -= bounds.X;
+                triggerCenter.Y -= bounds.Y;
+                if (bounds.Contains(triggerCenter))
                 {
-                    collidable.Collide(explosion);
+                    res[triggerCenter.X, triggerCenter.Y].Add(collidable);
+                } else
+                {
+                    Console.WriteLine("Position not exists: " + triggerCenter);
                 }
             }
+            return res;
+        }
+        private int detect(IExplosion explosion, int length, Vector2 dir, List<IExplosionCollidable>[,] matrix)
+        {
+            Console.WriteLine("Detecting");
+            for (int i = 1; i <= length; i++)
+            {
+                Vector2 pos = i * dir;
+                Point point = new Point((int)pos.X + explosion.Center.X, (int)pos.Y + explosion.Center.Y);
+                if (!bounds.Contains(point)) continue;
+                Console.WriteLine("Detecting Collidables at: " + point);
+                bool isLeaf = false;
+                foreach (IExplosionCollidable collidable in matrix[point.X, point.Y])
+                {
+                    Console.WriteLine("Collide");
+                    isLeaf = isLeaf || !collidable.Collide(explosion);
+                }
+                if (isLeaf)
+                {
+                    return i-1;
+                }
+            }
+            return length;
+        }
+        public int[] detect(IExplosion explosion)
+        {
+            List<IExplosionCollidable>[,] matrix = GetMatrix();
+            int[] res = new int[4];
+            res[0] = detect(explosion, explosion.Distance, new Vector2(0, -1), matrix);
+            res[1] = detect(explosion, explosion.Distance, new Vector2(0, 1), matrix);
+            res[2] = detect(explosion, explosion.Distance, new Vector2(-1, 0), matrix);
+            res[3] = detect(explosion, explosion.Distance, new Vector2(1, 0), matrix);
+            return res;
         }
 
         public void Ignite(IExplodable explodable)
@@ -52,8 +96,7 @@ namespace CrazyArcade.CAFrameWork.CollisionSystem
             if (explodable.CanExplode)
             {
                 IExplosion explosion = explodable.explode();
-                sceneDelegate.ToAddEntity(explosion);
-                Detect(explosion);
+                explosion.Display(detect(explosion));
                 sceneDelegate.ToRemoveEntity(explodable);
             }
         }
@@ -65,7 +108,10 @@ namespace CrazyArcade.CAFrameWork.CollisionSystem
 
         public void RemoveSprite(IEntity sprite)
         {
-            if (sprite is IExplosionCollidable) triggers.Remove(sprite as IExplosionCollidable);
+            if (sprite is IExplosionCollidable)
+            {
+                triggers.Remove(sprite as IExplosionCollidable);
+            }
         }
 
         public void Update(GameTime time)

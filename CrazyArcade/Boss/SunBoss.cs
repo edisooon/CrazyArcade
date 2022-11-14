@@ -3,16 +3,18 @@ using System.Collections.Generic;
 using CrazyArcade.CAFramework;
 using Microsoft.Xna.Framework;
 using CrazyArcade.GameGridSystems;
+using CrazyArcade.BombFeature;
 
 namespace CrazyArcade.Boss
 {
-	public class SunBoss: CAEntity, ISunBossDelegate, IGridable
+	public class SunBoss: CAEntity, ISunBossDelegate, IGridable//, IExplosionCollidable
 	{
         //----------------Test purpose-------------------
         ITimer timer;
         //-----------------------------------------------
         ISceneDelegate sceneDelegate;
         private float unitSize = 44/40;
+        private int lives = 3;
         public SunBoss(ISceneDelegate sceneDelegate)
 		{
             this.sceneDelegate = sceneDelegate;
@@ -115,6 +117,17 @@ namespace CrazyArcade.Boss
         public void Dead()
         {
             SceneDelegate.ToRemoveEntity(this);
+        }
+
+        public void DeleteSelf()
+        {
+            sceneDelegate.ToRemoveEntity(this);
+        }
+
+        public void Collide(IExplosion bomb)
+        {
+            if (--lives == 0) DeleteSelf();
+            this.SpriteAnim.Color = Color.Red;
         }
     }
 }
