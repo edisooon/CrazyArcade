@@ -74,7 +74,7 @@ namespace CrazyArcade.Levels
         {
 
             startPosition = currentLevel.GetStartPosition(new int[2] { X, Y });
-            Entity = new Rock(startPosition);
+            Entity = new LightSandBlock(Scene, startPosition);
             Entity.SpriteAnim.Scale = scale;
             EntityList.Add(Entity);
         }
@@ -99,7 +99,7 @@ namespace CrazyArcade.Levels
             foreach (Vector2 vector in itemLocations)
             {
 
-                Entity = new LightSandBlock(vector);
+                Entity = new LightSandBlock(Scene, vector);
                 Entity.SpriteAnim.Scale = scale;
                 EntityList.Add(Entity);
             }
@@ -109,7 +109,7 @@ namespace CrazyArcade.Levels
             foreach (Vector2 vector in itemLocations)
             {
                 
-                Entity = new SandBlock(vector);
+                Entity = new SandBlock(Scene, vector);
                 Entity.SpriteAnim.Scale = scale;
                 EntityList.Add(Entity);
             }
@@ -159,7 +159,7 @@ namespace CrazyArcade.Levels
             foreach (Vector2 vector in itemLocations)
             {
                
-                Entity = new CoinBag(vector);
+                Entity = new CoinBag(Scene, vector);
                 EntityList.Add(Entity);
             }
 
@@ -169,7 +169,7 @@ namespace CrazyArcade.Levels
             {
 
                 
-                EntityList.Add(new Balloon(vector));
+                EntityList.Add(new Balloon(Scene, vector));
 
             }
 
@@ -179,7 +179,7 @@ namespace CrazyArcade.Levels
             {
 
                 
-                EntityList.Add(new Sneaker(vector));
+                EntityList.Add(new Sneaker(Scene, vector));
             }
 
             itemLocations = currentLevel.GetItemLocation(CreateLevel.LevelItem.TurtlePosition);
@@ -187,7 +187,7 @@ namespace CrazyArcade.Levels
             foreach (Vector2 vector in itemLocations)
             {
                 
-                EntityList.Add(new Turtle(vector));
+                EntityList.Add(new Turtle(Scene, vector));
             }
 
             itemLocations = currentLevel.GetItemLocation(CreateLevel.LevelItem.PotionPosition);
@@ -195,7 +195,7 @@ namespace CrazyArcade.Levels
             foreach (Vector2 vector in itemLocations)
             {
                 
-                EntityList.Add(new Potion(vector));
+                EntityList.Add(new Potion(Scene, vector));
             }
 
             itemLocations = currentLevel.GetItemLocation(CreateLevel.LevelItem.CoinPosition);
@@ -203,7 +203,7 @@ namespace CrazyArcade.Levels
             foreach (Vector2 vector in itemLocations)
             {
                 
-                EntityList.Add(new Coin(vector));
+                EntityList.Add(new Coin(Scene, vector));
             }
 
             itemLocations = currentLevel.GetItemLocation(CreateLevel.LevelItem.BombPosition);

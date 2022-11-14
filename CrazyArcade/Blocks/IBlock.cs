@@ -10,6 +10,7 @@ using CrazyArcade.CAFramework;
 using CrazyArcade.Content;
 using System.Diagnostics;
 using CrazyArcade.GameGridSystems;
+using CrazyArcade.BombFeature;
 
 namespace CrazyArcade.Blocks
 {
@@ -19,7 +20,7 @@ namespace CrazyArcade.Blocks
     {
 
     }
-    public abstract class Block : CAEntity, IBlock, IPlayerCollidable, IGridable
+    public abstract class Block : CAEntity, IBlock, IPlayerCollidable, IGridable, IExplosionCollidable
     {
         //----------IGridable Start------------
         private Vector2 gamePos;
@@ -95,6 +96,11 @@ namespace CrazyArcade.Blocks
                 if (X < collisionPartner.blockCollisionBoundingBox.X) modifier = -1;
                 collisionPartner.CollisionHaltLogic(new Point(modifier * overlap.Width, 0));
             }
+        }
+
+        public virtual bool Collide(IExplosion bomb)
+        {
+            return false;
         }
     }
 }

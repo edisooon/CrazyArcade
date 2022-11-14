@@ -6,7 +6,6 @@ namespace CrazyArcade.BombFeature
 {
 	public interface IExplosionCollidable: IGridable, IEntity
 	{
-		void Collide(IExplosion bomb);
+		bool Collide(IExplosion bomb);
 	}
 }
-

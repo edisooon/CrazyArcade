@@ -1,24 +1,39 @@
 ﻿using CrazyArcade.Items;
+using CrazyArcade.BombFeature;
 using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using CrazyArcade.CAFramework;
 
 namespace CrazyArcade.Blocks
 {
     public abstract class BreakableBlock : Block, IBlock
     {
-        public BreakableBlock(Vector2 position, Rectangle source) : base(position, source, Content.TextureSingleton.GetDesertBlocks())
-        {
+        ISceneDelegate parentScene;
 
+        public BreakableBlock(ISceneDelegate parentScene, Vector2 position, Rectangle source) : base(position, source, Content.TextureSingleton.GetDesertBlocks())
+        {
+            this.parentScene = parentScene;
+        }
+
+        public void DeleteSelf()
+        {
+            parentScene.ToRemoveEntity(this);
+        }
+
+        public override bool Collide(IExplosion bomb)
+        {
+            DeleteSelf();
+            return false;
         }
     }
     public class BlueCrate : BreakableBlock
     {
         private static Rectangle source = new Rectangle(10, 306, 40, 63);
-        public BlueCrate(Vector2 position) : base(position, source)
+        public BlueCrate(ISceneDelegate parentScene, Vector2 position) : base(parentScene, position, source)
         {
 
         }
@@ -26,7 +41,7 @@ namespace CrazyArcade.Blocks
     public class GreenCrate : BreakableBlock
     {
         private static Rectangle source = new Rectangle(60, 306, 40, 63);
-        public GreenCrate(Vector2 position) : base(position, source)
+        public GreenCrate(ISceneDelegate parentScene, Vector2 position) : base(parentScene, position, source)
         {
 
         }
@@ -34,7 +49,7 @@ namespace CrazyArcade.Blocks
     public class CyanCrate : BreakableBlock
     {
         private static Rectangle source = new Rectangle(110, 306, 40, 63);
-        public CyanCrate(Vector2 position) : base(position, source)
+        public CyanCrate(ISceneDelegate parentScene, Vector2 position) : base(parentScene, position, source)
         {
 
         }

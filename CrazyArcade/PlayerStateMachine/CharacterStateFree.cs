@@ -36,6 +36,7 @@ namespace CrazyArcade.PlayerStateMachine
         }
         public void ProcessState(GameTime time)
         {
+            character.ModifiedSpeed = character.freeModifiedSpeed;
             character.CalculateMovement();
             character.UpdatePosition();
             character.animationHandleInt = (int)character.direction;

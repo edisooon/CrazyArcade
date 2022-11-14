@@ -110,11 +110,13 @@ public class CAGame : Game, IGameDelegate, ITransitionCompleteHandler
             {
                 stageNum--;
                 makeTransition(gameTime, -transitionDisplacement);
+                new TestLoad().LoadGUI();
             }
             else if (Mouse.GetState().RightButton == ButtonState.Pressed && stageNum < levelFileNames.Length-1)
             {
                 stageNum++;
                 makeTransition(gameTime, transitionDisplacement);
+                new TestLoad().LoadGUI();
             }
             scene.Update(gameTime);
         }

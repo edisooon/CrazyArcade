@@ -52,12 +52,11 @@ namespace CrazyArcade.Demo1
         {
             //this.systems.Add(new BlockCollisionSystem());
             this.systems.Add(new GameStateSwitcher(this));
-            this.systems.Add(new ItemCollisionSystem(this));
             //this.systems.Add(new CAControllerSystem());
             this.systems.Add(new CAGameLogicSystem());
             this.systems.Add(new InputSystems());
             this.systems.Add(new GridBoxSystem());
-            this.systems.Add(new BombCollisionSystem(this));
+            this.systems.Add(new BombCollisionSystem(this, new Rectangle(0, 0, 15, 15)));
             this.systems.Add(new PlayerCollisionSystem());
             
             this.systems.Add(gridSystems);
