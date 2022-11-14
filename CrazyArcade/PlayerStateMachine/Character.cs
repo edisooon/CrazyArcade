@@ -22,9 +22,9 @@ namespace CrazyArcade.PlayerStateMachine
         public ItemContainer playerItems = new();
         public ICharacterState playerState;
         public int animationHandleInt;
-        public int currentBlastLength { get => playerItems.BlastModifier; set { playerItems.BlastModifier = value; } }
-        public int bombCapacity {get => playerItems.BombModifier; set { playerItems.BombModifier = value; } }
-        public int freeModifiedSpeed { get => playerItems.SpeedModifier; }
+        public int CurrentBlastLength { get => playerItems.BlastModifier; set { playerItems.BlastModifier = value; } }
+        public int BombCapacity {get => playerItems.BombModifier; set { playerItems.BombModifier = value; } }
+        public int FreeModifiedSpeed { get => playerItems.SpeedModifier; }
         private int bombOut;
         public int BombsOut => bombOut;
         static int CCount = 0;
@@ -113,6 +113,10 @@ namespace CrazyArcade.PlayerStateMachine
         public void IncreaseBombCount()
         {
             playerItems.AddItem(new BombCountModifier());
+        }
+        public void IncreaseScore(int score)
+        {
+
         }
 
         public void SpendBomb()

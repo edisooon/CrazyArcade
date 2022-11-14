@@ -13,7 +13,7 @@ namespace CrazyArcade.UI.GUI_Loading
         public void LoadGUI()
         {
             UI_Singleton.ClearGUI();
-            UI_Singleton.AddPreDesignedComposite(new GUITestComposition("1", new Vector2(10, 225)));
+            UI_Singleton.AddPreDesignedComposite(new ScoreComposition());
         }
     }
 }
