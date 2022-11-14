@@ -29,7 +29,7 @@ namespace CrazyArcade.CAFrameWork.GameStates
         public override void LoadSprites()
         {
             //Temporary, will be changed to game over text
-            this.AddSprite(new CoinBag(new Microsoft.Xna.Framework.Vector2(0, 0)));
+            this.AddSprite(new Balloon(new Vector2(400, 200)));
         }
 
         public override void LoadSystems()
