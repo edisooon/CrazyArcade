@@ -9,6 +9,9 @@ using CrazyArcade.CAFrameWork.GameStates;
 using CrazyArcade.PlayerStateMachine.PlayerItemInteractions;
 using CrazyArcade.Blocks;
 using System.Diagnostics;
+using CrazyArcade.UI;
+using CrazyArcade.UI.GUI_Compositions;
+
 namespace CrazyArcade.PlayerStateMachine
 {
     /*
@@ -29,6 +32,7 @@ namespace CrazyArcade.PlayerStateMachine
         public int BombsOut => bombOut;
         static int CCount = 0;
         private int loseRideFlag = 5;
+        private int score = 0;
 
         public override SpriteAnimation SpriteAnim => spriteAnims[animationHandleInt];
 
@@ -45,6 +49,7 @@ namespace CrazyArcade.PlayerStateMachine
             DrawOrder = 1;
             Console.WriteLine("Count: " + ++CCount);
             //this.bboxOffset = new Point(20, 20);
+            UI_Singleton.AddPreDesignedComposite(new ScoreComposition());
         }
         public override void Update(GameTime time)
         {
@@ -116,7 +121,8 @@ namespace CrazyArcade.PlayerStateMachine
         }
         public void IncreaseScore(int score)
         {
-
+            this.score += score;
+            UI_Singleton.ChangeComponentText("score", "scoreText", "Score : " + score);
         }
 
         public void SpendBomb()

@@ -16,7 +16,7 @@ namespace CrazyArcade.UI.GUI_Compositions
             box.ChangeComponentTextureOutputRect(100, 20);
             AddComponent(box);
             name = "score";
-            AddComponent(new GUIText("scoreText", "Score: "));
+            AddComponent(new GUIText("scoreText", "Score: 0"));
             SetPosition(new Vector2(700, 0));
 
         }
