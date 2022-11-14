@@ -80,8 +80,16 @@ namespace CrazyArcade.BombFeature
             foreach(PlayerCharacter player in scene.Players)
             {
                 IPlayerCollisionBehavior collisionPartner = player as IPlayerCollisionBehavior;
+                if (isColliding(collisionPartner)) hasNotLeft.Add(collisionPartner);
             }
         }
+
+        private bool isColliding(IPlayerCollisionBehavior collisionPartner)
+        {
+            Rectangle checkRectangle = Rectangle.Intersect(this.boundingBox, collisionPartner.blockCollisionBoundingBox);
+            return checkRectangle.Width != 0 || checkRectangle.Height != 0;
+        }
+
         private static Rectangle[] GetAnimationFrames()
         {
             Rectangle[] NewFrames = new Rectangle[3];
