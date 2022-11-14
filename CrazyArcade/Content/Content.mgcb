@@ -197,6 +197,12 @@
 #begin JsonLevels/level_6.json
 /copy:JsonLevels/level_6.json
 
+#begin JsonLevels/level_7.json
+/copy:JsonLevels/level_7.json
+
+#begin JsonLevels/level_8.json
+/copy:JsonLevels/level_8.json
+
 #begin JsonLevels/Map.json
 /copy:JsonLevels/Map.json
 
@@ -268,12 +274,6 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Player1.png
-
-#begin playground.mp3
-/importer:Mp3Importer
-/processor:SongProcessor
-/processorParam:Quality=Best
-/build:playground.mp3
 
 #begin playground.mp3
 /importer:Mp3Importer

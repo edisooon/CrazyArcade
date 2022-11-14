@@ -3,21 +3,43 @@
     "Border": [ 13, 13 ],
     "Blocks": {
         "Door": [ [ 11, 11 ] ],
+        "LightSand": [
+        ],
+        "DarkSand": [
+        ],
         "Stone": [
         ],
-        "LightSand": [
+        "Cactus": [
+        ],
+        "DarkTree": [
+        ],
+        "LightTree": [
         ]
     },
     "Items": {
+        "CoinBag": [
+        ],
+        "Balloon": [
+        ],
+        "Sneaker": [
+        ],
+        "Turtle": [
+        ],
+        "Potion": [
+        ],
+        "Coin": [
+        ]
 
     },
     "Player": [ 0, 0 ],
     "Enemies": {
+        "Bomb": [
+        ],
+        "Squid": [
+        ],
         "Bat": [
         ],
         "Robot": [
-        ],
-        "Bomb": [
         ]
     },
     "Boss": {

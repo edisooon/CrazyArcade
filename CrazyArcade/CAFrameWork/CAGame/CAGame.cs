@@ -82,7 +82,7 @@ public class CAGame : Game, IGameDelegate, ITransitionCompleteHandler
         CurrentLevel = test.levelObject;
         map = new ReadJSON("Map.json", ReadJSON.fileType.MapFile);
         levelFileNames = map.mapObject.Levels;
-        LevelSongTitles = new string[] { "playground","playground","playground","comical","bridge","dream","kodama", "worldbeat", "funtimes" };
+        LevelSongTitles = new string[] { "playground","playground","playground","comical","bridge","dream","kodama", "worldbeat", "funtimes", "funtimes","funtimes" };
         scene.Load();
     }
 
