@@ -85,6 +85,12 @@
 /processorParam:TextureFormat=Color
 /build:bombermanII_enemies.png
 
+#begin bridge.mp3
+/importer:Mp3Importer
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:bridge.mp3
+
 #begin Bubble.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -121,6 +127,12 @@
 /processorParam:TextureFormat=Color
 /build:Coinbag.png
 
+#begin comical.mp3
+/importer:Mp3Importer
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:comical.mp3
+
 #begin DesertBlocks.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -145,12 +157,24 @@
 /processorParam:TextureFormat=Color
 /build:door.png
 
+#begin dream.mp3
+/importer:Mp3Importer
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:dream.mp3
+
 #begin File.spritefont
 /importer:FontDescriptionImporter
 /processor:FontDescriptionProcessor
 /processorParam:PremultiplyAlpha=True
 /processorParam:TextureFormat=Compressed
 /build:File.spritefont;testFont.spritefont
+
+#begin funtimes.mp3
+/importer:Mp3Importer
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:funtimes.mp3
 
 #begin JsonLevels/level_0.json
 /copy:JsonLevels/level_0.json
@@ -178,6 +202,24 @@
 
 #begin JsonLevels/oct_test.json
 /copy:JsonLevels/oct_test.json
+
+#begin justkidding.mp3
+/importer:Mp3Importer
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:justkidding.mp3
+
+#begin kodama.mp3
+/importer:Mp3Importer
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:kodama.mp3
+
+#begin nature.mp3
+/importer:Mp3Importer
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:nature.mp3
 
 #begin OctoBoss.png
 /importer:TextureImporter
@@ -226,6 +268,12 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Player1.png
+
+#begin playground.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:playground.mp3
 
 #begin playground.mp3
 /importer:Mp3Importer
@@ -352,4 +400,10 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:walk.png
+
+#begin worldbeat.mp3
+/importer:Mp3Importer
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:worldbeat.mp3
 

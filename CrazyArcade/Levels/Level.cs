@@ -81,7 +81,6 @@ namespace CrazyArcade.Levels
 
             foreach (Vector2 vector in itemLocations)
             {
-                
                 Entity = new Door(vector);
                 Entity.SpriteAnim.Scale = scale;
                 EntityList.Add(Entity);
