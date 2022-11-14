@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
@@ -18,7 +19,7 @@ namespace CrazyArcade.CAFrameWork.GameStates
     public class PauseScene : CAScene
     {
         private ISceneState restoreScene;
-        ResumeButton resume;
+        Button resume;
         public override List<Vector2> PlayerPositions => throw new NotImplementedException();
         public PauseScene(IGameDelegate game, ISceneState restoreScene)
         {
@@ -33,16 +34,18 @@ namespace CrazyArcade.CAFrameWork.GameStates
         private void LoadGUI()
         {
             UI_Singleton.AddPreDesignedComposite(new PauseGUIComposition("Pause GUI"));
-            UI_Singleton.AddPreDesignedComposite(resume = new ResumeButton("resume"));
+            /* Buttons to be implemented in sprint 5
+            UI_Singleton.AddPreDesignedComposite(resume = new Button("resume", new Vector2(310, 150)));*/
         }
         private void RemoveGUI()
         {
             UI_Singleton.RemoveComposition("Pause GUI");
-            UI_Singleton.RemoveComposition("resume");
+
+            //Buttons
+            //UI_Singleton.RemoveComposition("resume");
         }
         public override void LoadSprites()
         {
-            //this.AddSprite(new Sneaker(new Vector2(400,200)));
         }
 
         public override void LoadSystems()
@@ -50,7 +53,7 @@ namespace CrazyArcade.CAFrameWork.GameStates
         }
         private Boolean inButton(MouseState ms)
         {
-            return ms.X > 310 && ms.X < 510 && ms.Y > 165 && ms.Y < 215;
+            return ms.X > resume.Position.X;
         }
         public override void Update(GameTime time)
         {
@@ -60,7 +63,13 @@ namespace CrazyArcade.CAFrameWork.GameStates
             {
                 gameRef.Quit();
             }
-            if(inButton(ms))
+            if(ks.IsKeyDown(Keys.Enter))
+            {
+                TogglePause();
+            }
+
+            // To be implemented in sprint 5
+            /*if(inButton(ms))
             {
                 resume.Enlarge();
             }
@@ -71,7 +80,7 @@ namespace CrazyArcade.CAFrameWork.GameStates
             if(inButton(ms) && ms.LeftButton.Equals(ButtonState.Pressed))
             {
                 TogglePause();
-            }
+            }*/
         }
         public override void TogglePause()
         {
