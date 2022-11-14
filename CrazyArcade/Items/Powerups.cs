@@ -38,6 +38,7 @@ namespace CrazyArcade.Items
         }
         public override void CollisionLogic(Rectangle overlap, IPlayerCollisionBehavior collisionPartner)
         {
+            collisionPartner.IncreaseScore(50);
             this.DeleteSelf(parentScene);
         }
     }
@@ -94,6 +95,7 @@ namespace CrazyArcade.Items
         }
         public override void CollisionLogic(Rectangle overlap, IPlayerCollisionBehavior collisionPartner)
         {
+            collisionPartner.IncreaseScore(10);
             this.DeleteSelf(parentScene);
         }
     }
