@@ -105,6 +105,7 @@ public class CAGame : Game, IGameDelegate, ITransitionCompleteHandler
                 backgroundMusicInstance.Pitch = 0.2f;
                 backgroundMusicInstance.IsLooped = true;
                 backgroundMusicInstance.Play();
+                new TestLoad().LoadGUI();
             }
             else if (Mouse.GetState().RightButton == ButtonState.Pressed && stageNum < levelFileNames.Length-1)
             {
@@ -117,6 +118,7 @@ public class CAGame : Game, IGameDelegate, ITransitionCompleteHandler
                 backgroundMusicInstance.Pitch = 0.2f;
                 backgroundMusicInstance.IsLooped = true;
                 backgroundMusicInstance.Play();
+                new TestLoad().LoadGUI();
             }
             scene.Update(gameTime);
         }
