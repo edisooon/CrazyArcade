@@ -155,7 +155,6 @@ namespace CrazyArcade.BombFeature
         public override void Deload()
         {
             base.Deload();
-            //Console.WriteLine("Deload");
             owner.RecollectBomb();
         }
         public bool Collide(IExplosion bomb)
