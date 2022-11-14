@@ -67,6 +67,7 @@ namespace CrazyArcade.Items
             spriteAnimation = new SpriteAnimation(texture, frames, fps);
             spriteAnimation.Scale = 0.6f;
             GameCoord = position;
+            this.DrawOrder = -1;
         }
 
         public override SpriteAnimation SpriteAnim => this.spriteAnimation;
