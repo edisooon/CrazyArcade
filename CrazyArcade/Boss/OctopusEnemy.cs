@@ -113,6 +113,7 @@ namespace CrazyArcade.Boss
             timer = 0;
             this.scene = scene;
             health = 100;
+            state = new OctopusNormal(this);
 
             //Animation
             texture = TextureSingleton.GetOctoBoss();
@@ -151,6 +152,7 @@ namespace CrazyArcade.Boss
 
             //State Specific Animation
             tint = Color.White; // UNUSED
+
             // public SpriteAnimation(Texture2D texture, int startX, int startY, int width, int height, int frames, int offset, int fps) 
             deathAnimation = new SpriteAnimation(texture, 1941, 43, 108, 104, 1, 0, 1);
             deathAnimation.setWidthHeight(108, 104);
@@ -172,7 +174,7 @@ namespace CrazyArcade.Boss
             yDifference = GameCoord.Y - Start.Y;
             if (state != null)
             {
-                state.Update(time);
+                //this.defaultUpdate(time);
             }
             if (timer > 1f / 6)
             {
