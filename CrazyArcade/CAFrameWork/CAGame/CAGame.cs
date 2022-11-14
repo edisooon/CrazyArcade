@@ -67,8 +67,8 @@ public class CAGame : Game, IGameDelegate, ITransitionCompleteHandler
         UI_Singleton.internalGUI = gameGUI;
         scene = new DemoScene(this, "Level_0.json", StageOffset);
         TextureSingleton.LoadAllTextures(Content);
-        TestLoad guiLoad = new TestLoad();
-        guiLoad.LoadGUI();
+        //TestLoad guiLoad = new TestLoad();
+        //guiLoad.LoadGUI();
         song = Content.Load<Song>("playground");
         MediaPlayer.Play(song);
         test = new ReadJSON("Level_0.json", ReadJSON.fileType.LevelFile);
@@ -90,7 +90,8 @@ public class CAGame : Game, IGameDelegate, ITransitionCompleteHandler
         Level1 = test.levelObject;
         map = new ReadJSON("Map.json", ReadJSON.fileType.MapFile);
         levelFileNames = map.mapObject.Levels;
-
+        new TestLoad().LoadGUI();
+        UI_Singleton.ChangeComponentText("levelCounter", "text", "Level " + stageNum);
         scene.Load();
     }
 
@@ -111,12 +112,14 @@ public class CAGame : Game, IGameDelegate, ITransitionCompleteHandler
                 stageNum--;
                 makeTransition(gameTime, -transitionDisplacement);
                 new TestLoad().LoadGUI();
+                UI_Singleton.ChangeComponentText("levelCounter","text", "Level " + stageNum);
             }
             else if (Mouse.GetState().RightButton == ButtonState.Pressed && stageNum < levelFileNames.Length-1)
             {
                 stageNum++;
                 makeTransition(gameTime, transitionDisplacement);
                 new TestLoad().LoadGUI();
+                UI_Singleton.ChangeComponentText("levelCounter", "text", "Level " + stageNum);
             }
             scene.Update(gameTime);
         }
