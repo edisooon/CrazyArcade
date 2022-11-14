@@ -11,7 +11,7 @@ using CrazyArcade.Blocks;
 
 namespace CrazyArcade.BombFeature
 {
-    internal class WaterExplosionEdge : CAEntity, IPlayerCollidable
+    internal class WaterExplosionEdge : CAEntity
     {
         static int FrameLength = 40;
         float Lifespan;
@@ -22,9 +22,9 @@ namespace CrazyArcade.BombFeature
         private SpriteAnimation[] spriteAnims;
         public override SpriteAnimation SpriteAnim => spriteAnims[living];
 
-        public Rectangle internalRectangle;
+        //public Rectangle internalRectangle;
 
-        public Rectangle boundingBox => internalRectangle;
+        //public Rectangle boundingBox => internalRectangle;
 
         public WaterExplosionEdge(int direction, bool head, int X = 0, int Y = 0)
         {
@@ -40,7 +40,7 @@ namespace CrazyArcade.BombFeature
             Rectangle[] decayFrames = GetDecayedAnimationFrames();
             this.spriteAnims[0] = new SpriteAnimation(TextureSingleton.GetBallons(), activeFrames, 15);
             this.spriteAnims[1] = new SpriteAnimation(TextureSingleton.GetBallons(), decayFrames, 15);
-            this.internalRectangle = new Rectangle(X, Y, 40, 40);
+            //this.internalRectangle = new Rectangle(X, Y, 40, 40);
         }
         private Rectangle[] GetActiveAnimationFrames()
         {
@@ -105,9 +105,9 @@ namespace CrazyArcade.BombFeature
             SceneDelegate.ToRemoveEntity(this);
         }
 
-        public void CollisionLogic(Rectangle overlap, IPlayerCollisionBehavior collisionPartner)
-        {
-            collisionPartner.CollisionDestroyLogic();
-        }
+        //public void CollisionLogic(Rectangle overlap, IPlayerCollisionBehavior collisionPartner)
+        //{
+        //    collisionPartner.CollisionDestroyLogic();
+        //}
     }
 }
