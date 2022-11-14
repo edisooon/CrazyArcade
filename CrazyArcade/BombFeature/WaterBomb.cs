@@ -18,10 +18,6 @@ namespace CrazyArcade.BombFeature
     public class WaterBomb : CAGridBoxEntity, IPlayerCollidable, IExplosionCollidable, IExplodable
     {
         int BlastLength;
-        int leftLength;
-        int rightLength;
-        int upLength;
-        int downLength;
 
         float DetonateTimer;
         float DetonateTime;
@@ -76,10 +72,6 @@ namespace CrazyArcade.BombFeature
             gamePos = bombPosition;
 
             this.BlastLength = BlastLength;
-            this.leftLength = BlastLength;
-            this.rightLength = BlastLength;
-            this.upLength = BlastLength;
-            this.downLength = BlastLength;
             this.owner = character;
             AnimationFrames = GetAnimationFrames();
             DetonateTime = 0;
