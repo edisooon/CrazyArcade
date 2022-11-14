@@ -259,6 +259,7 @@ namespace CrazyArcade.Boss
                 speed /= 2;
                 //state = new OctopusAttack(this,1);
                 this.squareBlast();
+                this.shoot();
                 direction = Dir.Up;
                 //changeDir will put it back on course
             }
@@ -299,6 +300,15 @@ namespace CrazyArcade.Boss
                                   { 2, 4 }, { 2, 5 }, { 2, 6 }, { 2, 6 },
                                   { 8, 4 }, { 8, 5 }, { 8, 6 }, { 8, 6 }};
             //resume movement if necessary
+            for(int i = 0; i < waterExplosionEdges.Length; i++){
+                int d;
+                if (i < 5) d = 1;//left
+                else if (i < 10) d = 3;//right
+                else if (i < 14) d = 2;//down
+                else d = 0;//up
+                waterExplosionEdges[i] = new WaterExplosionEdge(d, false, edgeCoords[i,0], edgeCoords[i,1]);
+                this.scene.AddSprite(waterExplosionEdges[i]);
+            }
         }
         public void toggleHurtSprites(Boolean hurt) {
             if (hurt)
