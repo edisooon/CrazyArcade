@@ -44,18 +44,19 @@ namespace CrazyArcade.CAFrameWork.CollisionSystem
             }
             foreach (IExplosionCollidable collidable in triggers)
             {
+                if (collidable is SunBoss)
+                {
+                    SunBoss boss = collidable as SunBoss;
+                    putSunBossIntoMatrix(res, boss.GetCenter().X + 0.5f, boss.GetCenter().Y+0.5f, boss.GameRadius, boss);
+                    continue;
+                }
                 Point triggerCenter = new Point((int)((collidable as IGridable).GameCoord.X + 0.5),
                     (int)((collidable as IGridable).GameCoord.Y + 0.5));
                 triggerCenter.X -= bounds.X;
                 triggerCenter.Y -= bounds.Y;
                 if (bounds.Contains(triggerCenter))
                 {
-                    if (collidable is SunBoss) {
-                        SunBoss boss = collidable as SunBoss;
-                        putSunBossIntoMatrix(res, triggerCenter.X, triggerCenter.Y, boss.GameRadius, boss);
-                    } else {
-                        res[triggerCenter.X, triggerCenter.Y].Add(collidable);
-                    }
+                    res[triggerCenter.X, triggerCenter.Y].Add(collidable);
                 } else
                 {
                     Console.WriteLine("Position not exists: " + triggerCenter);
@@ -64,13 +65,13 @@ namespace CrazyArcade.CAFrameWork.CollisionSystem
             return res;
         }
 
-        private void putSunBossIntoMatrix(List<IExplosionCollidable>[,] res, int centerX, int centerY, int radius, SunBoss boss)
+        private void putSunBossIntoMatrix(List<IExplosionCollidable>[,] res, float centerX, float centerY, int radius, SunBoss boss)
         {
             for (int i = 0; i < bounds.Width; i++)
             {
                 for (int k = 0; k < bounds.Height; k++)
                 {
-                    if (Math.Sqrt((centerX - i) ^ 2 + (centerY - k)) <= radius) res[i, k].Add(boss as IExplosionCollidable);
+                    if (Math.Sqrt(Math.Pow((centerX - (float)i), 2) + Math.Pow((centerY - (float)k), 2)) <= radius) res[i, k].Add(boss as IExplosionCollidable);
                 }
             }
         }

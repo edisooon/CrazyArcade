@@ -130,7 +130,7 @@ namespace CrazyArcade.Boss
         public bool Collide(IExplosion bomb)
         {
             wasAttacked = true;
-            return false;
+            return true;
         }
     }
 }
