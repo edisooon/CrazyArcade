@@ -8,10 +8,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using CrazyArcade.Blocks;
+using CrazyArcade.Boss;
 
 namespace CrazyArcade.BombFeature
 {
-    internal class WaterExplosionEdge : CAEntity
+    internal class WaterExplosionEdge : CAEntity, IBossCollidable
     {
         static int FrameLength = 40;
         float Lifespan;
@@ -22,16 +23,16 @@ namespace CrazyArcade.BombFeature
         private SpriteAnimation[] spriteAnims;
         public override SpriteAnimation SpriteAnim => spriteAnims[living];
 
-        //public Rectangle internalRectangle;
+        public Rectangle hitBox => internalRectangle;
 
-        //public Rectangle boundingBox => internalRectangle;
+        public Rectangle internalRectangle;
 
         public WaterExplosionEdge(int direction, bool head, int X = 0, int Y = 0)
         {
             spriteAnims = new SpriteAnimation[2];
             this.X = X;
             this.Y = Y;
-            Lifespan = 500;
+            Lifespan = 100;
             AliveTime = 0;
             living = 0;
             Direction = direction;
@@ -40,7 +41,7 @@ namespace CrazyArcade.BombFeature
             Rectangle[] decayFrames = GetDecayedAnimationFrames();
             this.spriteAnims[0] = new SpriteAnimation(TextureSingleton.GetBallons(), activeFrames, 15);
             this.spriteAnims[1] = new SpriteAnimation(TextureSingleton.GetBallons(), decayFrames, 15);
-            //this.internalRectangle = new Rectangle(X, Y, 40, 40);
+            this.internalRectangle = new Rectangle(X, Y, 40, 40);
         }
         private Rectangle[] GetActiveAnimationFrames()
         {
@@ -103,6 +104,11 @@ namespace CrazyArcade.BombFeature
         private void DeleteSelf()
         {
             SceneDelegate.ToRemoveEntity(this);
+        }
+
+        public void Collide(IBossCollideBehaviour boss)
+        {
+            boss.HurtBoss();
         }
 
         //public void CollisionLogic(Rectangle overlap, IPlayerCollisionBehavior collisionPartner)

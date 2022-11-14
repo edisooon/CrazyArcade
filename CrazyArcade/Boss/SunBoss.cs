@@ -7,7 +7,7 @@ using CrazyArcade.BombFeature;
 
 namespace CrazyArcade.Boss
 {
-	public class SunBoss: CAEntity, ISunBossDelegate, IGridable, IExplosionCollidable
+	public class SunBoss: CAEntity, ISunBossDelegate, IGridable, IBossCollideBehaviour
 	{
         //----------------Test purpose-------------------
         ITimer timer;
@@ -47,6 +47,8 @@ namespace CrazyArcade.Boss
         public int Health => health;
 
         public Rectangle Range => new Rectangle(0, 0, 11, 11);
+
+        public Rectangle hitBox => new Rectangle(this.X, this.Y, 88, 88);
 
         public override void Load()
         {
@@ -127,10 +129,11 @@ namespace CrazyArcade.Boss
             sceneDelegate.ToRemoveEntity(this);
         }
 
-        public bool Collide(IExplosion bomb)
+        public void HurtBoss()
         {
-            wasAttacked = true;
-            return true;
+            if (!(states is SunBossHurtStates))
+                wasAttacked = true;
+           
         }
     }
 }
