@@ -9,7 +9,7 @@ namespace CrazyArcade.PlayerStateMachine
     public class CharacterStateDie : ICharacterState
     {
         SpriteAnimation[] die;
-        public CharacterStateDie()
+        public CharacterStateDie(Character character)
         {
             die = new SpriteAnimation[1];
             die[0] = new SpriteAnimation(TextureSingleton.GetPlayer1(), 11, 7, 275, 531, 108, 10);

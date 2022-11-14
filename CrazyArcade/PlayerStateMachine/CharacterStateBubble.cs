@@ -1,6 +1,7 @@
 ﻿using CrazyArcade.CAFramework;
 using CrazyArcade.Content;
 using CrazyArcade.Items;
+using CrazyArcade.Levels;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 using System;
@@ -45,10 +46,11 @@ namespace CrazyArcade.PlayerStateMachine
             character.UpdatePosition();
             if (elapsedTime > popTime)
             {
-                character.playerState = new CharacterStateFree(character);
+                character.playerState = new CharacterStateDie(character);
                 character.spriteAnims = character.playerState.SetSprites();
                 bubble.bubbleInt = 2;
                 character.playerState.SetSpeed();
+                
             }
             elapsedTime += (float)time.ElapsedGameTime.TotalMilliseconds;
         }
