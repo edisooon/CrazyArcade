@@ -37,9 +37,9 @@ namespace CrazyArcade.PlayerStateMachine
         }
         public void ProcessAttaction()
         {
-            if (character.BombsOut >= character.bombCapacity) return;
+            if (character.BombsOut >= character.BombCapacity) return;
             Console.WriteLine("make bomb " + character.BombsOut);
-            character.SceneDelegate.ToAddEntity(new WaterBomb(character.GameCoord, character.currentBlastLength, character));
+            character.SceneDelegate.ToAddEntity(new WaterBomb(character.GameCoord, character.CurrentBlastLength, character));
         }
 
         public void ProcessItem()
