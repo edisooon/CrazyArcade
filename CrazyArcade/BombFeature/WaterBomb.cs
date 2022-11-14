@@ -18,12 +18,12 @@ namespace CrazyArcade.BombFeature
     public class WaterBomb : CAGridBoxEntity, IPlayerCollidable, IExplosionCollidable, IExplodable
     {
         int BlastLength;
-
         float DetonateTimer;
         float DetonateTime;
         private SpriteAnimation spriteAnims;
         IBombCollectable owner;
         public override SpriteAnimation SpriteAnim => spriteAnims;
+        HashSet<IPlayerCollisionBehavior> hasNotLeft = new HashSet<IPlayerCollisionBehavior>();
 
         public Rectangle internalRectangle;
 
@@ -62,7 +62,7 @@ namespace CrazyArcade.BombFeature
 
         private Rectangle[] AnimationFrames;
         
-        public WaterBomb(Vector2 grid, int BlastLength, IBombCollectable character) : base(new GridBoxPosition(grid, (int)GridObjectDepth.Box))
+        public WaterBomb(Vector2 grid, int BlastLength, IBombCollectable character, ISceneDelegate scene) : base(new GridBoxPosition(grid, (int)GridObjectDepth.Box))
         {
 
             Vector2 bombPosition = grid;
@@ -77,6 +77,10 @@ namespace CrazyArcade.BombFeature
             DetonateTimer = 3000;
             this.spriteAnims = new SpriteAnimation(TextureSingleton.GetBallons(), AnimationFrames, 8);
             internalRectangle = new Rectangle(X, Y, 40, 40);
+            foreach(PlayerCharacter player in scene.Players)
+            {
+                IPlayerCollisionBehavior collisionPartner = player as IPlayerCollisionBehavior;
+            }
         }
         private static Rectangle[] GetAnimationFrames()
         {

@@ -8,6 +8,7 @@ using CrazyArcade.CAFrameWork.CAGame;
 using CrazyArcade.CAFrameWork.GameStates;
 using CrazyArcade.CAFrameWork.Transition;
 using CrazyArcade.GameGridSystems;
+using CrazyArcade.PlayerStateMachine;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
@@ -28,6 +29,8 @@ namespace CrazyArcade.CAFramework
         public Vector2 Camera { get => gridSystems.Camera; set => gridSystems.Camera = value; }
         public Vector2 StageOffset { get => gridSystems.StageOffset; set => gridSystems.StageOffset = value; }
         public abstract List<Vector2> PlayerPositions { get; }
+
+        public abstract List<PlayerCharacter> Players { get; }
 
         public void EndAfterTransition()
         {

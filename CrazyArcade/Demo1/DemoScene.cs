@@ -29,6 +29,7 @@ namespace CrazyArcade.Demo1
         string fileName;
 
         private List<PlayerCharacter> players = new List<PlayerCharacter>();
+        public override List<PlayerCharacter> Players { get => players; }
         public override List<Vector2> PlayerPositions
         {
             get

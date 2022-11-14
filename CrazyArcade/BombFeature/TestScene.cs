@@ -1,5 +1,6 @@
 ﻿using CrazyArcade.CAFramework;
 using CrazyArcade.CAFramework.Controller;
+using CrazyArcade.PlayerStateMachine;
 using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
@@ -14,6 +15,8 @@ namespace CrazyArcade.BombFeature
         private BombManager bombManager;
 
         public override List<Vector2> PlayerPositions => throw new NotImplementedException();
+
+        public override List<PlayerCharacter> Players => throw new NotImplementedException();
 
         public TestScene()
         {
