@@ -75,7 +75,7 @@ namespace CrazyArcade.CAFrameWork.CollisionSystem
                 }
                 if (isLeaf)
                 {
-                    return i;
+                    return i-1;
                 }
             }
             return length;

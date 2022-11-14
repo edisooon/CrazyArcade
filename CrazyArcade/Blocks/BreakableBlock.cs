@@ -10,7 +10,7 @@ using CrazyArcade.CAFramework;
 
 namespace CrazyArcade.Blocks
 {
-    public abstract class BreakableBlock : Block, IBlock, IExplosionCollidable
+    public abstract class BreakableBlock : Block, IBlock
     {
         ISceneDelegate parentScene;
 
@@ -24,7 +24,7 @@ namespace CrazyArcade.Blocks
             parentScene.ToRemoveEntity(this);
         }
 
-        public bool Collide(IExplosion bomb)
+        public override bool Collide(IExplosion bomb)
         {
             DeleteSelf();
             return false;
