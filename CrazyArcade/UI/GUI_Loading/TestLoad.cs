@@ -14,7 +14,8 @@ namespace CrazyArcade.UI.GUI_Loading
         {
             UI_Singleton.ClearGUI();
             UI_Singleton.AddPreDesignedComposite(new ScoreComposition());
-            //UI_Singleton.AddPreDesignedComposite(new ScoreComposition());
+            UI_Singleton.AddPreDesignedComposite(new GenericTextBox("levelCounter", "Level ", 100, 20));
+            UI_Singleton.MoveCompositePosition("levelCounter", new Vector2(300, 0));
         }
     }
 }
