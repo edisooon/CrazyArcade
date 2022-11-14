@@ -11,7 +11,7 @@ namespace CrazyArcade.CAFramework
 		void ToRemoveEntity(IEntity entity);
 		List<Vector2> PlayerPositions { get; }
 		void EndGame();
-		void Pause();
+		void TogglePause();
 		void Victory();
 	}
 }

@@ -145,7 +145,7 @@ namespace CrazyArcade.CAFramework
         public virtual void EndGame()
         {
         }
-        public virtual void Pause()
+        public virtual void TogglePause()
         {
         }
         public virtual void Victory()

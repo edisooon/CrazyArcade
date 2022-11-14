@@ -81,7 +81,7 @@ namespace CrazyArcade.Demo1
         {
             gameRef.Scene = new GameOverScene(gameRef);
         }
-        public override void Pause()
+        public override void TogglePause()
         {
             gameRef.Scene = new PauseScene(gameRef, this);
         }

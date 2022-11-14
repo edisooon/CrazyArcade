@@ -39,7 +39,7 @@ namespace CrazyArcade.CAFrameWork.GameStates
             }
             if(state.IsKeyDown(Keys.Back))
             {
-                sceneRef.Pause();
+                sceneRef.TogglePause();
             }
             if(state.IsKeyDown(Keys.V))
             {
