@@ -12,13 +12,15 @@ namespace CrazyArcade.CAFrameWork.CollisionSystem
 	public class BombCollisionSystem: IGameSystem, IExplosionDetector
 	{
         List<IExplosionCollidable> triggers = new List<IExplosionCollidable>();
-        List<IExplosionCollidable>[,] matrix;
+        List<IExplosionCollidable>[,] collidableMatrix;
+        IExplosionCollidable[,] blockMatrix;
         private ISceneDelegate sceneDelegate;
         private Rectangle bounds;
         public BombCollisionSystem(ISceneDelegate sceneDelegate, Rectangle bounds) {
             this.sceneDelegate = sceneDelegate;
             this.bounds = bounds;
-            matrix = new List<IExplosionCollidable>[bounds.Width + 1, bounds.Height + 1];
+            collidableMatrix = new List<IExplosionCollidable>[bounds.Width + 1, bounds.Height + 1];
+            blockMatrix = new IExplosionCollidable[bounds.Width + 1, bounds.Height + 1];
         }
 
         public void AddSprite(IEntity sprite)
@@ -39,7 +41,8 @@ namespace CrazyArcade.CAFrameWork.CollisionSystem
             {
                 for (int k = 0; k < bounds.Height; k++)
                 {
-                    matrix[i, k] = new List<IExplosionCollidable>();
+                    blockMatrix[i, k] = null;
+                    collidableMatrix[i, k] = new List<IExplosionCollidable>();
                 }
             }
             foreach (IExplosionCollidable collidable in triggers)
@@ -47,7 +50,7 @@ namespace CrazyArcade.CAFrameWork.CollisionSystem
                 if (collidable is SunBoss)
                 {
                     SunBoss boss = collidable as SunBoss;
-                    putSunBossIntoMatrix(matrix, boss.GetCenter().X + 0.5f, boss.GetCenter().Y+0.5f, boss.GameRadius, boss);
+                    putSunBossIntoMatrix(collidableMatrix, boss.GetCenter().X + 0.5f, boss.GetCenter().Y+0.5f, boss.GameRadius, boss);
                     continue;
                 }
                 Point triggerCenter = new Point((int)((collidable as IGridable).GameCoord.X + 0.5),
@@ -56,7 +59,8 @@ namespace CrazyArcade.CAFrameWork.CollisionSystem
                 triggerCenter.Y -= bounds.Y;
                 if (bounds.Contains(triggerCenter))
                 {
-                    matrix[triggerCenter.X, triggerCenter.Y].Add(collidable);
+                    if (collidable is Block) blockMatrix[triggerCenter.X, triggerCenter.Y] = collidable;
+                    collidableMatrix[triggerCenter.X, triggerCenter.Y].Add(collidable);
                 } else
                 {
                     Console.WriteLine("Position not exists: " + triggerCenter);
@@ -84,16 +88,16 @@ namespace CrazyArcade.CAFrameWork.CollisionSystem
                 Point point = new Point((int)pos.X + explosion.Center.X, (int)pos.Y + explosion.Center.Y);
                 if (!bounds.Contains(point)) continue;
                 Console.WriteLine("Detecting Collidables at: " + point);
-                bool isLeaf = false;
+                if (blockMatrix[point.X, point.Y]!=null)
+                {
+                    blockMatrix[point.X, point.Y].Collide(explosion);
+                    return i - 1;
+                }
 
                 foreach (IExplosionCollidable collidable in matrix[point.X, point.Y])
                 {
                     Console.WriteLine("Collide");
-                    isLeaf = isLeaf || !collidable.Collide(explosion);
-                }
-                if (isLeaf)
-                {
-                    return i-1;
+                    if(!collidable.Collide(explosion))  return i-1;
                 }
             }
             return length;
@@ -102,10 +106,10 @@ namespace CrazyArcade.CAFrameWork.CollisionSystem
         {
             updateMatrix();
             int[] res = new int[4];
-            res[0] = detect(explosion, explosion.Distance, new Vector2(0, -1), matrix);
-            res[1] = detect(explosion, explosion.Distance, new Vector2(0, 1), matrix);
-            res[2] = detect(explosion, explosion.Distance, new Vector2(-1, 0), matrix);
-            res[3] = detect(explosion, explosion.Distance, new Vector2(1, 0), matrix);
+            res[0] = detect(explosion, explosion.Distance, new Vector2(0, -1), collidableMatrix);
+            res[1] = detect(explosion, explosion.Distance, new Vector2(0, 1), collidableMatrix);
+            res[2] = detect(explosion, explosion.Distance, new Vector2(-1, 0), collidableMatrix);
+            res[3] = detect(explosion, explosion.Distance, new Vector2(1, 0), collidableMatrix);
             return res;
         }
 
