@@ -21,7 +21,6 @@ namespace CrazyArcade.BombFeature
 
         float DetonateTimer;
         float DetonateTime;
-        Boolean characterHasLeft = false;
         private SpriteAnimation spriteAnims;
         IBombCollectable owner;
         public override SpriteAnimation SpriteAnim => spriteAnims;
@@ -89,7 +88,6 @@ namespace CrazyArcade.BombFeature
         }
         public override void Update(GameTime time)
         {
-            if (!characterHasLeft) updateCharacterHasLeft();
             Detonate(time);
         }
         public override void Load()
@@ -112,29 +110,27 @@ namespace CrazyArcade.BombFeature
             }
         }
 
-        public void updateCharacterHasLeft()
-        {
-            //Rectangle checkRectangle = Rectangle.Intersect(this.boundingBox, owner.blockCollisionBoundingBox);
-            //if (checkRectangle.Width == 0 || checkRectangle.Height == 0)
-            //{
-            //    characterHasLeft = true;
-            //}
-        }
-
         public void CollisionLogic(Rectangle overlap, IPlayerCollisionBehavior collisionPartner)
         {
-            if (!characterHasLeft) return;
-            int modifier = 1;
-            if (overlap.Width > overlap.Height)
+            if (collisionPartner.CouldKick)
             {
-                if (Y < collisionPartner.blockCollisionBoundingBox.Y) modifier = -1;
-                collisionPartner.CollisionHaltLogic(new Point(0, modifier * overlap.Height));
+
             }
             else
             {
-                if (X < collisionPartner.blockCollisionBoundingBox.X) modifier = -1;
-                collisionPartner.CollisionHaltLogic(new Point(modifier * overlap.Width, 0));
+                int modifier = 1;
+                if (overlap.Width > overlap.Height)
+                {
+                    if (Y < collisionPartner.blockCollisionBoundingBox.Y) modifier = -1;
+                    collisionPartner.CollisionHaltLogic(new Point(0, modifier * overlap.Height));
+                }
+                else
+                {
+                    if (X < collisionPartner.blockCollisionBoundingBox.X) modifier = -1;
+                    collisionPartner.CollisionHaltLogic(new Point(modifier * overlap.Width, 0));
+                }
             }
+
         }
 
         public IExplosion explode()
