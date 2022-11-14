@@ -38,8 +38,10 @@ namespace CrazyArcade.Demo1
         }
         public void UpdateCoord(Vector2 value)
         {
-            this.X = (int)value.X;
-            this.Y = (int)value.Y;
+            this.X = (int)value.X - bboxOffset.X;
+            this.Y = (int)value.Y - bboxOffset.Y;
+            blockBoundingBox.X = (int)value.X;
+            blockBoundingBox.Y = (int)value.Y;
         }
         public Vector2 GameCoord {
             get => gamePos;
@@ -61,8 +63,6 @@ namespace CrazyArcade.Demo1
         {
             moveInputs = new(0, 0);
             CurrentSpeed = new(0, 0);
-            blockBoundingBox.X = bboxOffset.X + X;
-            blockBoundingBox.Y = bboxOffset.Y + Y;
         }
 
         public void UpdatePosition()
