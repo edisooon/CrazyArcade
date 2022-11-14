@@ -11,31 +11,48 @@ using CrazyArcade.Blocks;
 
 namespace CrazyArcade.Boss
 {
+    //TODO:{
+    //  Organize code
+    //  Add attack methods
+    //  Make States
+    //  Add wounded animations
+    //  Define movement pattern
+    //}
     public class OctopusEnemy : CAEntity, IGridable, IPlayerCollidable
     {
+        //Animation
+        private Texture2D texture;
         public SpriteAnimation[] spriteAnims;
         public SpriteAnimation spriteAnim;
-        private Texture2D texture;
-        public CAScene scene;
-        protected Vector2 Start;
-        protected float xDifference;
-        protected float yDifference;
         private Rectangle[] InputFramesRight;
         private Rectangle[] InputFramesLeft;
         private Rectangle[] InputFramesUp;
         private Rectangle[] InputFramesDown;
-        private Dir[] dirList;
-        protected SpriteEffects effect;
-        private Color tint;
+
+        //Life cycle stuff
+        public SpriteAnimation deathAnimation;
+        public IEnemyState state;
+
+        //Background Stuff
+        public CAScene scene;
+
+        //Spacial Stuff
+        protected Vector2 Start;
+        protected float xDifference;
+        protected float yDifference;
         public Dir direction;
-        public Rectangle outputFrame1;
+        protected Rectangle internalRectangle = new Rectangle(0, 0, 110, 145);
 
-        protected Rectangle internalRectangle = new Rectangle(0, 0, 109, 145);
+        //Out of Use
+        //public Rectangle outputFrame1;
+        private Color tint;//dead
+        private Dir[] dirList;//dead
+        //protected SpriteEffects effect;
+        //public Rectangle inputFrame;
 
+        //I Gridable-------------------
         private Vector2 gamePos;
         private Vector2 pos;
-        public IEnemyState state;
-        public SpriteAnimation deathAnimation;
         private float timer;
         protected int fps = 10;
         public Vector2 ScreenCoord
@@ -74,11 +91,11 @@ namespace CrazyArcade.Boss
                 internalRectangle.Y = Y;
             }
         }
+        //
         public override SpriteAnimation SpriteAnim => spriteAnims[(int)direction];
+
+        //IPlayerCollidable Stuff
         public Rectangle boundingBox => internalRectangle;
-
-        public Rectangle inputFrame;
-
         public void CollisionLogic(Rectangle overlap, IPlayerCollisionBehavior collisionPartner)
         {
             collisionPartner.CollisionDestroyLogic();
@@ -106,10 +123,9 @@ namespace CrazyArcade.Boss
 
         public override void Load()
         {
-            direction = Dir.Down;
-            dirList = new Dir[4];
-            effect = SpriteEffects.None;
+            //Load Sprites
             texture = TextureSingleton.GetOctoBoss();
+            spriteAnim = spriteAnims[(int)direction];
             InputFramesRight = new Rectangle[1];
             InputFramesUp = new Rectangle[1];
             InputFramesLeft = new Rectangle[1];
@@ -120,23 +136,27 @@ namespace CrazyArcade.Boss
             InputFramesDown[0] = new Rectangle(41, 23, 107, 144);
             InputFramesDown[1] = new Rectangle(231, 24, 108, 141);
 
-            texture = TextureSingleton.GetOctoBoss();
-            tint = Color.White;
-            // public SpriteAnimation(Texture2D texture, int startX, int startY, int width, int height, int frames, int offset, int fps) 
-            deathAnimation = new SpriteAnimation(texture, 1941, 43, 108, 104, 1, 0, 1);
-            deathAnimation.setWidthHeight(108, 104);
-            deathAnimation.Position = new Vector2(X, Y);
+            //Directional Organization
+            direction = Dir.Down;
+            dirList = new Dir[4];
             this.spriteAnims[(int)Dir.Up] = new SpriteAnimation(texture, InputFramesUp, fps);
             this.spriteAnims[(int)Dir.Down] = new SpriteAnimation(texture, InputFramesDown, fps);
             this.spriteAnims[(int)Dir.Left] = new SpriteAnimation(texture, InputFramesLeft, fps);
             this.spriteAnims[(int)Dir.Right] = new SpriteAnimation(texture, InputFramesRight, fps);
+
+            //Make animation uniform
             foreach (SpriteAnimation anim in this.spriteAnims)
             {
                 anim.setWidthHeight(110, 145);
                 anim.Position = new Vector2(X, Y);
             }
-            spriteAnim = spriteAnims[(int)direction];
-            deathAnimation = spriteAnim;
+
+            //State Specific Animation
+            tint = Color.White; // UNUSED
+            // public SpriteAnimation(Texture2D texture, int startX, int startY, int width, int height, int frames, int offset, int fps) 
+            deathAnimation = new SpriteAnimation(texture, 1941, 43, 108, 104, 1, 0, 1);
+            deathAnimation.setWidthHeight(108, 104);
+            deathAnimation.Position = new Vector2(X, Y);
         }
 
         protected bool ChangeDir(Dir dir)
@@ -160,6 +180,15 @@ namespace CrazyArcade.Boss
             return false;
         }
         protected Vector2[] SpeedVector => speedVector;
+
+        Vector2[] speedVector =
+        {
+            new Vector2(0.0f, -0.15f),
+            new Vector2(-0.15f, 0.0f),
+            new Vector2(0.0f, 0.15f),
+            new Vector2(0.15f, 0.0f),
+        };
+
         protected void move(Dir dir)
         {
             if (ChangeDir(dir))
@@ -173,13 +202,18 @@ namespace CrazyArcade.Boss
 
         }
 
-        Vector2[] speedVector =
+        protected void shoot() { 
+            //change to attacking state aka make still
+            //Launch balloons
+            //resume movement if necessary
+        }
+
+        protected void squareBlast()
         {
-            new Vector2(0.0f, -0.15f),
-            new Vector2(-0.15f, 0.0f),
-            new Vector2(0.0f, 0.15f),
-            new Vector2(0.15f, 0.0f),
-        };
+            //change to attacking state aka make still
+            //execute square blast attack
+            //resume movement if necessary
+        }
 
         public override void Update(GameTime time)
         {
@@ -187,7 +221,6 @@ namespace CrazyArcade.Boss
             // handled animation updated (position and frame) in abstract level
 
             SpriteAnim.Position = new Vector2(X, Y);
-            SpriteAnim.setEffect(effect);
             xDifference = GameCoord.X - Start.X;
             yDifference = GameCoord.Y - Start.Y;
             if (state != null)
