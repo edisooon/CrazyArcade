@@ -1,4 +1,5 @@
-﻿using CrazyArcade.CAFramework;
+﻿using CrazyArcade.BombFeature;
+using CrazyArcade.CAFramework;
 using CrazyArcade.Content;
 using CrazyArcade.Items;
 using Microsoft.Xna.Framework;
@@ -25,7 +26,6 @@ namespace CrazyArcade.PlayerStateMachine
             this.character = character;
             character.animationHandleInt = 0;
             turtle = new PlayerTurtle(character);
-            //character.parentScene.AddSprite(turtle);
             character.SceneDelegate.ToAddEntity(turtle);
             this.spriteAnims = new SpriteAnimation[4];
 
@@ -37,7 +37,9 @@ namespace CrazyArcade.PlayerStateMachine
         }
         public void ProcessAttaction()
         {
-
+            if (character.BombsOut >= character.bombCapacity) return;
+            Console.WriteLine("make bomb " + character.BombsOut);
+            character.SceneDelegate.ToAddEntity(new WaterBomb(character.GameCoord, character.currentBlastLength, character));
         }
 
         public void ProcessItem()
