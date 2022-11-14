@@ -67,6 +67,7 @@ namespace CrazyArcade.PlayerStateMachine
                 if(ICounter >= 30)
                 {
                     invincible = false;
+                    ICounter = 0;
                 }
             }
         }
