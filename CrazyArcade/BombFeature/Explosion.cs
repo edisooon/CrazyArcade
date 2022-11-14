@@ -38,17 +38,17 @@ namespace CrazyArcade.BombFeature
             }
         }
 
-        public Explosion(Point center, int distance, ISceneDelegate sceneDelegate, IGridTransform trans)
+        public Explosion(Point center, int blastLength, ISceneDelegate sceneDelegate, IGridTransform trans)
 		{
             this.trans = trans;
             this.GameCoord = new Vector2(center.X, center.Y);
             this.SceneDelegate = sceneDelegate;
 			this.center = center;
-			this.distance = distance;
-            explodeEdges();
+            this.distance = blastLength;
         }
 
-		public void explodeEdges()
+
+        public void ExplodeEdges(int[] distance)
 		{
             int explosionTile = 40;
             Vector2 side = new Vector2(0, 0);
@@ -70,9 +70,9 @@ namespace CrazyArcade.BombFeature
                         side = new Vector2(1, 0);
                         break;
                 }
-                for (int j = 1; j <= distance; j++)
+                for (int j = 1; j <= distance[i]; j++)
                 {
-                    SceneDelegate.ToAddEntity(new WaterExplosionEdge(i, j == distance, (int)(X + (j * side.X * explosionTile)), (int)(Y + (j * side.Y * explosionTile))));
+                    SceneDelegate.ToAddEntity(new WaterExplosionEdge(i, j == distance[i], (int)(X + (j * side.X * explosionTile)), (int)(Y + (j * side.Y * explosionTile))));
                 }
             }
         }
@@ -81,6 +81,11 @@ namespace CrazyArcade.BombFeature
         public override void Load()
         {
 
+        }
+
+        public void Display(int[] lengths)
+        {
+            ExplodeEdges(lengths);
         }
     }
 }

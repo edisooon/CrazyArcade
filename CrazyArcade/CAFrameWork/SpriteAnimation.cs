@@ -31,7 +31,9 @@ namespace CrazyArcade.CAFramework
             this.Rectangles = manager.Rectangles;
             this.FrameIndex = manager.FrameIndex;
         }
-
+        public SpriteManager()
+        {
+        }
         public SpriteManager(Texture2D texture, Rectangle rectangle)
         {
             this.Texture = texture;
@@ -121,6 +123,10 @@ namespace CrazyArcade.CAFramework
                 this.timeToUpdate = animation.timeToUpdate;
             }
         }
+        public SpriteAnimation(): base()
+        {
+
+        }
 
         public SpriteAnimation(Texture2D texture, int frames, int offsetX, int offsetY, int width, int height, int fps = 5) : base(texture, frames, offsetX, offsetY, width, height)
         {
@@ -147,7 +153,7 @@ namespace CrazyArcade.CAFramework
             FramesPerSecond = fps;
         }
 
-        public void Update(GameTime gameTime)
+        public virtual void Update(GameTime gameTime)
         {
             if (!playing) return;
             timeElapsed += (float)gameTime.ElapsedGameTime.TotalSeconds;

@@ -19,6 +19,7 @@ using CrazyArcade.CAFrameWork.CAGame;
 using CrazyArcade.Items;
 using CrazyArcade.CAFrameWork.GridBoxSystem;
 using CrazyArcade.CAFrameWork.GameStates;
+using CrazyArcade.CAFrameWork.InputSystem;
 
 namespace CrazyArcade.Demo1
 {
@@ -26,6 +27,20 @@ namespace CrazyArcade.Demo1
     {
         Level level;
         string fileName;
+
+        private List<PlayerCharacter> players = new List<PlayerCharacter>();
+        public override List<Vector2> PlayerPositions
+        {
+            get
+            {
+                List<Vector2> res = new List<Vector2>();
+                foreach(PlayerCharacter player in players)
+                {
+                    res.Add(player.GameCoord + new Vector2(0.2f, 0.4f));
+                }
+                return res;
+            }
+        }
 
         public DemoScene(CAGame game, string fileName, Vector2 stageOffset)
         {
@@ -38,11 +53,11 @@ namespace CrazyArcade.Demo1
         {
             //this.systems.Add(new BlockCollisionSystem());
             this.systems.Add(new GameStateSwitcher(this));
-            this.systems.Add(new ItemCollisionSystem(this));
-            this.systems.Add(new CAControllerSystem());
+            //this.systems.Add(new CAControllerSystem());
             this.systems.Add(new CAGameLogicSystem());
+            this.systems.Add(new InputSystems());
             this.systems.Add(new GridBoxSystem());
-            this.systems.Add(new BombCollisionSystem(this));
+            this.systems.Add(new BombCollisionSystem(this, new Rectangle(0, 0, 15, 15)));
             this.systems.Add(new PlayerCollisionSystem());
             
             this.systems.Add(gridSystems);
@@ -50,9 +65,9 @@ namespace CrazyArcade.Demo1
             level = new Level(this, fileName);
             foreach (IEntity entity in level.DrawLevel())
             {
-                if (entity is Turtle)
+                if (entity is PlayerCharacter)
                 {
-                    Console.WriteLine("There is turtle!");
+                    players.Add(entity as PlayerCharacter);
                 }
                 this.AddSprite(entity);
             }
@@ -61,7 +76,7 @@ namespace CrazyArcade.Demo1
         {
             
             //This may not be neccessary
-            //this.AddSprite(new PlayerCharacter(new DemoController(), this));
+            this.AddSprite(new KeyBoardInput());
         }
 
     }

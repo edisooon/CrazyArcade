@@ -9,6 +9,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using CrazyArcade.Content;
 using CrazyArcade.Items;
+using CrazyArcade.BombFeature;
 
 namespace CrazyArcade.Blocks
 {
@@ -19,17 +20,17 @@ namespace CrazyArcade.Blocks
         }
     }
 
-    public class LightSandBlock : DefaultBlock
+    public class LightSandBlock : BreakableBlock
     {
         private static Rectangle source = new Rectangle(10, 10, 40, 44);
-        public LightSandBlock(Vector2 position) : base(position, source)
+        public LightSandBlock(ISceneDelegate parentScene, Vector2 position) : base(parentScene, position, source)
         {
         }
     }
-    public class SandBlock : DefaultBlock
+    public class SandBlock : BreakableBlock
     {
         private static Rectangle source = new Rectangle(60, 10, 40, 44);
-        public SandBlock(Vector2 position) : base(position, source)
+        public SandBlock(ISceneDelegate parentScene, Vector2 position) : base(parentScene, position, source)
         {
         }
     }

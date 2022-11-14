@@ -8,7 +8,8 @@ using CrazyArcade.PlayerStateMachine;
 using System.Collections.Generic;
 using Vector2 = Microsoft.Xna.Framework.Vector2;
 using Rectangle = Microsoft.Xna.Framework.Rectangle;
-
+using Microsoft.Xna.Framework.Input;
+using CrazyArcade.CAFrameWork.InputSystem;
 
 namespace CrazyArcade.Levels
 {
@@ -32,8 +33,13 @@ namespace CrazyArcade.Levels
             EntityList = new List<CAEntity>();
             LoadSprites();
             LoadBorder();
-            EntityList.Add(new PlayerCharacter(new DemoController(), Scene));
-
+            int[] keySet = new int[5];
+            keySet[0] = KeyBoardInput.KeyDown(Keys.Up);
+            keySet[1] = KeyBoardInput.KeyDown(Keys.Down);
+            keySet[2] = KeyBoardInput.KeyDown(Keys.Left);
+            keySet[3] = KeyBoardInput.KeyDown(Keys.Right);
+            keySet[4] = KeyBoardInput.KeyUp(Keys.Space);
+            EntityList.Add(new PlayerCharacter(keySet));
         }
         public List<CAEntity> DrawLevel()
         {
@@ -68,7 +74,7 @@ namespace CrazyArcade.Levels
         {
 
             startPosition = currentLevel.GetStartPosition(new int[2] { X, Y });
-            Entity = new LightSandBlock(startPosition);
+            Entity = new LightSandBlock(Scene, startPosition);
             Entity.SpriteAnim.Scale = scale;
             EntityList.Add(Entity);
         }
@@ -93,7 +99,7 @@ namespace CrazyArcade.Levels
             foreach (Vector2 vector in itemLocations)
             {
 
-                Entity = new LightSandBlock(vector);
+                Entity = new LightSandBlock(Scene, vector);
                 Entity.SpriteAnim.Scale = scale;
                 EntityList.Add(Entity);
             }
@@ -103,7 +109,7 @@ namespace CrazyArcade.Levels
             foreach (Vector2 vector in itemLocations)
             {
                 
-                Entity = new SandBlock(vector);
+                Entity = new SandBlock(Scene, vector);
                 Entity.SpriteAnim.Scale = scale;
                 EntityList.Add(Entity);
             }
@@ -153,7 +159,7 @@ namespace CrazyArcade.Levels
             foreach (Vector2 vector in itemLocations)
             {
                
-                Entity = new CoinBag(vector);
+                Entity = new CoinBag(Scene, vector);
                 EntityList.Add(Entity);
             }
 
@@ -163,7 +169,7 @@ namespace CrazyArcade.Levels
             {
 
                 
-                EntityList.Add(new Balloon(vector));
+                EntityList.Add(new Balloon(Scene, vector));
 
             }
 
@@ -173,7 +179,7 @@ namespace CrazyArcade.Levels
             {
 
                 
-                EntityList.Add(new Sneaker(vector));
+                EntityList.Add(new Sneaker(Scene, vector));
             }
 
             itemLocations = currentLevel.GetItemLocation(CreateLevel.LevelItem.TurtlePosition);
@@ -181,7 +187,7 @@ namespace CrazyArcade.Levels
             foreach (Vector2 vector in itemLocations)
             {
                 
-                EntityList.Add(new Turtle(vector));
+                EntityList.Add(new Turtle(Scene, vector));
             }
 
             itemLocations = currentLevel.GetItemLocation(CreateLevel.LevelItem.PotionPosition);
@@ -189,7 +195,7 @@ namespace CrazyArcade.Levels
             foreach (Vector2 vector in itemLocations)
             {
                 
-                EntityList.Add(new Potion(vector));
+                EntityList.Add(new Potion(Scene, vector));
             }
 
             itemLocations = currentLevel.GetItemLocation(CreateLevel.LevelItem.CoinPosition);
@@ -197,7 +203,7 @@ namespace CrazyArcade.Levels
             foreach (Vector2 vector in itemLocations)
             {
                 
-                EntityList.Add(new Coin(vector));
+                EntityList.Add(new Coin(Scene, vector));
             }
 
             itemLocations = currentLevel.GetItemLocation(CreateLevel.LevelItem.BombPosition);
