@@ -70,6 +70,7 @@ namespace CrazyArcade.PlayerStateMachine
         }
         public void ProcessItem()
         {
+
         }
         public void ProcessRide()
         {
