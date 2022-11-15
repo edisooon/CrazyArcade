@@ -37,7 +37,7 @@ namespace CrazyArcade.CAFramework
 
         }
         //-------------------ISceneState End----------------------------
-        private void UpdateEnitities()
+        private void UpdateEntities()
         {
             foreach (IEntity entity in newEntities)
             {

@@ -97,7 +97,7 @@ namespace CrazyArcade.Enemies
             yDifference = GameCoord.Y - Start.Y;
             if (state != null)
             {
-
+                state.Update(time);
             }
             if (timer > 1f / 6)
             {
