@@ -25,10 +25,15 @@ From pause
 From victory or game over
 	R - restart
 
+How to play:
+	The player starts each level with no power ups. Over the corse of each level, collect power ups
+	and defeat each enemy to unlock the door to progress to the next level. Once all levels 
+	are completed, you win the game.
 
 Known Bugs:
 - When transitioning between levels, the upper left corner of the screen will flash with enemies
 - Score will reset in between levels
+- If the player dies while the screen is transitioning, level will not load properly
 
 Tools Used:
 - Code metrics were found within the visual studio analyze menu. One was generated at the beginning of week 3, and one was generated
