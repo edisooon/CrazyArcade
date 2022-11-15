@@ -72,8 +72,6 @@ namespace CrazyArcade.BombFeature
         
         public WaterBomb(Vector2 grid, int BlastLength, IBombCollectable character) : base(new GridBoxPosition(grid, (int)GridObjectDepth.Box))
         {
-            GridBoxPosition construct = new GridBoxPosition(grid, (int)GridObjectDepth.Box);
-            Console.WriteLine("construct: " + construct.X + " " + construct.Y);
             Vector2 bombPosition = grid;
             bombPosition = bombPosition + new Vector2(0.5f);
             bombPosition.Floor();
@@ -104,7 +102,7 @@ namespace CrazyArcade.BombFeature
             this.spriteAnims = new SpriteAnimation(TextureSingleton.GetBallons(), AnimationFrames, 8);
             internalRectangle = new Rectangle(X, Y, 40, 40);
 
-            characterHasLeft = iAmOctopus;
+            //characterHasLeft = iAmOctopus;
         }
 
         private static Rectangle[] GetAnimationFrames()
@@ -123,12 +121,19 @@ namespace CrazyArcade.BombFeature
 
         private void updatePosition(GameTime time)
         {
-            GameCoord += Trans.RevScale(move[(int)direction]);
+            length -= 0.25f;
+            if (length > 0)
+            {
+                GameCoord += Trans.RevScale(move[(int)direction]);
+            } else
+            {
+                this.isMoving = false;
+                GameCoord = new Vector2(Position.X, Position.Y);
+            }
         }
 
         public override void Load()
         {
-            Console.WriteLine("Load: " + Position.X + " " + Position.Y);
             owner.SpendBomb();
         }
         private void DeleteSelf()
@@ -176,18 +181,22 @@ namespace CrazyArcade.BombFeature
                 if (isColliding(playerBehavior)) hasNotLeft.Add(playerBehavior);
             }
         }
-        
+        private float length = 0;
         private void kick(Dir dir)
         {
             Point mdir = moveDir[(int)dir];
-            Console.WriteLine("start: " + Position.X + " " + Position.Y);
             GridBoxPosition gridP = Position;
             gridP.X += mdir.X;
             gridP.Y += mdir.Y;
+            length = 0;
+            Console.WriteLine("Start: " + this.Position.X + " " + this.Position.Y);
+
             while (manager.MoveBoxTo(this, gridP))
             {
-                Console.WriteLine("Moved to: " + gridP.X + " " + gridP.Y);
+                length++;
             }
+            Console.WriteLine("Moved to: " + this.Position.X + " " + this.Position.Y);
+
         }
         public void CollisionLogic(Rectangle overlap, IPlayerCollisionBehavior collisionPartner)
         {
