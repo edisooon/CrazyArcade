@@ -250,6 +250,7 @@ namespace CrazyArcade.Boss
 
             if (ChangeDir(dir))
             {
+                this.shoot();
                 direction = (Dir)((((int)dir) + 1) % 4);
                 //effect = direction == Dir.Left ? SpriteEffects.FlipHorizontally : SpriteEffects.None;
                 UpdateAnimation(dir);
@@ -262,8 +263,8 @@ namespace CrazyArcade.Boss
                 justAttacked = true;
                 speed /= 2;
                 //state = new OctopusAttack(this,1);
-                //this.squareBlast();
-                this.shoot();
+                this.squareBlast();
+                //this.shoot();
                 direction = Dir.Up;
                 //changeDir will put it back on course
             }
@@ -277,21 +278,22 @@ namespace CrazyArcade.Boss
             //change to attacking state aka make still
             //Launch balloons
             Vector2 destination;
+            int distance = 3;
             if (this.direction == Dir.Right) { 
-                destination = new Vector2(this.X + 3, this.Y);
+                destination = new Vector2(xDifference + distance, yDifference);
             }
             else if (this.direction == Dir.Left)
             {
-                destination = new Vector2(this.X - 3, this.Y);
+                destination = new Vector2(xDifference - distance, yDifference);
             }
             else if (this.direction == Dir.Up)
             {
-                destination = new Vector2(this.X, this.Y - 3);
+                destination = new Vector2(xDifference, yDifference - distance);
             }
             else {
-                destination = new Vector2(this.X, this.Y + 3);
+                destination = new Vector2(xDifference, yDifference + distance);
             }
-            WaterBomb projectile = new WaterBomb(destination,1,this,true);
+            WaterBomb projectile = new WaterBomb((destination),1,this, true);
             this.SceneDelegate.ToAddEntity(projectile);
             //this.scene.AddSprite(projectile);
             //resume movement if necessary
@@ -301,7 +303,7 @@ namespace CrazyArcade.Boss
         {
             //change to attacking state aka make still
             //execute square blast attack
-            WaterExplosionEdge[] waterExplosionEdges = new WaterExplosionEdge[18];
+            WaterBomb[] waterExplosionEdges = new WaterBomb[18];
             int[,] edgeCoords = { { 3, 3}, { 4, 3 }, { 5, 3 }, { 6, 3 }, { 7, 3 },
                                   { 3, 8}, { 4, 8 }, { 5, 8 }, { 6, 8 }, { 7, 8 }, 
                                   { 2, 4 }, { 2, 5 }, { 2, 6 }, { 2, 7 },
@@ -313,7 +315,7 @@ namespace CrazyArcade.Boss
                 else if (i < 10) d = 3;//right
                 else if (i < 14) d = 2;//down
                 else d = 0;//up
-                waterExplosionEdges[i] = new WaterExplosionEdge(d, false, 90+((xoffSet+edgeCoords[i,0])*40), 40*edgeCoords[i,1]);
+                waterExplosionEdges[i] = new WaterBomb(new Vector2(edgeCoords[i,0]+1, edgeCoords[i,1]), 0, this, true);
                 this.scene.ToAddEntity(waterExplosionEdges[i]);
             }
             for (int i = 0; i < waterExplosionEdges.Length; i++)
