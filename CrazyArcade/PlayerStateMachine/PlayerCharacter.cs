@@ -52,7 +52,6 @@ namespace CrazyArcade.PlayerStateMachine
             if (isMoving()) return;
             moveInputs.Y += 1;
             direction = Dir.Down;
-            Console.WriteLine("Down");
         }
 
         private void KeyLeft()
@@ -60,7 +59,6 @@ namespace CrazyArcade.PlayerStateMachine
             if (isMoving()) return;
             moveInputs.X -= 1;
             direction = Dir.Left;
-            Console.WriteLine("Left");
         }
 
         private void KeyRight()
@@ -72,7 +70,6 @@ namespace CrazyArcade.PlayerStateMachine
 
         private void KeySpace()
         {
-            Console.WriteLine("space");
             playerState.ProcessAttaction();
         }
 

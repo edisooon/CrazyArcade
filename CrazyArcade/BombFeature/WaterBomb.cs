@@ -9,6 +9,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.Contracts;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -22,6 +23,7 @@ namespace CrazyArcade.BombFeature
         float DetonateTime;
         private SpriteAnimation spriteAnims;
         private Dir direction = Dir.Down;
+        private Point[] moveDir = new Point[4] { new Point(0, -1), new Point(-1, 0), new Point(0, 1), new Point(1, 0) };
         private Vector2[] move = new Vector2[4] {new Vector2(0, -10), new Vector2(-10, 0), new Vector2(0, 10), new Vector2(10, 0)};
         private bool isMoving = false;
         IBombCollectable owner;
@@ -67,7 +69,8 @@ namespace CrazyArcade.BombFeature
         
         public WaterBomb(Vector2 grid, int BlastLength, IBombCollectable character) : base(new GridBoxPosition(grid, (int)GridObjectDepth.Box))
         {
-
+            GridBoxPosition construct = new GridBoxPosition(grid, (int)GridObjectDepth.Box);
+            Console.WriteLine("construct: " + construct.X + " " + construct.Y);
             Vector2 bombPosition = grid;
             bombPosition = bombPosition + new Vector2(0.5f);
             bombPosition.Floor();
@@ -103,6 +106,7 @@ namespace CrazyArcade.BombFeature
 
         public override void Load()
         {
+            Console.WriteLine("Load: " + Position.X + " " + Position.Y);
             owner.SpendBomb();
         }
         private void DeleteSelf()
@@ -150,13 +154,26 @@ namespace CrazyArcade.BombFeature
                 if (isColliding(playerBehavior)) hasNotLeft.Add(playerBehavior);
             }
         }
-
+        
+        private void kick(Dir dir)
+        {
+            Point mdir = moveDir[(int)dir];
+            Console.WriteLine("start: " + Position.X + " " + Position.Y);
+            GridBoxPosition gridP = Position;
+            gridP.X += mdir.X;
+            gridP.Y += mdir.Y;
+            while (manager.MoveBoxTo(this, gridP))
+            {
+                Console.WriteLine("Moved to: " + gridP.X + " " + gridP.Y);
+            }
+        }
         public void CollisionLogic(Rectangle overlap, IPlayerCollisionBehavior collisionPartner)
         {
             if (hasNotLeft.Contains(collisionPartner)) return;
             if (collisionPartner.CouldKick)
             {
                 this.direction = (collisionPartner as Character).direction;
+                kick(direction);
                 this.isMoving = true;
             }
             else
