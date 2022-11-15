@@ -57,18 +57,19 @@ namespace CrazyArcade.PlayerStateMachine
             if (Keyboard.GetState().IsKeyDown(Keys.D1) && !d1HeldDown)
             {
                 d1HeldDown = true;
-                character.currentBlastLength = character.currentBlastLength + 1 < 5 ? character.currentBlastLength + 1 : 5;
+                character.CurrentBlastLength = character.CurrentBlastLength + 1 < 5 ? character.CurrentBlastLength + 1 : 5;
             }
             d1HeldDown = Keyboard.GetState().IsKeyDown(Keys.D1);
             if (Keyboard.GetState().IsKeyDown(Keys.D2) && !d2HeldDown)
             {
                 d2HeldDown = true;
-                character.bombCapacity = character.bombCapacity + 1 < 5 ? character.bombCapacity + 1 : 5;
+                character.BombCapacity = character.BombCapacity + 1 < 5 ? character.BombCapacity + 1 : 5;
             }
             d2HeldDown = Keyboard.GetState().IsKeyDown(Keys.D2);
         }
         public void ProcessItem()
         {
+
         }
         public void ProcessRide()
         {
@@ -81,9 +82,9 @@ namespace CrazyArcade.PlayerStateMachine
         }
         public void ProcessAttaction()
         {
-            if (character.BombsOut >= character.bombCapacity) return;
+            if (character.BombsOut >= character.BombCapacity) return;
             Console.WriteLine("make bomb " + character.BombsOut);
-            character.SceneDelegate.ToAddEntity(new WaterBomb(character.GameCoord, character.currentBlastLength, character));
+            character.SceneDelegate.ToAddEntity(new WaterBomb(character.GameCoord, character.CurrentBlastLength, character));
         }
     }
 }

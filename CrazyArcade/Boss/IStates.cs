@@ -8,6 +8,7 @@ namespace CrazyArcade.Boss
 	public interface IStates
 	{
 		IStates Update(GameTime time);
+
         public List<SpriteAnimation> Animation { get; }
     }
 }

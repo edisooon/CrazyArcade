@@ -1,4 +1,5 @@
-﻿using CrazyArcade.CAFramework;
+﻿using CrazyArcade.BombFeature;
+using CrazyArcade.CAFramework;
 using CrazyArcade.Content;
 using CrazyArcade.Items;
 using Microsoft.Xna.Framework;
@@ -25,7 +26,6 @@ namespace CrazyArcade.PlayerStateMachine
             this.character = character;
             character.animationHandleInt = 0;
             turtle = new PlayerTurtle(character);
-            //character.parentScene.AddSprite(turtle);
             character.SceneDelegate.ToAddEntity(turtle);
             this.spriteAnims = new SpriteAnimation[4];
 
@@ -37,7 +37,9 @@ namespace CrazyArcade.PlayerStateMachine
         }
         public void ProcessAttaction()
         {
-
+            if (character.BombsOut >= character.BombCapacity) return;
+            Console.WriteLine("make bomb " + character.BombsOut);
+            character.SceneDelegate.ToAddEntity(new WaterBomb(character.GameCoord, character.CurrentBlastLength, character));
         }
 
         public void ProcessItem()
@@ -77,13 +79,13 @@ namespace CrazyArcade.PlayerStateMachine
             if (Keyboard.GetState().IsKeyDown(Keys.D1) && !d1HeldDown)
             {
                 d1HeldDown = true;
-                character.currentBlastLength = character.currentBlastLength + 1 < 5 ? character.currentBlastLength + 1 : 5;
+                character.CurrentBlastLength = character.CurrentBlastLength + 1 < 5 ? character.CurrentBlastLength + 1 : 5;
             }
             d1HeldDown = Keyboard.GetState().IsKeyDown(Keys.D1);
             if (Keyboard.GetState().IsKeyDown(Keys.D2) && !d2HeldDown)
             {
                 d2HeldDown = true;
-                character.bombCapacity = character.bombCapacity + 1 < 5 ? character.bombCapacity + 1 : 5;
+                character.BombCapacity = character.BombCapacity + 1 < 5 ? character.BombCapacity + 1 : 5;
             }
             d2HeldDown = Keyboard.GetState().IsKeyDown(Keys.D2);
 
@@ -94,7 +96,7 @@ namespace CrazyArcade.PlayerStateMachine
         }
         public int SetSpeed()
         {
-            character.ModifiedSpeed = character.DefaultSpeed*1.2f;
+            character.ModifiedSpeed = character.DefaultSpeed*.8f;
             return 1;
         }
 

@@ -7,14 +7,16 @@ using CrazyArcade.BombFeature;
 
 namespace CrazyArcade.Boss
 {
-	public class SunBoss: CAEntity, ISunBossDelegate, IGridable//, IExplosionCollidable
+	public class SunBoss: CAEntity, ISunBossDelegate, IGridable, IBossCollideBehaviour
 	{
         //----------------Test purpose-------------------
         ITimer timer;
         //-----------------------------------------------
         ISceneDelegate sceneDelegate;
-        private float unitSize = 44/40;
-        private int lives = 3;
+        private float unitSize = 176/40;
+        private int gameRadius = 2;
+        public int GameRadius { get => gameRadius; }
+        private bool wasAttacked = false;
         public SunBoss(ISceneDelegate sceneDelegate)
 		{
             this.sceneDelegate = sceneDelegate;
@@ -22,7 +24,18 @@ namespace CrazyArcade.Boss
 		}
 
         IStates states;
-        public override List<SpriteAnimation> SpriteAnimList => states.Animation;
+        public override List<SpriteAnimation> SpriteAnimList {
+            get
+            {
+                List<SpriteAnimation> res = new List<SpriteAnimation>();
+                foreach(SpriteAnimation anim in states.Animation)
+                {
+                    anim.Scale = 2;
+                    res.Add(anim);
+                }
+                return res;
+            }
+        }
 
         private Vector2 gamePos;
         private Vector2 pos;
@@ -46,6 +59,8 @@ namespace CrazyArcade.Boss
 
         public Rectangle Range => new Rectangle(0, 0, 11, 11);
 
+        public Rectangle hitBox => new Rectangle(this.X + 22, this.Y + 22, 132, 132);
+
         public override void Load()
         {
             states = new SunBossStartStates(this, new GameTime());
@@ -66,14 +81,15 @@ namespace CrazyArcade.Boss
 
         public bool DidGetDemaged()
         {
-            //----------------Test purpose-------------------
-            if (timer.TotalMili > 4000)
+            if (wasAttacked)
             {
-                timer = null;
+                wasAttacked = false;
                 return true;
             }
-            return false;
-            //-----------------------------------------------
+            else
+            {
+                return false;
+            }
         }
 
         public Vector2 GetCharacterRelativePosition()
@@ -92,7 +108,7 @@ namespace CrazyArcade.Boss
 
         public bool Move(Vector2 distance)
         {
-            if (Range.Contains(this.GameCoord + distance))
+            if (Range.Contains(this.GetCenter() + distance))
             {
                 this.GameCoord += distance;
                 return true;
@@ -124,10 +140,11 @@ namespace CrazyArcade.Boss
             sceneDelegate.ToRemoveEntity(this);
         }
 
-        public void Collide(IExplosion bomb)
+        public void HurtBoss()
         {
-            if (--lives == 0) DeleteSelf();
-            this.SpriteAnim.Color = Color.Red;
+            if (!(states is SunBossHurtStates))
+                wasAttacked = true;
+           
         }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using CrazyArcade.CAFramework;
 using CrazyArcade.Content;
 using CrazyArcade.Items;
+using CrazyArcade.Levels;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 using System;
@@ -49,6 +50,11 @@ namespace CrazyArcade.PlayerStateMachine
                 character.spriteAnims = character.playerState.SetSprites();
                 bubble.bubbleInt = 2;
                 character.playerState.SetSpeed();
+                character.lives--;
+                if (character.lives == 0)
+                {
+                    character.SceneDelegate.EndGame();
+                }
             }
             elapsedTime += (float)time.ElapsedGameTime.TotalMilliseconds;
         }

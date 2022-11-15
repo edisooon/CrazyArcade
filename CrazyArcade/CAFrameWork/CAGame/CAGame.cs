@@ -51,9 +51,18 @@ public class CAGame : Game, IGameDelegate, ITransitionCompleteHandler
         backgroundMusicInstance = backgroundMusic.CreateInstance();
 
     }
+    public ISceneState Scene
+    {
+        get { return scene; }
+        set { scene = value; }
+    }
     public void NewInstance()
     {
         this.Initialize();
+    }
+    public void Quit()
+    {
+        base.Exit();
     }
     protected override void Initialize()
     {
@@ -61,8 +70,10 @@ public class CAGame : Game, IGameDelegate, ITransitionCompleteHandler
         UI_Singleton.internalGUI = gameGUI;
         scene = new DemoScene(this, "Level_0.json", StageOffset);
         TextureSingleton.LoadAllTextures(Content);
-        TestLoad guiLoad = new TestLoad();
-        guiLoad.LoadGUI();
+        //TestLoad guiLoad = new TestLoad();
+        //guiLoad.LoadGUI();
+        song = Content.Load<Song>("playground");
+        MediaPlayer.Play(song);
         test = new ReadJSON("Level_0.json", ReadJSON.fileType.LevelFile);
         CurrentLevel = test.levelObject;
 
@@ -82,12 +93,18 @@ public class CAGame : Game, IGameDelegate, ITransitionCompleteHandler
         CurrentLevel = test.levelObject;
         map = new ReadJSON("Map.json", ReadJSON.fileType.MapFile);
         levelFileNames = map.mapObject.Levels;
-        LevelSongTitles = new string[] { "playground","playground","playground","comical","bridge","dream","kodama", "worldbeat", "funtimes", "funtimes","funtimes" };
+        new TestLoad().LoadGUI();
+        UI_Singleton.ChangeComponentText("levelCounter", "text", "Level " + stageNum);
         scene.Load();
     }
 
     protected override void Update(GameTime gameTime)
     {
+        if(scene is not DemoScene)
+        {
+            scene.Update(gameTime);
+            return;
+        }
         if (transition != null)
         {
             transition.Update(gameTime);
@@ -104,6 +121,8 @@ public class CAGame : Game, IGameDelegate, ITransitionCompleteHandler
                 backgroundMusicInstance.Pitch = 0.2f;
                 backgroundMusicInstance.IsLooped = true;
                 backgroundMusicInstance.Play();
+                new TestLoad().LoadGUI();
+                UI_Singleton.ChangeComponentText("levelCounter","text", "Level " + stageNum);
             }
             else if (Mouse.GetState().RightButton == ButtonState.Pressed && stageNum < levelFileNames.Length-1)
             {
@@ -116,6 +135,8 @@ public class CAGame : Game, IGameDelegate, ITransitionCompleteHandler
                 backgroundMusicInstance.Pitch = 0.2f;
                 backgroundMusicInstance.IsLooped = true;
                 backgroundMusicInstance.Play();
+                new TestLoad().LoadGUI();
+                UI_Singleton.ChangeComponentText("levelCounter", "text", "Level " + stageNum);
             }
             scene.Update(gameTime);
         }

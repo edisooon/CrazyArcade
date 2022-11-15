@@ -33,8 +33,15 @@ namespace CrazyArcade.PlayerStateMachine
                 commands[keySet[i]] = actions[i];
             }
         }
+
+        private bool isMoving()
+        {
+            return moveInputs.X != 0 || moveInputs.Y != 0;
+        }
+
         private void KeyUp()
         {
+            if (isMoving()) return;
             moveInputs.Y -= 1;
             direction = Dir.Up;
 
@@ -42,27 +49,27 @@ namespace CrazyArcade.PlayerStateMachine
 
         private void KeyDown()
         {
+            if (isMoving()) return;
             moveInputs.Y += 1;
             direction = Dir.Down;
-            Console.WriteLine("Down");
         }
 
         private void KeyLeft()
         {
+            if (isMoving()) return;
             moveInputs.X -= 1;
             direction = Dir.Left;
-            Console.WriteLine("Left");
         }
 
         private void KeyRight()
         {
+            if (isMoving()) return;
             moveInputs.X += 1;
             direction = Dir.Right;
         }
 
         private void KeySpace()
         {
-            Console.WriteLine("space");
             playerState.ProcessAttaction();
         }
 
