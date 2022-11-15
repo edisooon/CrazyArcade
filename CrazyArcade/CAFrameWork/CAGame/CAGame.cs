@@ -71,6 +71,7 @@ public class CAGame : Game, IGameDelegate, ITransitionCompleteHandler
         //guiLoad.LoadGUI();
         song = Content.Load<Song>("playground");
         MediaPlayer.Play(song);
+        MediaPlayer.Volume = .25f;
         test = new ReadJSON("Level_0.json", ReadJSON.fileType.LevelFile);
         CurrentLevel = test.levelObject;
 
@@ -115,8 +116,7 @@ public class CAGame : Game, IGameDelegate, ITransitionCompleteHandler
             if (Mouse.GetState().LeftButton == ButtonState.Pressed && stageNum > 0)
             {
                 stageNum--;
-
-
+                makeTransition(gameTime, -transitionDisplacement);
 
                 //MediaPlayer.Stop();
                 //song = Content.Load<Song>(LevelSongTitles[stageNum]);
@@ -124,16 +124,13 @@ public class CAGame : Game, IGameDelegate, ITransitionCompleteHandler
 
                 //new TestLoad().LoadGUI();
                 //UI_Singleton.ChangeComponentText("levelCounter", "text", "Level " + stageNum);
-                makeTransition(gameTime, -transitionDisplacement);
             }
             else if (Mouse.GetState().RightButton == ButtonState.Pressed && stageNum < levelFileNames.Length-1)
             {
                 
                 stageNum++;
-
-
-
                 makeTransition(gameTime, transitionDisplacement);
+
                 
             }
             scene.Update(gameTime);
