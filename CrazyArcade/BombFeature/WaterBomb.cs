@@ -23,7 +23,7 @@ namespace CrazyArcade.BombFeature
         private SpriteAnimation spriteAnims;
         IBombCollectable owner;
         public override SpriteAnimation SpriteAnim => spriteAnims;
-        HashSet<IPlayerCollisionBehavior> hasNotLeft = new HashSet<IPlayerCollisionBehavior>();
+        HashSet<IPlayerCollisionBehavior> hasNotLeft;
 
         public Rectangle internalRectangle;
 
@@ -62,7 +62,7 @@ namespace CrazyArcade.BombFeature
 
         private Rectangle[] AnimationFrames;
         
-        public WaterBomb(Vector2 grid, int BlastLength, IBombCollectable character, ISceneDelegate scene) : base(new GridBoxPosition(grid, (int)GridObjectDepth.Box))
+        public WaterBomb(Vector2 grid, int BlastLength, IBombCollectable character) : base(new GridBoxPosition(grid, (int)GridObjectDepth.Box))
         {
 
             Vector2 bombPosition = grid;
@@ -77,17 +77,6 @@ namespace CrazyArcade.BombFeature
             DetonateTimer = 3000;
             this.spriteAnims = new SpriteAnimation(TextureSingleton.GetBallons(), AnimationFrames, 8);
             internalRectangle = new Rectangle(X, Y, 40, 40);
-            foreach(PlayerCharacter player in scene.Players)
-            {
-                IPlayerCollisionBehavior collisionPartner = player as IPlayerCollisionBehavior;
-                if (isColliding(collisionPartner)) hasNotLeft.Add(collisionPartner);
-            }
-        }
-
-        private bool isColliding(IPlayerCollisionBehavior collisionPartner)
-        {
-            Rectangle checkRectangle = Rectangle.Intersect(this.boundingBox, collisionPartner.blockCollisionBoundingBox);
-            return checkRectangle.Width != 0 || checkRectangle.Height != 0;
         }
 
         private static Rectangle[] GetAnimationFrames()
@@ -122,8 +111,36 @@ namespace CrazyArcade.BombFeature
             }
         }
 
+        private bool isColliding(IPlayerCollisionBehavior collisionPartner)
+        {
+            Rectangle checkRectangle = Rectangle.Intersect(this.boundingBox, collisionPartner.blockCollisionBoundingBox);
+            return checkRectangle.Width != 0 || checkRectangle.Height != 0;
+        }
+
+        public void UpdateHasNotLeft(List<IPlayerCollisionBehavior> playerBehaviors)
+        {   
+            if(hasNotLeft == null)
+            {
+                InitializeHasNotLeft(playerBehaviors);
+            }
+            else
+            {
+
+            }
+        }
+
+        private void InitializeHasNotLeft(List<IPlayerCollisionBehavior> playerBehaviors)
+        {
+            hasNotLeft = new HashSet<IPlayerCollisionBehavior>();
+            foreach(IPlayerCollisionBehavior playerBehavior in playerBehaviors)
+            {
+                if (isColliding(playerBehavior)) hasNotLeft.Add(playerBehavior);
+            }
+        }
+
         public void CollisionLogic(Rectangle overlap, IPlayerCollisionBehavior collisionPartner)
         {
+            if (hasNotLeft.Contains(collisionPartner)) return;
             if (collisionPartner.CouldKick)
             {
 
@@ -162,5 +179,6 @@ namespace CrazyArcade.BombFeature
             detector.Ignite(this);
             return false;
         }
+
     }
 }

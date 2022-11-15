@@ -29,8 +29,6 @@ namespace CrazyArcade.CAFrameWork.GameStates
 
         public override List<Vector2> PlayerPositions => throw new NotImplementedException();
 
-        public override List<PlayerCharacter> Players => throw new NotImplementedException();
-
         public override void LoadSprites()
         {
             //Temporary, will be changed to game over text

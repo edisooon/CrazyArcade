@@ -30,8 +30,6 @@ namespace CrazyArcade.CAFramework
         public Vector2 StageOffset { get => gridSystems.StageOffset; set => gridSystems.StageOffset = value; }
         public abstract List<Vector2> PlayerPositions { get; }
 
-        public abstract List<PlayerCharacter> Players { get; }
-
         public void EndAfterTransition()
         {
 

@@ -29,7 +29,7 @@ namespace CrazyArcade.PlayerStateMachine
         public int BombsOut => bombOut;
         static int CCount = 0;
         private int loseRideFlag = 5;
-        private bool couldKick = true;
+        private bool couldKick = false;
         public bool CouldKick { get => couldKick; }
 
         public override SpriteAnimation SpriteAnim => spriteAnims[animationHandleInt];

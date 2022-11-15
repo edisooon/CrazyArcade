@@ -16,8 +16,6 @@ namespace CrazyArcade.BombFeature
 
         public override List<Vector2> PlayerPositions => throw new NotImplementedException();
 
-        public override List<PlayerCharacter> Players => throw new NotImplementedException();
-
         public TestScene()
         {
             bombManager = new(new BombTestController(), this);
