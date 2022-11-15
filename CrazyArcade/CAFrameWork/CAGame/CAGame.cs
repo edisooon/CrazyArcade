@@ -84,7 +84,7 @@ public class CAGame : Game, IGameDelegate, ITransitionCompleteHandler
         //Load it here
         _spriteBatch = new SpriteBatch(GraphicsDevice);
 
-        LevelSongTitles = new string[] { "playground", "playground", "playground", "comical", "bridge", "dream", "kodama", "worldbeat", "funtimes", "funtimes", "funtimes", "comical" };
+        LevelSongTitles = new string[] { "playground", "comical", "bridge", "dream", "kodama", "worldbeat", "funtimes", "funtimes", "comical" };
         _spriteBatch = new SpriteBatch(GraphicsDevice);
         test = new ReadJSON("Level_0.json", ReadJSON.fileType.LevelFile);
         CurrentLevel = test.levelObject;
