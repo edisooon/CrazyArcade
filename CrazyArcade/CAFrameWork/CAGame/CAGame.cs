@@ -29,8 +29,7 @@ public class CAGame : Game, IGameDelegate, ITransitionCompleteHandler
     public ReadJSON test;
     public ReadJSON map;
     public String[] LevelSongTitles;
-    public SoundEffect backgroundMusic;
-    public SoundEffectInstance backgroundMusicInstance;
+    public Song song;
     //Random for test purposes and counter
     Random rnd = new Random();
     int newElements = 0;
@@ -47,8 +46,6 @@ public class CAGame : Game, IGameDelegate, ITransitionCompleteHandler
         IsMouseVisible = true;
         SpriteSheet.Content = Content;
         //Load it here
-        backgroundMusic = Content.Load<SoundEffect>("playground");
-        backgroundMusicInstance = backgroundMusic.CreateInstance();
 
     }
     public ISceneState Scene
@@ -87,7 +84,7 @@ public class CAGame : Game, IGameDelegate, ITransitionCompleteHandler
         //Load it here
         _spriteBatch = new SpriteBatch(GraphicsDevice);
 
-
+        LevelSongTitles = new string[] { "playground", "playground", "playground", "comical", "bridge", "dream", "kodama", "worldbeat", "funtimes", "funtimes", "funtimes" };
         _spriteBatch = new SpriteBatch(GraphicsDevice);
         test = new ReadJSON("Level_0.json", ReadJSON.fileType.LevelFile);
         CurrentLevel = test.levelObject;
@@ -115,12 +112,9 @@ public class CAGame : Game, IGameDelegate, ITransitionCompleteHandler
                 stageNum--;
                 makeTransition(gameTime, -transitionDisplacement);
 
-                backgroundMusicInstance.Stop();
-                backgroundMusic = Content.Load<SoundEffect>(LevelSongTitles[stageNum]);
-                backgroundMusicInstance = backgroundMusic.CreateInstance();
-                backgroundMusicInstance.Pitch = 0.2f;
-                backgroundMusicInstance.IsLooped = true;
-                backgroundMusicInstance.Play();
+                MediaPlayer.Stop();
+                song = Content.Load<Song>(LevelSongTitles[stageNum]);
+                MediaPlayer.Play(song);
                 new TestLoad().LoadGUI();
                 UI_Singleton.ChangeComponentText("levelCounter","text", "Level " + stageNum);
             }
@@ -129,12 +123,9 @@ public class CAGame : Game, IGameDelegate, ITransitionCompleteHandler
                 stageNum++;
                 makeTransition(gameTime, transitionDisplacement);
 
-                backgroundMusicInstance.Stop();
-                backgroundMusic = Content.Load<SoundEffect>(LevelSongTitles[stageNum]);
-                backgroundMusicInstance = backgroundMusic.CreateInstance();
-                backgroundMusicInstance.Pitch = 0.2f;
-                backgroundMusicInstance.IsLooped = true;
-                backgroundMusicInstance.Play();
+                MediaPlayer.Stop();
+                song = Content.Load<Song>(LevelSongTitles[stageNum]);
+                MediaPlayer.Play(song);
                 new TestLoad().LoadGUI();
                 UI_Singleton.ChangeComponentText("levelCounter", "text", "Level " + stageNum);
             }

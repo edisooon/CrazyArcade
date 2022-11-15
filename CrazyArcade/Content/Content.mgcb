@@ -87,7 +87,7 @@
 
 #begin bridge.mp3
 /importer:Mp3Importer
-/processor:SoundEffectProcessor
+/processor:SongProcessor
 /processorParam:Quality=Best
 /build:bridge.mp3
 
@@ -129,7 +129,7 @@
 
 #begin comical.mp3
 /importer:Mp3Importer
-/processor:SoundEffectProcessor
+/processor:SongProcessor
 /processorParam:Quality=Best
 /build:comical.mp3
 
@@ -159,7 +159,7 @@
 
 #begin dream.mp3
 /importer:Mp3Importer
-/processor:SoundEffectProcessor
+/processor:SongProcessor
 /processorParam:Quality=Best
 /build:dream.mp3
 
@@ -172,7 +172,7 @@
 
 #begin funtimes.mp3
 /importer:Mp3Importer
-/processor:SoundEffectProcessor
+/processor:SongProcessor
 /processorParam:Quality=Best
 /build:funtimes.mp3
 
@@ -214,19 +214,19 @@
 
 #begin justkidding.mp3
 /importer:Mp3Importer
-/processor:SoundEffectProcessor
+/processor:SongProcessor
 /processorParam:Quality=Best
 /build:justkidding.mp3
 
 #begin kodama.mp3
 /importer:Mp3Importer
-/processor:SoundEffectProcessor
+/processor:SongProcessor
 /processorParam:Quality=Best
 /build:kodama.mp3
 
 #begin nature.mp3
 /importer:Mp3Importer
-/processor:SoundEffectProcessor
+/processor:SongProcessor
 /processorParam:Quality=Best
 /build:nature.mp3
 
@@ -280,7 +280,7 @@
 
 #begin playground.mp3
 /importer:Mp3Importer
-/processor:SoundEffectProcessor
+/processor:SongProcessor
 /processorParam:Quality=Best
 /build:playground.mp3
 
@@ -406,7 +406,7 @@
 
 #begin worldbeat.mp3
 /importer:Mp3Importer
-/processor:SoundEffectProcessor
+/processor:SongProcessor
 /processorParam:Quality=Best
 /build:worldbeat.mp3
 
