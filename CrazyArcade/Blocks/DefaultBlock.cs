@@ -55,13 +55,6 @@ namespace CrazyArcade.Blocks
         {
         }
     }
-    public class Door : Block
-    {
-        private static Rectangle source = new Rectangle(0,0,80,80);
-        public Door(Vector2 position) : base(position, source, Content.TextureSingleton.GetDoor())
-        {
-        }
-    }
 
 
 }

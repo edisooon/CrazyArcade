@@ -94,9 +94,10 @@ public class CAGame : Game, IGameDelegate, ITransitionCompleteHandler
         UI_Singleton.ChangeComponentText("levelCounter", "text", "Level " + stageNum);
         scene.Load();
     }
-
+    private GameTime time;
     protected override void Update(GameTime gameTime)
     {
+        time = gameTime;
         if(scene is not DemoScene)
         {
             scene.Update(gameTime);
@@ -175,6 +176,17 @@ public class CAGame : Game, IGameDelegate, ITransitionCompleteHandler
         newState.StageOffset = StageOffset;
         newState.Camera = new Vector2(0, 0);
         transition = null;
+    }
+    public void StageTransitTo(int stageNum, int dir)
+    {
+        this.stageNum = stageNum;
+        if (dir == (int)Dir.Left)
+            makeTransition(time, -transitionDisplacement);
+        else
+        {
+            makeTransition(time, transitionDisplacement);
+        }
+        scene.Update(time);
     }
 }
 

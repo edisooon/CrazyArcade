@@ -13,6 +13,7 @@ namespace CrazyArcade.CAFramework
 		void EndGame();
 		void TogglePause();
 		void Victory();
-	}
+        void Transition(int stage, Dir dir);
+    }
 }
 
