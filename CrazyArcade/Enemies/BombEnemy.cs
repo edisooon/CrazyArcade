@@ -76,10 +76,10 @@ namespace CrazyArcade.Enemies
          */
         Vector2[] speedVector =
         {
-            new Vector2(0.0f, -0.15f),
-            new Vector2(-0.15f, 0.0f),
-            new Vector2(0.0f, 0.15f),
-            new Vector2(0.15f, 0.0f),
+            new Vector2(0.0f, -0.075f),
+            new Vector2(-0.075f, 0.0f),
+            new Vector2(0.0f, 0.075f),
+            new Vector2(0.075f, 0.0f),
         };
 
 
