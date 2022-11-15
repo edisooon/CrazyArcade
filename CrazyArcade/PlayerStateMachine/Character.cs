@@ -18,7 +18,7 @@ namespace CrazyArcade.PlayerStateMachine
      * State machine is implemented here
      * 
      */
-    public class Character: CharacterBase, IBombCollectable, IPlayerCollisionBehavior
+    public class Character: CharacterBase, IBombCollectable, IExplosionCollidable, IPlayerCollisionBehavior
     {
 		public SpriteAnimation[] spriteAnims;
         public CAScene parentScene;
@@ -143,6 +143,12 @@ namespace CrazyArcade.PlayerStateMachine
         {
             bombOut++;
             Console.WriteLine("Spend: " + BombsOut);
+        }
+
+        public bool Collide(IExplosion bomb)
+        {
+            CollisionDestroyLogic();
+            return true;
         }
     }
 }
