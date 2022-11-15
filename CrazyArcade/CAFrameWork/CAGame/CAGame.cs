@@ -25,10 +25,10 @@ public class CAGame : Game, IGameDelegate, ITransitionCompleteHandler
     private SpriteBatch _spriteBatch;
     public GUI gameGUI;
     public ISceneState scene;
-    public LevelSchema Level1;
+    public LevelSchema CurrentLevel;
     public ReadJSON test;
     public ReadJSON map;
-
+    public String[] LevelSongTitles;
     public Song song;
     //Random for test purposes and counter
     Random rnd = new Random();
@@ -72,7 +72,7 @@ public class CAGame : Game, IGameDelegate, ITransitionCompleteHandler
         song = Content.Load<Song>("playground");
         MediaPlayer.Play(song);
         test = new ReadJSON("Level_0.json", ReadJSON.fileType.LevelFile);
-        Level1 = test.levelObject;
+        CurrentLevel = test.levelObject;
 
         base.Initialize();
         
@@ -84,10 +84,10 @@ public class CAGame : Game, IGameDelegate, ITransitionCompleteHandler
         //Load it here
         _spriteBatch = new SpriteBatch(GraphicsDevice);
 
-
+        LevelSongTitles = new string[] { "playground", "playground", "playground", "comical", "bridge", "dream", "kodama", "worldbeat", "funtimes", "funtimes", "funtimes" };
         _spriteBatch = new SpriteBatch(GraphicsDevice);
         test = new ReadJSON("Level_0.json", ReadJSON.fileType.LevelFile);
-        Level1 = test.levelObject;
+        CurrentLevel = test.levelObject;
         map = new ReadJSON("Map.json", ReadJSON.fileType.MapFile);
         levelFileNames = map.mapObject.Levels;
         new TestLoad().LoadGUI();
@@ -110,6 +110,13 @@ public class CAGame : Game, IGameDelegate, ITransitionCompleteHandler
             if (Mouse.GetState().LeftButton == ButtonState.Pressed && stageNum > 0)
             {
                 stageNum--;
+
+
+
+                MediaPlayer.Stop();
+                song = Content.Load<Song>(LevelSongTitles[stageNum]);
+                MediaPlayer.Play(song);
+
                 new TestLoad().LoadGUI();
                 UI_Singleton.ChangeComponentText("levelCounter", "text", "Level " + stageNum);
                 makeTransition(gameTime, -transitionDisplacement);
@@ -117,6 +124,13 @@ public class CAGame : Game, IGameDelegate, ITransitionCompleteHandler
             else if (Mouse.GetState().RightButton == ButtonState.Pressed && stageNum < levelFileNames.Length-1)
             {
                 stageNum++;
+
+
+
+                MediaPlayer.Stop();
+                song = Content.Load<Song>(LevelSongTitles[stageNum]);
+                MediaPlayer.Play(song);
+
                 new TestLoad().LoadGUI();
                 UI_Singleton.ChangeComponentText("levelCounter", "text", "Level " + stageNum);
 
@@ -135,10 +149,12 @@ public class CAGame : Game, IGameDelegate, ITransitionCompleteHandler
         transition = new CATransition(this.scene,
             newState, displacement, gameTime, new TimeSpan(0, 0, 1));
         transition.Handler = this;
+        test = new ReadJSON(levelFileNames[stageNum], ReadJSON.fileType.LevelFile);
+        CurrentLevel = test.levelObject;
     }
     protected override void Draw(GameTime gameTime)
     {
-        GraphicsDevice.Clear(new Color(Level1.Background[0], Level1.Background[1], Level1.Background[2]));
+        GraphicsDevice.Clear(new Color(CurrentLevel.Background[0], CurrentLevel.Background[1], CurrentLevel.Background[2]));
 
 
         _spriteBatch.Begin();
