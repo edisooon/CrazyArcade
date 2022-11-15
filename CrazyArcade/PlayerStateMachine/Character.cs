@@ -49,7 +49,6 @@ namespace CrazyArcade.PlayerStateMachine
             //currentBlastLength = defaultBlastLength;
             DrawOrder = 1;
             lives = 2;
-            UI_Singleton.ChangeComponentText("lifeCounter", "count", "Lives: " + lives);
             Console.WriteLine("Count: " + ++CCount);
             
             //this.bboxOffset = new Point(20, 20);

@@ -110,16 +110,18 @@ public class CAGame : Game, IGameDelegate, ITransitionCompleteHandler
             if (Mouse.GetState().LeftButton == ButtonState.Pressed && stageNum > 0)
             {
                 stageNum--;
-                makeTransition(gameTime, -transitionDisplacement);
                 new TestLoad().LoadGUI();
-                UI_Singleton.ChangeComponentText("levelCounter","text", "Level " + stageNum);
+                UI_Singleton.ChangeComponentText("levelCounter", "text", "Level " + stageNum);
+                makeTransition(gameTime, -transitionDisplacement);
+                
             }
             else if (Mouse.GetState().RightButton == ButtonState.Pressed && stageNum < levelFileNames.Length-1)
             {
                 stageNum++;
-                makeTransition(gameTime, transitionDisplacement);
                 new TestLoad().LoadGUI();
                 UI_Singleton.ChangeComponentText("levelCounter", "text", "Level " + stageNum);
+                makeTransition(gameTime, transitionDisplacement);
+                
             }
             scene.Update(gameTime);
         }
