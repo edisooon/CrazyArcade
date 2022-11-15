@@ -29,6 +29,14 @@ How to play:
 	The player starts each level with no power ups. Over the corse of each level, collect power ups
 	and defeat each enemy to unlock the door to progress to the next level. Once all levels 
 	are completed, you win the game.
+	
+What each item does
+	Coin - Adds 10 points to the score
+	Coinbag - Adds 50 points to the score
+	Blue potion - Increases blast length of bombs
+	Balloon - Adds 1 to max bomb capacity for the player
+	Rollerskate/sneaker - Increases speed of player
+	Turtle - Gives player a turtle mount, which prevents player from losing a life when hit, turtle goes away after 1 hit
 
 Known Bugs:
 - When transitioning between levels, the upper left corner of the screen will flash with enemies
