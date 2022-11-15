@@ -95,9 +95,10 @@ public class CAGame : Game, IGameDelegate, ITransitionCompleteHandler
         UI_Singleton.ChangeComponentText("levelCounter", "text", "Level " + stageNum);
         scene.Load();
     }
-
+    private GameTime time;
     protected override void Update(GameTime gameTime)
     {
+        time = gameTime;
         if(scene is not DemoScene)
         {
             scene.Update(gameTime);
@@ -106,6 +107,10 @@ public class CAGame : Game, IGameDelegate, ITransitionCompleteHandler
         if (transition != null)
         {
             transition.Update(gameTime);
+        } else if (transitionNum != stageNum)
+        {
+            stageNum = transitionNum;
+            makeTransition(gameTime, transitionDisplacement);
         } else
         {
             if (Mouse.GetState().LeftButton == ButtonState.Pressed && stageNum > 0)
@@ -113,22 +118,20 @@ public class CAGame : Game, IGameDelegate, ITransitionCompleteHandler
                 stageNum--;
                 makeTransition(gameTime, -transitionDisplacement);
 
-                MediaPlayer.Stop();
-                song = Content.Load<Song>(LevelSongTitles[stageNum]);
-                MediaPlayer.Play(song);
-                new TestLoad().LoadGUI();
-                UI_Singleton.ChangeComponentText("levelCounter","text", "Level " + stageNum);
+                //MediaPlayer.Stop();
+                //song = Content.Load<Song>(LevelSongTitles[stageNum]);
+                //MediaPlayer.Play(song);
+
+                //new TestLoad().LoadGUI();
+                //UI_Singleton.ChangeComponentText("levelCounter", "text", "Level " + stageNum);
             }
             else if (Mouse.GetState().RightButton == ButtonState.Pressed && stageNum < levelFileNames.Length-1)
             {
+                
                 stageNum++;
                 makeTransition(gameTime, transitionDisplacement);
 
-                MediaPlayer.Stop();
-                song = Content.Load<Song>(LevelSongTitles[stageNum]);
-                MediaPlayer.Play(song);
-                new TestLoad().LoadGUI();
-                UI_Singleton.ChangeComponentText("levelCounter", "text", "Level " + stageNum);
+                
             }
             scene.Update(gameTime);
         }
@@ -136,6 +139,13 @@ public class CAGame : Game, IGameDelegate, ITransitionCompleteHandler
     }
     private void makeTransition(GameTime gameTime, Vector2 displacement)
     {
+
+        MediaPlayer.Stop();
+        song = Content.Load<Song>(LevelSongTitles[stageNum]);
+        MediaPlayer.Play(song);
+
+        new TestLoad().LoadGUI();
+        UI_Singleton.ChangeComponentText("levelCounter", "text", "Level " + stageNum);
         ISceneState newState = new DemoScene(this, levelFileNames[stageNum], StageOffset);
         newState.Load();
         newState.StageOffset += displacement;
@@ -167,7 +177,13 @@ public class CAGame : Game, IGameDelegate, ITransitionCompleteHandler
         scene = newState;
         newState.StageOffset = StageOffset;
         newState.Camera = new Vector2(0, 0);
+        newState.Loading = false;
         transition = null;
+    }
+    private int transitionNum = 0;
+    public void StageTransitTo(int stageNum, int dir)
+    {
+        transitionNum = stageNum;
     }
 }
 

@@ -83,7 +83,7 @@ namespace CrazyArcade.Blocks
         {
         }
 
-        public void CollisionLogic(Rectangle overlap, IPlayerCollisionBehavior collisionPartner)
+        public virtual void CollisionLogic(Rectangle overlap, IPlayerCollisionBehavior collisionPartner)
         {
             int modifier = 1;
             if (overlap.Width > overlap.Height)

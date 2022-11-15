@@ -8,6 +8,7 @@ namespace CrazyArcade.CAFrameWork.CAGame
 		public void NewInstance();
 		public ISceneState Scene { get; set; }
 		public void Quit();
-	}
+        void StageTransitTo(int stageNum, int dir);
+    }
 }
 
