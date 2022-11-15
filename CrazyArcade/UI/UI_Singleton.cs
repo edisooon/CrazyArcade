@@ -46,7 +46,7 @@ namespace CrazyArcade.UI
         }
         public static void ChangeComponentTexture(string compositeName, string componentName, SpriteAnimation newSpriteAnim)
         {
-            if (!internalGUI.GUILookup.ContainsKey(compositeName) || !internalGUI.GUILookup[compositeName].ComponentDict.ContainsKey(componentName)) return;
+            if (!internalGUI.GUILookup.ContainsKey(compositeName) || !internalGUI.GUILookup[compositeName].ComponentDict.ContainsKey(compositeName)) return;
             internalGUI.GUILookup[compositeName].ComponentDict[componentName].ChangeComponentTexture(newSpriteAnim);
         }
         public static void AddPreDesignedComposite(IGUIComposite newComposite)
