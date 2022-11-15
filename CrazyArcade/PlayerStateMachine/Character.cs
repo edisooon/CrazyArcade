@@ -30,7 +30,7 @@ namespace CrazyArcade.PlayerStateMachine
         public Dir direction = Dir.Down;
         static int CCount = 0;
         private int loseRideFlag = 5;
-        private bool couldKick = false;
+        private bool couldKick = true;
         public bool CouldKick { get => couldKick; }
 
         public override SpriteAnimation SpriteAnim => spriteAnims[animationHandleInt];

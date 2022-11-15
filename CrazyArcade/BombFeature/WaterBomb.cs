@@ -22,8 +22,8 @@ namespace CrazyArcade.BombFeature
         float DetonateTime;
         private SpriteAnimation spriteAnims;
         private Dir direction = Dir.Down;
-        private Vector2[] directionHelper = new Vector2[4] {new Vector2(0, -1), new Vector2(-1, 0), new Vector2(0, 1), new Vector2(1, 0)};
-        private int speed = 0;
+        private Vector2[] move = new Vector2[4] {new Vector2(0, -10), new Vector2(-10, 0), new Vector2(0, 10), new Vector2(10, 0)};
+        private bool isMoving = false;
         IBombCollectable owner;
         public override SpriteAnimation SpriteAnim => spriteAnims;
         HashSet<IPlayerCollisionBehavior> hasNotLeft;
@@ -92,13 +92,13 @@ namespace CrazyArcade.BombFeature
         }
         public override void Update(GameTime time)
         {
-            updatePosition(time);
+            if(this.isMoving) updatePosition(time);
             Detonate(time);
         }
 
         private void updatePosition(GameTime time)
         {
-            GameCoord -= Trans.RevScale(directionHelper[(int)direction]);
+            GameCoord += Trans.RevScale(move[(int)direction]);
         }
 
         public override void Load()
@@ -157,8 +157,7 @@ namespace CrazyArcade.BombFeature
             if (collisionPartner.CouldKick)
             {
                 this.direction = (collisionPartner as Character).direction;
-                this.speed = 4;
-
+                this.isMoving = true;
             }
             else
             {
