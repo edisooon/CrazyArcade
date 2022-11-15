@@ -184,7 +184,7 @@ namespace CrazyArcade.Enemies
             }
             else
             {
-                GameCoord += (SpeedVector[(int)direction]);
+                GameCoord += (SpeedVector[(int)direction]*.5f);
             }
 
 
