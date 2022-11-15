@@ -92,5 +92,17 @@ namespace CrazyArcade.Demo1
         {
             gameRef.Scene = new VictoryScene(gameRef);
         }
+
+        public override bool IsDoorOpen()
+        {
+            foreach(IEntity entity in entities)
+            {
+                if (entity is Enemy || entity is IBossCollideBehaviour)
+                {
+                    return false;
+                }
+            }
+            return true;
+        }
     }
 }

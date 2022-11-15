@@ -10,7 +10,7 @@ namespace CrazyArcade.CAFrameWork.Transition
 {
     public class Door : Block, IPlayerCollidable
     {
-
+        bool isEnable = false;
         public override void Load()
         {
 
@@ -23,9 +23,16 @@ namespace CrazyArcade.CAFrameWork.Transition
             stage = to;
             this.dir = dir;
         }
+        public override void Update(GameTime time)
+        {
+            base.Update(time);
+        }
         public override void CollisionLogic(Rectangle overlap, IPlayerCollisionBehavior collisionPartner)
         {
-            SceneDelegate.Transition(stage, dir);
+            if (SceneDelegate.IsDoorOpen())
+            {
+                SceneDelegate.Transition(stage, dir);
+            }
         }
     }
 }

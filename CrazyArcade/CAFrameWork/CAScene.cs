@@ -155,6 +155,11 @@ namespace CrazyArcade.CAFramework
         {
             gameRef.StageTransitTo(stage, (int)dir);
         }
+
+        public virtual bool IsDoorOpen()
+        {
+            return false;
+        }
     }
 }
 
