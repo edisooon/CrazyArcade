@@ -15,8 +15,6 @@ namespace CrazyArcade.Levels
 {
     internal class Level
     {
-        
-
         private List<CAEntity> EntityList;
         private CAScene Scene;
         private CreateLevel currentLevel;
@@ -85,15 +83,14 @@ namespace CrazyArcade.Levels
             //TODO Find a way to reduce duplicate code
             scale = .9f;
             //IMPORTANT!!!! uncomment tbis when Door Block class is implemented.
-            //itemLocations = currentLevel.GetItemLocation(CreateLevel.LevelItem.DoorPosition);
+            itemLocations = currentLevel.GetItemLocation(CreateLevel.LevelItem.DoorPosition);
 
-            //foreach (Vector2 vector in itemLocations)
-            //{
-                
-            //    Entity = new Door(vector);
-            //    Entity.SpriteAnim.Scale = scale;
-            //    EntityList.Add(Entity);
-            //}
+            foreach (Vector2 vector in itemLocations)
+            {
+                Entity = new Door(vector);
+                Entity.SpriteAnim.Scale = scale;
+                EntityList.Add(Entity);
+            }
             itemLocations = currentLevel.GetItemLocation(CreateLevel.LevelItem.LightSandPosition);
 
             foreach (Vector2 vector in itemLocations)
@@ -238,7 +235,7 @@ namespace CrazyArcade.Levels
 
             foreach (Vector2 vector in itemLocations)
             {
-                EntityList.Add(new OctopusEnemy((int)vector.X, (int)vector.Y));
+                EntityList.Add(new OctopusEnemy((int)vector.X, (int)vector.Y, Scene));
             }
 
             itemLocations = currentLevel.GetItemLocation(CreateLevel.LevelItem.SunBossPosition);

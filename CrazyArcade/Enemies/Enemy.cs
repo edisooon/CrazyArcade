@@ -15,7 +15,7 @@ namespace CrazyArcade.Enemies
     {
         public SpriteAnimation[] spriteAnims;
         public SpriteAnimation spriteAnim;
-        public  CAScene scene;
+        public CAScene scene;
         public Dir direction;
         protected float xDifference;
         protected float yDifference;
@@ -53,7 +53,10 @@ namespace CrazyArcade.Enemies
             }
         }
         private IGridTransform trans = new NullTransform();
-        public IGridTransform Trans { get => trans; set {
+        public IGridTransform Trans
+        {
+            get => trans; set
+            {
                 trans = value;
                 ScreenCoord = value.Trans(GameCoord);
                 X = (int)ScreenCoord.X;
@@ -68,7 +71,7 @@ namespace CrazyArcade.Enemies
         {
             timer = 0;
             this.scene = scene;
-            GameCoord = new Vector2(x, y-2);
+            GameCoord = new Vector2(x, y - 2);
             Start = GameCoord;
             state = new EnemyDownState(this);
             
@@ -81,7 +84,7 @@ namespace CrazyArcade.Enemies
         {
             collisionPartner.CollisionDestroyLogic();
 
-            
+
 
         }
         public override void Update(GameTime time)
@@ -95,7 +98,7 @@ namespace CrazyArcade.Enemies
             yDifference = GameCoord.Y - Start.Y;
             if (state != null)
             {
-                
+
             }
             if (timer > 1f / 6)
             {
@@ -110,21 +113,20 @@ namespace CrazyArcade.Enemies
             internalRectangle.X = X;
             internalRectangle.Y = Y;
         }
-        //checks if the sprite needs to change direction based on the location of the sprite. This will need to be replaced later with a function that checks if enemy collides with a block, it should move direction.
-        private bool ChangeDir()
+        protected bool ChangeDir(Dir dir)
         {
             switch (direction)
             {
                 case Dir.Right:
-                    
+
                     return xDifference >= 4;
-                 
+
                 case Dir.Up:
 
                     return yDifference <= 0;
 
                 case Dir.Down:
-                    
+
                     return yDifference >= 4;
                 case Dir.Left:
                     return xDifference <= 0;
@@ -187,7 +189,6 @@ namespace CrazyArcade.Enemies
         }
         public void UpdateAnimation()
         {
-
             this.spriteAnims[(int)direction].Position = new Vector2(X, Y);
         }
 
