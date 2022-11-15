@@ -11,7 +11,7 @@ using System.Reflection.Metadata.Ecma335;
 
 namespace CrazyArcade.Enemies
 {
-    public abstract class Enemy: CAEntity, IPlayerCollidable, IGridable, IExplosionCollidable, IGridBoxReciever, IPlayerCollisionBehavior
+    public abstract class Enemy: CAEntity, IPlayerCollidable, IGridable, IExplosionCollidable, IGridBoxReciever
     {
         public SpriteAnimation[] spriteAnims;
         public SpriteAnimation spriteAnim;
@@ -175,9 +175,18 @@ namespace CrazyArcade.Enemies
         public void move()
         {
             //Temporary and need to be removed later after enemy movement fully implemented with block collision
-            
 
-            GameCoord += (SpeedVector[(int)direction]);
+            if (checkAvailableBlock())
+            {
+                state.ChangeDirection();
+                effect = direction == Dir.Right ? SpriteEffects.FlipHorizontally : SpriteEffects.None;
+                UpdateAnimation();
+            }
+            else
+            {
+                GameCoord += (SpeedVector[(int)direction]);
+            }
+
 
             //up to here
 
