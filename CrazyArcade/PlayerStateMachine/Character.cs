@@ -32,6 +32,7 @@ namespace CrazyArcade.PlayerStateMachine
         public int BombsOut => bombOut;
         static int CCount = 0;
         private int loseRideFlag = 5;
+        public int lives;
         private int score = 0;
         private bool invincible = false;
         private int ICounter = 0;
@@ -49,6 +50,7 @@ namespace CrazyArcade.PlayerStateMachine
             GameCoord = new Vector2(3, 3);
             //currentBlastLength = defaultBlastLength;
             DrawOrder = 1;
+            lives = 2;
             Console.WriteLine("Count: " + ++CCount);
             //this.bboxOffset = new Point(20, 20);
         }
