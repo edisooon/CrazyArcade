@@ -212,6 +212,9 @@
 #begin JsonLevels/penultimate_boss.json
 /copy:JsonLevels/penultimate_boss.json
 
+#begin JsonLevels/ultimate_boss.json
+/copy:JsonLevels/ultimate_boss.json
+
 #begin justkidding.mp3
 /importer:Mp3Importer
 /processor:SongProcessor
