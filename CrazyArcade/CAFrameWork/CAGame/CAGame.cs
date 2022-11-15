@@ -48,9 +48,18 @@ public class CAGame : Game, IGameDelegate, ITransitionCompleteHandler
         //Load it here
 
     }
+    public ISceneState Scene
+    {
+        get { return scene; }
+        set { scene = value; }
+    }
     public void NewInstance()
     {
         this.Initialize();
+    }
+    public void Quit()
+    {
+        base.Exit();
     }
     protected override void Initialize()
     {
@@ -88,6 +97,11 @@ public class CAGame : Game, IGameDelegate, ITransitionCompleteHandler
 
     protected override void Update(GameTime gameTime)
     {
+        if(scene is not DemoScene)
+        {
+            scene.Update(gameTime);
+            return;
+        }
         if (transition != null)
         {
             transition.Update(gameTime);

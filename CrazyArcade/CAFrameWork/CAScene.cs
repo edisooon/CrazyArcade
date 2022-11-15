@@ -18,8 +18,7 @@ namespace CrazyArcade.CAFramework
         protected List<IGameSystem> systems;
         //preserved for the purposes of having one draw per entity
         protected List<IEntity> entities = new List<IEntity>();
-        public IGameState gameState;
-        public CAGame gameRef;
+        public IGameDelegate gameRef;
 
         private List<IEntity> newEntities = new List<IEntity>();
         private List<IEntity> removeEntities = new List<IEntity>();
@@ -143,8 +142,15 @@ namespace CrazyArcade.CAFramework
         {
             removeEntities.Add(entity);
         }
-
-        
+        public virtual void EndGame()
+        {
+        }
+        public virtual void TogglePause()
+        {
+        }
+        public virtual void Victory()
+        {
+        }
     }
 }
 

@@ -3,14 +3,17 @@ using CrazyArcade.CAFramework;
 using CrazyArcade.Content;
 using Microsoft.Xna.Framework;
 using CrazyArcade.Items;
+using CrazyArcade.Levels;
 
 namespace CrazyArcade.PlayerStateMachine
 {
     public class CharacterStateDie : ICharacterState
     {
         SpriteAnimation[] die;
-        public CharacterStateDie()
+        private Character character;
+        public CharacterStateDie(Character character)
         {
+            this.character = character;
             die = new SpriteAnimation[1];
             die[0] = new SpriteAnimation(TextureSingleton.GetPlayer1(), 11, 7, 275, 531, 108, 10);
         }
@@ -32,7 +35,18 @@ namespace CrazyArcade.PlayerStateMachine
 
         public void ProcessState(GameTime time)
         {
-            throw new NotImplementedException();
+            //throw new NotImplementedException();
+            if (character.SpriteAnim.getCurrentFrame() == character.SpriteAnim.getTotalFrames() - 1)
+            {
+                character.playerState = new CharacterStateFree(character);
+                character.spriteAnims = character.playerState.SetSprites();
+                character.playerState.SetSpeed();
+                character.lives--;
+                if (character.lives == 0)
+                {
+                    character.SceneDelegate.EndGame();
+                }
+            }
         }
 
         public int SetSpeed()

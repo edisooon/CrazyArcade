@@ -1,0 +1,10 @@
+﻿From Default Scene
+	O - Switches to game over
+	V - Switches to victory
+	Backspace - Switches to pause
+From anything but default
+	Esc - Quits game
+From pause
+	Enter - Resume game
+From victory or game over
+	R - restart
