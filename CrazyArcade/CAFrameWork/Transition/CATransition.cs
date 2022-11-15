@@ -14,6 +14,7 @@ namespace CrazyArcade.CAFrameWork.Transition
         private TimeSpan countTime;
         public CATransition(ISceneState oldState, ISceneState newState, Vector2 sceneShiftPixel, GameTime start, TimeSpan totalTime)
 		{
+
             this.previousTimeFrame = start.TotalGameTime;
             this.totalTime = totalTime;
             this.sceneShiftPixelSpeed = sceneShiftPixel/((float)(totalTime.TotalMilliseconds));
@@ -53,9 +54,6 @@ namespace CrazyArcade.CAFrameWork.Transition
             previousTimeFrame = current;
             oldState.Update(time);
             newState.Update(time);
-            Console.WriteLine("Old camera: " + oldState.Camera + " old offset: " + oldState.StageOffset);
-            Console.WriteLine("New camera: " + newState.Camera + " new offset: " + newState.StageOffset);
-
         }
 
         public void Draw(GameTime time, SpriteBatch batch)

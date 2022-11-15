@@ -160,6 +160,8 @@ namespace CrazyArcade.CAFramework
         {
             return false;
         }
+        protected bool loading = false;
+        public bool Loading { set => loading = value; }
     }
 }
 
