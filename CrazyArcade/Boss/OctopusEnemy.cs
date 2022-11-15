@@ -12,6 +12,8 @@ using CrazyArcade.BombFeature;
 using System.Threading;
 using CrazyArcade.CAFrameWork.GameStates;
 using System.Timers;
+using System.Diagnostics;
+using CrazyArcade.PlayerStateMachine;
 
 namespace CrazyArcade.Boss
 {
@@ -22,7 +24,7 @@ namespace CrazyArcade.Boss
     //  Add wounded animations
     //  Define movement pattern
     //}
-    public class OctopusEnemy : CAEntity, IGridable, IPlayerCollidable, IBombCollectable
+    public class OctopusEnemy : CAEntity, IGridable, IPlayerCollidable, IBombCollectable, IExplosionCollidable
     {
         //Animation
         private Texture2D texture;
@@ -39,6 +41,7 @@ namespace CrazyArcade.Boss
         public IEnemyState state;
         public int health;
         public Boolean justAttacked = true;
+        public Boolean justInjured = false;
 
         //Background Stuff
         public CAScene scene;
@@ -108,8 +111,8 @@ namespace CrazyArcade.Boss
         public OctopusEnemy(int x, int y, CAScene scene) : base()
         {
             //Spacial
-            //X = x;
-            //Y = y;
+            X = x;
+            Y = y;
             Start = GameCoord;
             GameCoord = new Vector2(x, y);
 
@@ -209,7 +212,13 @@ namespace CrazyArcade.Boss
             //To show the state only, this line of code needs to be moved once bomb -> enemy collision is implemented to CollisionDestroyLogic 
 
             //if(collisionPartner is WaterExplosionCenter || collisionPartner is WaterExplosionEdge){
-              state = new OctopusWounded(this);
+            if (!justInjured && !(collisionPartner is Character))
+            {
+                health -= 10;
+                justInjured = true;
+                state = new OctopusWounded(this);
+                Debug.WriteLine("health: " + health);
+            }
             //}
         }
 
@@ -259,12 +268,13 @@ namespace CrazyArcade.Boss
                 speed /= 2;
                 //state = new OctopusAttack(this,1);
                 this.squareBlast();
-                //this.shoot();
+                this.shoot();
                 direction = Dir.Up;
                 //changeDir will put it back on course
             }
 
             GameCoord += SpeedVector[(int)dir];
+            justInjured = false;
 
         }
 
@@ -288,7 +298,7 @@ namespace CrazyArcade.Boss
             }
             WaterBomb projectile = new WaterBomb(destination,5,this,true);
             this.scene.ToAddEntity(projectile);
-            //projectile.explode();
+            projectile.Load();
             //this.scene.AddSprite(projectile);
             //resume movement if necessary
         }
@@ -318,20 +328,19 @@ namespace CrazyArcade.Boss
             }
         }
         public void toggleHurtSprites(Boolean hurt) {
-            if (hurt)
-            {
-                tint = Color.Red;
-                this.spriteAnims[(int)Dir.Up] = new SpriteAnimation(texture, 1, 1560, 18, 110, 153, fps);
-                InputFramesDown[0] = new Rectangle(991, 26, 107, 135);
-                InputFramesDown[1] = new Rectangle(1181, 22, 108, 145);
-                this.spriteAnims[(int)Dir.Down] = new SpriteAnimation(texture, InputFramesDown, fps);
+            if (hurt){
+                //tint = Color.Red;
+                //this.spriteAnims[(int)Dir.Up] = new SpriteAnimation(texture, 1, 1560, 18, 110, 153, fps);
+                //InputFramesDown[0] = new Rectangle(991, 26, 107, 135);
+               // InputFramesDown[1] = new Rectangle(1181, 22, 108, 145);
+                //this.spriteAnims[(int)Dir.Down] = new SpriteAnimation(texture, InputFramesDown, fps);
                 //left one doesn't change
-                InputFramesRight[0] = new Rectangle(1371, 17, 108, 153);
-                this.spriteAnims[(int)Dir.Right] = new SpriteAnimation(texture, InputFramesRight, fps);
+                //InputFramesRight[0] = new Rectangle(1371, 17, 108, 153);
+                //this.spriteAnims[(int)Dir.Right] = new SpriteAnimation(texture, InputFramesRight, fps);
                 //update to show change if necessary
             }
             else {
-                this.Load();
+                //this.Load();
             }
         }
         //IBombCollectable stuff
@@ -344,6 +353,18 @@ namespace CrazyArcade.Boss
         {
             //Infinite Bombs
         }
+
+        public bool Collide(IExplosion bomb)
+        {
+            if (!justInjured)
+            {
+                health -= 10;
+                justInjured = true;
+                state = new OctopusWounded(this);
+                Debug.WriteLine("health: " + health);
+            }
+            return true;
+        }
     }
     //Octopus Specific States
     public class OctopusAttack : IEnemyState
@@ -353,19 +374,14 @@ namespace CrazyArcade.Boss
         private float timer;
         private float startTimeStamp;
         private float timeLength = 300.0f;
+        private int attack;
 
         public OctopusAttack(OctopusEnemy enemy, int attack)
         {
             this.enemy = enemy;
             scene = enemy.scene;
-            if (attack == 1)
-            {
-                enemy.squareBlast();
-            }
-            else {
-                enemy.shoot();
-            }
             timer = timeLength; //in milliseconds
+            this.attack = attack;
         }
         public void ChangeDirection()
         {
@@ -377,11 +393,20 @@ namespace CrazyArcade.Boss
             float tollerance = 0.0f;
             if (timer >= timeLength - tollerance && timer <= timeLength + tollerance)
             {
+                if (attack == 1)
+                {
+                    enemy.squareBlast();
+                }
+                else
+                {
+                    enemy.shoot();
+                }
                 startTimeStamp = (float)time.ElapsedGameTime.Milliseconds;
+                timer -= 1.0f;
             }
             else
             {
-                timer -= time.ElapsedGameTime.Milliseconds - startTimeStamp;
+                timer -= 1.0f;
                 if (timer < 1)
                 {
                     enemy.state = new OctopusNormal(enemy);
@@ -423,7 +448,6 @@ namespace CrazyArcade.Boss
             scene = enemy.scene;
             enemy.toggleHurtSprites(true);
             timer = timeLength; //in milliseconds
-            enemy.health -= 10;
             if (enemy.health <= 0)
             {
                 enemy.state = new OctopusDead(enemy);
@@ -439,14 +463,18 @@ namespace CrazyArcade.Boss
             float tollerance = 0.0f;
             if (timer >= timeLength-tollerance && timer <= timeLength+tollerance) {
                 startTimeStamp = (float)time.ElapsedGameTime.Milliseconds;
+                timer -= 1.0f;
             }
             else{
-                timer -= (float)time.ElapsedGameTime.Milliseconds-startTimeStamp;
-                 if(timer < 1.0f){
+                //timer -= (float)time.ElapsedGameTime.Milliseconds-startTimeStamp;
+                timer -= 1.0f;
+                if (timer < 1.0f){
                     enemy.toggleHurtSprites(false);
                     enemy.state = new OctopusNormal(enemy);
+
                 }
             }
+            //Debug.WriteLine("Timer: " + timer);
             
         }
     }
@@ -461,7 +489,10 @@ namespace CrazyArcade.Boss
         public OctopusDead(OctopusEnemy enemy) {
             this.enemy = enemy;
             enemy.spriteAnims = new SpriteAnimation[1];
+            int xSave = enemy.X;
+            int ySave = enemy.Y;
             enemy.spriteAnims[0] = enemy.deathAnimation;
+            enemy.UpdateCoord(new Vector2(xSave,ySave));
             enemy.direction=0;
 
             timer = 0;
@@ -473,19 +504,19 @@ namespace CrazyArcade.Boss
 
         }
 
-    public void Update(GameTime time)
-    {
-        enemy.UpdateAnimation((Dir)0);
-        if (timer > fadeTime)
+        public void Update(GameTime time)
         {
-            enemy.SceneDelegate.ToRemoveEntity(enemy);
-        }
-        else
-        {
-            opacity = 1f - timer / fadeTime;
-            enemy.spriteAnims[0].Color = Color.White * opacity;
-            timer += (float)time.ElapsedGameTime.TotalMilliseconds;
+            enemy.UpdateAnimation((Dir)0);
+            if (timer > fadeTime)
+            {
+                enemy.SceneDelegate.ToRemoveEntity(enemy);
+            }
+            else
+            {
+                opacity = 1f - timer / fadeTime;
+                enemy.spriteAnims[0].Color = Color.White * opacity;
+                timer += 1.0f;
+            }
         }
     }
-}
 }
