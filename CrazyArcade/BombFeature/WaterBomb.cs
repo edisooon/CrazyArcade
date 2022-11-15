@@ -125,7 +125,10 @@ namespace CrazyArcade.BombFeature
             }
             else
             {
-
+                foreach(IPlayerCollisionBehavior playerBehavior in hasNotLeft)
+                {
+                    if (!isColliding(playerBehavior)) hasNotLeft.Remove(playerBehavior);
+                }
             }
         }
 
