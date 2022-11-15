@@ -1,17 +1,12 @@
 ﻿using System;
 using CrazyArcade.CAFramework;
-using CrazyArcade.CAFramework.Controller;
 using CrazyArcade.Enemies;
 using CrazyArcade.Content;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Input;
 using CrazyArcade.GameGridSystems;
 using CrazyArcade.Blocks;
 using CrazyArcade.BombFeature;
-using System.Threading;
-using CrazyArcade.CAFrameWork.GameStates;
-using System.Timers;
 using System.Diagnostics;
 using CrazyArcade.PlayerStateMachine;
 
@@ -267,7 +262,7 @@ namespace CrazyArcade.Boss
                 justAttacked = true;
                 speed /= 2;
                 //state = new OctopusAttack(this,1);
-                this.squareBlast();
+                //this.squareBlast();
                 this.shoot();
                 direction = Dir.Up;
                 //changeDir will put it back on course
@@ -296,9 +291,8 @@ namespace CrazyArcade.Boss
             else {
                 destination = new Vector2(this.X, this.Y + 3);
             }
-            WaterBomb projectile = new WaterBomb(destination,5,this,true);
-            this.scene.ToAddEntity(projectile);
-            projectile.Load();
+            WaterBomb projectile = new WaterBomb(destination,1,this,true);
+            this.SceneDelegate.ToAddEntity(projectile);
             //this.scene.AddSprite(projectile);
             //resume movement if necessary
         }
