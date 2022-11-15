@@ -20,6 +20,7 @@ using CrazyArcade.Items;
 using CrazyArcade.CAFrameWork.GridBoxSystem;
 using CrazyArcade.CAFrameWork.GameStates;
 using CrazyArcade.CAFrameWork.InputSystem;
+using CrazyArcade.UI;
 
 namespace CrazyArcade.Demo1
 {
@@ -42,26 +43,25 @@ namespace CrazyArcade.Demo1
             }
         }
 
-        public DemoScene(CAGame game, string fileName, Vector2 stageOffset)
+        public DemoScene(IGameDelegate game, string fileName, Vector2 stageOffset)
         {
             base.StageOffset = stageOffset;
             this.fileName = fileName;
             gameRef = game;
-            gameState = new DefaultGameState(this);
         }
         public override void LoadSystems()
         {
             //this.systems.Add(new BlockCollisionSystem());
             this.systems.Add(new GameStateSwitcher(this));
             //this.systems.Add(new CAControllerSystem());
-            this.systems.Add(new CAGameLogicSystem());
             this.systems.Add(new InputSystems());
             this.systems.Add(new GridBoxSystem());
             this.systems.Add(new BombCollisionSystem(this, new Rectangle(0, 0, 15, 15)));
             this.systems.Add(gridSystems);
             this.systems.Add(new PlayerCollisionSystem());
-            
-
+            this.systems.Add(new BossCollisionSystem());
+            this.systems.Add(new CAGameLogicSystem());
+            this.systems.Add(gridSystems);
             //this.systems.Add(new LevelManager(this, new DemoController()));
             level = new Level(this, fileName);
             foreach (IEntity entity in level.DrawLevel())
@@ -69,6 +69,8 @@ namespace CrazyArcade.Demo1
                 if (entity is PlayerCharacter)
                 {
                     players.Add(entity as PlayerCharacter);
+                    //this is horrific
+                    UI_Singleton.ChangeComponentText("lifeCounter", "count", "Lives: " + (entity as PlayerCharacter).lives);
                 }
                 this.AddSprite(entity);
             }
@@ -79,6 +81,17 @@ namespace CrazyArcade.Demo1
             //This may not be neccessary
             this.AddSprite(new KeyBoardInput());
         }
-
+        public override void EndGame()
+        {
+            gameRef.Scene = new GameOverScene(gameRef);
+        }
+        public override void TogglePause()
+        {
+            gameRef.Scene = new PauseScene(gameRef, this);
+        }
+        public override void Victory()
+        {
+            gameRef.Scene = new VictoryScene(gameRef);
+        }
     }
 }

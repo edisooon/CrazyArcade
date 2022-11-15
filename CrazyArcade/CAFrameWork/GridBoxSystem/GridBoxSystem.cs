@@ -10,7 +10,6 @@ namespace CrazyArcade.CAFrameWork.GridBoxSystem
 		public GridBoxSystem()
 		{
 		}
-
         private Dictionary<GridBoxPosition, IGridBox> map = new Dictionary<GridBoxPosition, IGridBox>();
         public bool CheckAvailable(GridBoxPosition position)
         {

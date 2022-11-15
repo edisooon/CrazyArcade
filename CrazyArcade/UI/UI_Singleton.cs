@@ -41,10 +41,12 @@ namespace CrazyArcade.UI
         }
         public static void ChangeComponentText(string compositeName, string componentName, string newText)
         {
+            if (!internalGUI.GUILookup.ContainsKey(compositeName) || !internalGUI.GUILookup[compositeName].ComponentDict.ContainsKey(componentName)) return;
             internalGUI.GUILookup[compositeName].ComponentDict[componentName].ChangeComponentText(newText);
         }
         public static void ChangeComponentTexture(string compositeName, string componentName, SpriteAnimation newSpriteAnim)
         {
+            if (!internalGUI.GUILookup.ContainsKey(compositeName) || !internalGUI.GUILookup[compositeName].ComponentDict.ContainsKey(componentName)) return;
             internalGUI.GUILookup[compositeName].ComponentDict[componentName].ChangeComponentTexture(newSpriteAnim);
         }
         public static void AddPreDesignedComposite(IGUIComposite newComposite)
