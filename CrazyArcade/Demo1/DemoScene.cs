@@ -20,7 +20,6 @@ using CrazyArcade.Items;
 using CrazyArcade.CAFrameWork.GridBoxSystem;
 using CrazyArcade.CAFrameWork.GameStates;
 using CrazyArcade.CAFrameWork.InputSystem;
-using CrazyArcade.UI;
 
 namespace CrazyArcade.Demo1
 {
@@ -42,7 +41,7 @@ namespace CrazyArcade.Demo1
                 return res;
             }
         }
-
+        
         public DemoScene(IGameDelegate game, string fileName, Vector2 stageOffset)
         {
             base.StageOffset = stageOffset;
@@ -69,8 +68,6 @@ namespace CrazyArcade.Demo1
                 if (entity is PlayerCharacter)
                 {
                     players.Add(entity as PlayerCharacter);
-                    //this is horrific
-                    UI_Singleton.ChangeComponentText("lifeCounter", "count", "Lives: " + (entity as PlayerCharacter).lives);
                 }
                 this.AddSprite(entity);
             }
@@ -92,6 +89,22 @@ namespace CrazyArcade.Demo1
         public override void Victory()
         {
             gameRef.Scene = new VictoryScene(gameRef);
+        }
+        public override bool IsDoorOpen()
+        {
+            if (loading)
+            {
+                loading = false;
+                return false;
+            }
+            foreach(IEntity entity in entities)
+            {
+                if (entity is Enemy || entity is IBossCollideBehaviour)
+                {
+                    return false;
+                }
+            }
+            return true;
         }
     }
 }

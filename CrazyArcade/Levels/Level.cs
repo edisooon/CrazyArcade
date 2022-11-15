@@ -10,6 +10,7 @@ using Vector2 = Microsoft.Xna.Framework.Vector2;
 using Rectangle = Microsoft.Xna.Framework.Rectangle;
 using Microsoft.Xna.Framework.Input;
 using CrazyArcade.CAFrameWork.InputSystem;
+using CrazyArcade.CAFrameWork.Transition;
 
 namespace CrazyArcade.Levels
 {
@@ -85,9 +86,9 @@ namespace CrazyArcade.Levels
             //IMPORTANT!!!! uncomment tbis when Door Block class is implemented.
             itemLocations = currentLevel.GetItemLocation(CreateLevel.LevelItem.DoorPosition);
 
-            foreach (Vector2 vector in itemLocations)
+            for (int i = 0; i < itemLocations.Length; i += 2)
             {
-                Entity = new Door(vector);
+                Entity = new Door(itemLocations[i], (int)itemLocations[i + 1].X, (Dir)itemLocations[i + 1].Y);
                 Entity.SpriteAnim.Scale = scale;
                 EntityList.Add(Entity);
             }
