@@ -95,13 +95,13 @@ namespace CrazyArcade.Enemies
             yDifference = GameCoord.Y - Start.Y;
             if (state != null)
             {
-
+                state.Update(time);
             }
             if (timer > 1f / 6)
             {
                 if (state is not EnemyDeathState)
                 {
-                    move(direction);
+                    //move(direction);
                 }
                 timer = 0;
             }
