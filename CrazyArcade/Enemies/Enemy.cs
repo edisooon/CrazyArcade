@@ -11,7 +11,7 @@ using System.Reflection.Metadata.Ecma335;
 
 namespace CrazyArcade.Enemies
 {
-    public abstract class Enemy: CAEntity, IPlayerCollidable, IGridable, IExplosionCollidable, IGridBoxReciever
+    public abstract class Enemy: CAEntity, IPlayerCollidable, IGridable, IExplosionCollidable, IGridBoxReciever, IPlayerCollisionBehavior
     {
         public SpriteAnimation[] spriteAnims;
         public SpriteAnimation spriteAnim;
@@ -29,6 +29,7 @@ namespace CrazyArcade.Enemies
         private float timer;
         protected int fps = 10;
         public IGridBoxManager gridBoxManager;
+        protected Rectangle blockBoundingBox = new Rectangle(0, 0, 30, 30);
         public Vector2 ScreenCoord
         {
             get => pos;
@@ -84,8 +85,6 @@ namespace CrazyArcade.Enemies
         {
             collisionPartner.CollisionDestroyLogic();
 
-
-
         }
         public override void Update(GameTime time)
         {
@@ -136,6 +135,11 @@ namespace CrazyArcade.Enemies
 
         protected abstract Vector2[] SpeedVector { get; }
         public IGridBoxManager Manager { get => gridBoxManager; set => gridBoxManager = value; }
+
+        public Rectangle blockCollisionBoundingBox => blockBoundingBox;
+
+        public bool Active { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+
         private Boolean checkAvailableBlock()
         {
             float x;
@@ -172,17 +176,9 @@ namespace CrazyArcade.Enemies
         {
             //Temporary and need to be removed later after enemy movement fully implemented with block collision
             
-            if (checkAvailableBlock())            
-            {
-                state.ChangeDirection();
-                effect = direction == Dir.Right ? SpriteEffects.FlipHorizontally : SpriteEffects.None;
-                UpdateAnimation();
-            }
-            else
-            {
-                GameCoord += (SpeedVector[(int)direction]);
-            }
-            
+
+            GameCoord += (SpeedVector[(int)direction]);
+
             //up to here
 
 
@@ -196,6 +192,47 @@ namespace CrazyArcade.Enemies
         {
             state = new EnemyDeathState(this);
             return true;
+        }
+
+        public void CollisionHaltLogic(Point amountMoved)
+        {
+
+            state.ChangeDirection();
+        }
+
+        public void CollisionDestroyLogic()
+        {
+            
+        }
+
+        public bool canHaveItem()
+        {
+            return false;
+        }
+
+        public void IncreaseBlastLength()
+        {
+
+        }
+
+        public void SwitchToMountedState()
+        {
+
+        }
+
+        public void IncreaseSpeed()
+        {
+
+        }
+
+        public void IncreaseBombCount()
+        {
+
+        }
+
+        public void IncreaseScore(int score)
+        {
+
         }
     }
 }

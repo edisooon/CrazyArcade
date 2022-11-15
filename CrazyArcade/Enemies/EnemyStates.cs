@@ -33,14 +33,8 @@ namespace CrazyArcade.Enemies
         {
             Random rnd = new Random();
             int num = rnd.Next();
-            if (num % 2 == 0)
-            {
-                enemy.state = new EnemyUpState(enemy);
-            }
-            else
-            {
-                enemy.state = new EnemyRightState(enemy);
-            }
+            enemy.state = new EnemyDownState(enemy);
+
             
         }
 
@@ -64,18 +58,12 @@ namespace CrazyArcade.Enemies
         {
             Random rnd = new Random();
             int num = rnd.Next();
-            if (num % 2 == 0)
-            {
-                enemy.state = new EnemyDownState(enemy);
-            }
-            else
-            {
-                enemy.state = new EnemyLeftState(enemy);
-            }
+            enemy.state = new EnemyUpState(enemy);
+
         }
 
         public void Update(GameTime time) {
-            enemy.move(Dir.Right);
+            enemy.move();
         }
     }
     public class EnemyUpState : IEnemyState
@@ -93,19 +81,13 @@ namespace CrazyArcade.Enemies
 
             Random rnd = new Random();
             int num = rnd.Next();
-            if (num % 2 == 0)
-            {
-                enemy.state = new EnemyLeftState(enemy);
-            }
-            else
-            {
-                enemy.state = new EnemyDownState(enemy);
-            }
+            enemy.state = new EnemyLeftState(enemy);
+
         }
 
         public void Update(GameTime time)
         {
-            enemy.move(Dir.Up);
+            enemy.move();
         }
     }
     public class EnemyDownState : IEnemyState
@@ -122,20 +104,14 @@ namespace CrazyArcade.Enemies
         {
             Random rnd = new Random();
             int num = rnd.Next();
-            if (num % 2 == 0)
-            {
-                enemy.state = new EnemyRightState(enemy);
-            }
-            else
-            {
-                enemy.state = new EnemyUpState(enemy);
-            }
+            enemy.state = new EnemyRightState(enemy);
+
 
         }
 
         public void Update(GameTime time)
         {
-            enemy.move(Dir.Down);
+            enemy.move();
         }
     }
 
