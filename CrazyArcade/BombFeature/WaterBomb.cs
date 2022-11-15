@@ -201,11 +201,11 @@ namespace CrazyArcade.BombFeature
         public void CollisionLogic(Rectangle overlap, IPlayerCollisionBehavior collisionPartner)
         {
             if (hasNotLeft.Contains(collisionPartner)) return;
-            if (collisionPartner.CouldKick)
+            if (false/*collisionPartner.CouldKick*/)
             {
-                this.direction = (collisionPartner as Character).direction;
-                kick(direction);
-                this.isMoving = true;
+                //this.direction = (collisionPartner as Character).direction;
+                //kick(direction);
+                //this.isMoving = true;
             }
             else
             {
