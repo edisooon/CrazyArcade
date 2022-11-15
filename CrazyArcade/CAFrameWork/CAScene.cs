@@ -37,7 +37,7 @@ namespace CrazyArcade.CAFramework
 
         }
         //-------------------ISceneState End----------------------------
-        private void UpdateEnitities()
+        private void UpdateEntities()
         {
             foreach (IEntity entity in newEntities)
             {
@@ -151,6 +151,17 @@ namespace CrazyArcade.CAFramework
         public virtual void Victory()
         {
         }
+        public void Transition(int stage, Dir dir)
+        {
+            gameRef.StageTransitTo(stage, (int)dir);
+        }
+
+        public virtual bool IsDoorOpen()
+        {
+            return false;
+        }
+        protected bool loading = false;
+        public bool Loading { set => loading = value; }
     }
 }
 

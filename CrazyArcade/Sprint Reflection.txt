@@ -1,0 +1,19 @@
+Sprint Reflection for Sprint 4
+
+	Overall the main takeaway from Sprint 4 that the group came to was that group members
+as a whole waited too long to take care of their tasks. While the group started out earlier
+in the week when compared to other sprints, many of the tasks that were assigned were taken
+care of on the last couple of days. One of the key factors that was pointed out was that
+when pull requests were made, they were sometiles left without any activity for a couple of days
+before it was merged or had sufficient changes made. One key change that will be made is the 
+promptness of reviewing pull requests, so that forward progress will always be made.
+
+	In regard to task tracking, the group has seen improvement in better defining tasks into
+smaller categories, as well as making them towards the begining of the sprint instead of all
+at the end. 
+
+	When looking at a burndown chart representation of the sprint, one key thing to note is
+that not all tasks when completed were marked as such. This is an issue that will be worked on
+in the final sprint, as it becomes harder to see the progress if tasks are not marked as
+completed when they are. That being said, when considering the actual order in which tasks
+were finished, many were completed on the final day.

@@ -14,6 +14,8 @@ namespace CrazyArcade.CAFrameWork.Transition
         void EndAfterTransition();
         //completion handler, begin for the life cycle
         void LoadAfterTransition();
+
+        bool Loading { set; }
     }
 }
 
