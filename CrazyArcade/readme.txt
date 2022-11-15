@@ -28,7 +28,6 @@ From victory or game over
 
 Known Bugs:
 - When transitioning between levels, the upper left corner of the screen will flash with enemies
-- Bombs do not place in the exact correct place - they are often placed adjacent to the intended block
 - Score will reset in between levels
 
 Tools Used:
