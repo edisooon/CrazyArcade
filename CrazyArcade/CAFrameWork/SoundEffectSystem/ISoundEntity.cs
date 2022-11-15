@@ -1,8 +1,11 @@
 ﻿using System;
-namespace CrazyArcade.CAFrameWork.SoundEffect
+using Microsoft.Xna.Framework.Audio;
+
+namespace CrazyArcade.CAFrameWork.SoundEffectSystem
 {
-	public struct ISoundEntity
+	public interface ISoundEntity
 	{
+		SoundEffect soundEffect { get; }
 	}
 }
 
