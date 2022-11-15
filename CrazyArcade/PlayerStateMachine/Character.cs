@@ -52,6 +52,7 @@ namespace CrazyArcade.PlayerStateMachine
             DrawOrder = 1;
             lives = 2;
             Console.WriteLine("Count: " + ++CCount);
+            
             //this.bboxOffset = new Point(20, 20);
         }
         public override void Update(GameTime time)
@@ -103,7 +104,7 @@ namespace CrazyArcade.PlayerStateMachine
         }
         public override void Load()
         {
-
+            
         }
 
         //@Implement IBombCollectable
