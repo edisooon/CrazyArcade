@@ -250,7 +250,7 @@ namespace CrazyArcade.Boss
 
             if (ChangeDir(dir))
             {
-                this.shoot();
+                //this.shoot();
                 direction = (Dir)((((int)dir) + 1) % 4);
                 //effect = direction == Dir.Left ? SpriteEffects.FlipHorizontally : SpriteEffects.None;
                 UpdateAnimation(dir);
@@ -263,7 +263,7 @@ namespace CrazyArcade.Boss
                 justAttacked = true;
                 speed /= 2;
                 //state = new OctopusAttack(this,1);
-                this.squareBlast();
+                //this.squareBlast();
                 //this.shoot();
                 direction = Dir.Up;
                 //changeDir will put it back on course
@@ -278,7 +278,7 @@ namespace CrazyArcade.Boss
             //change to attacking state aka make still
             //Launch balloons
             Vector2 destination;
-            int distance = 3;
+            int distance = 2;
             if (this.direction == Dir.Right) { 
                 destination = new Vector2(xDifference + distance, yDifference);
             }
@@ -293,7 +293,7 @@ namespace CrazyArcade.Boss
             else {
                 destination = new Vector2(xDifference, yDifference + distance);
             }
-            WaterBomb projectile = new WaterBomb((destination),1,this, true);
+            WaterBomb projectile = new WaterBomb((destination),1,this);
             this.SceneDelegate.ToAddEntity(projectile);
             //this.scene.AddSprite(projectile);
             //resume movement if necessary
@@ -352,9 +352,11 @@ namespace CrazyArcade.Boss
 
         public bool Collide(IExplosion bomb)
         {
+            Debug.WriteLine("Health: " + health);
             if (!justInjured)
             {
-                health -= 10;
+                Debug.WriteLine("IN IF Health: " + health);
+                health -= 100;
                 justInjured = true;
                 state = new OctopusWounded(this);
                 Debug.WriteLine("health: " + health);
@@ -436,7 +438,7 @@ namespace CrazyArcade.Boss
         public CAScene scene;
         private float timer;
         private float startTimeStamp;
-        private float timeLength = 300.0f;
+        private float timeLength = 150.0f;
 
         public OctopusWounded(OctopusEnemy enemy)
         {
@@ -485,7 +487,7 @@ namespace CrazyArcade.Boss
         public OctopusDead(OctopusEnemy enemy) {
             this.enemy = enemy;
             enemy.spriteAnims = new SpriteAnimation[1];
-            int xSave = enemy.X;
+            int xSave = enemy.X;//change to x and y difference
             int ySave = enemy.Y;
             enemy.spriteAnims[0] = enemy.deathAnimation;
             enemy.UpdateCoord(new Vector2(xSave,ySave));
