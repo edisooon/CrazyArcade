@@ -19,7 +19,7 @@ namespace CrazyArcade.Boss
     //  Add wounded animations
     //  Define movement pattern
     //}
-    public class OctopusEnemy : CAEntity, IGridable, IPlayerCollidable, IBombCollectable, IExplosionCollidable
+    public class OctopusEnemy : CAEntity, IGridable, IPlayerCollidable, IBombCollectable, IBossCollideBehaviour
     {
         //Animation
         private Texture2D texture;
@@ -43,8 +43,8 @@ namespace CrazyArcade.Boss
 
         //Spacial Stuff
         protected Vector2 Start;
-        protected float xDifference;
-        protected float yDifference;
+        public float xDifference;
+        public float yDifference;
         public Dir direction;
         protected Rectangle internalRectangle = new Rectangle(0, 0, 110, 145); 
         protected Vector2[] SpeedVector;
@@ -201,6 +201,9 @@ namespace CrazyArcade.Boss
 
         //IPlayerCollidable Stuff
         public Rectangle boundingBox => internalRectangle;
+
+        public Rectangle hitBox => internalRectangle;
+
         public void CollisionLogic(Rectangle overlap, IPlayerCollisionBehavior collisionPartner)
         {
             collisionPartner.CollisionDestroyLogic();
@@ -234,7 +237,7 @@ namespace CrazyArcade.Boss
                     {
                         if (justAttacked)
                         {
-                            speed *= 2;
+                            //speed *= 2;
                         }
                         return true;
                     }
@@ -250,7 +253,7 @@ namespace CrazyArcade.Boss
 
             if (ChangeDir(dir))
             {
-                //this.shoot();
+                this.shoot();
                 direction = (Dir)((((int)dir) + 1) % 4);
                 //effect = direction == Dir.Left ? SpriteEffects.FlipHorizontally : SpriteEffects.None;
                 UpdateAnimation(dir);
@@ -261,9 +264,9 @@ namespace CrazyArcade.Boss
             }
             else if (dir == Dir.Down && xDifference < squareSize+xoffSet && yDifference>(squareSize/2)+yoffSet-1&& !justAttacked) {
                 justAttacked = true;
-                speed /= 2;
+                //speed /= 2;
                 //state = new OctopusAttack(this,1);
-                //this.squareBlast();
+                this.squareBlast();
                 //this.shoot();
                 direction = Dir.Up;
                 //changeDir will put it back on course
@@ -350,18 +353,21 @@ namespace CrazyArcade.Boss
             //Infinite Bombs
         }
 
-        public bool Collide(IExplosion bomb)
+        
+
+
+
+        public void HurtBoss()
         {
             Debug.WriteLine("Health: " + health);
             if (!justInjured)
             {
                 Debug.WriteLine("IN IF Health: " + health);
-                health -= 100;
+                health -= 20;
                 justInjured = true;
                 state = new OctopusWounded(this);
                 Debug.WriteLine("health: " + health);
             }
-            return true;
         }
     }
     //Octopus Specific States
@@ -444,7 +450,7 @@ namespace CrazyArcade.Boss
         {
             this.enemy = enemy;
             scene = enemy.scene;
-            enemy.toggleHurtSprites(true);
+            //enemy.toggleHurtSprites(true);
             timer = timeLength; //in milliseconds
             if (enemy.health <= 0)
             {
@@ -467,7 +473,7 @@ namespace CrazyArcade.Boss
                 //timer -= (float)time.ElapsedGameTime.Milliseconds-startTimeStamp;
                 timer -= 1.0f;
                 if (timer < 1.0f){
-                    enemy.toggleHurtSprites(false);
+                    //enemy.toggleHurtSprites(false);
                     enemy.state = new OctopusNormal(enemy);
 
                 }
@@ -487,11 +493,11 @@ namespace CrazyArcade.Boss
         public OctopusDead(OctopusEnemy enemy) {
             this.enemy = enemy;
             enemy.spriteAnims = new SpriteAnimation[1];
-            int xSave = enemy.X;//change to x and y difference
-            int ySave = enemy.Y;
             enemy.spriteAnims[0] = enemy.deathAnimation;
-            enemy.UpdateCoord(new Vector2(xSave,ySave));
+            enemy.spriteAnim = enemy.deathAnimation;
+            enemy.UpdateCoord(new Vector2(enemy.xDifference, enemy.xDifference));
             enemy.direction=0;
+            enemy.scene.Victory();
 
             timer = 0;
             opacity = 1f;
