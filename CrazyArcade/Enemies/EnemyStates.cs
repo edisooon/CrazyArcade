@@ -31,11 +31,22 @@ namespace CrazyArcade.Enemies
         }
         public void ChangeDirection()
         {
-            enemy.state = new EnemyDownState(enemy);
+            Random rnd = new Random();
+            int num = rnd.Next();
+            if (num % 2 == 0)
+            {
+                enemy.state = new EnemyUpState(enemy);
+            }
+            else
+            {
+                enemy.state = new EnemyRightState(enemy);
+            }
+            
         }
 
         public void Update(GameTime time)
         {
+
             enemy.move();
         }
     }
@@ -51,7 +62,16 @@ namespace CrazyArcade.Enemies
         }
         public void ChangeDirection()
         {
-            enemy.state = new EnemyUpState(enemy);
+            Random rnd = new Random();
+            int num = rnd.Next();
+            if (num % 2 == 0)
+            {
+                enemy.state = new EnemyDownState(enemy);
+            }
+            else
+            {
+                enemy.state = new EnemyLeftState(enemy);
+            }
         }
 
         public void Update(GameTime time) {
@@ -70,7 +90,17 @@ namespace CrazyArcade.Enemies
         }
         public void ChangeDirection()
         {
-            enemy.state = new EnemyLeftState(enemy);
+
+            Random rnd = new Random();
+            int num = rnd.Next();
+            if (num % 2 == 0)
+            {
+                enemy.state = new EnemyLeftState(enemy);
+            }
+            else
+            {
+                enemy.state = new EnemyDownState(enemy);
+            }
         }
 
         public void Update(GameTime time)
@@ -90,7 +120,17 @@ namespace CrazyArcade.Enemies
         }
         public void ChangeDirection()
         {
-            enemy.state = new EnemyRightState(enemy);
+            Random rnd = new Random();
+            int num = rnd.Next();
+            if (num % 2 == 0)
+            {
+                enemy.state = new EnemyRightState(enemy);
+            }
+            else
+            {
+                enemy.state = new EnemyUpState(enemy);
+            }
+
         }
 
         public void Update(GameTime time)
