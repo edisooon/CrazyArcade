@@ -20,7 +20,7 @@ namespace CrazyArcade.Demo1
         public int defaultBlastLength = 1;
         public Vector2 moveInputs = new(0, 0);
         protected Rectangle blockBoundingBox = new Rectangle(0, 0, 30, 30);
-        protected Point bboxOffset = new Point(6, 27);
+        protected Point bboxOffset = new Point(2, 27);
         protected bool blockBboxOn = true;
 
 
@@ -40,7 +40,7 @@ namespace CrazyArcade.Demo1
         {
             this.X = (int)value.X - bboxOffset.X;
             this.Y = (int)value.Y - bboxOffset.Y;
-            blockBoundingBox.X = (int)value.X;
+            blockBoundingBox.X = (int)value.X + 5;
             blockBoundingBox.Y = (int)value.Y;
         }
         public Vector2 GameCoord {

@@ -113,13 +113,13 @@ public class CAGame : Game, IGameDelegate, ITransitionCompleteHandler
                 new TestLoad().LoadGUI();
                 UI_Singleton.ChangeComponentText("levelCounter", "text", "Level " + stageNum);
                 makeTransition(gameTime, -transitionDisplacement);
-                
             }
             else if (Mouse.GetState().RightButton == ButtonState.Pressed && stageNum < levelFileNames.Length-1)
             {
                 stageNum++;
                 new TestLoad().LoadGUI();
                 UI_Singleton.ChangeComponentText("levelCounter", "text", "Level " + stageNum);
+
                 makeTransition(gameTime, transitionDisplacement);
                 
             }

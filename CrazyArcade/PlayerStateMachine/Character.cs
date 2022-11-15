@@ -18,7 +18,7 @@ namespace CrazyArcade.PlayerStateMachine
      * State machine is implemented here
      * 
      */
-    public class Character: CharacterBase, IBombCollectable, IPlayerCollisionBehavior
+    public class Character: CharacterBase, IBombCollectable, IExplosionCollidable, IPlayerCollisionBehavior
     {
 		public SpriteAnimation[] spriteAnims;
         public CAScene parentScene;
@@ -34,6 +34,8 @@ namespace CrazyArcade.PlayerStateMachine
         private int loseRideFlag = 5;
         public int lives;
         private int score = 0;
+        private bool invincible = false;
+        private int ICounter = 0;
 
         public override SpriteAnimation SpriteAnim => spriteAnims[animationHandleInt];
 
@@ -55,11 +57,23 @@ namespace CrazyArcade.PlayerStateMachine
         }
         public override void Update(GameTime time)
         {
+            ProcessInvincibility();
             playerState.ProcessState(time);
             //Console.WriteLine("bombsOut: " + BombsOut);
             base.Update(time);
         }
-
+        private void ProcessInvincibility()
+        {
+            if(invincible)
+            {
+                ICounter++;
+                if(ICounter >= 30)
+                {
+                    invincible = false;
+                    ICounter = 0;
+                }
+            }
+        }
         public void CollisionHaltLogic(Point move)
         {
             GameCoord -= Trans.RevScale(new Vector2(move.X, move.Y));
@@ -68,12 +82,13 @@ namespace CrazyArcade.PlayerStateMachine
         //@implement IPlayerCollisionBehavior
         public void CollisionDestroyLogic()
         {
-            if (this.playerState is CharacterStateBubble) return;
+            if (this.playerState is CharacterStateBubble || invincible) return;
             if (this.playerState is CharacterStateTurtle )
             {
                 
                 this.playerState = new CharacterStateFree(this);
                 loseRideFlag = 0;
+                invincible = true;
             }
             else if (loseRideFlag >= 5)
             {
@@ -131,6 +146,12 @@ namespace CrazyArcade.PlayerStateMachine
         {
             bombOut++;
             Console.WriteLine("Spend: " + BombsOut);
+        }
+
+        public bool Collide(IExplosion bomb)
+        {
+            CollisionDestroyLogic();
+            return true;
         }
     }
 }
