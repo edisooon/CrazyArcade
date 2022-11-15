@@ -11,7 +11,7 @@ using CrazyArcade.Content;
 using System.Diagnostics;
 using CrazyArcade.GameGridSystems;
 using CrazyArcade.BombFeature;
-using CrazyArcade.CAFrameWork.GridBoxSystem;
+
 namespace CrazyArcade.Blocks
 {
     //The purpose of this interface is to group together all blocks in the future. All code contained within must apply to all blocks, and changes can be 
@@ -20,12 +20,12 @@ namespace CrazyArcade.Blocks
     {
 
     }
-    public abstract class Block : CAGridBoxEntity, IBlock, IPlayerCollidable, IGridable, IExplosionCollidable
+    public abstract class Block : CAEntity, IBlock, IPlayerCollidable, IGridable, IExplosionCollidable
     {
         //----------IGridable Start------------
         private Vector2 gamePos;
         private Vector2 pos;
-        public override Vector2 ScreenCoord
+        public Vector2 ScreenCoord
         {
             get => pos;
             set
@@ -39,7 +39,7 @@ namespace CrazyArcade.Blocks
             this.X = (int)value.X;
             this.Y = (int)value.Y;
         }
-        public override Vector2 GameCoord
+        public Vector2 GameCoord
         {
             get => gamePos;
             set
@@ -49,20 +49,20 @@ namespace CrazyArcade.Blocks
             }
         }
         private IGridTransform trans = new NullTransform();
-        public override IGridTransform Trans { get => trans; set => trans = value; }
+        public IGridTransform Trans { get => trans; set => trans = value; }
         //----------IGridable End------------
         protected SpriteAnimation spriteAnimation;
 
         private Rectangle internalRectangle = new Rectangle(0, 0, 40, 40);
 
-        public Block(Vector2 position, Rectangle source, Texture2D texture) : base(new GridBoxPosition((int)position.X, (int)position.Y, (int)GridObjectDepth.Box))
+        public Block(Vector2 position, Rectangle source, Texture2D texture)
         {
             spriteAnimation = new SpriteAnimation(texture, source);
             GameCoord = position;
             internalRectangle.X = X;
             internalRectangle.Y = Y;
         }
-        public Block(Vector2 position, Rectangle source, Texture2D texture,int frames, int fps) : base(new GridBoxPosition((int)position.X, (int)position.Y, (int)GridObjectDepth.Box))
+        public Block(Vector2 position, Rectangle source, Texture2D texture,int frames, int fps)
         {
             spriteAnimation = new SpriteAnimation(texture, frames, fps);
             GameCoord = position;

@@ -31,17 +31,12 @@ namespace CrazyArcade.Enemies
         }
         public void ChangeDirection()
         {
-            Random rnd = new Random();
-            int num = rnd.Next();
             enemy.state = new EnemyDownState(enemy);
-
-            
         }
 
         public void Update(GameTime time)
         {
-
-            enemy.move();
+            enemy.move(Dir.Left);
         }
     }
     public class EnemyRightState : IEnemyState
@@ -56,14 +51,11 @@ namespace CrazyArcade.Enemies
         }
         public void ChangeDirection()
         {
-            Random rnd = new Random();
-            int num = rnd.Next();
             enemy.state = new EnemyUpState(enemy);
-
         }
 
         public void Update(GameTime time) {
-            enemy.move();
+            enemy.move(Dir.Right);
         }
     }
     public class EnemyUpState : IEnemyState
@@ -78,16 +70,12 @@ namespace CrazyArcade.Enemies
         }
         public void ChangeDirection()
         {
-
-            Random rnd = new Random();
-            int num = rnd.Next();
             enemy.state = new EnemyLeftState(enemy);
-
         }
 
         public void Update(GameTime time)
         {
-            enemy.move();
+            enemy.move(Dir.Up);
         }
     }
     public class EnemyDownState : IEnemyState
@@ -102,16 +90,12 @@ namespace CrazyArcade.Enemies
         }
         public void ChangeDirection()
         {
-            Random rnd = new Random();
-            int num = rnd.Next();
             enemy.state = new EnemyRightState(enemy);
-
-
         }
 
         public void Update(GameTime time)
         {
-            enemy.move();
+            enemy.move(Dir.Down);
         }
     }
 

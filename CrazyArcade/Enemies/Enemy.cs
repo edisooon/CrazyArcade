@@ -6,12 +6,10 @@ using Microsoft.Xna.Framework.Graphics;
 using System.Diagnostics;
 using CrazyArcade.GameGridSystems;
 using CrazyArcade.BombFeature;
-using CrazyArcade.CAFrameWork.GridBoxSystem;
-using System.Reflection.Metadata.Ecma335;
 
 namespace CrazyArcade.Enemies
 {
-    public abstract class Enemy: CAEntity, IPlayerCollidable, IGridable, IExplosionCollidable, IGridBoxReciever
+    public abstract class Enemy : CAEntity, IPlayerCollidable, IGridable, IExplosionCollidable
     {
         public SpriteAnimation[] spriteAnims;
         public SpriteAnimation spriteAnim;
@@ -28,8 +26,6 @@ namespace CrazyArcade.Enemies
         public SpriteAnimation deathAnimation;
         private float timer;
         protected int fps = 10;
-        public IGridBoxManager gridBoxManager;
-        protected Rectangle blockBoundingBox = new Rectangle(0, 0, 30, 30);
         public Vector2 ScreenCoord
         {
             get => pos;
@@ -75,7 +71,6 @@ namespace CrazyArcade.Enemies
             GameCoord = new Vector2(x, y - 2);
             Start = GameCoord;
             state = new EnemyDownState(this);
-            
         }
         protected Rectangle internalRectangle = new Rectangle(0, 0, 30, 30);
 
@@ -84,6 +79,9 @@ namespace CrazyArcade.Enemies
         public void CollisionLogic(Rectangle overlap, IPlayerCollisionBehavior collisionPartner)
         {
             collisionPartner.CollisionDestroyLogic();
+            //To show the state only, this line of code needs to be moved once bomb -> enemy collision is implemented to CollisionDestroyLogic 
+            //state = new EnemyDeathState(this);
+
 
         }
         public override void Update(GameTime time)
@@ -101,8 +99,10 @@ namespace CrazyArcade.Enemies
             }
             if (timer > 1f / 6)
             {
-
-                state.Update(time);
+                if (state is not EnemyDeathState)
+                {
+                    //move(direction);
+                }
                 timer = 0;
             }
             else
@@ -134,62 +134,18 @@ namespace CrazyArcade.Enemies
         }
 
         protected abstract Vector2[] SpeedVector { get; }
-        public IGridBoxManager Manager { get => gridBoxManager; set => gridBoxManager = value; }
 
-        public Rectangle blockCollisionBoundingBox => blockBoundingBox;
-
-        public bool Active { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-
-        private Boolean checkAvailableBlock()
-        {
-            float x;
-            float y;
-            if (direction == Dir.Down)
-            {
-                y = 1f;
-                x = 0;
-            }
-            else if(direction == Dir.Up)
-            {
-                x = 0;
-                y = -1f;
-            }else if (direction == Dir.Left)
-            {
-                x = -1f;
-                y = 0;
-            }
-            //right direction
-            else 
-            {
-                x = 1f;
-                y = 0;
-
-            }
-
-            if (Manager.CheckAvailable(new GridBoxPosition((int)(GameCoord.X + x), (int)(GameCoord.Y+y),  (int)GridObjectDepth.Box))){
-                return false;
-            }
-           
-            return true;
-        }
-        public void move()
+        public void move(Dir dir)
         {
             //Temporary and need to be removed later after enemy movement fully implemented with block collision
-
-            if (checkAvailableBlock())
+            if (ChangeDir(dir))
             {
                 state.ChangeDirection();
                 effect = direction == Dir.Right ? SpriteEffects.FlipHorizontally : SpriteEffects.None;
                 UpdateAnimation();
             }
-            else
-            {
-                GameCoord += (SpeedVector[(int)direction]);
-            }
-
-
             //up to here
-
+            GameCoord += SpeedVector[(int)direction];
 
         }
         public void UpdateAnimation()
@@ -201,47 +157,6 @@ namespace CrazyArcade.Enemies
         {
             state = new EnemyDeathState(this);
             return true;
-        }
-
-        public void CollisionHaltLogic(Point amountMoved)
-        {
-
-            state.ChangeDirection();
-        }
-
-        public void CollisionDestroyLogic()
-        {
-            
-        }
-
-        public bool canHaveItem()
-        {
-            return false;
-        }
-
-        public void IncreaseBlastLength()
-        {
-
-        }
-
-        public void SwitchToMountedState()
-        {
-
-        }
-
-        public void IncreaseSpeed()
-        {
-
-        }
-
-        public void IncreaseBombCount()
-        {
-
-        }
-
-        public void IncreaseScore(int score)
-        {
-
         }
     }
 }
