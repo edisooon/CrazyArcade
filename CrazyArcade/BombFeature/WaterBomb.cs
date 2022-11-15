@@ -1,4 +1,5 @@
 ﻿using CrazyArcade.Blocks;
+using CrazyArcade.Boss;
 using CrazyArcade.CAFramework;
 using CrazyArcade.CAFrameWork.GridBoxSystem;
 using CrazyArcade.Content;
@@ -15,7 +16,7 @@ using System.Threading.Tasks;
 
 namespace CrazyArcade.BombFeature
 {
-    public class WaterBomb : CAGridBoxEntity, IPlayerCollidable, IExplosionCollidable, IExplodable
+    public class WaterBomb : CAGridBoxEntity, IPlayerCollidable, IExplosionCollidable, IExplodable, IBossCollidable
     {
         int BlastLength;
 
@@ -60,6 +61,8 @@ namespace CrazyArcade.BombFeature
 
         private bool canExplode = true;
         public bool CanExplode => canExplode;
+
+        public Rectangle hitBox => new Rectangle(this.X, this.Y, 40, 40);
 
         private Rectangle[] AnimationFrames;
         
@@ -153,6 +156,14 @@ namespace CrazyArcade.BombFeature
         {
             detector.Ignite(this);
             return false;
+        }
+
+        public void Collide(IBossCollideBehaviour boss)
+        {
+            if (boss is SunBoss)
+            {
+                SceneDelegate.ToRemoveEntity(this);
+            }
         }
     }
 }

@@ -21,7 +21,7 @@ namespace CrazyArcade.Boss
             Vector2 direction = bossDelegate.GetCharacterRelativePosition();
             float len = (float)Math.Sqrt(Math.Pow(direction.X, 2) + Math.Pow(direction.Y, 2));
             Vector2 adjust = new Vector2(bossDelegate.Range.Center.X, bossDelegate.Range.Center.Y) - bossDelegate.GetCenter();
-            direction += adjust / 5;
+            direction += adjust / 4;
             speed = new Vector2(direction.X / len, direction.Y / len);
             speed /= 40;
 		}

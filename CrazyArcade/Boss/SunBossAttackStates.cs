@@ -10,6 +10,9 @@ namespace CrazyArcade.Boss
 		public SunBossAttackStates(ISunBossDelegate bossDelegate, GameTime time) : base(bossDelegate, time)
         {
             animation = new List<SpriteAnimation>();
+            animation.Add(new SpriteAnimation(Singletons.SpriteSheet.SunBoss, new Rectangle(0, 0, 44, 17)));
+            animation[0].Position.X += 22;
+            animation[0].Position.Y += 32;
             animation.Add(new SpriteAnimation(Singletons.SpriteSheet.SunBoss,
                 new Rectangle(88, 184, 88, 88)));
             float sqrt2 = (float)Math.Sqrt(2);

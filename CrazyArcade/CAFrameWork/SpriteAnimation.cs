@@ -74,7 +74,7 @@ namespace CrazyArcade.CAFramework
 
         public void Draw(SpriteBatch spriteBatch, float xShift, float yShift)
         {
-            Vector2 drawPosition = new Vector2(Position.X + xShift, Position.Y + yShift);
+            Vector2 drawPosition = new Vector2(Position.X * Scale + xShift, Position.Y * Scale + yShift);
             if (rectangleFlag == 1){
                 spriteBatch.Draw(Texture, new Rectangle((int)Position.X, (int)Position.Y, Width,Height), Rectangles[FrameIndex], Color, Rotation, Origin,SpriteEffect, 0f);
             }
