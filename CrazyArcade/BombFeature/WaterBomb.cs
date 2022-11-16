@@ -194,6 +194,8 @@ namespace CrazyArcade.BombFeature
             while (manager.MoveBoxTo(this, gridP))
             {
                 length++;
+                gridP.X += mdir.X;
+                gridP.Y += mdir.Y;
             }
             Console.WriteLine("Moved to: " + this.Position.X + " " + this.Position.Y);
 
@@ -201,11 +203,11 @@ namespace CrazyArcade.BombFeature
         public void CollisionLogic(Rectangle overlap, IPlayerCollisionBehavior collisionPartner)
         {
             if (hasNotLeft.Contains(collisionPartner)) return;
-            if (false/*collisionPartner.CouldKick*/)
+            if (collisionPartner.CouldKick)
             {
-                //this.direction = (collisionPartner as Character).direction;
-                //kick(direction);
-                //this.isMoving = true;
+                this.direction = (collisionPartner as Character).direction;
+                kick(direction);
+                this.isMoving = true;
             }
             else
             {
