@@ -116,6 +116,7 @@ public class CAGame : Game, IGameDelegate, ITransitionCompleteHandler
             if (Mouse.GetState().LeftButton == ButtonState.Pressed && stageNum > 0)
             {
                 stageNum--;
+                transitionNum = stageNum;
                 makeTransition(gameTime, -transitionDisplacement);
 
                 //MediaPlayer.Stop();
@@ -129,6 +130,7 @@ public class CAGame : Game, IGameDelegate, ITransitionCompleteHandler
             {
                 
                 stageNum++;
+                transitionNum = stageNum;
                 makeTransition(gameTime, transitionDisplacement);
 
                 
