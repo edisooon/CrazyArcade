@@ -12,8 +12,8 @@ namespace CrazyArcade.CAFrameWork.GridBoxSystem
 			this.position = position;
 		}
         private GridBoxPosition position;
-        public GridBoxPosition Position => position;
-		private IGridBoxManager manager;
+        public GridBoxPosition Position { get => position; set => position = value; }
+		protected IGridBoxManager manager;
         public IGridBoxManager Manager { set => manager = value; }
         public abstract IGridTransform Trans { get; set; }
         public abstract Vector2 ScreenCoord { get; set; }

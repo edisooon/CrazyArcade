@@ -30,8 +30,11 @@ namespace CrazyArcade.PlayerStateMachine
         public int FreeModifiedSpeed { get => playerItems.SpeedModifier; }
         private int bombOut;
         public int BombsOut => bombOut;
+        public Dir direction = Dir.Down;
         static int CCount = 0;
         private int loseRideFlag = 5;
+        private bool couldKick = true;
+        public bool CouldKick { get => couldKick; }
         public int lives;
         private int score = 0;
         private bool invincible = false;

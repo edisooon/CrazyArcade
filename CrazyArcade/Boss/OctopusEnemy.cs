@@ -296,7 +296,7 @@ namespace CrazyArcade.Boss
             else {
                 destination = new Vector2(this.X, this.Y + 3);
             }
-            WaterBomb projectile = new WaterBomb(destination,5,this,true);
+            WaterBomb projectile = new WaterBomb(destination,5,this);
             this.scene.ToAddEntity(projectile);
             projectile.Load();
             //this.scene.AddSprite(projectile);

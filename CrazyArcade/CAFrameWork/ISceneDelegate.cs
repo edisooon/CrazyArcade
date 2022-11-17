@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using CrazyArcade.PlayerStateMachine;
 using CrazyArcade.CAFrameWork.CAGame;
 using Microsoft.Xna.Framework;
 

@@ -8,6 +8,7 @@ using CrazyArcade.CAFrameWork.CAGame;
 using CrazyArcade.CAFrameWork.GameStates;
 using CrazyArcade.CAFrameWork.Transition;
 using CrazyArcade.GameGridSystems;
+using CrazyArcade.PlayerStateMachine;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
