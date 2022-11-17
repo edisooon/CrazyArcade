@@ -25,7 +25,8 @@ namespace CrazyArcade.BombFeature
         private SpriteAnimation spriteAnims;
         private Dir direction = Dir.Down;
         private Point[] moveDir = new Point[4] { new Point(0, -1), new Point(-1, 0), new Point(0, 1), new Point(1, 0) };
-        private Vector2[] move = new Vector2[4] {new Vector2(0, -10), new Vector2(-10, 0), new Vector2(0, 10), new Vector2(10, 0)};
+        private float speed = 10;
+        private Vector2[] move;
         private bool isMoving = false;
         IBombCollectable owner;
         public override SpriteAnimation SpriteAnim => spriteAnims;
@@ -90,6 +91,7 @@ namespace CrazyArcade.BombFeature
             DetonateTimer = 3000;
             this.spriteAnims = new SpriteAnimation(TextureSingleton.GetBallons(), AnimationFrames, 8);
             internalRectangle = new Rectangle(X, Y, 40, 40);
+            move = new Vector2[4] { new Vector2(0, -speed), new Vector2(-speed, 0), new Vector2(0, speed), new Vector2(speed, 0) };
         }
 
         private static Rectangle[] GetAnimationFrames()
@@ -108,15 +110,16 @@ namespace CrazyArcade.BombFeature
 
         private void updatePosition(GameTime time)
         {
-            length -= 0.25f;
-            if (length > 0)
+            float gameCoordMove = speed / CAGameGridSystems.BlockLength;
+            if (length-gameCoordMove> 0)
             {
                 GameCoord += Trans.RevScale(move[(int)direction]);
+                length -= gameCoordMove;
             } else
             {
                 this.isMoving = false;
                 GameCoord = new Vector2(Position.X, Position.Y);
-                length = 0;
+                length = -1;
             }
         }
 
@@ -169,7 +172,7 @@ namespace CrazyArcade.BombFeature
                 if (isColliding(playerBehavior)) hasNotLeft.Add(playerBehavior);
             }
         }
-        private float length = 0;
+        private float length = -1;  // due to the do while loop in kick
         private void kick(Dir dir)
         {
             this.isMoving = true;
@@ -181,6 +184,7 @@ namespace CrazyArcade.BombFeature
                 gridP.X += mdir.X;
                 gridP.Y += mdir.Y;
             } while (manager.MoveBoxTo(this, gridP));
+            Console.WriteLine(length);
         }
         private bool couldMove(Dir dir, GridBoxPosition initialPos)
         {
