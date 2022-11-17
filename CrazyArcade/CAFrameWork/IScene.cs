@@ -1,5 +1,6 @@
 ﻿using System;
 using CrazyArcade.CAFramework;
+using CrazyArcade.CAFrameWork.Transition;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
@@ -13,6 +14,8 @@ namespace CrazyArcade.CAFramework
         void AddSprite(IEntity sprite);
         void RemoveSprite(IEntity sprite);
         void RemoveAllSprite();
+        LevelPersnstance UnloadScene();
+        void LoadData(LevelPersnstance saveData);
     }
 }
 

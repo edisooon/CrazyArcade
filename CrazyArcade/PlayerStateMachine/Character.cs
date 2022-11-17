@@ -11,6 +11,7 @@ using CrazyArcade.Blocks;
 using System.Diagnostics;
 using CrazyArcade.UI;
 using CrazyArcade.UI.GUI_Compositions;
+using CrazyArcade.CAFrameWork.Transition;
 
 namespace CrazyArcade.PlayerStateMachine
 {
@@ -18,7 +19,7 @@ namespace CrazyArcade.PlayerStateMachine
      * State machine is implemented here
      * 
      */
-    public class Character: CharacterBase, IBombCollectable, IExplosionCollidable, IPlayerCollisionBehavior
+    public class Character: CharacterBase, IBombCollectable, IExplosionCollidable, IPlayerCollisionBehavior, ISavable
     {
 		public SpriteAnimation[] spriteAnims;
         public CAScene parentScene;
@@ -154,6 +155,22 @@ namespace CrazyArcade.PlayerStateMachine
         {
             CollisionDestroyLogic();
             return true;
+        }
+        public void Save(LevelPersnstance level)
+        {
+            level.SavedStatInt.Add("playerScore", score);
+            level.SavedStatInt.Add("playerLives", lives);
+        }
+        public void Load(LevelPersnstance level)
+        {
+            if (level.SavedStatInt.ContainsKey("playerScore"))
+            {
+                score = level.SavedStatInt["playerScore"];
+            }
+            if (level.SavedStatInt.ContainsKey("playerLives"))
+            {
+                lives = level.SavedStatInt["playerLives"];
+            }
         }
     }
 }
