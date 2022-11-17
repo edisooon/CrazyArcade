@@ -69,30 +69,19 @@ namespace CrazyArcade.BombFeature
         public Rectangle hitBox => new Rectangle(this.X, this.Y, 40, 40);
 
         private Rectangle[] AnimationFrames;
-        
-        public WaterBomb(Vector2 grid, int BlastLength, IBombCollectable character) : base(new GridBoxPosition(grid, (int)GridObjectDepth.Box))
+
+        private static Vector2 getBombPosition(Vector2 grid)
         {
             Vector2 bombPosition = grid;
             bombPosition = bombPosition + new Vector2(0.5f);
             bombPosition.Floor();
-            gamePos = bombPosition;
-
-            this.BlastLength = BlastLength;
-            this.owner = character;
-            AnimationFrames = GetAnimationFrames();
-            DetonateTime = 0;
-            DetonateTimer = 3000;
-            this.spriteAnims = new SpriteAnimation(TextureSingleton.GetBallons(), AnimationFrames, 8);
-            internalRectangle = new Rectangle(X, Y, 40, 40);
+            return bombPosition;
         }
-
-        public WaterBomb(Vector2 grid, int BlastLength, IBombCollectable character, Boolean iAmOctopus) : base(new GridBoxPosition(grid, (int)GridObjectDepth.Box))
+        
+        public WaterBomb(Vector2 grid, int BlastLength, IBombCollectable character) : base(new GridBoxPosition(getBombPosition(grid), (int)GridObjectDepth.Box))
         {
 
-            Vector2 bombPosition = grid;
-            bombPosition = bombPosition + new Vector2(0.5f);
-            bombPosition.Floor();
-            gamePos = bombPosition;
+            gamePos = getBombPosition(grid);
 
             this.BlastLength = BlastLength;
             this.owner = character;
@@ -101,8 +90,6 @@ namespace CrazyArcade.BombFeature
             DetonateTimer = 3000;
             this.spriteAnims = new SpriteAnimation(TextureSingleton.GetBallons(), AnimationFrames, 8);
             internalRectangle = new Rectangle(X, Y, 40, 40);
-
-            //characterHasLeft = iAmOctopus;
         }
 
         private static Rectangle[] GetAnimationFrames()
