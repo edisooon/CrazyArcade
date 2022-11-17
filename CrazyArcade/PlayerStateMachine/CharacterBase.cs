@@ -8,10 +8,11 @@ using Microsoft.Xna.Framework.Input;
 using CrazyArcade.CAFramework;
 using CrazyArcade.Blocks;
 using CrazyArcade.GameGridSystems;
+using CrazyArcade.CAFrameWork.GridBoxSystem;
 
 namespace CrazyArcade.Demo1
 {
-    public abstract class CharacterBase : CAEntity, IGridable
+    public abstract class CharacterBase : CAEntity, IGridable, IGridBoxReciever
     {
         public float DefaultSpeed = 5;
         public float ModifiedSpeed;
@@ -21,6 +22,9 @@ namespace CrazyArcade.Demo1
         protected Rectangle blockBoundingBox = new Rectangle(0, 0, 30, 30);
         protected Point bboxOffset = new Point(2, 27);
         protected bool blockBboxOn = true;
+        public Dir direction = Dir.Down;
+        public IGridBoxManager manager;
+        public IGridBoxManager Manager { get => manager; set => manager = value; }
 
 
         //----------IGridable Start------------
@@ -58,6 +62,7 @@ namespace CrazyArcade.Demo1
         public bool Active { get => blockBboxOn; set { blockBboxOn = value; } }
 
 
+
         public override void Update(GameTime time)
         {
             moveInputs = new(0, 0);
@@ -66,6 +71,10 @@ namespace CrazyArcade.Demo1
 
         public void UpdatePosition()
         {
+            Vector2 newGameCoord = new Vector2(GameCoord.X, GameCoord.Y);
+            newGameCoord += trans.RevScale(CurrentSpeed);
+            //if(direction == Dir.Down)   newGameCoord.
+            //manager.CheckAvailable(new GridBoxPosition();
             GameCoord += trans.RevScale(CurrentSpeed);
         }
 
