@@ -12,6 +12,7 @@ using System.Diagnostics;
 using CrazyArcade.UI;
 using CrazyArcade.UI.GUI_Compositions;
 using CrazyArcade.CAFrameWork.Transition;
+using CrazyArcade.UI.GUI_Components;
 
 namespace CrazyArcade.PlayerStateMachine
 {
@@ -166,6 +167,7 @@ namespace CrazyArcade.PlayerStateMachine
             if (level.SavedStatInt.ContainsKey("playerScore"))
             {
                 score = level.SavedStatInt["playerScore"];
+                UI_Singleton.ChangeComponentText("score", "scoreText", "Score : " + this.score);
             }
             if (level.SavedStatInt.ContainsKey("playerLives"))
             {

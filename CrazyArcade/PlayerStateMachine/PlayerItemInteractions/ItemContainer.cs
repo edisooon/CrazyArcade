@@ -93,7 +93,7 @@ namespace CrazyArcade.PlayerStateMachine.PlayerItemInteractions
             UpdateGuiItemCount(item);
             UI_Singleton.MoveCompositePosition(item.Name, anchorPoint + new Vector2((count % 2) * 50, ((count-1) / 2) * 50));
         }
-        private static void UpdateGuiItemCount(ItemModifier item)
+        public static void UpdateGuiItemCount(ItemModifier item)
         {
             UI_Singleton.ChangeComponentText(item.Name, "itemCount", "X" + item.CurrentCount.ToString());
         }
