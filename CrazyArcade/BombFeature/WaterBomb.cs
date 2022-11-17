@@ -129,6 +129,7 @@ namespace CrazyArcade.BombFeature
             {
                 this.isMoving = false;
                 GameCoord = new Vector2(Position.X, Position.Y);
+                length = 0;
             }
         }
 
@@ -184,30 +185,29 @@ namespace CrazyArcade.BombFeature
         private float length = 0;
         private void kick(Dir dir)
         {
+            this.isMoving = true;
             Point mdir = moveDir[(int)dir];
             GridBoxPosition gridP = Position;
-            gridP.X += mdir.X;
-            gridP.Y += mdir.Y;
-            length = 0;
-            Console.WriteLine("Start: " + this.Position.X + " " + this.Position.Y);
-
-            while (manager.MoveBoxTo(this, gridP))
+            do
             {
                 length++;
                 gridP.X += mdir.X;
                 gridP.Y += mdir.Y;
-            }
-            Console.WriteLine("Moved to: " + this.Position.X + " " + this.Position.Y);
-
+            } while (manager.MoveBoxTo(this, gridP));
         }
+        private bool couldMove(Dir dir, GridBoxPosition initialPos)
+        {
+            Point mdir = moveDir[(int)dir];
+            return manager.CheckAvailable(new GridBoxPosition(initialPos.X + mdir.X, initialPos.Y + mdir.Y, (int)GridObjectDepth.Box));
+        }
+
         public void CollisionLogic(Rectangle overlap, IPlayerCollisionBehavior collisionPartner)
         {
             if (hasNotLeft.Contains(collisionPartner)) return;
-            if (collisionPartner.CouldKick)
+            this.direction = (collisionPartner as Character).direction;
+            if (collisionPartner.CouldKick && couldMove(direction, this.Position))
             {
-                this.direction = (collisionPartner as Character).direction;
                 kick(direction);
-                this.isMoving = true;
             }
             else
             {
