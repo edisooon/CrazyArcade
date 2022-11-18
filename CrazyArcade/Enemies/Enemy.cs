@@ -14,13 +14,12 @@ namespace CrazyArcade.Enemies
     {
         public SpriteAnimation[] spriteAnims;
         public SpriteAnimation spriteAnim;
-        public CAScene scene;
         public Dir direction;
         protected float xDifference;
         protected float yDifference;
         protected SpriteEffects effect;
         protected Vector2 Start;
-        //----------IGridable Start------------
+        private float centerEnemyValue;
         private Vector2 gamePos;
         private Vector2 pos;
         public IEnemyState state;
@@ -28,7 +27,8 @@ namespace CrazyArcade.Enemies
         private float timer;
         protected int fps = 10;
         public IGridBoxManager gridBoxManager;
-        protected Rectangle blockBoundingBox = new Rectangle(0, 0, 30, 30);
+        public readonly int enemySize = 30;
+        //----------IGridable Start------------
         public Vector2 ScreenCoord
         {
             get => pos;
@@ -63,19 +63,19 @@ namespace CrazyArcade.Enemies
                 Y = (int)ScreenCoord.Y;
                 internalRectangle.X = X;
                 internalRectangle.Y = Y;
-                blockBoundingBox.X = X;
-                blockBoundingBox.Y = Y;
+
 
 
             }
         }
         //----------IGridable End------------
-        public Enemy(int x, int y, CAScene scene)
+        public Enemy(int x, int y)
 
-        {
+        {   
+            //36 is the size of each block
+            centerEnemyValue = ((1f - (float)enemySize / 36f)) / 2f;
             timer = 0;
-            this.scene = scene;
-            GameCoord = new Vector2(x, y - 2);
+            GameCoord = new Vector2(centerEnemyValue + (float)x, centerEnemyValue + (float)y);
             Start = GameCoord;
             state = new EnemyDownState(this);
             
@@ -111,14 +111,13 @@ namespace CrazyArcade.Enemies
             }
             internalRectangle.X = X;
             internalRectangle.Y = Y;
-            blockBoundingBox.X = X;
-            blockBoundingBox.Y = Y;
+
         }
 
         protected abstract Vector2[] SpeedVector { get; }
         public IGridBoxManager Manager { get => gridBoxManager; set => gridBoxManager = value; }
 
-        public Rectangle BlockBoundingBox => blockBoundingBox;
+        public Rectangle BlockBoundingBox => internalRectangle;
 
         public void Move()
         {

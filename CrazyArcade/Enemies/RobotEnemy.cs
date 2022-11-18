@@ -18,7 +18,7 @@ namespace CrazyArcade.Enemies
 
         public override SpriteAnimation SpriteAnim => spriteAnims[(int)direction];
 
-        public RobotEnemySprite(int x, int y, CAScene scene) : base(x, y, scene)
+        public RobotEnemySprite(int x, int y) : base(x, y)
         {
             this.spriteAnims = new SpriteAnimation[4];
         }

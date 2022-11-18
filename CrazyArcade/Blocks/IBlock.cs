@@ -74,7 +74,7 @@ namespace CrazyArcade.Blocks
 
         public Rectangle boundingBox => internalRectangle;
 
-        public Rectangle EnemyBoundingBox => internalRectangle;
+        public Rectangle EnemyBoundingBox => enemyBoundingBox;
 
         public override void Update(GameTime time)
         {
