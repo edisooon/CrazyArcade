@@ -16,6 +16,7 @@ namespace CrazyArcade.Blocks
         //The rectangle that detects the collision
         public Rectangle blockCollisionBoundingBox { get; }
         //The code that is executed when a collision is detected. (Called by the block)
+        public bool CouldKick { get; }
         public void CollisionHaltLogic(Point amountMoved);
         public void CollisionDestroyLogic();
         public bool canHaveItem();

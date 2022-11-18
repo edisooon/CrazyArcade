@@ -17,11 +17,13 @@ namespace CrazyArcade.CAFrameWork.GridBoxSystem
         }
         public bool MoveBoxTo(IGridBox box, GridBoxPosition position)
         {
+            Console.WriteLine("Contains: " + map.ContainsKey(box.Position));
+
             if (map[box.Position] == box && !map.ContainsKey(position))
             {
                 map.Remove(box.Position);
                 map[position] = box;
-                box.Position.Copy(position);
+                box.Position = position;
                 return true;
             }
             return false;
@@ -38,6 +40,8 @@ namespace CrazyArcade.CAFrameWork.GridBoxSystem
                 if (CheckAvailable(gridBox.Position))
                 {
                     map[gridBox.Position] = gridBox;
+                    Console.WriteLine("put in: " + gridBox.Position.X + " " + gridBox.Position.Y + " " + gridBox.Position.Depth);
+                    Console.WriteLine(map[new GridBoxPosition(gridBox.Position.X, gridBox.Position.Y, gridBox.Position.Depth)]);
                     gridBox.Manager = this;
                 } else
                 {
@@ -57,6 +61,8 @@ namespace CrazyArcade.CAFrameWork.GridBoxSystem
                 IGridBox gridBox = (sprite as IGridBox);
                 if (map.ContainsKey(gridBox.Position) && map[gridBox.Position] == gridBox)
                 {
+                    Console.WriteLine("put in: " + gridBox.Position.X + " " + gridBox.Position.Y + " " + gridBox.Position.Depth);
+
                     map.Remove(gridBox.Position);
                 }
             }

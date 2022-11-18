@@ -20,6 +20,7 @@ using CrazyArcade.Items;
 using CrazyArcade.CAFrameWork.GridBoxSystem;
 using CrazyArcade.CAFrameWork.GameStates;
 using CrazyArcade.CAFrameWork.InputSystem;
+using CrazyArcade.UI;
 
 namespace CrazyArcade.Demo1
 {
@@ -56,6 +57,7 @@ namespace CrazyArcade.Demo1
             this.systems.Add(new InputSystems());
             this.systems.Add(new GridBoxSystem());
             this.systems.Add(new BombCollisionSystem(this, new Rectangle(0, 0, 15, 15)));
+            this.systems.Add(gridSystems);
             this.systems.Add(new PlayerCollisionSystem());
             this.systems.Add(new BossCollisionSystem());
             this.systems.Add(new CAGameLogicSystem());
@@ -67,6 +69,7 @@ namespace CrazyArcade.Demo1
                 if (entity is PlayerCharacter)
                 {
                     players.Add(entity as PlayerCharacter);
+                    UI_Singleton.ChangeComponentText("lifeCounter", "count", "Lives: " + (entity as PlayerCharacter).lives);
                 }
                 this.AddSprite(entity);
             }
