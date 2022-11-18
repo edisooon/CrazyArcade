@@ -3,15 +3,14 @@ using CrazyArcade.Blocks;
 using CrazyArcade.CAFramework;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using System.Diagnostics;
 using CrazyArcade.GameGridSystems;
 using CrazyArcade.BombFeature;
 using CrazyArcade.CAFrameWork.GridBoxSystem;
-using System.Reflection.Metadata.Ecma335;
+using CrazyArcade.EnemyCollision;
 
 namespace CrazyArcade.Enemies
 {
-    public abstract class Enemy: CAEntity, IPlayerCollidable, IGridable, IExplosionCollidable, IGridBoxReciever
+    public abstract class Enemy: CAEntity, IPlayerCollidable, IGridable, IExplosionCollidable, IEnemyCollisionBehavior
     {
         public SpriteAnimation[] spriteAnims;
         public SpriteAnimation spriteAnim;
@@ -112,85 +111,71 @@ namespace CrazyArcade.Enemies
             internalRectangle.X = X;
             internalRectangle.Y = Y;
         }
-        protected bool ChangeDir(Dir dir)
-        {
-            switch (direction)
-            {
-                case Dir.Right:
-
-                    return xDifference >= 4;
-
-                case Dir.Up:
-
-                    return yDifference <= 0;
-
-                case Dir.Down:
-
-                    return yDifference >= 4;
-                case Dir.Left:
-                    return xDifference <= 0;
-            }
-            return false;
-        }
 
         protected abstract Vector2[] SpeedVector { get; }
         public IGridBoxManager Manager { get => gridBoxManager; set => gridBoxManager = value; }
 
-        public Rectangle blockCollisionBoundingBox => blockBoundingBox;
+        public Rectangle BlockBoundingBox => internalRectangle;
 
-        public bool Active { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        //protected bool ChangeDir(Dir dir)
+        //{
+        //    switch (direction)
+        //    {
+        //        case Dir.Right:
 
-        private Boolean checkAvailableBlock()
-        {
-            float x;
-            float y;
-            if (direction == Dir.Down)
-            {
-                y = 1f;
-                x = 0;
-            }
-            else if(direction == Dir.Up)
-            {
-                x = 0;
-                y = -1f;
-            }else if (direction == Dir.Left)
-            {
-                x = -1f;
-                y = 0;
-            }
-            //right direction
-            else 
-            {
-                x = 1f;
-                y = 0;
+        //            return xDifference >= 4;
 
-            }
+        //        case Dir.Up:
 
-            if (Manager.CheckAvailable(new GridBoxPosition((int)(GameCoord.X + x), (int)(GameCoord.Y+y),  (int)GridObjectDepth.Box))){
-                return false;
-            }
+        //            return yDifference <= 0;
+
+        //        case Dir.Down:
+
+        //            return yDifference >= 4;
+        //        case Dir.Left:
+        //            return xDifference <= 0;
+        //    }
+        //    return false;
+        //}
+
+        
+        
+
+        //private Boolean checkAvailableBlock()
+        //{
+        //    float x;
+        //    float y;
+        //    if (direction == Dir.Down)
+        //    {
+        //        y = 1f;
+        //        x = 0;
+        //    }
+        //    else if(direction == Dir.Up)
+        //    {
+        //        x = 0;
+        //        y = -1f;
+        //    }else if (direction == Dir.Left)
+        //    {
+        //        x = -1f;
+        //        y = 0;
+        //    }
+        //    //right direction
+        //    else 
+        //    {
+        //        x = 1f;
+        //        y = 0;
+
+        //    }
+
+        //    if (Manager.CheckAvailable(new GridBoxPosition((int)(GameCoord.X + x), (int)(GameCoord.Y+y),  (int)GridObjectDepth.Box))){
+        //        return false;
+        //    }
            
-            return true;
-        }
-        public void move()
+        //    return true;
+        //}
+        public void Move()
         {
-            //Temporary and need to be removed later after enemy movement fully implemented with block collision
-
-            if (checkAvailableBlock())
-            {
-                state.ChangeDirection();
-                effect = direction == Dir.Right ? SpriteEffects.FlipHorizontally : SpriteEffects.None;
-                UpdateAnimation();
-            }
-            else
-            {
-                GameCoord += (SpeedVector[(int)direction]*.5f);
-            }
-
-
-            //up to here
-
-
+            GameCoord += (SpeedVector[(int)direction]*.5f);
         }
         public void UpdateAnimation()
         {
@@ -202,46 +187,12 @@ namespace CrazyArcade.Enemies
             state = new EnemyDeathState(this);
             return true;
         }
-
-        public void CollisionHaltLogic(Point amountMoved)
+        //called by block
+        public void TurnEnemy()
         {
-
             state.ChangeDirection();
-        }
-
-        public void CollisionDestroyLogic()
-        {
-            
-        }
-
-        public bool canHaveItem()
-        {
-            return false;
-        }
-
-        public void IncreaseBlastLength()
-        {
-
-        }
-
-        public void SwitchToMountedState()
-        {
-
-        }
-
-        public void IncreaseSpeed()
-        {
-
-        }
-
-        public void IncreaseBombCount()
-        {
-
-        }
-
-        public void IncreaseScore(int score)
-        {
-
+            effect = direction == Dir.Right ? SpriteEffects.FlipHorizontally : SpriteEffects.None;
+            UpdateAnimation();
         }
     }
 }
