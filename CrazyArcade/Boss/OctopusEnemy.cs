@@ -122,6 +122,7 @@ namespace CrazyArcade.Boss
             spriteAnims = new SpriteAnimation[4];
         }
 
+
         public override void Load()
         {
             //Load Sprites
