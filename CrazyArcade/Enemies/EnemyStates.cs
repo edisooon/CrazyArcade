@@ -12,7 +12,7 @@ using static System.Formats.Asn1.AsnWriter;
 
 namespace CrazyArcade.Enemies
 {
-    public interface IEnemyState
+    public interface IEnemyState//It seems like this is not really being used other than death state?
     {
         void ChangeDirection();
         void Update(GameTime time);
@@ -31,11 +31,16 @@ namespace CrazyArcade.Enemies
         }
         public void ChangeDirection()
         {
+            Random rnd = new Random();
+            int num = rnd.Next();
             enemy.state = new EnemyDownState(enemy);
+
+            
         }
 
         public void Update(GameTime time)
         {
+
             enemy.move();
         }
     }
@@ -51,7 +56,10 @@ namespace CrazyArcade.Enemies
         }
         public void ChangeDirection()
         {
+            Random rnd = new Random();
+            int num = rnd.Next();
             enemy.state = new EnemyUpState(enemy);
+
         }
 
         public void Update(GameTime time) {
@@ -70,7 +78,11 @@ namespace CrazyArcade.Enemies
         }
         public void ChangeDirection()
         {
+
+            Random rnd = new Random();
+            int num = rnd.Next();
             enemy.state = new EnemyLeftState(enemy);
+
         }
 
         public void Update(GameTime time)
@@ -90,7 +102,11 @@ namespace CrazyArcade.Enemies
         }
         public void ChangeDirection()
         {
+            Random rnd = new Random();
+            int num = rnd.Next();
             enemy.state = new EnemyRightState(enemy);
+
+
         }
 
         public void Update(GameTime time)
@@ -111,7 +127,6 @@ namespace CrazyArcade.Enemies
             this.enemy=enemy;
             scene = enemy.SceneDelegate;
 
-            
             enemy.spriteAnims = new SpriteAnimation[1];
             enemy.spriteAnims[0] = enemy.deathAnimation;
             enemy.direction=0;

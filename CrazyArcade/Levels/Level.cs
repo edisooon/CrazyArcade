@@ -10,13 +10,12 @@ using Vector2 = Microsoft.Xna.Framework.Vector2;
 using Rectangle = Microsoft.Xna.Framework.Rectangle;
 using Microsoft.Xna.Framework.Input;
 using CrazyArcade.CAFrameWork.InputSystem;
+using CrazyArcade.CAFrameWork.Transition;
 
 namespace CrazyArcade.Levels
 {
     internal class Level
     {
-        
-
         private List<CAEntity> EntityList;
         private CAScene Scene;
         private CreateLevel currentLevel;
@@ -85,15 +84,14 @@ namespace CrazyArcade.Levels
             //TODO Find a way to reduce duplicate code
             scale = .9f;
             //IMPORTANT!!!! uncomment tbis when Door Block class is implemented.
-            //itemLocations = currentLevel.GetItemLocation(CreateLevel.LevelItem.DoorPosition);
+            itemLocations = currentLevel.GetItemLocation(CreateLevel.LevelItem.DoorPosition);
 
-            //foreach (Vector2 vector in itemLocations)
-            //{
-                
-            //    Entity = new Door(vector);
-            //    Entity.SpriteAnim.Scale = scale;
-            //    EntityList.Add(Entity);
-            //}
+            for (int i = 0; i < itemLocations.Length; i += 2)
+            {
+                Entity = new Door(itemLocations[i], (int)itemLocations[i + 1].X, (Dir)itemLocations[i + 1].Y);
+                Entity.SpriteAnim.Scale = scale;
+                EntityList.Add(Entity);
+            }
             itemLocations = currentLevel.GetItemLocation(CreateLevel.LevelItem.LightSandPosition);
 
             foreach (Vector2 vector in itemLocations)
@@ -238,7 +236,7 @@ namespace CrazyArcade.Levels
 
             foreach (Vector2 vector in itemLocations)
             {
-                EntityList.Add(new OctopusEnemy((int)vector.X, (int)vector.Y));
+                EntityList.Add(new OctopusEnemy((int)vector.X, (int)vector.Y, Scene));
             }
 
             itemLocations = currentLevel.GetItemLocation(CreateLevel.LevelItem.SunBossPosition);

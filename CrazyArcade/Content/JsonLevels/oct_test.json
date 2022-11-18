@@ -1,0 +1,55 @@
+{
+    "Background": [ 102, 0, 153 ],
+    "Border": [ 13, 13 ],
+    "Blocks": {
+        "Door": [
+            [ 11, 11 ],
+            [ 10, 3 ]
+        ],
+        "LightSand": [
+        ],
+        "DarkSand": [
+        ],
+        "Stone": [
+        ],
+        "Cactus": [
+        ],
+        "DarkTree": [
+        ],
+        "LightTree": [
+        ]
+    },
+    "Items": {
+        "CoinBag": [
+        ],
+        "Balloon": [
+        ],
+        "Sneaker": [
+        ],
+        "Turtle": [
+        ],
+        "Potion": [
+        ],
+        "Coin": [
+        ]
+
+    },
+    "Player": [ 0, 0 ],
+    "Enemies": {
+        "Bomb": [
+        ],
+        "Squid": [
+        ],
+        "Bat": [
+        ],
+        "Robot": [
+        ]
+    },
+    "Boss": {
+        "Sun": [
+        ],
+        "Octo": [
+            [ 4, 7 ]
+        ]
+    }
+}

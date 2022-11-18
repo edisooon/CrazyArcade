@@ -10,7 +10,6 @@ namespace CrazyArcade.CAFrameWork.GridBoxSystem
 		public GridBoxSystem()
 		{
 		}
-
         private Dictionary<GridBoxPosition, IGridBox> map = new Dictionary<GridBoxPosition, IGridBox>();
         public bool CheckAvailable(GridBoxPosition position)
         {
@@ -29,6 +28,10 @@ namespace CrazyArcade.CAFrameWork.GridBoxSystem
         }
         public void AddSprite(IEntity sprite)
         {
+            if (sprite is IGridBoxReciever)
+            {
+                (sprite as IGridBoxReciever).Manager = this;
+            }
             if (sprite is IGridBox)
             {
                 IGridBox gridBox = (sprite as IGridBox);

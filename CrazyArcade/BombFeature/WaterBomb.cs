@@ -1,4 +1,5 @@
 ﻿using CrazyArcade.Blocks;
+using CrazyArcade.Boss;
 using CrazyArcade.CAFramework;
 using CrazyArcade.CAFrameWork.GridBoxSystem;
 using CrazyArcade.Content;
@@ -15,7 +16,7 @@ using System.Threading.Tasks;
 
 namespace CrazyArcade.BombFeature
 {
-    public class WaterBomb : CAGridBoxEntity, IPlayerCollidable, IExplosionCollidable, IExplodable
+    public class WaterBomb : CAGridBoxEntity, IPlayerCollidable, IExplosionCollidable, IExplodable, IBossCollidable
     {
         int BlastLength;
 
@@ -61,6 +62,8 @@ namespace CrazyArcade.BombFeature
         private bool canExplode = true;
         public bool CanExplode => canExplode;
 
+        public Rectangle hitBox => new Rectangle(this.X, this.Y, 40, 40);
+
         private Rectangle[] AnimationFrames;
         
         public WaterBomb(Vector2 grid, int BlastLength, IBombCollectable character) : base(new GridBoxPosition(grid, (int)GridObjectDepth.Box))
@@ -79,6 +82,26 @@ namespace CrazyArcade.BombFeature
             this.spriteAnims = new SpriteAnimation(TextureSingleton.GetBallons(), AnimationFrames, 8);
             internalRectangle = new Rectangle(X, Y, 40, 40);
         }
+
+        public WaterBomb(Vector2 grid, int BlastLength, IBombCollectable character, Boolean iAmOctopus) : base(new GridBoxPosition(grid, (int)GridObjectDepth.Box))
+        {
+
+            Vector2 bombPosition = grid;
+            bombPosition = bombPosition + new Vector2(0.5f);
+            bombPosition.Floor();
+            gamePos = bombPosition;
+
+            this.BlastLength = BlastLength;
+            this.owner = character;
+            AnimationFrames = GetAnimationFrames();
+            DetonateTime = 0;
+            DetonateTimer = 3000;
+            this.spriteAnims = new SpriteAnimation(TextureSingleton.GetBallons(), AnimationFrames, 8);
+            internalRectangle = new Rectangle(X, Y, 40, 40);
+
+            characterHasLeft = iAmOctopus;
+        }
+
         private static Rectangle[] GetAnimationFrames()
         {
             Rectangle[] NewFrames = new Rectangle[3];
@@ -153,6 +176,14 @@ namespace CrazyArcade.BombFeature
         {
             detector.Ignite(this);
             return false;
+        }
+
+        public void Collide(IBossCollideBehaviour boss)
+        {
+            if (boss is SunBoss)
+            {
+                SceneDelegate.ToRemoveEntity(this);
+            }
         }
     }
 }

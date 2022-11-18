@@ -10,6 +10,7 @@ using CrazyArcade.CAFrameWork.CAGame;
 using CrazyArcade.Demo1;
 using CrazyArcade.Items;
 using CrazyArcade.PlayerStateMachine;
+using CrazyArcade.UI;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 using static System.Formats.Asn1.AsnWriter;
@@ -18,21 +19,23 @@ namespace CrazyArcade.CAFrameWork.GameStates
 {
     public class GameOverScene : CAScene
     {
-        ISceneDelegate parentScene;
-        public GameOverScene(ISceneDelegate parentScene, CrazyArcade.CAGame gameRef, IGameState state)
+        public GameOverScene(IGameDelegate gameRef)
         {
-            this.parentScene = parentScene;
             this.gameRef = gameRef;
-            this.gameState = state;
             this.Load();
         }
 
         public override List<Vector2> PlayerPositions => throw new NotImplementedException();
 
+        public override void Load()
+        {
+            UI_Singleton.ClearGUI();
+            UI_Singleton.AddPreDesignedComposite(new GameOverGUIComposition());
+        }
         public override void LoadSprites()
         {
             //Temporary, will be changed to game over text
-            this.AddSprite(new CoinBag(parentScene, new Microsoft.Xna.Framework.Vector2(0, 0)));
+            //this.AddSprite(new Balloon(new Vector2(400, 200)));
         }
 
         public override void LoadSystems()
@@ -46,7 +49,7 @@ namespace CrazyArcade.CAFrameWork.GameStates
             }
             else if(Keyboard.GetState().IsKeyDown(Keys.Escape))
             {
-                this.gameRef.Exit();
+                this.gameRef.Quit();
             }
         }
     }
