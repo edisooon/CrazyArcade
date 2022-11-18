@@ -120,62 +120,6 @@ namespace CrazyArcade.Enemies
 
         public Rectangle BlockBoundingBox => blockBoundingBox;
 
-        //protected bool ChangeDir(Dir dir)
-        //{
-        //    switch (direction)
-        //    {
-        //        case Dir.Right:
-
-        //            return xDifference >= 4;
-
-        //        case Dir.Up:
-
-        //            return yDifference <= 0;
-
-        //        case Dir.Down:
-
-        //            return yDifference >= 4;
-        //        case Dir.Left:
-        //            return xDifference <= 0;
-        //    }
-        //    return false;
-        //}
-
-        
-        
-
-        //private Boolean checkAvailableBlock()
-        //{
-        //    float x;
-        //    float y;
-        //    if (direction == Dir.Down)
-        //    {
-        //        y = 1f;
-        //        x = 0;
-        //    }
-        //    else if(direction == Dir.Up)
-        //    {
-        //        x = 0;
-        //        y = -1f;
-        //    }else if (direction == Dir.Left)
-        //    {
-        //        x = -1f;
-        //        y = 0;
-        //    }
-        //    //right direction
-        //    else 
-        //    {
-        //        x = 1f;
-        //        y = 0;
-
-        //    }
-
-        //    if (Manager.CheckAvailable(new GridBoxPosition((int)(GameCoord.X + x), (int)(GameCoord.Y+y),  (int)GridObjectDepth.Box))){
-        //        return false;
-        //    }
-           
-        //    return true;
-        //}
         public void Move()
         {
             GameCoord += (SpeedVector[(int)direction]*.5f);
