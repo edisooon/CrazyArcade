@@ -81,18 +81,21 @@ namespace CrazyArcade.BombFeature
         
         public WaterBomb(Vector2 grid, int BlastLength, IBombCollectable character) : base(new GridBoxPosition(getBombPosition(grid), (int)GridObjectDepth.Box))
         {
-
-            gamePos = getBombPosition(grid);
+            Vector2 bombPosition = grid;
+            bombPosition = bombPosition + new Vector2(0.5f);
+            bombPosition.Floor();
+            gamePos = bombPosition;
 
             this.BlastLength = BlastLength;
             this.owner = character;
             AnimationFrames = GetAnimationFrames();
             DetonateTime = 0;
-            DetonateTimer = 3000;
+            DetonateTimer = 0;
             this.spriteAnims = new SpriteAnimation(TextureSingleton.GetBallons(), AnimationFrames, 8);
             internalRectangle = new Rectangle(X, Y, 40, 40);
             move = new Vector2[4] { new Vector2(0, -speed), new Vector2(-speed, 0), new Vector2(0, speed), new Vector2(speed, 0) };
         }
+
 
         private static Rectangle[] GetAnimationFrames()
         {
