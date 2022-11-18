@@ -63,6 +63,10 @@ namespace CrazyArcade.Enemies
                 Y = (int)ScreenCoord.Y;
                 internalRectangle.X = X;
                 internalRectangle.Y = Y;
+                blockBoundingBox.X = X;
+                blockBoundingBox.Y = Y;
+
+
             }
         }
         //----------IGridable End------------
@@ -94,10 +98,7 @@ namespace CrazyArcade.Enemies
             SpriteAnim.setEffect(effect);
             xDifference = GameCoord.X - Start.X;
             yDifference = GameCoord.Y - Start.Y;
-            if (state != null)
-            {
-                state.Update(time);
-            }
+
             if (timer > 1f / 6)
             {
 
@@ -110,12 +111,14 @@ namespace CrazyArcade.Enemies
             }
             internalRectangle.X = X;
             internalRectangle.Y = Y;
+            blockBoundingBox.X = X;
+            blockBoundingBox.Y = Y;
         }
 
         protected abstract Vector2[] SpeedVector { get; }
         public IGridBoxManager Manager { get => gridBoxManager; set => gridBoxManager = value; }
 
-        public Rectangle BlockBoundingBox => internalRectangle;
+        public Rectangle BlockBoundingBox => blockBoundingBox;
 
         //protected bool ChangeDir(Dir dir)
         //{

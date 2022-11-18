@@ -20,7 +20,7 @@ namespace CrazyArcade.Enemies
     }
     public class EnemyLeftState : IEnemyState
     {
-        private Enemy enemy;
+        private readonly Enemy enemy;
         public ISceneDelegate scene;
 
         public EnemyLeftState(Enemy enemy)
@@ -41,12 +41,12 @@ namespace CrazyArcade.Enemies
         public void Update(GameTime time)
         {
 
-            enemy.move();
+            enemy.Move();
         }
     }
     public class EnemyRightState : IEnemyState
     {
-        private Enemy enemy;
+        private readonly Enemy enemy;
         public ISceneDelegate scene;
         public EnemyRightState(Enemy enemy)
         {
@@ -63,12 +63,12 @@ namespace CrazyArcade.Enemies
         }
 
         public void Update(GameTime time) {
-            enemy.move();
+            enemy.Move();
         }
     }
     public class EnemyUpState : IEnemyState
     {
-        private Enemy enemy;
+        private readonly Enemy enemy;
         public ISceneDelegate scene;
         public EnemyUpState(Enemy enemy)
         {
@@ -87,12 +87,12 @@ namespace CrazyArcade.Enemies
 
         public void Update(GameTime time)
         {
-            enemy.move();
+            enemy.Move();
         }
     }
     public class EnemyDownState : IEnemyState
     {
-        private Enemy enemy;
+        private readonly Enemy enemy;
         public ISceneDelegate scene;
         public EnemyDownState(Enemy enemy)
         {
@@ -111,17 +111,17 @@ namespace CrazyArcade.Enemies
 
         public void Update(GameTime time)
         {
-            enemy.move();
+            enemy.Move();
         }
     }
 
     public class EnemyDeathState : IEnemyState
     {
-        private Enemy enemy;
+        private readonly Enemy enemy;
         public ISceneDelegate scene;
         private float timer;
         private float opacity;
-        private float fadeTime;
+        private readonly float fadeTime;
         public EnemyDeathState(Enemy enemy)
         {
             this.enemy=enemy;
@@ -144,7 +144,6 @@ namespace CrazyArcade.Enemies
 
         public void Update(GameTime time)
         {
-            //enemy.UpdateAnimation((Dir)0);
             if (timer > fadeTime)
             {
                 scene.ToRemoveEntity(enemy);

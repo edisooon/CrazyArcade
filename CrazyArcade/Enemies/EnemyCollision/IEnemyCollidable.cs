@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using CrazyArcade.Blocks;
+using Microsoft.Xna.Framework;
 
 
 namespace CrazyArcade.EnemyCollision
@@ -7,6 +8,7 @@ namespace CrazyArcade.EnemyCollision
     {
         //The rectangle that is collided with
         public Rectangle EnemyBoundingBox { get; }
-        public void EnemyCollisionLogic(Rectangle overlap, IEnemyCollisionBehavior collisionPartner);
+        //The code that is executed when a collision is detected. (Defined in IBlock)
+        public void EnemyCollisionLogic(IEnemyCollisionBehavior collisionPartner);
     }
 }

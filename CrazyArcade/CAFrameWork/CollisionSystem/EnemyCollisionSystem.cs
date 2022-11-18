@@ -11,24 +11,23 @@ namespace CrazyArcade.CAFrameWork.CollisionSystem
     {
 
         List<IEnemyCollidable> triggers = new List<IEnemyCollidable>();
-        List<IEnemyCollisionBehavior> playerBehaviors = new List<IEnemyCollisionBehavior>();
+        List<IEnemyCollisionBehavior> enemyBehaviors = new List<IEnemyCollisionBehavior>();
         public void AddSprite(IEntity sprite)
         {
             if (sprite is IEnemyCollidable)
             {
                 triggers.Add(sprite as IEnemyCollidable);
-                
             }
             if (sprite is IEnemyCollisionBehavior)
             {
-                playerBehaviors.Add(sprite as IEnemyCollisionBehavior);
+                enemyBehaviors.Add(sprite as IEnemyCollisionBehavior);
             }
         }
 
         public void RemoveAll()
         {
             triggers.Clear();
-            playerBehaviors.Clear();
+            enemyBehaviors.Clear();
         }
 
         public void RemoveSprite(IEntity sprite)
@@ -38,21 +37,21 @@ namespace CrazyArcade.CAFrameWork.CollisionSystem
                 triggers.Remove(sprite as IEnemyCollidable);
                
             }
-            if (sprite is IEnemyCollisionBehavior) playerBehaviors.Remove(sprite as IEnemyCollisionBehavior);
+            if (sprite is IEnemyCollisionBehavior) enemyBehaviors.Remove(sprite as IEnemyCollisionBehavior);
         }
 
         public void Update(GameTime time)
         {
 
-            foreach (IPlayerCollidable trigger in triggers)
+            foreach (IEnemyCollidable trigger in triggers)
             {
-                foreach (IPlayerCollisionBehavior playerBehavior in playerBehaviors)
+                foreach (IEnemyCollisionBehavior enemyBehavior in enemyBehaviors)
                 {
-                    Rectangle checkRectangle = Rectangle.Intersect(trigger.boundingBox, playerBehavior.blockCollisionBoundingBox);
+
                     
-                    if (checkRectangle.Width != 0 || checkRectangle.Height != 0)
+                    if (trigger.EnemyBoundingBox.Intersects(enemyBehavior.BlockBoundingBox))
                     {
-                        trigger.CollisionLogic(checkRectangle, playerBehavior);
+                        trigger.EnemyCollisionLogic(enemyBehavior);
                     }
                 }
             }
