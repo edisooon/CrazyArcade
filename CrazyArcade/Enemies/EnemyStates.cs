@@ -12,11 +12,10 @@ using static System.Formats.Asn1.AsnWriter;
 
 namespace CrazyArcade.Enemies
 {
-    public interface IEnemyState//It seems like this is not really being used other than death state?
+    public interface IEnemyState
     {
         void ChangeDirection();
         void Update(GameTime time);
-
     }
     public class EnemyLeftState : IEnemyState
     {
@@ -28,13 +27,20 @@ namespace CrazyArcade.Enemies
             this.enemy = enemy;
             scene = enemy.SceneDelegate;
             enemy.direction = Dir.Left;
+            enemy.SetDetectorValues(0, 10, 1, 10);
         }
         public void ChangeDirection()
         {
             Random rnd = new Random();
             int num = rnd.Next();
-            enemy.state = new EnemyDownState(enemy);
-
+            if (num % 2 == 0)
+            {
+                enemy.state = new EnemyDownState(enemy);
+            }
+            else
+            {
+                enemy.state = new EnemyRightState(enemy);
+            }
             
         }
 
@@ -53,12 +59,22 @@ namespace CrazyArcade.Enemies
             this.enemy = enemy;
             scene = enemy.SceneDelegate;
             enemy.direction = Dir.Right;
+            enemy.SetDetectorValues(29, 10, 1, 10);
+
         }
         public void ChangeDirection()
         {
             Random rnd = new Random();
             int num = rnd.Next();
-            enemy.state = new EnemyUpState(enemy);
+            if (num % 2 == 0)
+            {
+                enemy.state = new EnemyUpState(enemy);
+            }
+            else
+            {
+                enemy.state = new EnemyLeftState(enemy);
+            }
+
 
         }
 
@@ -75,13 +91,23 @@ namespace CrazyArcade.Enemies
             this.enemy = enemy;
             scene = enemy.SceneDelegate;
             enemy.direction = Dir.Up;
+            enemy.SetDetectorValues(10, 0, 10, 1);
+
         }
         public void ChangeDirection()
         {
 
             Random rnd = new Random();
             int num = rnd.Next();
-            enemy.state = new EnemyLeftState(enemy);
+            
+            if (num % 2 == 0)
+            {
+                enemy.state = new EnemyLeftState(enemy);
+            }
+            else
+            {
+                enemy.state = new EnemyDownState(enemy);
+            }
 
         }
 
@@ -99,12 +125,21 @@ namespace CrazyArcade.Enemies
             this.enemy = enemy;
             scene = enemy.SceneDelegate;
             enemy.direction = Dir.Down;
+            enemy.SetDetectorValues(10, 29, 10, 1);
         }
         public void ChangeDirection()
         {
             Random rnd = new Random();
             int num = rnd.Next();
-            enemy.state = new EnemyRightState(enemy);
+
+            if (num % 2 == 0)
+            {
+                enemy.state = new EnemyRightState(enemy);
+            }
+            else
+            {
+                enemy.state = new EnemyDownState(enemy);
+            }
 
 
         }
@@ -133,7 +168,7 @@ namespace CrazyArcade.Enemies
 
             timer = 0;
             opacity = 1f;
-            fadeTime = 300f;
+            fadeTime = 100f;
 
         }
         public void ChangeDirection()

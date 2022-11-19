@@ -28,6 +28,9 @@ namespace CrazyArcade.Enemies
         protected int fps = 10;
         public IGridBoxManager gridBoxManager;
         public readonly int enemySize = 30;
+        Rectangle blockDetector = new Rectangle(0, 0, 1, 20);
+        public int XDetectionOffset;
+        public int YDetectionOffset;
         //----------IGridable Start------------
         public Vector2 ScreenCoord
         {
@@ -64,13 +67,10 @@ namespace CrazyArcade.Enemies
                 internalRectangle.X = X;
                 internalRectangle.Y = Y;
 
-
-
             }
         }
         //----------IGridable End------------
         public Enemy(int x, int y)
-
         {   
             //36 is the size of each block
             centerEnemyValue = ((1f - (float)enemySize / 36f)) / 2f;
@@ -80,7 +80,9 @@ namespace CrazyArcade.Enemies
             state = new EnemyDownState(this);
             
         }
+
         protected Rectangle internalRectangle = new Rectangle(0, 0, 30, 30);
+        
 
         public Rectangle boundingBox => internalRectangle;
 
@@ -111,18 +113,29 @@ namespace CrazyArcade.Enemies
             }
             internalRectangle.X = X;
             internalRectangle.Y = Y;
-
+            blockDetector.X = X + XDetectionOffset;
+            blockDetector.Y = Y + YDetectionOffset;
         }
 
         protected abstract Vector2[] SpeedVector { get; }
         public IGridBoxManager Manager { get => gridBoxManager; set => gridBoxManager = value; }
 
-        public Rectangle BlockBoundingBox => internalRectangle;
+        public Rectangle BlockBoundingBox => blockDetector;
 
         public void Move()
         {
-            GameCoord += (SpeedVector[(int)direction]*.5f);
+            //GameCoord += (SpeedVector[(int)direction]*.5f);
+            GameCoord += (SpeedVector[(int)direction]);
         }
+
+        public void SetDetectorValues(int xOffset,int yOffset,int width,int height)
+        {
+            XDetectionOffset = xOffset;
+            YDetectionOffset = yOffset;
+            blockDetector.Width = width;
+            blockDetector.Height = height;  
+        }
+
         public void UpdateAnimation()
         {
             this.spriteAnims[(int)direction].Position = new Vector2(X, Y);
@@ -139,6 +152,7 @@ namespace CrazyArcade.Enemies
             state.ChangeDirection();
             effect = direction == Dir.Right ? SpriteEffects.FlipHorizontally : SpriteEffects.None;
             UpdateAnimation();
+            Move();
         }
     }
 }
