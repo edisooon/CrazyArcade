@@ -3,7 +3,7 @@ using CrazyArcade.CAFramework;
 using Microsoft.Xna.Framework;
 using CrazyArcade.EnemyCollision;
 using System.Collections.Generic;
-
+using CrazyArcade.CAFrameWork.Transition;
 
 namespace CrazyArcade.CAFrameWork.CollisionSystem
 {
@@ -14,7 +14,7 @@ namespace CrazyArcade.CAFrameWork.CollisionSystem
         List<IEnemyCollisionBehavior> enemyBehaviors = new List<IEnemyCollisionBehavior>();
         public void AddSprite(IEntity sprite)
         {
-            if (sprite is IEnemyCollidable)
+            if (sprite is IEnemyCollidable && sprite is not Door)
             {
                 triggers.Add(sprite as IEnemyCollidable);
             }

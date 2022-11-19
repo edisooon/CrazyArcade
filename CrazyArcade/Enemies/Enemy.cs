@@ -31,6 +31,7 @@ namespace CrazyArcade.Enemies
         Rectangle blockDetector = new Rectangle(0, 0, 1, 20);
         public int XDetectionOffset;
         public int YDetectionOffset;
+        public int turnFLag = 0;
         //----------IGridable Start------------
         public Vector2 ScreenCoord
         {
@@ -124,8 +125,15 @@ namespace CrazyArcade.Enemies
 
         public void Move()
         {
-            //GameCoord += (SpeedVector[(int)direction]*.5f);
-            GameCoord += (SpeedVector[(int)direction]);
+            if (turnFLag == 0)
+            {
+                GameCoord += (SpeedVector[(int)direction] * .6f);
+            }
+            else
+            {
+                turnFLag = 0;
+            }
+            
         }
 
         public void SetDetectorValues(int xOffset,int yOffset,int width,int height)
@@ -149,10 +157,12 @@ namespace CrazyArcade.Enemies
         //called by block
         public void TurnEnemy()
         {
+
             state.ChangeDirection();
             effect = direction == Dir.Right ? SpriteEffects.FlipHorizontally : SpriteEffects.None;
             UpdateAnimation();
-            Move();
+            turnFLag = 1;
+            
         }
     }
 }

@@ -1,14 +1,7 @@
 ﻿using CrazyArcade.CAFramework;
-using CrazyArcade.PlayerStateMachine;
 using Microsoft.Xna.Framework;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
-using System.Timers;
-using static System.Formats.Asn1.AsnWriter;
+
 
 namespace CrazyArcade.Enemies
 {
@@ -27,7 +20,7 @@ namespace CrazyArcade.Enemies
             this.enemy = enemy;
             scene = enemy.SceneDelegate;
             enemy.direction = Dir.Left;
-            enemy.SetDetectorValues(0, 10, 1, 10);
+            enemy.SetDetectorValues(0, 2, 1, 26);
         }
         public void ChangeDirection()
         {
@@ -59,7 +52,7 @@ namespace CrazyArcade.Enemies
             this.enemy = enemy;
             scene = enemy.SceneDelegate;
             enemy.direction = Dir.Right;
-            enemy.SetDetectorValues(29, 10, 1, 10);
+            enemy.SetDetectorValues(29, 2, 1, 26);
 
         }
         public void ChangeDirection()
@@ -79,6 +72,7 @@ namespace CrazyArcade.Enemies
         }
 
         public void Update(GameTime time) {
+
             enemy.Move();
         }
     }
@@ -91,7 +85,7 @@ namespace CrazyArcade.Enemies
             this.enemy = enemy;
             scene = enemy.SceneDelegate;
             enemy.direction = Dir.Up;
-            enemy.SetDetectorValues(10, 0, 10, 1);
+            enemy.SetDetectorValues(2, 0, 26, 1);
 
         }
         public void ChangeDirection()
@@ -125,7 +119,7 @@ namespace CrazyArcade.Enemies
             this.enemy = enemy;
             scene = enemy.SceneDelegate;
             enemy.direction = Dir.Down;
-            enemy.SetDetectorValues(10, 29, 10, 1);
+            enemy.SetDetectorValues(2, 29, 26, 1);
         }
         public void ChangeDirection()
         {
