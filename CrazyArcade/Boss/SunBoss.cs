@@ -4,11 +4,12 @@ using CrazyArcade.CAFramework;
 using Microsoft.Xna.Framework;
 using CrazyArcade.GameGridSystems;
 using CrazyArcade.BombFeature;
+using CrazyArcade.Blocks;
 
 namespace CrazyArcade.Boss
 {
-	public class SunBoss: CAEntity, ISunBossDelegate, IGridable, IBossCollideBehaviour
-	{
+	public class SunBoss: CAEntity, ISunBossDelegate, IGridable, IBossCollideBehaviour, IPlayerCollidable
+    {
         //----------------Test purpose-------------------
         ITimer timer;
         //-----------------------------------------------
@@ -60,6 +61,8 @@ namespace CrazyArcade.Boss
         public Rectangle Range => new Rectangle(0, 0, 11, 11);
 
         public Rectangle hitBox => new Rectangle(this.X + 22, this.Y + 22, 132, 132);
+
+        public Rectangle boundingBox => hitBox;
 
         public override void Load()
         {
@@ -145,6 +148,11 @@ namespace CrazyArcade.Boss
             if (!(states is SunBossHurtStates))
                 wasAttacked = true;
            
+        }
+
+        public void CollisionLogic(Rectangle overlap, IPlayerCollisionBehavior collisionPartner)
+        {
+            collisionPartner.CollisionDestroyLogic();
         }
     }
 }
