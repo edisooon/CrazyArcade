@@ -127,6 +127,7 @@ namespace CrazyArcade.Enemies
         {
             if (turnFLag == 0)
             {
+                // This stop enemy from moving right after turning.
                 GameCoord += (SpeedVector[(int)direction] * .6f);
             }
             else
@@ -161,6 +162,7 @@ namespace CrazyArcade.Enemies
             state.ChangeDirection();
             effect = direction == Dir.Right ? SpriteEffects.FlipHorizontally : SpriteEffects.None;
             UpdateAnimation();
+            // This stop enemy from moving right after turning
             turnFLag = 1;
             
         }
