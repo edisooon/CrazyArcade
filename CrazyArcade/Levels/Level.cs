@@ -83,7 +83,6 @@ namespace CrazyArcade.Levels
             
             //TODO Find a way to reduce duplicate code
             scale = .9f;
-            //IMPORTANT!!!! uncomment tbis when Door Block class is implemented.
             itemLocations = currentLevel.GetItemLocation(CreateLevel.LevelItem.DoorPosition);
 
             for (int i = 0; i < itemLocations.Length; i += 2)
@@ -208,28 +207,28 @@ namespace CrazyArcade.Levels
 
             foreach (Vector2 vector in itemLocations)
             {
-                EntityList.Add(new BombEnemySprite((int)vector.X, (int)vector.Y, Scene));
+                EntityList.Add(new BombEnemySprite((int)vector.X, (int)vector.Y));
             }
 
             itemLocations = currentLevel.GetItemLocation(CreateLevel.LevelItem.SquidPosition);
 
             foreach (Vector2 vector in itemLocations)
             {
-                EntityList.Add(new SquidEnemySprite((int)vector.X, (int)vector.Y, Scene));
+                EntityList.Add(new SquidEnemySprite((int)vector.X, (int)vector.Y));
             }
 
             itemLocations = currentLevel.GetItemLocation(CreateLevel.LevelItem.BatPosition);
 
             foreach (Vector2 vector in itemLocations)
             {
-                EntityList.Add(new BatEnemySprite((int)vector.X, (int)vector.Y, Scene));
+                EntityList.Add(new BatEnemySprite((int)vector.X, (int)vector.Y));
             }
 
             itemLocations = currentLevel.GetItemLocation(CreateLevel.LevelItem.RobotPosition);
 
             foreach (Vector2 vector in itemLocations)
             {
-                EntityList.Add(new RobotEnemySprite((int)vector.X, (int)vector.Y, Scene));
+                EntityList.Add(new RobotEnemySprite((int)vector.X, (int)vector.Y));
             }
 
             itemLocations = currentLevel.GetItemLocation(CreateLevel.LevelItem.OctoBossPosition);

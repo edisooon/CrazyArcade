@@ -13,13 +13,13 @@ namespace CrazyArcade.Enemies
         private Rectangle[] InputFramesLeft;
         private Rectangle[] InputFramesUp;
         private Rectangle[] InputFramesDown;
-        private Dir[] dirList;
+
 
 
         private Texture2D texture;
         public override SpriteAnimation SpriteAnim => spriteAnims[(int)direction];
 
-        public BombEnemySprite(int x, int y, CAScene scene) : base(x, y, scene)
+        public BombEnemySprite(int x, int y) : base(x, y)
 		{
             this.spriteAnims = new SpriteAnimation[4];
             
@@ -30,7 +30,7 @@ namespace CrazyArcade.Enemies
             texture = TextureSingleton.GetBombEnemy();
             direction = Dir.Down;
 
-            dirList = new Dir[4];
+
             InputFramesRight = new Rectangle[3];
             InputFramesUp = new Rectangle[3];
             InputFramesLeft = new Rectangle[3];
