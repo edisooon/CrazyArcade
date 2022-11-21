@@ -5,7 +5,7 @@ namespace CrazyArcade.CAFrameWork.SoundEffectSystem
 {
 	public interface ISoundEntity
 	{
-		SoundEffect soundEffect { get; }
+		SoundEffectInstance playNew();
 	}
 }
 
