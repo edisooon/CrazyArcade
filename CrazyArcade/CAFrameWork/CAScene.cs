@@ -164,7 +164,7 @@ namespace CrazyArcade.CAFramework
         protected bool loading = false;
         public bool Loading { set => loading = value; }
 
-        public LevelPersnstance UnloadScene()
+        public LevelPersnstance GetData()
         {
             LevelPersnstance saveData = new();
             foreach (IEntity entity in entities)

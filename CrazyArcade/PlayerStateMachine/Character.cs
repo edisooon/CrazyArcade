@@ -172,6 +172,7 @@ namespace CrazyArcade.PlayerStateMachine
             if (level.SavedStatInt.ContainsKey("playerLives"))
             {
                 lives = level.SavedStatInt["playerLives"];
+                UI_Singleton.ChangeComponentText("lifeCounter", "count", "Lives: " + lives);
             }
         }
     }

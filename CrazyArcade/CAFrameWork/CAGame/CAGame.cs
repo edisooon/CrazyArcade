@@ -143,7 +143,7 @@ public class CAGame : Game, IGameDelegate, ITransitionCompleteHandler
     {
 
         //Begin save
-        LevelPersnstance saveData = scene.UnloadScene(); 
+        LevelPersnstance saveData = scene.GetData(); 
 
         MediaPlayer.Stop();
         song = Content.Load<Song>(LevelSongTitles[stageNum]);
