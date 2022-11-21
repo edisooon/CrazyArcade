@@ -20,6 +20,7 @@ using CrazyArcade.Items;
 using CrazyArcade.CAFrameWork.GridBoxSystem;
 using CrazyArcade.CAFrameWork.GameStates;
 using CrazyArcade.CAFrameWork.InputSystem;
+using CrazyArcade.UI;
 
 namespace CrazyArcade.Demo1
 {
@@ -68,6 +69,7 @@ namespace CrazyArcade.Demo1
                 if (entity is PlayerCharacter)
                 {
                     players.Add(entity as PlayerCharacter);
+                    UI_Singleton.ChangeComponentText("lifeCounter", "count", "Lives: " + (entity as PlayerCharacter).lives);
                 }
                 this.AddSprite(entity);
             }

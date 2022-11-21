@@ -2,6 +2,7 @@
 using CrazyArcade.Content;
 using CrazyArcade.Items;
 using CrazyArcade.Levels;
+using CrazyArcade.UI;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 using System;
@@ -51,6 +52,7 @@ namespace CrazyArcade.PlayerStateMachine
                 bubble.bubbleInt = 2;
                 character.playerState.SetSpeed();
                 character.lives--;
+                UI_Singleton.ChangeComponentText("lifeCounter", "count", "Lives: " + character.lives);
                 if (character.lives == 0)
                 {
                     character.SceneDelegate.EndGame();
