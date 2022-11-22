@@ -203,6 +203,14 @@ namespace CrazyArcade.Levels
                 EntityList.Add(new Coin(Scene, vector));
             }
 
+            itemLocations = currentLevel.GetItemLocation(CreateLevel.LevelItem.KickPosition);
+
+            foreach (Vector2 vector in itemLocations)
+            {
+
+                EntityList.Add(new KickBoot(Scene, vector));
+            }
+
             itemLocations = currentLevel.GetItemLocation(CreateLevel.LevelItem.BombPosition);
 
             foreach (Vector2 vector in itemLocations)

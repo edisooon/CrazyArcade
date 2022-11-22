@@ -68,7 +68,8 @@
         "Potion": [
         ],
         "Coin": [
-        ]
+        ],
+        "Kick": []
     },
     "Player": [ 0, 0 ],
     "Enemies": {

@@ -99,4 +99,17 @@ namespace CrazyArcade.Items
             this.DeleteSelf(parentScene);
         }
     }
+    public class KickBoot : Item
+    {
+        public static Rectangle source = new Rectangle(0, 0, 42, 46);
+        public KickBoot(ISceneDelegate parentScence, Vector2 position) : base(parentScence, position, source, Content.TextureSingleton.GetKick(), 3, 10)
+        {
+
+        }
+        public override void CollisionLogic(Rectangle overlap, IPlayerCollisionBehavior collisionPartner)
+        {
+            collisionPartner.IncreaseScore(10);
+            this.DeleteSelf(parentScene);
+        }
+    }
 }
