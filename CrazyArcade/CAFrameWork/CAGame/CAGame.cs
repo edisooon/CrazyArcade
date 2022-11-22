@@ -74,7 +74,8 @@ public class CAGame : Game, IGameDelegate, ITransitionCompleteHandler
         MediaPlayer.Volume = .25f;
         test = new ReadJSON("Level_0.json", ReadJSON.fileType.LevelFile);
         CurrentLevel = test.levelObject;
-
+        transitionNum = 0;
+        stageNum = 0;
         base.Initialize();
         
     }
