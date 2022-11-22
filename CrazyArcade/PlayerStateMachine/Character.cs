@@ -35,8 +35,7 @@ namespace CrazyArcade.PlayerStateMachine
         public Dir direction = Dir.Down;
         static int CCount = 0;
         private int loseRideFlag = 5;
-        private bool couldKick = true;
-        public bool CouldKick { get => couldKick; }
+        public bool CouldKick { get => playerItems.CanKick; }
         public int lives;
         private int score = 0;
         private bool invincible = false;
@@ -125,6 +124,10 @@ namespace CrazyArcade.PlayerStateMachine
         public void IncreaseBlastLength()
         {
             playerItems.AddItem(new BlastLengthModifier());
+        }
+        public void EnableKick()
+        {
+            playerItems.AddItem(new KickModifier());
         }
         public void SwitchToMountedState()
         {

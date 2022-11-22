@@ -108,7 +108,7 @@ namespace CrazyArcade.Items
         }
         public override void CollisionLogic(Rectangle overlap, IPlayerCollisionBehavior collisionPartner)
         {
-            collisionPartner.IncreaseScore(10);
+            collisionPartner.EnableKick();
             this.DeleteSelf(parentScene);
         }
     }
