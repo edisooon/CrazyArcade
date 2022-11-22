@@ -21,7 +21,6 @@ namespace CrazyArcade.Levels
         private CreateLevel currentLevel;
         private Vector2[] itemLocations;
         private CAEntity Entity;
-        private PlayerCharacter player;
         float scale;
         Vector2 border;
         Vector2 startPosition;
@@ -39,8 +38,10 @@ namespace CrazyArcade.Levels
             EntityList = new List<CAEntity>();
             LoadSprites();
             LoadBorder();
-            player = new PlayerCharacter(keySet);
-            player.GameCoord = currentLevel.GetPlayerStart();
+            PlayerCharacter player = new(keySet)
+            {
+                GameCoord = currentLevel.GetPlayerStart()
+            };
             EntityList.Add(player);
         }
         public List<CAEntity> DrawLevel()
