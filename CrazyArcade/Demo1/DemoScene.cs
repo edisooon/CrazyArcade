@@ -21,6 +21,7 @@ using CrazyArcade.CAFrameWork.GridBoxSystem;
 using CrazyArcade.CAFrameWork.GameStates;
 using CrazyArcade.CAFrameWork.InputSystem;
 using CrazyArcade.UI;
+using CrazyArcade.CAFrameWork.SoundEffectSystem;
 
 namespace CrazyArcade.Demo1
 {
@@ -54,6 +55,7 @@ namespace CrazyArcade.Demo1
             //this.systems.Add(new BlockCollisionSystem());
             this.systems.Add(new GameStateSwitcher(this));
             //this.systems.Add(new CAControllerSystem());
+            this.systems.Add(new CASoundSystem());
             this.systems.Add(new InputSystems());
             this.systems.Add(new GridBoxSystem());
             this.systems.Add(new BombCollisionSystem(this, new Rectangle(0, 0, 15, 15)));
@@ -79,6 +81,7 @@ namespace CrazyArcade.Demo1
             
             //This may not be neccessary
             this.AddSprite(new KeyBoardInput());
+            this.AddSprite(new CASoundEffect("playground"));
         }
         public override void EndGame()
         {

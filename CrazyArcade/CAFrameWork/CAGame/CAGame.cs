@@ -45,6 +45,7 @@ public class CAGame : Game, IGameDelegate, ITransitionCompleteHandler
         Content.RootDirectory = "Content";
         IsMouseVisible = true;
         SpriteSheet.Content = Content;
+        SoundSource.Load(Content);
         //Load it here
 
     }
@@ -69,9 +70,9 @@ public class CAGame : Game, IGameDelegate, ITransitionCompleteHandler
         TextureSingleton.LoadAllTextures(Content);
         //TestLoad guiLoad = new TestLoad();
         //guiLoad.LoadGUI();
-        song = Content.Load<Song>("playground");
-        MediaPlayer.Play(song);
-        MediaPlayer.Volume = .25f;
+        //song = Content.Load<Song>("playground");
+        //MediaPlayer.Play(song);
+        //MediaPlayer.Volume = .25f;
         test = new ReadJSON("Level_0.json", ReadJSON.fileType.LevelFile);
         CurrentLevel = test.levelObject;
 

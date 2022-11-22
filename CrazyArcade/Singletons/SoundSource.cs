@@ -10,11 +10,17 @@ namespace CrazyArcade.Singletons
 		public static SoundSource Manager => manager;
 		public static void Load(ContentManager content)
 		{
-			manager = new SoundSource(content);
+			if (manager == null)
+				manager = new SoundSource(content);
 		}
+		private ContentManager content;
 		private SoundSource(ContentManager content)
 		{
-
+			this.content = content;
+		}
+		public SoundEffect GetSoundEffect(string fileName)
+		{
+			return content.Load<SoundEffect>(fileName);
 		}
 		private SoundEffect backgroundSong = null;
 		public SoundEffect BackgroundSong {
