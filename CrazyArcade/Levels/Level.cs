@@ -21,24 +21,27 @@ namespace CrazyArcade.Levels
         private CreateLevel currentLevel;
         private Vector2[] itemLocations;
         private CAEntity Entity;
+        private PlayerCharacter player;
         float scale;
         Vector2 border;
         Vector2 startPosition;
+        int[] keySet = new int[5];
 
         public Level(CAScene scene, string levelName)
         {
-            currentLevel = new CreateLevel(levelName);
-            this.Scene = scene;
-            EntityList = new List<CAEntity>();
-            LoadSprites();
-            LoadBorder();
-            int[] keySet = new int[5];
             keySet[0] = KeyBoardInput.KeyDown(Keys.Up);
             keySet[1] = KeyBoardInput.KeyDown(Keys.Down);
             keySet[2] = KeyBoardInput.KeyDown(Keys.Left);
             keySet[3] = KeyBoardInput.KeyDown(Keys.Right);
             keySet[4] = KeyBoardInput.KeyUp(Keys.Space);
-            EntityList.Add(new PlayerCharacter(keySet));
+            currentLevel = new CreateLevel(levelName);
+            this.Scene = scene;
+            EntityList = new List<CAEntity>();
+            LoadSprites();
+            LoadBorder();
+            player = new PlayerCharacter(keySet);
+            player.GameCoord = currentLevel.GetPlayerStart();
+            EntityList.Add(player);
         }
         public List<CAEntity> DrawLevel()
         {
