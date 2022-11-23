@@ -2,11 +2,15 @@
 using CrazyArcade.CAFramework;
 using Microsoft.Xna.Framework.Audio;
 
+
 namespace CrazyArcade.CAFrameWork.SoundEffectSystem
 {
-	public class CASoundEffect: CAEntity, ISoundEntity
+    /* You can add a sound entity by add it to the scene
+     * e.g. SceneDelegate.ToAddEntity(new CASoundEffect("filename"));
+     */
+    public class CASoundEffect: CAEntity, ISoundEntity
 	{
-		public CASoundEffect(string fname)
+        public CASoundEffect(string fname)
 		{
             this.fname = fname;
 		}
