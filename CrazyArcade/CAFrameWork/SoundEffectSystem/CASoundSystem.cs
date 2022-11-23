@@ -19,14 +19,12 @@ namespace CrazyArcade.CAFrameWork.SoundEffectSystem
             if (sprite is ISoundEntity)
             {
                 ISoundEntity sound = sprite as ISoundEntity;
-                if (soundEffects.ContainsKey(sound.FileName))
-                {
-                    soundEffects[sound.FileName].CreateInstance().Play();
-                } else
+                if (!soundEffects.ContainsKey(sound.FileName))
                 {
                     soundEffects.Add(sound.FileName, SoundSource.Manager.GetSoundEffect(sound.FileName));
-                    soundEffects[sound.FileName].CreateInstance().Play();
                 }
+                soundEffects[sound.FileName].CreateInstance().Play();
+
             }
         }
 

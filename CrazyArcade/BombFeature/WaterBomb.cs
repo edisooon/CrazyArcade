@@ -2,6 +2,7 @@
 using CrazyArcade.Boss;
 using CrazyArcade.CAFramework;
 using CrazyArcade.CAFrameWork.GridBoxSystem;
+using CrazyArcade.CAFrameWork.SoundEffectSystem;
 using CrazyArcade.Content;
 using CrazyArcade.Demo1;
 using CrazyArcade.GameGridSystems;
@@ -152,6 +153,7 @@ namespace CrazyArcade.BombFeature
         {
             if(DetonateTime > DetonateTimer)
             {
+                SceneDelegate.ToAddEntity(new CASoundEffect("SoundEffects/BossExplosion"));
                 detector.Ignite(this);
             }
             else
