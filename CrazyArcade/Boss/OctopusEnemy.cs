@@ -39,7 +39,6 @@ namespace CrazyArcade.Boss
         public Boolean justInjured = false;
 
         //Background Stuff
-        public CAScene scene;
 
         //Spacial Stuff
         protected Vector2 Start;
@@ -103,7 +102,7 @@ namespace CrazyArcade.Boss
             }
         }
         //---------------------------------------------------------------------------------
-        public OctopusEnemy(int x, int y, CAScene scene) : base()
+        public OctopusEnemy(int x, int y) : base()
         {
             //Spacial
             X = x;
@@ -113,7 +112,6 @@ namespace CrazyArcade.Boss
 
             //background
             timer = 0;
-            this.scene = scene;
             health = 100;
             state = new OctopusNormal(this);
 
@@ -317,11 +315,11 @@ namespace CrazyArcade.Boss
                 else if (i < 14) d = 2;//down
                 else d = 0;//up
                 waterExplosionEdges[i] = new WaterBomb(new Vector2(edgeCoords[i,0]+1, edgeCoords[i,1]), 0, this, true);
-                this.scene.ToAddEntity(waterExplosionEdges[i]);
+                this.SceneDelegate.ToAddEntity(waterExplosionEdges[i]);
             }
             for (int i = 0; i < waterExplosionEdges.Length; i++)
             {
-                this.scene.ToAddEntity(waterExplosionEdges[i]);
+                this.SceneDelegate.ToAddEntity(waterExplosionEdges[i]);
             }
         }
         public void toggleHurtSprites(Boolean hurt) {
@@ -368,7 +366,6 @@ namespace CrazyArcade.Boss
     public class OctopusAttack : IEnemyState
     {
         private OctopusEnemy enemy;
-        public CAScene scene;
         private float timer;
         private float startTimeStamp;
         private float timeLength = 300.0f;
@@ -377,7 +374,6 @@ namespace CrazyArcade.Boss
         public OctopusAttack(OctopusEnemy enemy, int attack)
         {
             this.enemy = enemy;
-            scene = enemy.scene;
             timer = timeLength; //in milliseconds
             this.attack = attack;
         }
@@ -415,12 +411,10 @@ namespace CrazyArcade.Boss
     public class OctopusNormal : IEnemyState
     {
         private OctopusEnemy enemy;
-        public CAScene scene;
 
         public OctopusNormal(OctopusEnemy enemy)
         {
             this.enemy = enemy;
-            scene = enemy.scene;
         }
         public void ChangeDirection()
         {
@@ -435,7 +429,6 @@ namespace CrazyArcade.Boss
     public class OctopusWounded : IEnemyState
     {
         private OctopusEnemy enemy;
-        public CAScene scene;
         private float timer;
         private float startTimeStamp;
         private float timeLength = 150.0f;
@@ -443,7 +436,6 @@ namespace CrazyArcade.Boss
         public OctopusWounded(OctopusEnemy enemy)
         {
             this.enemy = enemy;
-            scene = enemy.scene;
             //enemy.toggleHurtSprites(true);
             timer = timeLength; //in milliseconds
             if (enemy.health <= 0)
@@ -479,7 +471,6 @@ namespace CrazyArcade.Boss
     public class OctopusDead : IEnemyState
     {
         private OctopusEnemy enemy;
-        public CAScene scene;
         private float timer;
         private float opacity;
         private float fadeTime;
@@ -491,7 +482,7 @@ namespace CrazyArcade.Boss
             enemy.spriteAnim = enemy.deathAnimation;
             enemy.UpdateCoord(new Vector2(enemy.xDifference, enemy.xDifference));
             enemy.direction=0;
-            enemy.scene.Victory();
+            enemy.SceneDelegate.Victory();
 
             timer = 0;
             opacity = 1f;
