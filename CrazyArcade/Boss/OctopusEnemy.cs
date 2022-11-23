@@ -168,7 +168,7 @@ namespace CrazyArcade.Boss
 
         public void defaultUpdate(GameTime time)
         {
-
+            /**
             // handled animation updated (position and frame) in abstract level
 
             SpriteAnim.Position = new Vector2(X, Y);
@@ -192,6 +192,8 @@ namespace CrazyArcade.Boss
             }
             internalRectangle.X = X;
             internalRectangle.Y = Y;
+            Debug.WriteLine("Oct XY: ("+this.X+","+this.Y+")" );
+            **/
         }
 
         public void UpdateAnimation(Dir dir)
@@ -215,7 +217,6 @@ namespace CrazyArcade.Boss
                 health -= 10;
                 justInjured = true;
                 state = new OctopusWounded(this);
-                Debug.WriteLine("health: " + health);
             }
             //}
         }
@@ -255,26 +256,23 @@ namespace CrazyArcade.Boss
             {
                 this.shoot();
                 direction = (Dir)((((int)dir) + 1) % 4);
-                //effect = direction == Dir.Left ? SpriteEffects.FlipHorizontally : SpriteEffects.None;
                 UpdateAnimation(dir);
             }
             // go to center
-            else if (dir == Dir.Left && xDifference < 5 && !justAttacked) {
+            else if (dir == Dir.Left && xDifference < 5 && !justAttacked)
+            {
                 direction = Dir.Down;
             }
-            else if (dir == Dir.Down && xDifference < squareSize+xoffSet && yDifference>(squareSize/2)+yoffSet-1&& !justAttacked) {
+            else if (dir == Dir.Down && xDifference < squareSize + xoffSet && yDifference > (squareSize / 2) + yoffSet - 1 && !justAttacked)
+            {
                 justAttacked = true;
-                //speed /= 2;
-                //state = new OctopusAttack(this,1);
+                state = new OctopusAttack(this,1);
                 this.squareBlast();
-                //this.shoot();
                 direction = Dir.Up;
                 //changeDir will put it back on course
             }
-
             GameCoord += SpeedVector[(int)dir];
             justInjured = false;
-
         }
 
         public void shoot() {
@@ -353,20 +351,16 @@ namespace CrazyArcade.Boss
             //Infinite Bombs
         }
 
-        
-
-
-
         public void HurtBoss()
         {
-            Debug.WriteLine("Health: " + health);
+            //Debug.WriteLine("Health: " + health);
             if (!justInjured)
             {
-                Debug.WriteLine("IN IF Health: " + health);
+                //Debug.WriteLine("IN IF Health: " + health);
                 health -= 20;
                 justInjured = true;
                 state = new OctopusWounded(this);
-                Debug.WriteLine("health: " + health);
+                //Debug.WriteLine("health: " + health);
             }
         }
     }
