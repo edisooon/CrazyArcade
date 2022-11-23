@@ -53,6 +53,9 @@ namespace CrazyArcade.CAFrameWork.CollisionSystem
                 //    putSunBossIntoMatrix(res, boss.GetCenter().X, boss.GetCenter().Y, boss.GameRadius, boss);
                 //    continue;
                 //}
+                if ((collidable as IGridable).GameCoord.X < 0 || (collidable as IGridable).GameCoord.Y < 0) {
+                    continue;
+                }
                 Point triggerCenter = new Point((int)((collidable as IGridable).GameCoord.X + 0.5),
                     (int)((collidable as IGridable).GameCoord.Y + 0.5));
                 triggerCenter.X -= bounds.X;
@@ -78,7 +81,20 @@ namespace CrazyArcade.CAFrameWork.CollisionSystem
         //        }
         //    }
         //}
+        private void detectCenter(IExplosion explosion, List<IExplosionCollidable>[,] matrix)
+        {
+            if (!bounds.Contains(explosion.Center)) return;
+            Console.WriteLine("Detecting Collidables at: " + explosion.Center);
+            if (blockMatrix[explosion.Center.X, explosion.Center.Y] != null)
+            {
+                blockMatrix[explosion.Center.X, explosion.Center.Y].Collide(explosion);
+            }
 
+            foreach (IExplosionCollidable collidable in matrix[explosion.Center.X, explosion.Center.Y])
+            {
+                collidable.Collide(explosion);
+            }
+        }
         private int detect(IExplosion explosion, int length, Vector2 dir, List<IExplosionCollidable>[,] matrix)
         {
             Console.WriteLine("Detecting");
@@ -86,7 +102,7 @@ namespace CrazyArcade.CAFrameWork.CollisionSystem
             {
                 Vector2 pos = i * dir;
                 Point point = new Point((int)pos.X + explosion.Center.X, (int)pos.Y + explosion.Center.Y);
-                if (!bounds.Contains(point)) continue;
+                if (!bounds.Contains(point)) return i - 1;
                 Console.WriteLine("Detecting Collidables at: " + point);
                 if (blockMatrix[point.X, point.Y]!=null)
                 {
@@ -106,6 +122,7 @@ namespace CrazyArcade.CAFrameWork.CollisionSystem
         {
             updateMatrix();
             int[] res = new int[4];
+            detectCenter(explosion, collidableMatrix);
             res[0] = detect(explosion, explosion.Distance, new Vector2(0, -1), collidableMatrix);
             res[1] = detect(explosion, explosion.Distance, new Vector2(0, 1), collidableMatrix);
             res[2] = detect(explosion, explosion.Distance, new Vector2(-1, 0), collidableMatrix);
