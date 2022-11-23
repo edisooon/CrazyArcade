@@ -53,7 +53,7 @@ namespace CrazyArcade.Demo1
         public override void LoadSystems()
         {
             //this.systems.Add(new BlockCollisionSystem());
-            this.systems.Add(new GameStateSwitcher(this));
+            systems.Add(new GameStateSwitcher(this));
             //this.systems.Add(new CAControllerSystem());
             this.systems.Add(new CASoundSystem());
             this.systems.Add(new InputSystems());
@@ -64,6 +64,7 @@ namespace CrazyArcade.Demo1
             this.systems.Add(new BossCollisionSystem());
             this.systems.Add(new CAGameLogicSystem());
             this.systems.Add(gridSystems);
+            systems.Add(new EnemyCollisionSystem());
             //this.systems.Add(new LevelManager(this, new DemoController()));
             level = new Level(this, fileName);
             foreach (IEntity entity in level.DrawLevel())

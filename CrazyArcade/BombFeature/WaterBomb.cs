@@ -90,6 +90,8 @@ namespace CrazyArcade.BombFeature
             DetonateTime = 0;
             DetonateTimer = 3000;
             this.spriteAnims = new SpriteAnimation(TextureSingleton.GetBallons(), AnimationFrames, 8);
+            this.spriteAnims.Scale = 35f / 42f;
+            this.spriteAnims.Position = new Vector2(0, 4);
             internalRectangle = new Rectangle(X, Y, 40, 40);
             move = new Vector2[4] { new Vector2(0, -speed), new Vector2(-speed, 0), new Vector2(0, speed), new Vector2(speed, 0) };
         }

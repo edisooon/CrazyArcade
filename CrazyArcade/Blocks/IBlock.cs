@@ -1,17 +1,12 @@
 ﻿using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Runtime.CompilerServices;
 using CrazyArcade.CAFramework;
-using CrazyArcade.Content;
-using System.Diagnostics;
 using CrazyArcade.GameGridSystems;
 using CrazyArcade.BombFeature;
 using CrazyArcade.CAFrameWork.GridBoxSystem;
+using CrazyArcade.EnemyCollision;
+using CrazyArcade.Enemies;
+
 namespace CrazyArcade.Blocks
 {
     //The purpose of this interface is to group together all blocks in the future. All code contained within must apply to all blocks, and changes can be 
@@ -20,11 +15,12 @@ namespace CrazyArcade.Blocks
     {
 
     }
-    public abstract class Block : CAGridBoxEntity, IBlock, IPlayerCollidable, IGridable, IExplosionCollidable
+    public abstract class Block : CAGridBoxEntity, IBlock, IPlayerCollidable, IGridable, IExplosionCollidable, IEnemyCollidable
     {
         //----------IGridable Start------------
         private Vector2 gamePos;
         private Vector2 pos;
+        protected Rectangle enemyBoundingBox = new Rectangle(0, 0, 36, 36);
         public override Vector2 ScreenCoord
         {
             get => pos;
@@ -61,6 +57,8 @@ namespace CrazyArcade.Blocks
             GameCoord = position;
             internalRectangle.X = X;
             internalRectangle.Y = Y;
+            enemyBoundingBox.X = X;
+            enemyBoundingBox.Y = Y;
         }
         public Block(Vector2 position, Rectangle source, Texture2D texture,int frames, int fps) : base(new GridBoxPosition((int)position.X, (int)position.Y, (int)GridObjectDepth.Box))
         {
@@ -68,16 +66,22 @@ namespace CrazyArcade.Blocks
             GameCoord = position;
             internalRectangle.X = X;
             internalRectangle.Y = Y;
+            enemyBoundingBox.X = X;
+            enemyBoundingBox.Y = Y;
         }
 
         public override SpriteAnimation SpriteAnim => this.spriteAnimation;
 
         public Rectangle boundingBox => internalRectangle;
 
+        public Rectangle EnemyBoundingBox => enemyBoundingBox;
+
         public override void Update(GameTime time)
         {
             internalRectangle.X = X;
             internalRectangle.Y = Y;
+            enemyBoundingBox.X = X;
+            enemyBoundingBox.Y = Y;
         }
         public override void Load()
         {
@@ -101,6 +105,11 @@ namespace CrazyArcade.Blocks
         public virtual bool Collide(IExplosion bomb)
         {
             return false;
+        }
+
+        public void EnemyCollisionLogic(IEnemyCollisionBehavior collisionPartner)
+        {
+            collisionPartner.TurnEnemy();
         }
     }
 }

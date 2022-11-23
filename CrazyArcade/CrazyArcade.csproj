@@ -40,7 +40,6 @@
   <ItemGroup>
     <Folder Include="GridSystems\" />
     <Folder Include="Projectile\" />
-    <Folder Include="CAFrameWork\Transition\" />
     <Folder Include="CAFrameWork\CAGame\" />
     <Folder Include="CAFrameWork\GridBoxSystem\" />
     <Folder Include="CAFrameWork\InputSystem\" />

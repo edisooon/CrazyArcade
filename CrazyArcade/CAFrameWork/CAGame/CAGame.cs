@@ -143,6 +143,9 @@ public class CAGame : Game, IGameDelegate, ITransitionCompleteHandler
     private void makeTransition(GameTime gameTime, Vector2 displacement)
     {
 
+        //Begin save
+        LevelPersnstance saveData = scene.GetData(); 
+
         MediaPlayer.Stop();
         song = Content.Load<Song>(LevelSongTitles[stageNum]);
         MediaPlayer.Play(song);
@@ -151,6 +154,8 @@ public class CAGame : Game, IGameDelegate, ITransitionCompleteHandler
         UI_Singleton.ChangeComponentText("levelCounter", "text", "Level " + stageNum);
         ISceneState newState = new DemoScene(this, levelFileNames[stageNum], StageOffset);
         newState.Load();
+        //Load saved data
+        newState.LoadData(saveData);
         newState.StageOffset += displacement;
         transition = new CATransition(this.scene,
             newState, displacement, gameTime, new TimeSpan(0, 0, 1));
