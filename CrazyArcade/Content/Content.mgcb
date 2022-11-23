@@ -353,6 +353,18 @@
 /processorParam:Quality=Best
 /build:SoundEffects/BossExplosion.wav
 
+#begin SoundEffects/DoorSound.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:SoundEffects/DoorSound.wav
+
+#begin SoundEffects/PlaceBomb.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:SoundEffects/PlaceBomb.wav
+
 #begin SoundEffects/StageStart.wav
 /importer:WavImporter
 /processor:SoundEffectProcessor
