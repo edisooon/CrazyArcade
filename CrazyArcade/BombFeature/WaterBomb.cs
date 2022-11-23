@@ -2,6 +2,7 @@
 using CrazyArcade.Boss;
 using CrazyArcade.CAFramework;
 using CrazyArcade.CAFrameWork.GridBoxSystem;
+using CrazyArcade.CAFrameWork.SoundEffectSystem;
 using CrazyArcade.Content;
 using CrazyArcade.Demo1;
 using CrazyArcade.GameGridSystems;
@@ -81,7 +82,6 @@ namespace CrazyArcade.BombFeature
         
         public WaterBomb(Vector2 grid, int BlastLength, IBombCollectable character) : base(new GridBoxPosition(getBombPosition(grid), (int)GridObjectDepth.Box))
         {
-
             gamePos = getBombPosition(grid);
 
             this.BlastLength = BlastLength;
@@ -95,6 +95,24 @@ namespace CrazyArcade.BombFeature
             internalRectangle = new Rectangle(X, Y, 40, 40);
             move = new Vector2[4] { new Vector2(0, -speed), new Vector2(-speed, 0), new Vector2(0, speed), new Vector2(speed, 0) };
         }
+
+        public WaterBomb(Vector2 grid, int BlastLength, IBombCollectable character,Boolean iAmOctopus) : base(new GridBoxPosition(getBombPosition(grid), (int)GridObjectDepth.Box))
+        {
+            Vector2 bombPosition = grid;
+            bombPosition = bombPosition + new Vector2(0.5f);
+            bombPosition.Floor();
+            gamePos = bombPosition;
+
+            this.BlastLength = BlastLength;
+            this.owner = character;
+            AnimationFrames = GetAnimationFrames();
+            DetonateTime = 0;
+            DetonateTimer = 0;
+            this.spriteAnims = new SpriteAnimation(TextureSingleton.GetBallons(), AnimationFrames, 8);
+            internalRectangle = new Rectangle(X, Y, 40, 40);
+            move = new Vector2[4] { new Vector2(0, -speed), new Vector2(-speed, 0), new Vector2(0, speed), new Vector2(speed, 0) };
+        }
+
 
         private static Rectangle[] GetAnimationFrames()
         {
@@ -137,6 +155,7 @@ namespace CrazyArcade.BombFeature
         {
             if(DetonateTime > DetonateTimer)
             {
+                SceneDelegate.ToAddEntity(new CASoundEffect("SoundEffects/BossExplosion"));
                 detector.Ignite(this);
             }
             else

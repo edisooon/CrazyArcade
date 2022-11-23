@@ -14,6 +14,7 @@ using CrazyArcade.BombFeature;
 using System.Diagnostics;
 using CrazyArcade.CAFrameWork.InputSystem;
 using Microsoft.Xna.Framework.Input;
+using CrazyArcade.CAFrameWork.SoundEffectSystem;
 
 namespace CrazyArcade.PlayerStateMachine
 {
@@ -70,7 +71,8 @@ namespace CrazyArcade.PlayerStateMachine
 
         private void KeySpace()
         {
-            playerState.ProcessAttaction();
+            if (playerState.ProcessAttaction())
+                SceneDelegate.ToAddEntity(new CASoundEffect("SoundEffects/PlaceBomb"));
         }
 
         public Dictionary<int, Action> getCommands()

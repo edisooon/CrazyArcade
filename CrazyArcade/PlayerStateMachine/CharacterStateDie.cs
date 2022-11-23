@@ -18,7 +18,7 @@ namespace CrazyArcade.PlayerStateMachine
             die[0] = new SpriteAnimation(TextureSingleton.GetPlayer1(), 11, 7, 275, 531, 108, 10);
         }
 
-        public void ProcessAttaction()
+        public bool ProcessAttaction()
         {
             throw new NotImplementedException();
         }
