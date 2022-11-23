@@ -118,4 +118,6 @@ public class LevelItems
     public int[][] Potion { get; set; }
 
     public int[][] Coin { get; set; }
+
+    public int[][] Kick { get; set; }
 }
