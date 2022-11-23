@@ -7,6 +7,7 @@ using CrazyArcade.GameGridSystems;
 using CrazyArcade.BombFeature;
 using CrazyArcade.CAFrameWork.GridBoxSystem;
 using CrazyArcade.EnemyCollision;
+using System.Runtime.CompilerServices;
 
 namespace CrazyArcade.Enemies
 {
@@ -32,6 +33,7 @@ namespace CrazyArcade.Enemies
         public int XDetectionOffset;
         public int YDetectionOffset;
         public int turnFLag = 0;
+        private readonly float blockSize = 36;
         //----------IGridable Start------------
         public Vector2 ScreenCoord
         {
@@ -71,22 +73,25 @@ namespace CrazyArcade.Enemies
             }
         }
         //----------IGridable End------------
+
+        //
         public Enemy(int x, int y)
         {   
+            
             //36 is the size of each block
-            centerEnemyValue = ((1f - (float)enemySize / 36f)) / 2f;
+            centerEnemyValue = ((1f - (float)enemySize / blockSize)) / 2f;
             timer = 0;
             GameCoord = new Vector2(centerEnemyValue + (float)x, centerEnemyValue + (float)y);
             Start = GameCoord;
             state = new EnemyDownState(this);
             
         }
-
-        protected Rectangle internalRectangle = new Rectangle(0, 0, 30, 30);
         
+        protected Rectangle internalRectangle = new Rectangle(0, 0, 30, 30);
+        //player collision
 
         public Rectangle boundingBox => internalRectangle;
-
+        //player collision
         public void CollisionLogic(Rectangle overlap, IPlayerCollisionBehavior collisionPartner)
         {
             collisionPartner.CollisionDestroyLogic();
@@ -101,6 +106,10 @@ namespace CrazyArcade.Enemies
             SpriteAnim.setEffect(effect);
             xDifference = GameCoord.X - Start.X;
             yDifference = GameCoord.Y - Start.Y;
+            internalRectangle.X = X;
+            internalRectangle.Y = Y;
+            blockDetector.X = X + XDetectionOffset;
+            blockDetector.Y = Y + YDetectionOffset;
 
             if (timer > 1f / 6)
             {
@@ -112,10 +121,7 @@ namespace CrazyArcade.Enemies
             {
                 timer += (float)time.ElapsedGameTime.TotalMilliseconds;
             }
-            internalRectangle.X = X;
-            internalRectangle.Y = Y;
-            blockDetector.X = X + XDetectionOffset;
-            blockDetector.Y = Y + YDetectionOffset;
+            
         }
 
         protected abstract Vector2[] SpeedVector { get; }
