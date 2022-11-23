@@ -81,7 +81,7 @@ namespace CrazyArcade.Demo1
             
             //This may not be neccessary
             this.AddSprite(new KeyBoardInput());
-            this.AddSprite(new CASoundEffect("DoorSound"));
+            this.AddSprite(new CASoundEffect("SoundEffects/StageStart"));
         }
         public override void EndGame()
         {

@@ -347,6 +347,18 @@
 /processorParam:TextureFormat=Color
 /build:Sneaker.png
 
+#begin SoundEffects/BossExplosion.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:SoundEffects/BossExplosion.wav
+
+#begin SoundEffects/StageStart.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:SoundEffects/StageStart.wav
+
 #begin splash.png
 /importer:TextureImporter
 /processor:TextureProcessor

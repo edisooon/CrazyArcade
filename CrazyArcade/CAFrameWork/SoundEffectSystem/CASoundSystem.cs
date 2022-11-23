@@ -25,6 +25,7 @@ namespace CrazyArcade.CAFrameWork.SoundEffectSystem
                 } else
                 {
                     soundEffects.Add(sound.FileName, SoundSource.Manager.GetSoundEffect(sound.FileName));
+                    soundEffects[sound.FileName].CreateInstance().Play();
                 }
             }
         }
