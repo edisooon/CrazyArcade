@@ -74,41 +74,47 @@ namespace CrazyArcade.Demo1
         {
             Vector2 newGameCoord = new Vector2(GameCoord.X, GameCoord.Y);
             newGameCoord += trans.RevScale(CurrentSpeed);
-            Vector2 center = new Vector2(newGameCoord.X, newGameCoord.Y);
-            Vector2 border1 = new Vector2(direction == Dir.Right ? newGameCoord.X + 1 : newGameCoord.X, direction == Dir.Down ? newGameCoord.Y + 1 : newGameCoord.Y);
+
             bool verticallyMove = direction == Dir.Up || direction == Dir.Down, horizontallyMove = direction == Dir.Left || direction == Dir.Right;
+
+            Vector2 center = new Vector2(newGameCoord.X+0.5f, newGameCoord.Y+0.5f);
+            Vector2 border1 = new Vector2(direction == Dir.Right ? newGameCoord.X + 1 : newGameCoord.X, direction == Dir.Down ? newGameCoord.Y + 1 : newGameCoord.Y);
             Vector2 border2 = new Vector2(verticallyMove ? border1.X+1 : border1.X, horizontallyMove ? border1.Y+1 : border1.Y);
-            bool upLeft = manager.CheckAvailable(new GridBoxPosition(border1, (int)GridObjectDepth.Box));
-            bool downRight = manager.CheckAvailable(new GridBoxPosition(border2, (int)GridObjectDepth.Box));
-            float slidingSpeed = 0.5f * ModifiedSpeed / blockLength;
-            if ( upLeft && downRight )
-            {
-                GameCoord = newGameCoord;
-            } else if (upLeft)
-            {
-                if (verticallyMove)
-                {
-                    GameCoord = new Vector2(GameCoord.X - slidingSpeed, GameCoord.Y);
-                }
-                else
-                {
-                    GameCoord = new Vector2(GameCoord.X, GameCoord.Y - slidingSpeed);
-                }
-            }else if (downRight)
+
+            bool slideToUpOrLeft = manager.CheckAvailable(new GridBoxPosition(border1, (int)GridObjectDepth.Box));
+            bool slideToDownOrRight = manager.CheckAvailable(new GridBoxPosition(border2, (int)GridObjectDepth.Box));
+            bool couldMoveFree = slideToUpOrLeft && slideToDownOrRight;
+            bool couldMoveThrough = slideToUpOrLeft && (verticallyMove ? border1.X==(int)border1.X : border1.Y==(int)border1.Y);
+
+            float slidingSpeed = 1.0f * ModifiedSpeed / blockLength;
+
+            if (couldMoveFree || couldMoveThrough) GameCoord = newGameCoord;
+            else if (slideToUpOrLeft)
             {
                 if (verticallyMove)
                 {
-                    GameCoord = new Vector2(GameCoord.X + slidingSpeed, GameCoord.Y);
+                    if(GameCoord.X-(int)GameCoord.X>=slidingSpeed)   GameCoord = new Vector2(GameCoord.X - slidingSpeed, GameCoord.Y);
+                    else GameCoord = new Vector2((int)GameCoord.X, GameCoord.Y);
                 }
                 else
                 {
-                    GameCoord = new Vector2(GameCoord.X, GameCoord.Y + slidingSpeed);
+                    if (GameCoord.Y - (int)GameCoord.Y >= slidingSpeed) GameCoord = new Vector2(GameCoord.X, GameCoord.Y - slidingSpeed);
+                    else GameCoord = new Vector2(GameCoord.X, (int)GameCoord.Y);
                 }
             }
-            float slidingOffset = 0.2f;
-            center += trans.RevScale(CurrentSpeed);
-            center.X += 0.5f;
-            center.Y += 0.5f;
+            else if (slideToDownOrRight)
+            {
+                if (verticallyMove)
+                {
+                    if ((int)GameCoord.X + 1 - GameCoord.X >= slidingSpeed) GameCoord = new Vector2(GameCoord.X + slidingSpeed, GameCoord.Y);
+                    else GameCoord = new Vector2((int)GameCoord.X + 1, GameCoord.Y);
+                }
+                else
+                {
+                    if ((int)GameCoord.Y + 1 - GameCoord.Y >= slidingSpeed) GameCoord = new Vector2(GameCoord.X, GameCoord.Y + slidingSpeed);
+                    else GameCoord = new Vector2(GameCoord.X, (int)GameCoord.Y + 1);
+                }
+            }
 
             //switch (direction)
             //{
