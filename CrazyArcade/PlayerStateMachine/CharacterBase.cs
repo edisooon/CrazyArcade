@@ -76,15 +76,16 @@ namespace CrazyArcade.Demo1
             newGameCoord += trans.RevScale(CurrentSpeed);
 
             bool verticallyMove = direction == Dir.Up || direction == Dir.Down, horizontallyMove = direction == Dir.Left || direction == Dir.Right;
+            float blockDist = 0.2f;
 
-            Vector2 center = new Vector2(newGameCoord.X+0.5f, newGameCoord.Y+0.5f);
-            Vector2 border1 = new Vector2(direction == Dir.Right ? newGameCoord.X + 1 : newGameCoord.X, direction == Dir.Down ? newGameCoord.Y + 1 : newGameCoord.Y);
-            Vector2 border2 = new Vector2(verticallyMove ? border1.X+1 : border1.X, horizontallyMove ? border1.Y+1 : border1.Y);
+            Vector2 upLeftBorder = new Vector2(direction == Dir.Right ? newGameCoord.X + 1 : newGameCoord.X, direction == Dir.Down ? newGameCoord.Y + 1 : newGameCoord.Y);
+            Vector2 bottomRightBorder = new Vector2(verticallyMove ? upLeftBorder.X+1 : upLeftBorder.X, horizontallyMove ? upLeftBorder.Y+1 : upLeftBorder.Y);
 
-            bool slideToUpOrLeft = manager.CheckAvailable(new GridBoxPosition(border1, (int)GridObjectDepth.Box));
-            bool slideToDownOrRight = manager.CheckAvailable(new GridBoxPosition(border2, (int)GridObjectDepth.Box));
+            bool slideToUpOrLeft = manager.CheckAvailable(new GridBoxPosition(upLeftBorder, (int)GridObjectDepth.Box));
+            bool slideToDownOrRight = manager.CheckAvailable(new GridBoxPosition(bottomRightBorder, (int)GridObjectDepth.Box));
+
             bool couldMoveFree = slideToUpOrLeft && slideToDownOrRight;
-            bool couldMoveThrough = slideToUpOrLeft && (verticallyMove ? border1.X==(int)border1.X : border1.Y==(int)border1.Y);
+            bool couldMoveThrough = slideToUpOrLeft && (verticallyMove ? upLeftBorder.X==(int)upLeftBorder.X : upLeftBorder.Y==(int)upLeftBorder.Y);
 
             float slidingSpeed = 1.0f * ModifiedSpeed / blockLength;
 
@@ -93,10 +94,11 @@ namespace CrazyArcade.Demo1
             {
                 if (verticallyMove)
                 {
-                    if(GameCoord.X-(int)GameCoord.X>=slidingSpeed)   GameCoord = new Vector2(GameCoord.X - slidingSpeed, GameCoord.Y);
+
+                    if (GameCoord.X - (int)GameCoord.X >= slidingSpeed) GameCoord = new Vector2(GameCoord.X - slidingSpeed, GameCoord.Y);
                     else GameCoord = new Vector2((int)GameCoord.X, GameCoord.Y);
                 }
-                else
+                else if(horizontallyMove)
                 {
                     if (GameCoord.Y - (int)GameCoord.Y >= slidingSpeed) GameCoord = new Vector2(GameCoord.X, GameCoord.Y - slidingSpeed);
                     else GameCoord = new Vector2(GameCoord.X, (int)GameCoord.Y);
@@ -109,12 +111,13 @@ namespace CrazyArcade.Demo1
                     if ((int)GameCoord.X + 1 - GameCoord.X >= slidingSpeed) GameCoord = new Vector2(GameCoord.X + slidingSpeed, GameCoord.Y);
                     else GameCoord = new Vector2((int)GameCoord.X + 1, GameCoord.Y);
                 }
-                else
+                else if (horizontallyMove)
                 {
                     if ((int)GameCoord.Y + 1 - GameCoord.Y >= slidingSpeed) GameCoord = new Vector2(GameCoord.X, GameCoord.Y + slidingSpeed);
                     else GameCoord = new Vector2(GameCoord.X, (int)GameCoord.Y + 1);
                 }
             }
+
 
             //switch (direction)
             //{
