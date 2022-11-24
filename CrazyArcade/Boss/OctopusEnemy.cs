@@ -1,17 +1,12 @@
 ﻿using System;
 using CrazyArcade.CAFramework;
-using CrazyArcade.CAFramework.Controller;
 using CrazyArcade.Enemies;
 using CrazyArcade.Content;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Input;
 using CrazyArcade.GameGridSystems;
 using CrazyArcade.Blocks;
 using CrazyArcade.BombFeature;
-using System.Threading;
-using CrazyArcade.CAFrameWork.GameStates;
-using System.Timers;
 using System.Diagnostics;
 using CrazyArcade.PlayerStateMachine;
 
@@ -24,7 +19,7 @@ namespace CrazyArcade.Boss
     //  Add wounded animations
     //  Define movement pattern
     //}
-    public class OctopusEnemy : CAEntity, IGridable, IPlayerCollidable, IBombCollectable, IExplosionCollidable
+    public class OctopusEnemy : CAEntity, IGridable, IPlayerCollidable, IBombCollectable, IBossCollideBehaviour
     {
         //Animation
         private Texture2D texture;
@@ -48,8 +43,8 @@ namespace CrazyArcade.Boss
 
         //Spacial Stuff
         protected Vector2 Start;
-        protected float xDifference;
-        protected float yDifference;
+        public float xDifference;
+        public float yDifference;
         public Dir direction;
         protected Rectangle internalRectangle = new Rectangle(0, 0, 110, 145); 
         protected Vector2[] SpeedVector;
@@ -126,6 +121,7 @@ namespace CrazyArcade.Boss
             texture = TextureSingleton.GetOctoBoss();
             spriteAnims = new SpriteAnimation[4];
         }
+
 
         public override void Load()
         {
@@ -206,6 +202,9 @@ namespace CrazyArcade.Boss
 
         //IPlayerCollidable Stuff
         public Rectangle boundingBox => internalRectangle;
+
+        public Rectangle hitBox => internalRectangle;
+
         public void CollisionLogic(Rectangle overlap, IPlayerCollisionBehavior collisionPartner)
         {
             collisionPartner.CollisionDestroyLogic();
@@ -239,7 +238,7 @@ namespace CrazyArcade.Boss
                     {
                         if (justAttacked)
                         {
-                            speed *= 2;
+                            //speed *= 2;
                         }
                         return true;
                     }
@@ -255,6 +254,7 @@ namespace CrazyArcade.Boss
 
             if (ChangeDir(dir))
             {
+                this.shoot();
                 direction = (Dir)((((int)dir) + 1) % 4);
                 //effect = direction == Dir.Left ? SpriteEffects.FlipHorizontally : SpriteEffects.None;
                 UpdateAnimation(dir);
@@ -265,10 +265,10 @@ namespace CrazyArcade.Boss
             }
             else if (dir == Dir.Down && xDifference < squareSize+xoffSet && yDifference>(squareSize/2)+yoffSet-1&& !justAttacked) {
                 justAttacked = true;
-                speed /= 2;
+                //speed /= 2;
                 //state = new OctopusAttack(this,1);
                 this.squareBlast();
-                this.shoot();
+                //this.shoot();
                 direction = Dir.Up;
                 //changeDir will put it back on course
             }
@@ -282,23 +282,23 @@ namespace CrazyArcade.Boss
             //change to attacking state aka make still
             //Launch balloons
             Vector2 destination;
+            int distance = 2;
             if (this.direction == Dir.Right) { 
-                destination = new Vector2(this.X + 3, this.Y);
+                destination = new Vector2(xDifference + distance, yDifference);
             }
             else if (this.direction == Dir.Left)
             {
-                destination = new Vector2(this.X - 3, this.Y);
+                destination = new Vector2(xDifference - distance, yDifference);
             }
             else if (this.direction == Dir.Up)
             {
-                destination = new Vector2(this.X, this.Y - 3);
+                destination = new Vector2(xDifference, yDifference - distance);
             }
             else {
-                destination = new Vector2(this.X, this.Y + 3);
+                destination = new Vector2(xDifference, yDifference + distance);
             }
-            WaterBomb projectile = new WaterBomb(destination,5,this);
-            this.scene.ToAddEntity(projectile);
-            projectile.Load();
+            WaterBomb projectile = new WaterBomb((destination),1,this);
+            this.SceneDelegate.ToAddEntity(projectile);
             //this.scene.AddSprite(projectile);
             //resume movement if necessary
         }
@@ -307,7 +307,7 @@ namespace CrazyArcade.Boss
         {
             //change to attacking state aka make still
             //execute square blast attack
-            WaterExplosionEdge[] waterExplosionEdges = new WaterExplosionEdge[18];
+            WaterBomb[] waterExplosionEdges = new WaterBomb[18];
             int[,] edgeCoords = { { 3, 3}, { 4, 3 }, { 5, 3 }, { 6, 3 }, { 7, 3 },
                                   { 3, 8}, { 4, 8 }, { 5, 8 }, { 6, 8 }, { 7, 8 }, 
                                   { 2, 4 }, { 2, 5 }, { 2, 6 }, { 2, 7 },
@@ -319,7 +319,7 @@ namespace CrazyArcade.Boss
                 else if (i < 10) d = 3;//right
                 else if (i < 14) d = 2;//down
                 else d = 0;//up
-                waterExplosionEdges[i] = new WaterExplosionEdge(d, false, 90+((xoffSet+edgeCoords[i,0])*40), 40*edgeCoords[i,1]);
+                waterExplosionEdges[i] = new WaterBomb(new Vector2(edgeCoords[i,0]+1, edgeCoords[i,1]), 0, this, true);
                 this.scene.ToAddEntity(waterExplosionEdges[i]);
             }
             for (int i = 0; i < waterExplosionEdges.Length; i++)
@@ -354,16 +354,21 @@ namespace CrazyArcade.Boss
             //Infinite Bombs
         }
 
-        public bool Collide(IExplosion bomb)
+        
+
+
+
+        public void HurtBoss()
         {
+            Debug.WriteLine("Health: " + health);
             if (!justInjured)
             {
-                health -= 10;
+                Debug.WriteLine("IN IF Health: " + health);
+                health -= 20;
                 justInjured = true;
                 state = new OctopusWounded(this);
                 Debug.WriteLine("health: " + health);
             }
-            return true;
         }
     }
     //Octopus Specific States
@@ -440,13 +445,13 @@ namespace CrazyArcade.Boss
         public CAScene scene;
         private float timer;
         private float startTimeStamp;
-        private float timeLength = 300.0f;
+        private float timeLength = 150.0f;
 
         public OctopusWounded(OctopusEnemy enemy)
         {
             this.enemy = enemy;
             scene = enemy.scene;
-            enemy.toggleHurtSprites(true);
+            //enemy.toggleHurtSprites(true);
             timer = timeLength; //in milliseconds
             if (enemy.health <= 0)
             {
@@ -469,7 +474,7 @@ namespace CrazyArcade.Boss
                 //timer -= (float)time.ElapsedGameTime.Milliseconds-startTimeStamp;
                 timer -= 1.0f;
                 if (timer < 1.0f){
-                    enemy.toggleHurtSprites(false);
+                    //enemy.toggleHurtSprites(false);
                     enemy.state = new OctopusNormal(enemy);
 
                 }
@@ -489,11 +494,11 @@ namespace CrazyArcade.Boss
         public OctopusDead(OctopusEnemy enemy) {
             this.enemy = enemy;
             enemy.spriteAnims = new SpriteAnimation[1];
-            int xSave = enemy.X;
-            int ySave = enemy.Y;
             enemy.spriteAnims[0] = enemy.deathAnimation;
-            enemy.UpdateCoord(new Vector2(xSave,ySave));
+            enemy.spriteAnim = enemy.deathAnimation;
+            enemy.UpdateCoord(new Vector2(enemy.xDifference, enemy.xDifference));
             enemy.direction=0;
+            enemy.scene.Victory();
 
             timer = 0;
             opacity = 1f;

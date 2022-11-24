@@ -3,25 +3,23 @@ using CrazyArcade.Blocks;
 using CrazyArcade.CAFramework;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using System.Diagnostics;
 using CrazyArcade.GameGridSystems;
 using CrazyArcade.BombFeature;
 using CrazyArcade.CAFrameWork.GridBoxSystem;
-using System.Reflection.Metadata.Ecma335;
+using CrazyArcade.EnemyCollision;
 
 namespace CrazyArcade.Enemies
 {
-    public abstract class Enemy: CAEntity, IPlayerCollidable, IGridable, IExplosionCollidable, IGridBoxReciever
+    public abstract class Enemy: CAEntity, IPlayerCollidable, IGridable, IExplosionCollidable, IEnemyCollisionBehavior
     {
         public SpriteAnimation[] spriteAnims;
         public SpriteAnimation spriteAnim;
-        public CAScene scene;
         public Dir direction;
         protected float xDifference;
         protected float yDifference;
         protected SpriteEffects effect;
         protected Vector2 Start;
-        //----------IGridable Start------------
+        private float centerEnemyValue;
         private Vector2 gamePos;
         private Vector2 pos;
         public IEnemyState state;
@@ -29,7 +27,12 @@ namespace CrazyArcade.Enemies
         private float timer;
         protected int fps = 10;
         public IGridBoxManager gridBoxManager;
-        protected Rectangle blockBoundingBox = new Rectangle(0, 0, 30, 30);
+        public readonly int enemySize = 30;
+        Rectangle blockDetector = new Rectangle(0, 0, 1, 20);
+        public int XDetectionOffset;
+        public int YDetectionOffset;
+        public int turnFLag = 0;
+        //----------IGridable Start------------
         public Vector2 ScreenCoord
         {
             get => pos;
@@ -64,20 +67,23 @@ namespace CrazyArcade.Enemies
                 Y = (int)ScreenCoord.Y;
                 internalRectangle.X = X;
                 internalRectangle.Y = Y;
+
             }
         }
         //----------IGridable End------------
-        public Enemy(int x, int y, CAScene scene)
-
-        {
+        public Enemy(int x, int y)
+        {   
+            //36 is the size of each block
+            centerEnemyValue = ((1f - (float)enemySize / 36f)) / 2f;
             timer = 0;
-            this.scene = scene;
-            GameCoord = new Vector2(x, y - 2);
+            GameCoord = new Vector2(centerEnemyValue + (float)x, centerEnemyValue + (float)y);
             Start = GameCoord;
             state = new EnemyDownState(this);
             
         }
+
         protected Rectangle internalRectangle = new Rectangle(0, 0, 30, 30);
+        
 
         public Rectangle boundingBox => internalRectangle;
 
@@ -95,10 +101,7 @@ namespace CrazyArcade.Enemies
             SpriteAnim.setEffect(effect);
             xDifference = GameCoord.X - Start.X;
             yDifference = GameCoord.Y - Start.Y;
-            if (state != null)
-            {
-                state.Update(time);
-            }
+
             if (timer > 1f / 6)
             {
 
@@ -111,87 +114,37 @@ namespace CrazyArcade.Enemies
             }
             internalRectangle.X = X;
             internalRectangle.Y = Y;
-        }
-        protected bool ChangeDir(Dir dir)
-        {
-            switch (direction)
-            {
-                case Dir.Right:
-
-                    return xDifference >= 4;
-
-                case Dir.Up:
-
-                    return yDifference <= 0;
-
-                case Dir.Down:
-
-                    return yDifference >= 4;
-                case Dir.Left:
-                    return xDifference <= 0;
-            }
-            return false;
+            blockDetector.X = X + XDetectionOffset;
+            blockDetector.Y = Y + YDetectionOffset;
         }
 
         protected abstract Vector2[] SpeedVector { get; }
         public IGridBoxManager Manager { get => gridBoxManager; set => gridBoxManager = value; }
 
-        public Rectangle blockCollisionBoundingBox => blockBoundingBox;
+        public Rectangle BlockBoundingBox => blockDetector;
 
-        public bool Active { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-
-        private Boolean checkAvailableBlock()
+        public void Move()
         {
-            float x;
-            float y;
-            if (direction == Dir.Down)
+            if (turnFLag == 0)
             {
-                y = 1f;
-                x = 0;
-            }
-            else if(direction == Dir.Up)
-            {
-                x = 0;
-                y = -1f;
-            }else if (direction == Dir.Left)
-            {
-                x = -1f;
-                y = 0;
-            }
-            //right direction
-            else 
-            {
-                x = 1f;
-                y = 0;
-
-            }
-
-            if (Manager.CheckAvailable(new GridBoxPosition((int)(GameCoord.X + x), (int)(GameCoord.Y+y),  (int)GridObjectDepth.Box))){
-                return false;
-            }
-           
-            return true;
-        }
-        public void move()
-        {
-            //Temporary and need to be removed later after enemy movement fully implemented with block collision
-
-            if (checkAvailableBlock())
-            {
-                state.ChangeDirection();
-                effect = direction == Dir.Right ? SpriteEffects.FlipHorizontally : SpriteEffects.None;
-                UpdateAnimation();
+                // This stop enemy from moving right after turning.
+                GameCoord += (SpeedVector[(int)direction] * .6f);
             }
             else
             {
-                GameCoord += (SpeedVector[(int)direction]*.5f);
+                turnFLag = 0;
             }
-
-
-            //up to here
-
-
+            
         }
+
+        public void SetDetectorValues(int xOffset,int yOffset,int width,int height)
+        {
+            XDetectionOffset = xOffset;
+            YDetectionOffset = yOffset;
+            blockDetector.Width = width;
+            blockDetector.Height = height;  
+        }
+
         public void UpdateAnimation()
         {
             this.spriteAnims[(int)direction].Position = new Vector2(X, Y);
@@ -202,46 +155,16 @@ namespace CrazyArcade.Enemies
             state = new EnemyDeathState(this);
             return true;
         }
-
-        public void CollisionHaltLogic(Point amountMoved)
+        //called by block
+        public void TurnEnemy()
         {
 
             state.ChangeDirection();
-        }
-
-        public void CollisionDestroyLogic()
-        {
+            effect = direction == Dir.Right ? SpriteEffects.FlipHorizontally : SpriteEffects.None;
+            UpdateAnimation();
+            // This stop enemy from moving right after turning
+            turnFLag = 1;
             
-        }
-
-        public bool canHaveItem()
-        {
-            return false;
-        }
-
-        public void IncreaseBlastLength()
-        {
-
-        }
-
-        public void SwitchToMountedState()
-        {
-
-        }
-
-        public void IncreaseSpeed()
-        {
-
-        }
-
-        public void IncreaseBombCount()
-        {
-
-        }
-
-        public void IncreaseScore(int score)
-        {
-
         }
     }
 }

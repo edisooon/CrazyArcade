@@ -45,6 +45,7 @@ public class CAGame : Game, IGameDelegate, ITransitionCompleteHandler
         Content.RootDirectory = "Content";
         IsMouseVisible = true;
         SpriteSheet.Content = Content;
+        SoundSource.Load(Content);
         //Load it here
 
     }
@@ -74,7 +75,8 @@ public class CAGame : Game, IGameDelegate, ITransitionCompleteHandler
         MediaPlayer.Volume = .25f;
         test = new ReadJSON("Level_0.json", ReadJSON.fileType.LevelFile);
         CurrentLevel = test.levelObject;
-
+        transitionNum = 0;
+        stageNum = 0;
         base.Initialize();
         
     }
@@ -85,7 +87,7 @@ public class CAGame : Game, IGameDelegate, ITransitionCompleteHandler
         //Load it here
         _spriteBatch = new SpriteBatch(GraphicsDevice);
 
-        LevelSongTitles = new string[] { "playground", "playground", "playground", "comical", "bridge", "dream", "kodama", "worldbeat", "funtimes", "funtimes", "funtimes" };
+        LevelSongTitles = new string[] { "playground", "comical", "bridge", "dream", "kodama", "worldbeat", "funtimes", "funtimes", "comical" };
         _spriteBatch = new SpriteBatch(GraphicsDevice);
         test = new ReadJSON("Level_0.json", ReadJSON.fileType.LevelFile);
         CurrentLevel = test.levelObject;
@@ -142,6 +144,9 @@ public class CAGame : Game, IGameDelegate, ITransitionCompleteHandler
     private void makeTransition(GameTime gameTime, Vector2 displacement)
     {
 
+        //Begin save
+        LevelPersnstance saveData = scene.GetData(); 
+
         MediaPlayer.Stop();
         song = Content.Load<Song>(LevelSongTitles[stageNum]);
         MediaPlayer.Play(song);
@@ -150,6 +155,8 @@ public class CAGame : Game, IGameDelegate, ITransitionCompleteHandler
         UI_Singleton.ChangeComponentText("levelCounter", "text", "Level " + stageNum);
         ISceneState newState = new DemoScene(this, levelFileNames[stageNum], StageOffset);
         newState.Load();
+        //Load saved data
+        newState.LoadData(saveData);
         newState.StageOffset += displacement;
         transition = new CATransition(this.scene,
             newState, displacement, gameTime, new TimeSpan(0, 0, 1));
