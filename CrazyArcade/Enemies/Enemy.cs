@@ -145,6 +145,7 @@ namespace CrazyArcade.Enemies
 
         public void SetDetectorValues(int xOffset,int yOffset,int width,int height)
         {
+            //These values change the location of block detection blocks. The block is always in front of the enemy sprite
             XDetectionOffset = xOffset;
             YDetectionOffset = yOffset;
             blockDetector.Width = width;
