@@ -19,7 +19,7 @@ namespace CrazyArcade.Demo1
         public Vector2 CurrentSpeed = new(0, 0);
         public int defaultBlastLength = 1;
         public Vector2 moveInputs = new(0, 0);
-        protected Rectangle blockBoundingBox = new Rectangle(0, 0, CAGameGridSystems.BlockLength-10, CAGameGridSystems.BlockLength-10);
+        protected Rectangle blockBoundingBox = new Rectangle(0, 0, CAGameGridSystems.BlockLength, CAGameGridSystems.BlockLength);
         protected Point bboxOffset = new Point(2, 27);
         protected bool blockBboxOn = true;
         public Dir direction = Dir.Down;
@@ -43,7 +43,7 @@ namespace CrazyArcade.Demo1
         {
             this.X = (int)value.X - bboxOffset.X;
             this.Y = (int)value.Y - bboxOffset.Y;
-            blockBoundingBox.X = (int)value.X + 5;
+            blockBoundingBox.X = (int)value.X;
             blockBoundingBox.Y = (int)value.Y;
         }
         public Vector2 GameCoord {
@@ -73,9 +73,28 @@ namespace CrazyArcade.Demo1
         {
             Vector2 newGameCoord = new Vector2(GameCoord.X, GameCoord.Y);
             newGameCoord += trans.RevScale(CurrentSpeed);
+            switch (direction)
+            {
+                case Dir.Up:
+                    //newGameCoord.X += CAGameGridSystems.BlockLength / 2;
+                    break;
+                case Dir.Down:
+                    //newGameCoord.X += CAGameGridSystems.BlockLength / 2;
+                    newGameCoord.Y += 1;
+                    break;
+                case Dir.Left:
+                    //newGameCoord.Y += CAGameGridSystems.BlockLength / 2;
+                    break;
+                case Dir.Right:
+                    newGameCoord.X += 1;
+                    //newGameCoord.Y += CAGameGridSystems.BlockLength / 2;
+                    break;
+            }
+            if (manager.CheckAvailable(new GridBoxPosition(newGameCoord, (int)GridObjectDepth.Box))) GameCoord += trans.RevScale(CurrentSpeed);
+            //else
             //if(direction == Dir.Down)   newGameCoord.
             //manager.CheckAvailable(new GridBoxPosition();
-            GameCoord += trans.RevScale(CurrentSpeed);
+            //GameCoord += trans.RevScale(CurrentSpeed);
         }
 
         public void CalculateMovement()

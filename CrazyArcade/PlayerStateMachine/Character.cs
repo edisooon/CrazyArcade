@@ -78,7 +78,7 @@ namespace CrazyArcade.PlayerStateMachine
         }
         public void CollisionHaltLogic(Point move)
         {
-            GameCoord -= Trans.RevScale(new Vector2(move.X, move.Y));
+            //GameCoord -= Trans.RevScale(new Vector2(move.X, move.Y));
         }
 
         //@implement IPlayerCollisionBehavior
