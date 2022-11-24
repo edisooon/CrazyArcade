@@ -19,6 +19,7 @@ namespace CrazyArcade.Demo1
         public Vector2 CurrentSpeed = new(0, 0);
         public int defaultBlastLength = 1;
         public Vector2 moveInputs = new(0, 0);
+        private int blockLength = CAGameGridSystems.BlockLength;
         protected Rectangle blockBoundingBox = new Rectangle(0, 0, CAGameGridSystems.BlockLength, CAGameGridSystems.BlockLength);
         protected Point bboxOffset = new Point(2, 27);
         protected bool blockBboxOn = true;
@@ -73,24 +74,76 @@ namespace CrazyArcade.Demo1
         {
             Vector2 newGameCoord = new Vector2(GameCoord.X, GameCoord.Y);
             newGameCoord += trans.RevScale(CurrentSpeed);
-            switch (direction)
+            Vector2 center = new Vector2(newGameCoord.X, newGameCoord.Y);
+            Vector2 border1 = new Vector2(direction == Dir.Right ? newGameCoord.X + 1 : newGameCoord.X, direction == Dir.Down ? newGameCoord.Y + 1 : newGameCoord.Y);
+            bool verticallyMove = direction == Dir.Up || direction == Dir.Down, horizontallyMove = direction == Dir.Left || direction == Dir.Right;
+            Vector2 border2 = new Vector2(verticallyMove ? border1.X+1 : border1.X, horizontallyMove ? border1.Y+1 : border1.Y);
+            bool upLeft = manager.CheckAvailable(new GridBoxPosition(border1, (int)GridObjectDepth.Box));
+            bool downRight = manager.CheckAvailable(new GridBoxPosition(border2, (int)GridObjectDepth.Box));
+            float slidingSpeed = 0.5f * ModifiedSpeed / blockLength;
+            if ( upLeft && downRight )
             {
-                case Dir.Up:
-                    //newGameCoord.X += CAGameGridSystems.BlockLength / 2;
-                    break;
-                case Dir.Down:
-                    //newGameCoord.X += CAGameGridSystems.BlockLength / 2;
-                    newGameCoord.Y += 1;
-                    break;
-                case Dir.Left:
-                    //newGameCoord.Y += CAGameGridSystems.BlockLength / 2;
-                    break;
-                case Dir.Right:
-                    newGameCoord.X += 1;
-                    //newGameCoord.Y += CAGameGridSystems.BlockLength / 2;
-                    break;
+                GameCoord = newGameCoord;
+            } else if (upLeft)
+            {
+                if (verticallyMove)
+                {
+                    GameCoord = new Vector2(GameCoord.X - slidingSpeed, GameCoord.Y);
+                }
+                else
+                {
+                    GameCoord = new Vector2(GameCoord.X, GameCoord.Y - slidingSpeed);
+                }
+            }else if (downRight)
+            {
+                if (verticallyMove)
+                {
+                    GameCoord = new Vector2(GameCoord.X + slidingSpeed, GameCoord.Y);
+                }
+                else
+                {
+                    GameCoord = new Vector2(GameCoord.X, GameCoord.Y + slidingSpeed);
+                }
             }
-            if (manager.CheckAvailable(new GridBoxPosition(newGameCoord, (int)GridObjectDepth.Box))) GameCoord += trans.RevScale(CurrentSpeed);
+            float slidingOffset = 0.2f;
+            center += trans.RevScale(CurrentSpeed);
+            center.X += 0.5f;
+            center.Y += 0.5f;
+
+            //switch (direction)
+            //{
+            //    case Dir.Up:
+            //        i
+            //        break;
+            //    case Dir.Down:
+            //        //newGameCoord.X += CAGameGridSystems.BlockLength / 2;
+            //        center.Y += 1;
+            //        break;
+            //    case Dir.Left:
+            //        //newGameCoord.Y += CAGameGridSystems.BlockLength / 2;
+            //        break;
+            //    case Dir.Right:
+            //        center.X += 1;
+            //        //newGameCoord.Y += CAGameGridSystems.BlockLength / 2;
+            //        break;
+            //}
+            //switch (direction)
+            //{
+            //    case Dir.Up:
+            //        //newGameCoord.X += CAGameGridSystems.BlockLength / 2;
+            //        break;
+            //    case Dir.Down:
+            //        //newGameCoord.X += CAGameGridSystems.BlockLength / 2;
+            //        center.Y += 1;
+            //        break;
+            //    case Dir.Left:
+            //        //newGameCoord.Y += CAGameGridSystems.BlockLength / 2;
+            //        break;
+            //    case Dir.Right:
+            //        center.X += 1;
+            //        //newGameCoord.Y += CAGameGridSystems.BlockLength / 2;
+            //        break;
+            //}
             //else
             //if(direction == Dir.Down)   newGameCoord.
             //manager.CheckAvailable(new GridBoxPosition();
