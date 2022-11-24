@@ -53,7 +53,7 @@ namespace CrazyArcade.Blocks
         //----------IGridable End------------
         protected SpriteAnimation spriteAnimation;
 
-        private Rectangle internalRectangle = new Rectangle(0, 0, 40, 40);
+        private Rectangle internalRectangle = new Rectangle(0, 0, CAGameGridSystems.BlockLength, CAGameGridSystems.BlockLength);
 
         public Block(Vector2 position, Rectangle source, Texture2D texture) : base(new GridBoxPosition((int)position.X, (int)position.Y, (int)GridObjectDepth.Box))
         {

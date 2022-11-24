@@ -19,7 +19,7 @@ namespace CrazyArcade.Demo1
         public Vector2 CurrentSpeed = new(0, 0);
         public int defaultBlastLength = 1;
         public Vector2 moveInputs = new(0, 0);
-        protected Rectangle blockBoundingBox = new Rectangle(0, 0, 30, 30);
+        protected Rectangle blockBoundingBox = new Rectangle(0, 0, CAGameGridSystems.BlockLength-10, CAGameGridSystems.BlockLength-10);
         protected Point bboxOffset = new Point(2, 27);
         protected bool blockBboxOn = true;
         public Dir direction = Dir.Down;
