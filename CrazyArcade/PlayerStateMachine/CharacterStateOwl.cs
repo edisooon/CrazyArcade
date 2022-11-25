@@ -92,5 +92,10 @@ namespace CrazyArcade.PlayerStateMachine
             }
             return spriteAnims;
         }
+
+        public bool CouldPutBomb()
+        {
+            return true;
+        }
     }
 }

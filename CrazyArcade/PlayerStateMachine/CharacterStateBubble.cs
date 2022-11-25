@@ -26,6 +26,12 @@ namespace CrazyArcade.PlayerStateMachine
             bubble = new PlayerBubble(character, character.parentScene);
             character.SceneDelegate.ToAddEntity(bubble);
         }
+
+        public bool CouldPutBomb()
+        {
+            return false;
+        }
+
         public void ProcessAttaction()
         {
             //do nothing

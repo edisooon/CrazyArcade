@@ -25,5 +25,7 @@ namespace CrazyArcade.PlayerStateMachine
         public void ProcessRide();
         //Code for dealing with attaction
         public void ProcessAttaction();
+        // decide if the character could/could not put bomb at current state
+        bool CouldPutBomb();
     }
 }

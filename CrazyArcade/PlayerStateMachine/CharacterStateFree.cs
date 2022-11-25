@@ -84,5 +84,10 @@ namespace CrazyArcade.PlayerStateMachine
         {
             character.playerState = new CharacterStateBubble(character);
         }
+
+        public bool CouldPutBomb()
+        {
+            return true;
+        }
     }
 }
