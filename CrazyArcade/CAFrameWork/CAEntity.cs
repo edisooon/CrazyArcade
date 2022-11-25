@@ -34,7 +34,7 @@ namespace CrazyArcade.CAFramework
         public virtual int Y { get => y; set => y = value; }
 
         protected float DrawOrder = 0f;
-        public float ActualDrawOrder => DrawOrder + Y/15f;
+        public float ActualDrawOrder => DrawOrder + Y/15f; // assume that the maximum grid number in a line would be 15 now or in the future
 
         public abstract void Load();
         public virtual void Update(GameTime time)
