@@ -16,17 +16,15 @@ namespace CrazyArcade.PlayerStateMachine
     internal class CharacterStateFree : ICharacterState
     {
         private Character character;
-        public SpriteAnimation[] spriteAnims;
-        private bool d1HeldDown;
-        private bool d2HeldDown;
+        //private bool d1HeldDown;
+        //private bool d2HeldDown;
         public CharacterStateFree(Character character)
         {
-            this.spriteAnims = new SpriteAnimation[4];
             this.character = character;
             character.spriteAnims = SetSprites();
             character.ModifiedSpeed = character.DefaultSpeed;   // not sure, since character shouldn't use default speed after being mounted, would modify later
-            d1HeldDown = false;
-            d2HeldDown = false;
+            //d1HeldDown = false;
+            //d2HeldDown = false;
         }
 
         public bool CouldPutBomb { get => true; }
@@ -35,6 +33,7 @@ namespace CrazyArcade.PlayerStateMachine
 
         public SpriteAnimation[] SetSprites()
         {
+            SpriteAnimation[] spriteAnims = new SpriteAnimation[4];
             spriteAnims[(int)Dir.Up] = new SpriteAnimation(TextureSingleton.GetPlayer1(), 12, 14, 44, 56, 6, 4, 10);
             spriteAnims[(int)Dir.Down] = new SpriteAnimation(TextureSingleton.GetPlayer1(), 12, 78, 44, 56, 6, 4, 10);
             spriteAnims[(int)Dir.Left] = new SpriteAnimation(TextureSingleton.GetPlayer1(), 12, 142, 44, 56, 6, 4, 10);

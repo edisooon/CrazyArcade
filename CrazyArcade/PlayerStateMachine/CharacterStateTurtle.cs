@@ -18,21 +18,18 @@ namespace CrazyArcade.PlayerStateMachine
     {
         private Character character;
         private PlayerTurtle turtle;
-        public SpriteAnimation[] spriteAnims;
-        private bool d1HeldDown;
-        private bool d2HeldDown;
+        //private bool d1HeldDown;
+        //private bool d2HeldDown;
         public CharacterStateTurtle(Character character)
         {
             this.character = character;
             character.animationHandleInt = 0;
             turtle = new PlayerTurtle(character);
             character.SceneDelegate.ToAddEntity(turtle);
-            this.spriteAnims = new SpriteAnimation[4];
 
             this.character = character;
-
-            d1HeldDown = false;
-            d2HeldDown = false;
+            //d1HeldDown = false;
+            //d2HeldDown = false;
             character.spriteAnims = SetSprites();
             character.ModifiedSpeed = character.DefaultSpeed * .8f;
 
@@ -102,7 +99,7 @@ namespace CrazyArcade.PlayerStateMachine
 
         public SpriteAnimation[] SetSprites()
         {
-
+            SpriteAnimation[] spriteAnims = new SpriteAnimation[4];
             spriteAnims[(int)Dir.Up] = new SpriteAnimation(TextureSingleton.GetPlayer1(), new Rectangle(12, 460, 44, 52));
             spriteAnims[(int)Dir.Down] = new SpriteAnimation(TextureSingleton.GetPlayer1(), new Rectangle(60, 460, 44, 52));
             spriteAnims[(int)Dir.Left] = new SpriteAnimation(TextureSingleton.GetPlayer1(), new Rectangle(110, 460, 42, 56));
@@ -114,7 +111,6 @@ namespace CrazyArcade.PlayerStateMachine
             }
             return spriteAnims;
         }
-
 
     }
 }

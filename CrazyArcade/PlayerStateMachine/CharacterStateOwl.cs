@@ -17,9 +17,6 @@ namespace CrazyArcade.PlayerStateMachine
     {
         private Character character;
         private PlayerOwl owl;
-        public SpriteAnimation[] spriteAnims;
-        private bool d1HeldDown;
-        private bool d2HeldDown;
 
         public bool CouldPutBomb => throw new NotImplementedException();
 
@@ -32,13 +29,8 @@ namespace CrazyArcade.PlayerStateMachine
             owl = new PlayerOwl(character);
             //character.parentScene.AddSprite(turtle);
             character.SceneDelegate.ToAddEntity(owl);
-            this.spriteAnims = new SpriteAnimation[4];
             character.spriteAnims = SetSprites();
             this.character = character;
-
-            d1HeldDown = false;
-            d2HeldDown = false;
-
         }
         public void ProcessAttaction()
         {
@@ -85,7 +77,7 @@ namespace CrazyArcade.PlayerStateMachine
 
         public SpriteAnimation[] SetSprites()
         {
-
+            SpriteAnimation[] spriteAnims = new SpriteAnimation[4];
             spriteAnims[(int)Dir.Up] = new SpriteAnimation(TextureSingleton.GetPlayer1(), new Rectangle(12, 460, 44, 52));
             spriteAnims[(int)Dir.Down] = new SpriteAnimation(TextureSingleton.GetPlayer1(), new Rectangle(60, 460, 44, 52));
             spriteAnims[(int)Dir.Left] = new SpriteAnimation(TextureSingleton.GetPlayer1(), new Rectangle(110, 460, 42, 56));

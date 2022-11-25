@@ -8,12 +8,9 @@ namespace CrazyArcade.PlayerStateMachine
 {
     public class CharacterStateNew : ICharacterState
     {
-        SpriteAnimation[] start;
         private Character character;
         public CharacterStateNew(Character character)
         {
-            start = new SpriteAnimation[1];
-            start[0] = new SpriteAnimation(TextureSingleton.GetPlayer1(), 10, 7, 527, 480, 64, 10);
             character.spriteAnims = SetSprites();
             character.ModifiedSpeed = 0;
         }
@@ -44,6 +41,8 @@ namespace CrazyArcade.PlayerStateMachine
 
         public SpriteAnimation[] SetSprites()
         {
+            SpriteAnimation[] start = new SpriteAnimation[1];
+            start[0] = new SpriteAnimation(TextureSingleton.GetPlayer1(), 10, 7, 527, 480, 64, 10);
             return start;
         }
     }

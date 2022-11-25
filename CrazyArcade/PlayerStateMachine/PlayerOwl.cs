@@ -61,10 +61,10 @@ namespace CrazyArcade.PlayerStateMachine
             direction = player.direction;
             currentAnimation = spriteAnims[(int)direction];
             currentAnimation.Update(time);
-            if (player.playerState is not CharacterStateOwl)
-            {
-                Delete_Self();
-            }
+            //if (player.playerState is not CharacterStateOwl)
+            //{
+            //    Delete_Self();
+            //}
         }
 
         public override void Load()
