@@ -11,6 +11,7 @@ using CrazyArcade.GameGridSystems;
 using CrazyArcade.CAFrameWork.GridBoxSystem;
 using CrazyArcade.PlayerStateMachine.PlayerItemInteractions;
 using CrazyArcade.BombFeature;
+using CrazyArcade.CAFrameWork.Transition;
 
 namespace CrazyArcade.Demo1
 {
@@ -91,12 +92,21 @@ namespace CrazyArcade.Demo1
             bool slideToUpOrLeft = upLeftObstacle == null;
             IGridBox downRightObstacle = manager.CheckAvailable(new GridBoxPosition(bottomRightBorder, (int)GridObjectDepth.Box));
             bool slideToDownOrRight = downRightObstacle == null;
-            if(CouldKick && toNewBlock)
+            if (toNewBlock)
             {
-                if (upLeftObstacle is WaterBomb) (upLeftObstacle as WaterBomb).kick(direction);
-                if (downRightObstacle is WaterBomb) (downRightObstacle as WaterBomb).kick(direction);
-                Console.WriteLine(direction);
+                // handle the special case of obstacles' behaviors
+                // 1) water bomb
+                if (CouldKick)
+                {
+                    if (upLeftObstacle is WaterBomb) characterKickBomb(upLeftObstacle as WaterBomb);
+                    if (downRightObstacle is WaterBomb) characterKickBomb(downRightObstacle as WaterBomb);
+                }
+                // 2) door
+                if (upLeftObstacle is Door) characterToNextLevel(upLeftObstacle as Door);
+                if (downRightObstacle is Door) characterToNextLevel(downRightObstacle as Door);
+
             }
+
 
             bool couldMoveFree = slideToUpOrLeft && slideToDownOrRight;
             bool couldMoveThrough = slideToUpOrLeft && (verticallyMove ? upLeftBorder.X==(int)upLeftBorder.X : upLeftBorder.Y==(int)upLeftBorder.Y);
@@ -182,6 +192,16 @@ namespace CrazyArcade.Demo1
             //if(direction == Dir.Down)   newGameCoord.
             //manager.CheckAvailable(new GridBoxPosition();
             //GameCoord += trans.RevScale(CurrentSpeed);
+        }
+
+        private void characterToNextLevel(Door door)
+        {
+            door.toNextLevel();
+        }
+
+        private void characterKickBomb(WaterBomb waterBomb)
+        {
+            waterBomb.kick(direction);
         }
 
         private bool isToNewBlock(Vector2 newGameCoord, Vector2 gameCoord, bool verticallyMove)
