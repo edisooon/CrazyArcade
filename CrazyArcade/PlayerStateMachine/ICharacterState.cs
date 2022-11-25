@@ -29,6 +29,6 @@ namespace CrazyArcade.PlayerStateMachine
         // decide if the character could/could not put bomb at current state
         public bool CouldPutBomb { get; }
         // decide if the character could/could not get powerup at current state
-        public bool CouldGetPowerup { get; }
+        public bool CouldGetItem { get; }
     }
 }

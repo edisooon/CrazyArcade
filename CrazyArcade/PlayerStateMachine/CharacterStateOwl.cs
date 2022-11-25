@@ -20,7 +20,7 @@ namespace CrazyArcade.PlayerStateMachine
 
         public bool CouldPutBomb => throw new NotImplementedException();
 
-        public bool CouldGetPowerup => throw new NotImplementedException();
+        public bool CouldGetItem => throw new NotImplementedException();
 
         public CharacterStateOwl(Character character)
         {

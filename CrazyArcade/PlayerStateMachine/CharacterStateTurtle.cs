@@ -18,18 +18,13 @@ namespace CrazyArcade.PlayerStateMachine
     {
         private Character character;
         private PlayerTurtle turtle;
-        //private bool d1HeldDown;
-        //private bool d2HeldDown;
         public CharacterStateTurtle(Character character)
         {
             this.character = character;
             character.animationHandleInt = 0;
             turtle = new PlayerTurtle(character);
-            character.SceneDelegate.ToAddEntity(turtle);
+            //character.SceneDelegate.ToAddEntity(turtle);
 
-            this.character = character;
-            //d1HeldDown = false;
-            //d2HeldDown = false;
             character.spriteAnims = SetSprites();
             character.ModifiedSpeed = character.DefaultSpeed * .8f;
 
@@ -37,21 +32,22 @@ namespace CrazyArcade.PlayerStateMachine
 
         public bool CouldPutBomb { get => true; }
 
-        public bool CouldGetPowerup { get => true; }
+        public bool CouldGetItem { get => true; }
 
         public void ProcessAttaction()
         {
+            // when player takes attaction by the explosion, it switches to its free state
             character.playerState = new CharacterStateFree(character);
         }
 
         public void ProcessItem()
         {
-
+            // could, more code in the future
         }
 
         public void ProcessRide()
         {
-
+            // could, more code in the future
         }
 
         public void ProcessState(GameTime time)
@@ -71,25 +67,6 @@ namespace CrazyArcade.PlayerStateMachine
                 character.SpriteAnim.playing = true;
                 turtle.SpriteAnim.playing = true;
             }
-            //if (Keyboard.GetState().IsKeyDown(Keys.E))
-            //{
-            //    character.playerState = new CharacterStateBubble(character);
-            //    character.spriteAnims = character.playerState.SetSprites();
-            //    character.playerState.SetSpeed();
-
-            //}
-            //if (Keyboard.GetState().IsKeyDown(Keys.D1) && !d1HeldDown)
-            //{
-            //    d1HeldDown = true;
-            //    character.CurrentBlastLength = character.CurrentBlastLength + 1 < 5 ? character.CurrentBlastLength + 1 : 5;
-            //}
-            //d1HeldDown = Keyboard.GetState().IsKeyDown(Keys.D1);
-            //if (Keyboard.GetState().IsKeyDown(Keys.D2) && !d2HeldDown)
-            //{
-            //    d2HeldDown = true;
-            //    character.BombCapacity = character.BombCapacity + 1 < 5 ? character.BombCapacity + 1 : 5;
-            //}
-            //d2HeldDown = Keyboard.GetState().IsKeyDown(Keys.D2);
 
         }
         public void endState()

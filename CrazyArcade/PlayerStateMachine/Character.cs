@@ -110,7 +110,7 @@ namespace CrazyArcade.PlayerStateMachine
         }
         public void IncreaseScore(int score)
         {
-            if (this.playerState.CouldGetPowerup)
+            if (this.playerState.CouldGetItem)
             {
 
                 this.score += score;

@@ -24,7 +24,7 @@ namespace CrazyArcade.Items
         }
         public override void CollisionLogic(Rectangle overlap, IPlayerCollisionBehavior collisionPartner)
         {
-            if (collisionPartner.State.CouldGetPowerup)
+            if (collisionPartner.State.CouldGetItem)
             {
                 collisionPartner.IncreaseBombCount();
                 this.DeleteSelf(parentScene);
@@ -41,7 +41,7 @@ namespace CrazyArcade.Items
         }
         public override void CollisionLogic(Rectangle overlap, IPlayerCollisionBehavior collisionPartner)
         {
-            if (collisionPartner.State.CouldGetPowerup)
+            if (collisionPartner.State.CouldGetItem)
             {
                 collisionPartner.IncreaseScore(50);
                 this.DeleteSelf(parentScene);
@@ -56,7 +56,7 @@ namespace CrazyArcade.Items
         }
         public override void CollisionLogic(Rectangle overlap, IPlayerCollisionBehavior collisionPartner)
         {
-            if (collisionPartner.State.CouldGetPowerup)
+            if (collisionPartner.State.CouldGetItem)
             {
                 collisionPartner.IncreaseSpeed();
                 this.DeleteSelf(parentScene);
@@ -71,9 +71,9 @@ namespace CrazyArcade.Items
         }
         public override void CollisionLogic(Rectangle overlap, IPlayerCollisionBehavior collisionPartner)
         {
-            if (collisionPartner.State.CouldGetPowerup)
+            if (collisionPartner.State.CouldGetItem)
             {
-                collisionPartner.SwitchToMountedState();
+                collisionPartner.State.ProcessRide();
                 this.DeleteSelf(parentScene);
             }
         }
@@ -88,7 +88,7 @@ namespace CrazyArcade.Items
         }
         public override void CollisionLogic(Rectangle overlap, IPlayerCollisionBehavior collisionPartner)
         {
-            if (collisionPartner.State.CouldGetPowerup)
+            if (collisionPartner.State.CouldGetItem)
             {
                 collisionPartner.IncreaseBlastLength();
                 this.DeleteSelf(parentScene);
@@ -110,7 +110,7 @@ namespace CrazyArcade.Items
         }
         public override void CollisionLogic(Rectangle overlap, IPlayerCollisionBehavior collisionPartner)
         {
-            if (collisionPartner.State.CouldGetPowerup)
+            if (collisionPartner.State.CouldGetItem)
             {
                 collisionPartner.IncreaseScore(10);
                 this.DeleteSelf(parentScene);
@@ -126,7 +126,7 @@ namespace CrazyArcade.Items
         }
         public override void CollisionLogic(Rectangle overlap, IPlayerCollisionBehavior collisionPartner)
         { 
-            if (collisionPartner.State.CouldGetPowerup)
+            if (collisionPartner.State.CouldGetItem)
             {
                 collisionPartner.EnableKick();
                 this.DeleteSelf(parentScene);

@@ -17,23 +17,23 @@ namespace CrazyArcade.PlayerStateMachine
             character.ModifiedSpeed = 0;
         }
 
-        public bool CouldGetPowerup { get => false; }
+        public bool CouldGetItem { get => false; }
 
         public bool CouldPutBomb { get => false; }
 
         public void ProcessAttaction()
         {
-            //throw new NotImplementedException();
+            //player wouldn't take attaction any more when in dead state
         }
 
         public void ProcessItem()
         {
-            throw new NotImplementedException();
+            //player cannot process/use item when in dead state
         }
 
         public void ProcessRide()
         {
-            throw new NotImplementedException();
+            //player cannot get a ride when in dead state
         }
 
         public void ProcessState(GameTime time)

@@ -29,7 +29,7 @@ namespace CrazyArcade.PlayerStateMachine
 
         public bool CouldPutBomb { get => true; }
 
-        public bool CouldGetPowerup { get => true; }
+        public bool CouldGetItem { get => true; }
 
         public SpriteAnimation[] SetSprites()
         {
@@ -75,14 +75,16 @@ namespace CrazyArcade.PlayerStateMachine
         }
         public void ProcessItem()
         {
-
+            // could, more code in the future
         }
         public void ProcessRide()
         {
+            // could, more code in the future
             //this.character.playerState = new CharacterStateRides(this.character);
         }
         public void ProcessAttaction()
         {
+            // when player takes attaction by the explosion, it switches to its bubble state
             character.playerState = new CharacterStateBubble(character);
         }
 

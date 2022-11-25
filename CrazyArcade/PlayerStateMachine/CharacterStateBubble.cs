@@ -30,23 +30,23 @@ namespace CrazyArcade.PlayerStateMachine
 
         }
 
-        public bool CouldGetPowerup { get => false; }
+        public bool CouldGetItem { get => false; }
 
         public bool CouldPutBomb { get => false; }
 
         public void ProcessAttaction()
         {
-            //do nothing
+            //player wouldn't take attaction any more when in bubble state
         }
 
         public void ProcessItem()
         {
-            //nope
+            //player cannot process item when in bubble state
         }
 
         public void ProcessRide()
         {
-            //Nope
+            //player cannot get a ride when in bubble state
         }
 
         public void ProcessState(GameTime time)
