@@ -18,15 +18,32 @@ namespace CrazyArcade.PlayerStateMachine
     {
         private Character character;
         private PlayerRide ride;
-        public CharacterStateMounted(Character character)
+        public CharacterStateMounted(Character character, RideType type)
         {
             this.character = character;
             character.animationHandleInt = 0;
-            ride = new PlayerTurtle(character);
-            character.SceneDelegate.ToAddEntity(ride);
+            LoadRide(type);
             character.spriteAnims = SetSprites();
             //character.ModifiedSpeed = character.DefaultSpeed * .8f;   // different rides should give character different speeds
 
+        }
+
+        private void LoadRide(RideType type)
+        {
+            if(type == RideType.Turtle)
+            {
+                ride = new PlayerTurtle(character);
+            }else if(type == RideType.PirateTurtle)
+            {
+
+            }else if(type == RideType.Owl)
+            {
+
+            }else if(type == RideType.SpaceCraft)
+            {
+
+            }
+            character.SceneDelegate.ToAddEntity(ride);
         }
 
         public bool CouldPutBomb { get => true; }
