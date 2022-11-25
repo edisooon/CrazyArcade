@@ -9,6 +9,9 @@ using CrazyArcade.CAFramework;
 using CrazyArcade.Blocks;
 using CrazyArcade.GameGridSystems;
 using CrazyArcade.CAFrameWork.GridBoxSystem;
+using CrazyArcade.PlayerStateMachine.PlayerItemInteractions;
+using CrazyArcade.BombFeature;
+using CrazyArcade.CAFrameWork.Transition;
 
 namespace CrazyArcade.Demo1
 {
@@ -17,11 +20,13 @@ namespace CrazyArcade.Demo1
         public float DefaultSpeed = 5;
         public float ModifiedSpeed;
         public Vector2 CurrentSpeed = new(0, 0);
+        public ItemContainer playerItems = new();
+        public bool CouldKick { get => playerItems.CanKick; }
         public int defaultBlastLength = 1;
         public Vector2 moveInputs = new(0, 0);
         private int blockLength = CAGameGridSystems.BlockLength;
         protected Rectangle blockBoundingBox = new Rectangle(0, 0, CAGameGridSystems.BlockLength, CAGameGridSystems.BlockLength);
-        protected Point bboxOffset = new Point(2, 27);
+        protected Point bboxOffset = new Point(3, 20);
         protected bool blockBboxOn = true;
         public Dir direction = Dir.Down;
         public IGridBoxManager manager;
@@ -72,6 +77,7 @@ namespace CrazyArcade.Demo1
 
         public void UpdatePosition()
         {
+            Console.WriteLine(GameCoord.X + "********");
             Vector2 newGameCoord = new Vector2(GameCoord.X, GameCoord.Y);
             newGameCoord += trans.RevScale(CurrentSpeed);
 
@@ -82,8 +88,25 @@ namespace CrazyArcade.Demo1
             Vector2 upLeftBorder = new Vector2(direction == Dir.Right ? newGameCoord.X + 1 : newGameCoord.X, direction == Dir.Down ? newGameCoord.Y + 1 : newGameCoord.Y);
             Vector2 bottomRightBorder = new Vector2(verticallyMove ? upLeftBorder.X+1 : upLeftBorder.X, horizontallyMove ? upLeftBorder.Y+1 : upLeftBorder.Y);
 
-            bool slideToUpOrLeft = manager.CheckAvailable(new GridBoxPosition(upLeftBorder, (int)GridObjectDepth.Box));
-            bool slideToDownOrRight = manager.CheckAvailable(new GridBoxPosition(bottomRightBorder, (int)GridObjectDepth.Box));
+            IGridBox upLeftObstacle = manager.CheckAvailable(new GridBoxPosition(upLeftBorder, (int)GridObjectDepth.Box));
+            bool slideToUpOrLeft = upLeftObstacle == null;
+            IGridBox downRightObstacle = manager.CheckAvailable(new GridBoxPosition(bottomRightBorder, (int)GridObjectDepth.Box));
+            bool slideToDownOrRight = downRightObstacle == null;
+            if (toNewBlock)
+            {
+                // handle the special case of obstacles' behaviors
+                // 1) water bomb
+                if (CouldKick)
+                {
+                    if (upLeftObstacle is WaterBomb) characterKickBomb(upLeftObstacle as WaterBomb);
+                    if (downRightObstacle is WaterBomb) characterKickBomb(downRightObstacle as WaterBomb);
+                }
+                // 2) door
+                if (upLeftObstacle is Door) characterToNextLevel(upLeftObstacle as Door);
+                if (downRightObstacle is Door) characterToNextLevel(downRightObstacle as Door);
+
+            }
+
 
             bool couldMoveFree = slideToUpOrLeft && slideToDownOrRight;
             bool couldMoveThrough = slideToUpOrLeft && (verticallyMove ? upLeftBorder.X==(int)upLeftBorder.X : upLeftBorder.Y==(int)upLeftBorder.Y);
@@ -92,6 +115,12 @@ namespace CrazyArcade.Demo1
 
             // the player would move with CurrentSpeed if 1.is moving inside a block(handling the case when player hasn't left the bomb) 2. is going to a new block but not obstacles ahead 3.edge case of 2
             if (!toNewBlock || couldMoveFree || couldMoveThrough) GameCoord = newGameCoord;
+            else if (!slideToDownOrRight && !slideToUpOrLeft)
+            {
+                // PLAYER has been blocked
+                if (horizontallyMove) GameCoord = new Vector2((float)Math.Round(GameCoord.X), GameCoord.Y);
+                else GameCoord = new Vector2(GameCoord.X, (float)Math.Round(GameCoord.Y));
+            }
             else if (slideToUpOrLeft)
             {
                 if (verticallyMove)
@@ -122,6 +151,7 @@ namespace CrazyArcade.Demo1
                     else GameCoord = new Vector2(GameCoord.X, (int)GameCoord.Y + 1);
                 }
             }
+
 
 
             //switch (direction)
@@ -162,6 +192,16 @@ namespace CrazyArcade.Demo1
             //if(direction == Dir.Down)   newGameCoord.
             //manager.CheckAvailable(new GridBoxPosition();
             //GameCoord += trans.RevScale(CurrentSpeed);
+        }
+
+        private void characterToNextLevel(Door door)
+        {
+            door.toNextLevel();
+        }
+
+        private void characterKickBomb(WaterBomb waterBomb)
+        {
+            waterBomb.kick(direction);
         }
 
         private bool isToNewBlock(Vector2 newGameCoord, Vector2 gameCoord, bool verticallyMove)

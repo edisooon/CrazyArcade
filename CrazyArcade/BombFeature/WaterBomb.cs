@@ -18,7 +18,7 @@ using System.Threading.Tasks;
 
 namespace CrazyArcade.BombFeature
 {
-    public class WaterBomb : CAGridBoxEntity, IPlayerCollidable, IExplosionCollidable, IExplodable, IBossCollidable
+    public class WaterBomb : CAGridBoxEntity, IExplosionCollidable, IExplodable, IBossCollidable
     {
         int BlastLength;
         float DetonateTimer;
@@ -169,33 +169,11 @@ namespace CrazyArcade.BombFeature
             Rectangle checkRectangle = Rectangle.Intersect(this.boundingBox, collisionPartner.blockCollisionBoundingBox);
             return checkRectangle.Width != 0 || checkRectangle.Height != 0;
         }
-
-        public void UpdateHasNotLeft(List<IPlayerCollisionBehavior> playerBehaviors)
-        {   
-            if(hasNotLeft == null)
-            {
-                InitializeHasNotLeft(playerBehaviors);
-            }
-            else
-            {
-                foreach(IPlayerCollisionBehavior playerBehavior in hasNotLeft)
-                {
-                    if (!isColliding(playerBehavior)) hasNotLeft.Remove(playerBehavior);
-                }
-            }
-        }
-
-        private void InitializeHasNotLeft(List<IPlayerCollisionBehavior> playerBehaviors)
-        {
-            hasNotLeft = new HashSet<IPlayerCollisionBehavior>();
-            foreach(IPlayerCollisionBehavior playerBehavior in playerBehaviors)
-            {
-                if (isColliding(playerBehavior)) hasNotLeft.Add(playerBehavior);
-            }
-        }
         private float length = -1;  // due to the do while loop in kick
-        private void kick(Dir dir)
+        public void kick(Dir dir)
         {
+            this.direction = dir;
+            if (!couldMove(dir, this.Position)) return;
             this.isMoving = true;
             Point mdir = moveDir[(int)dir];
             GridBoxPosition gridP = Position;
@@ -210,18 +188,7 @@ namespace CrazyArcade.BombFeature
         private bool couldMove(Dir dir, GridBoxPosition initialPos)
         {
             Point mdir = moveDir[(int)dir];
-            return manager.CheckAvailable(new GridBoxPosition(initialPos.X + mdir.X, initialPos.Y + mdir.Y, (int)GridObjectDepth.Box));
-        }
-
-        public void CollisionLogic(Rectangle overlap, IPlayerCollisionBehavior collisionPartner)
-        {
-            if (hasNotLeft.Contains(collisionPartner)) return;
-            this.direction = (collisionPartner as Character).direction;
-            if (collisionPartner.CouldKick && couldMove(direction, this.Position))
-            {
-                kick(direction);
-            }
-
+            return manager.CheckAvailable(new GridBoxPosition(initialPos.X + mdir.X, initialPos.Y + mdir.Y, (int)GridObjectDepth.Box)) == null;
         }
 
         public IExplosion explode()
