@@ -76,20 +76,22 @@ namespace CrazyArcade.Demo1
             newGameCoord += trans.RevScale(CurrentSpeed);
 
             bool verticallyMove = direction == Dir.Up || direction == Dir.Down, horizontallyMove = direction == Dir.Left || direction == Dir.Right;
+            bool toNewBlock = isToNewBlock(newGameCoord, GameCoord, verticallyMove);
             float blockDist = 0.2f;
 
             Vector2 upLeftBorder = new Vector2(direction == Dir.Right ? newGameCoord.X + 1 : newGameCoord.X, direction == Dir.Down ? newGameCoord.Y + 1 : newGameCoord.Y);
             Vector2 bottomRightBorder = new Vector2(verticallyMove ? upLeftBorder.X+1 : upLeftBorder.X, horizontallyMove ? upLeftBorder.Y+1 : upLeftBorder.Y);
 
-            bool slideToUpOrLeft = manager.CheckAvailable(new GridBoxPosition(upLeftBorder, (int)GridObjectDepth.Box));
-            bool slideToDownOrRight = manager.CheckAvailable(new GridBoxPosition(bottomRightBorder, (int)GridObjectDepth.Box));
+            bool slideToUpOrLeft = manager.CheckAvailable(new GridBoxPosition(upLeftBorder, (int)GridObjectDepth.Box))==null;
+            bool slideToDownOrRight = manager.CheckAvailable(new GridBoxPosition(bottomRightBorder, (int)GridObjectDepth.Box))==null;
 
             bool couldMoveFree = slideToUpOrLeft && slideToDownOrRight;
             bool couldMoveThrough = slideToUpOrLeft && (verticallyMove ? upLeftBorder.X==(int)upLeftBorder.X : upLeftBorder.Y==(int)upLeftBorder.Y);
 
             float slidingSpeed = 1.0f * ModifiedSpeed / blockLength;
 
-            if (couldMoveFree || couldMoveThrough) GameCoord = newGameCoord;
+            // the player would move with CurrentSpeed if 1.is moving inside a block(handling the case when player hasn't left the bomb) 2. is going to a new block but not obstacles ahead 3.edge case of 2
+            if (!toNewBlock || couldMoveFree || couldMoveThrough) GameCoord = newGameCoord;
             else if (slideToUpOrLeft)
             {
                 if (verticallyMove)
@@ -157,6 +159,13 @@ namespace CrazyArcade.Demo1
             //if(direction == Dir.Down)   newGameCoord.
             //manager.CheckAvailable(new GridBoxPosition();
             //GameCoord += trans.RevScale(CurrentSpeed);
+        }
+
+        private bool isToNewBlock(Vector2 newGameCoord, Vector2 gameCoord, bool verticallyMove)
+        {
+            float newX = newGameCoord.X, newY = newGameCoord.Y, oldX = gameCoord.X, oldY = gameCoord.Y;
+            if (verticallyMove) return (int)oldY == oldY || (int)oldY != (int)newY;
+            else return (int)oldX == oldX || (int)oldX != (int)newX;
         }
 
         public void CalculateMovement()

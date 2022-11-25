@@ -31,7 +31,7 @@ namespace CrazyArcade.BombFeature
         private bool isMoving = false;
         IBombCollectable owner;
         public override SpriteAnimation SpriteAnim => spriteAnims;
-        HashSet<IPlayerCollisionBehavior> hasNotLeft;
+        public HashSet<IPlayerCollisionBehavior> hasNotLeft;
 
         public Rectangle internalRectangle;
 
@@ -210,7 +210,7 @@ namespace CrazyArcade.BombFeature
         private bool couldMove(Dir dir, GridBoxPosition initialPos)
         {
             Point mdir = moveDir[(int)dir];
-            return manager.CheckAvailable(new GridBoxPosition(initialPos.X + mdir.X, initialPos.Y + mdir.Y, (int)GridObjectDepth.Box));
+            return manager.CheckAvailable(new GridBoxPosition(initialPos.X + mdir.X, initialPos.Y + mdir.Y, (int)GridObjectDepth.Box))==null;
         }
 
         public void CollisionLogic(Rectangle overlap, IPlayerCollisionBehavior collisionPartner)
@@ -220,20 +220,6 @@ namespace CrazyArcade.BombFeature
             if (collisionPartner.CouldKick && couldMove(direction, this.Position))
             {
                 kick(direction);
-            }
-            else
-            {
-                int modifier = 1;
-                if (overlap.Width > overlap.Height)
-                {
-                    if (Y < collisionPartner.blockCollisionBoundingBox.Y) modifier = -1;
-                    collisionPartner.CollisionHaltLogic(new Point(0, modifier * overlap.Height));
-                }
-                else
-                {
-                    if (X < collisionPartner.blockCollisionBoundingBox.X) modifier = -1;
-                    collisionPartner.CollisionHaltLogic(new Point(modifier * overlap.Width, 0));
-                }
             }
 
         }
