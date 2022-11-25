@@ -12,14 +12,20 @@ using CrazyArcade.CAFrameWork.GridBoxSystem;
 using CrazyArcade.PlayerStateMachine.PlayerItemInteractions;
 using CrazyArcade.BombFeature;
 using CrazyArcade.CAFrameWork.Transition;
+using CrazyArcade.PlayerStateMachine;
 
 namespace CrazyArcade.Demo1
 {
-    public abstract class CharacterBase : CAEntity, IGridable, IGridBoxReciever
+    public abstract class CharacterBase : CAEntity, IGridable, IGridBoxReciever, IBombCollectable
     {
         public float DefaultSpeed = 5;
         public float ModifiedSpeed;
         public Vector2 CurrentSpeed = new(0, 0);
+        public int CurrentBlastLength { get => playerItems.BlastModifier; set { playerItems.BlastModifier = value; } }
+        public int BombCapacity { get => playerItems.BombModifier; set { playerItems.BombModifier = value; } }
+        public int FreeModifiedSpeed { get => playerItems.SpeedModifier; }
+        private int bombOut = 0;
+        public int BombsOut => bombOut;
         public ItemContainer playerItems = new();
         public bool CouldKick { get => playerItems.CanKick; }
         public int defaultBlastLength = 1;
@@ -67,7 +73,18 @@ namespace CrazyArcade.Demo1
 
         public bool Active { get => blockBboxOn; set { blockBboxOn = value; } }
 
+        //@Implement IBombCollectable
+        public void RecollectBomb()
+        {
+            bombOut = bombOut-- >= 0 ? bombOut-- : 0;
+            Console.WriteLine("Recollect: " + BombsOut);
+        }
 
+        public void SpendBomb()
+        {
+            bombOut++;
+            Console.WriteLine("Spend: " + BombsOut);
+        }
 
         public override void Update(GameTime time)
         {
@@ -202,6 +219,13 @@ namespace CrazyArcade.Demo1
         private void characterKickBomb(WaterBomb waterBomb)
         {
             waterBomb.kick(direction);
+        }
+
+        protected bool putBomb()
+        {
+            if (this.BombsOut >= this.BombCapacity) return false;
+            this.SceneDelegate.ToAddEntity(new WaterBomb(this.GameCoord, this.CurrentBlastLength, this));
+            return true;
         }
 
         private bool isToNewBlock(Vector2 newGameCoord, Vector2 gameCoord, bool verticallyMove)

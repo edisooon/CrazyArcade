@@ -71,7 +71,7 @@ namespace CrazyArcade.PlayerStateMachine
 
         private void KeySpace()
         {
-            if (playerState.ProcessAttaction())
+            if (this.putBomb())
                 SceneDelegate.ToAddEntity(new CASoundEffect("SoundEffects/PlaceBomb"));
         }
 

@@ -23,7 +23,7 @@ namespace CrazyArcade.PlayerStateMachine
         public void ProcessItem();
         //Code for obtaining a rideable mount
         public void ProcessRide();
-        //Code for dealing with attacking, return true if bomb placed
-        public bool ProcessAttaction();
+        //Code for dealing with attaction
+        public void ProcessAttaction();
     }
 }

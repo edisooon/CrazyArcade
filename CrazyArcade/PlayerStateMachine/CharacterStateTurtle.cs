@@ -35,11 +35,9 @@ namespace CrazyArcade.PlayerStateMachine
             d2HeldDown = false;
 
         }
-        public bool ProcessAttaction()
+        public void ProcessAttaction()
         {
-            if (character.BombsOut >= character.BombCapacity) return false;
-            character.SceneDelegate.ToAddEntity(new WaterBomb(character.GameCoord, character.CurrentBlastLength, character));
-            return true;
+            character.playerState = new CharacterStateFree(character);
         }
 
         public void ProcessItem()

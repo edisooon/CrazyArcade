@@ -80,11 +80,9 @@ namespace CrazyArcade.PlayerStateMachine
             character.ModifiedSpeed = character.DefaultSpeed;
             return 1;
         }
-        public bool ProcessAttaction()
+        public void ProcessAttaction()
         {
-            if (character.BombsOut >= character.BombCapacity) return false;
-            character.SceneDelegate.ToAddEntity(new WaterBomb(character.GameCoord, character.CurrentBlastLength, character));
-            return true;
+            character.playerState = new CharacterStateBubble(character);
         }
     }
 }
