@@ -9,6 +9,8 @@ using CrazyArcade.CAFramework;
 using CrazyArcade.Blocks;
 using CrazyArcade.GameGridSystems;
 using CrazyArcade.CAFrameWork.GridBoxSystem;
+using CrazyArcade.PlayerStateMachine.PlayerItemInteractions;
+using CrazyArcade.BombFeature;
 
 namespace CrazyArcade.Demo1
 {
@@ -17,6 +19,8 @@ namespace CrazyArcade.Demo1
         public float DefaultSpeed = 5;
         public float ModifiedSpeed;
         public Vector2 CurrentSpeed = new(0, 0);
+        public ItemContainer playerItems = new();
+        public bool CouldKick { get => playerItems.CanKick; }
         public int defaultBlastLength = 1;
         public Vector2 moveInputs = new(0, 0);
         private int blockLength = CAGameGridSystems.BlockLength;
@@ -82,8 +86,16 @@ namespace CrazyArcade.Demo1
             Vector2 upLeftBorder = new Vector2(direction == Dir.Right ? newGameCoord.X + 1 : newGameCoord.X, direction == Dir.Down ? newGameCoord.Y + 1 : newGameCoord.Y);
             Vector2 bottomRightBorder = new Vector2(verticallyMove ? upLeftBorder.X+1 : upLeftBorder.X, horizontallyMove ? upLeftBorder.Y+1 : upLeftBorder.Y);
 
-            bool slideToUpOrLeft = manager.CheckAvailable(new GridBoxPosition(upLeftBorder, (int)GridObjectDepth.Box));
-            bool slideToDownOrRight = manager.CheckAvailable(new GridBoxPosition(bottomRightBorder, (int)GridObjectDepth.Box));
+            IGridBox upLeftObstacle = manager.CheckAvailable(new GridBoxPosition(upLeftBorder, (int)GridObjectDepth.Box));
+            bool slideToUpOrLeft = upLeftObstacle == null;
+            IGridBox downRightObstacle = manager.CheckAvailable(new GridBoxPosition(bottomRightBorder, (int)GridObjectDepth.Box));
+            bool slideToDownOrRight = downRightObstacle == null;
+            if(CouldKick && toNewBlock)
+            {
+                if (upLeftObstacle is WaterBomb) (upLeftObstacle as WaterBomb).kick(direction);
+                if (downRightObstacle is WaterBomb) (downRightObstacle as WaterBomb).kick(direction);
+                Console.WriteLine(direction);
+            }
 
             bool couldMoveFree = slideToUpOrLeft && slideToDownOrRight;
             bool couldMoveThrough = slideToUpOrLeft && (verticallyMove ? upLeftBorder.X==(int)upLeftBorder.X : upLeftBorder.Y==(int)upLeftBorder.Y);
