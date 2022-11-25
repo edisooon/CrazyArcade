@@ -15,10 +15,9 @@ namespace CrazyArcade.PlayerStateMachine
             start[0] = new SpriteAnimation(TextureSingleton.GetPlayer1(), 10, 7, 527, 480, 64, 10);
         }
 
-        public bool CouldPutBomb()
-        {
-            return false;
-        }
+        public bool CouldGetPowerup { get => false; }
+
+        public bool CouldPutBomb { get => false; }
 
         public void ProcessAttaction()
         {

@@ -87,10 +87,10 @@ namespace CrazyArcade.PlayerStateMachine
         }
 
         //@implement IItemCollidable
-        public bool canHaveItem()
-        {
-            return (playerState is CharacterStateFree || playerState is CharacterStateTurtle);
-        }
+        //public bool canHaveItem()
+        //{
+        //    return (playerState is CharacterStateFree || playerState is CharacterStateTurtle);
+        //}
         public void IncreaseBlastLength()
         {
             playerItems.AddItem(new BlastLengthModifier());

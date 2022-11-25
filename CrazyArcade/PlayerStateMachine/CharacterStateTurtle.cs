@@ -35,6 +35,11 @@ namespace CrazyArcade.PlayerStateMachine
             d2HeldDown = false;
 
         }
+
+        public bool CouldPutBomb { get => true; }
+
+        public bool CouldGetPowerup { get => true; }
+
         public void ProcessAttaction()
         {
             character.playerState = new CharacterStateFree(character);
@@ -113,9 +118,6 @@ namespace CrazyArcade.PlayerStateMachine
             return spriteAnims;
         }
 
-        public bool CouldPutBomb()
-        {
-            return true;
-        }
+
     }
 }

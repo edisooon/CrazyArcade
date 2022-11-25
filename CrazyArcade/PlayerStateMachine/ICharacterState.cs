@@ -19,13 +19,15 @@ namespace CrazyArcade.PlayerStateMachine
         public SpriteAnimation[] SetSprites();
         //Sets the speed of the player character
         public int SetSpeed();
-        //code for dealing with the obtaining of items (can be changed?)
+        //code for dealing with functionality of item upon current state
         public void ProcessItem();
         //Code for obtaining a rideable mount
         public void ProcessRide();
         //Code for dealing with attaction
         public void ProcessAttaction();
         // decide if the character could/could not put bomb at current state
-        bool CouldPutBomb();
+        public bool CouldPutBomb { get; }
+        // decide if the character could/could not get powerup at current state
+        public bool CouldGetPowerup { get; }
     }
 }

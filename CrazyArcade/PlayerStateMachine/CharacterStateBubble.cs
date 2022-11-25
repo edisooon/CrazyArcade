@@ -27,10 +27,9 @@ namespace CrazyArcade.PlayerStateMachine
             character.SceneDelegate.ToAddEntity(bubble);
         }
 
-        public bool CouldPutBomb()
-        {
-            return false;
-        }
+        public bool CouldGetPowerup { get => false; }
+
+        public bool CouldPutBomb { get => false; }
 
         public void ProcessAttaction()
         {

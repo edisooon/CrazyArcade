@@ -26,6 +26,11 @@ namespace CrazyArcade.PlayerStateMachine
             d1HeldDown = false;
             d2HeldDown = false;
         }
+
+        public bool CouldPutBomb { get => true; }
+
+        public bool CouldGetPowerup { get => true; }
+
         public SpriteAnimation[] SetSprites()
         {
             spriteAnims[(int)Dir.Up] = new SpriteAnimation(TextureSingleton.GetPlayer1(), 12, 14, 44, 56, 6, 4, 10);
@@ -85,9 +90,5 @@ namespace CrazyArcade.PlayerStateMachine
             character.playerState = new CharacterStateBubble(character);
         }
 
-        public bool CouldPutBomb()
-        {
-            return true;
-        }
     }
 }
