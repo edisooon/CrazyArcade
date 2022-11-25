@@ -24,6 +24,7 @@ namespace CrazyArcade.PlayerStateMachine
             this.spriteAnims = new SpriteAnimation[4];
             this.character = character;
             character.spriteAnims = SetSprites();
+            character.ModifiedSpeed = character.DefaultSpeed;   // not sure, since character shouldn't use default speed after being mounted, would modify later
             d1HeldDown = false;
             d2HeldDown = false;
         }
@@ -80,11 +81,6 @@ namespace CrazyArcade.PlayerStateMachine
         public void ProcessRide()
         {
             //this.character.playerState = new CharacterStateRides(this.character);
-        }
-        public int SetSpeed()
-        {
-            character.ModifiedSpeed = character.DefaultSpeed;
-            return 1;
         }
         public void ProcessAttaction()
         {

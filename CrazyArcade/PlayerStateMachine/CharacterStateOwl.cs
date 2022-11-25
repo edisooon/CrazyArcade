@@ -77,11 +77,11 @@ namespace CrazyArcade.PlayerStateMachine
         {
             owl.Delete_Self();
         }
-        public int SetSpeed()
-        {
-            character.ModifiedSpeed = character.DefaultSpeed * 1.2f;
-            return 1;
-        }
+        //public int SetSpeed()
+        //{
+        //    character.ModifiedSpeed = character.DefaultSpeed * 1.2f;
+        //    return 1;
+        //}
 
         public SpriteAnimation[] SetSprites()
         {

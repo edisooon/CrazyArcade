@@ -34,6 +34,7 @@ namespace CrazyArcade.PlayerStateMachine
             d1HeldDown = false;
             d2HeldDown = false;
             character.spriteAnims = SetSprites();
+            character.ModifiedSpeed = character.DefaultSpeed * .8f;
 
         }
 
@@ -97,11 +98,6 @@ namespace CrazyArcade.PlayerStateMachine
         public void endState()
         {
             turtle.Delete_Self();
-        }
-        public int SetSpeed()
-        {
-            character.ModifiedSpeed = character.DefaultSpeed*.8f;
-            return 1;
         }
 
         public SpriteAnimation[] SetSprites()

@@ -41,7 +41,6 @@ namespace CrazyArcade.PlayerStateMachine
         {
             //ModifiedSpeed = DefaultSpeed;
             playerState = new CharacterStateFree(this);
-            playerState.SetSpeed();
             direction = Dir.Down;
             GameCoord = new Vector2(3, 3);
             //currentBlastLength = defaultBlastLength;
@@ -78,7 +77,6 @@ namespace CrazyArcade.PlayerStateMachine
         public void CollisionDestroyLogic()
         {
             this.playerState.ProcessAttaction();
-            this.playerState.SetSpeed();
         }
         public override void Load()
         {
@@ -101,7 +99,6 @@ namespace CrazyArcade.PlayerStateMachine
         public void SwitchToMountedState()
         {
             this.playerState = new CharacterStateTurtle(this);
-            this.playerState.SetSpeed();
         }
         public void IncreaseSpeed()
         {

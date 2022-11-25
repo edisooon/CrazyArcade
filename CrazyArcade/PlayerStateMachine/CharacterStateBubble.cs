@@ -25,7 +25,9 @@ namespace CrazyArcade.PlayerStateMachine
             character.animationHandleInt = 0;
             bubble = new PlayerBubble(character, character.parentScene);
             character.spriteAnims = SetSprites();
+            character.ModifiedSpeed = 2;
             character.SceneDelegate.ToAddEntity(bubble);
+
         }
 
         public bool CouldGetPowerup { get => false; }
@@ -55,7 +57,6 @@ namespace CrazyArcade.PlayerStateMachine
             {
                 character.playerState = new CharacterStateFree(character);
                 bubble.bubbleInt = 2;
-                character.playerState.SetSpeed();
                 character.lives--;
                 UI_Singleton.ChangeComponentText("lifeCounter", "count", "Lives: " + character.lives);
                 if (character.lives == 0)
@@ -64,12 +65,6 @@ namespace CrazyArcade.PlayerStateMachine
                 }
             }
             elapsedTime += (float)time.ElapsedGameTime.TotalMilliseconds;
-        }
-
-        public int SetSpeed()
-        {
-            character.ModifiedSpeed = 2;
-            return 1;
         }
 
         public SpriteAnimation[] SetSprites()

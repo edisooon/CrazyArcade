@@ -15,6 +15,7 @@ namespace CrazyArcade.PlayerStateMachine
             start = new SpriteAnimation[1];
             start[0] = new SpriteAnimation(TextureSingleton.GetPlayer1(), 10, 7, 527, 480, 64, 10);
             character.spriteAnims = SetSprites();
+            character.ModifiedSpeed = 0;
         }
 
         public bool CouldGetPowerup { get => false; }
@@ -39,11 +40,6 @@ namespace CrazyArcade.PlayerStateMachine
         public void ProcessState(GameTime time)
         {
             throw new NotImplementedException();
-        }
-
-        public int SetSpeed()
-        {
-            return 0;
         }
 
         public SpriteAnimation[] SetSprites()

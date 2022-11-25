@@ -16,9 +16,10 @@ namespace CrazyArcade.PlayerStateMachine
         //Main logic of the state machine, called by the update method in playercharacter
         public void ProcessState(GameTime time);
         //Returns the sprites the character will be represeted with
-        public SpriteAnimation[] SetSprites();
-        //Sets the speed of the player character
-        public int SetSpeed();
+        public SpriteAnimation[] SetSprites();    //=======>
+                                                          // ====> both is put in the constructor of CharacterState now (so that we don't have to do neither when switch to new state)
+        //Sets the speed of the player character    =======> 
+        //public int SetSpeed();
         //code for dealing with functionality of item upon current state
         public void ProcessItem();
         //Code for obtaining a rideable mount
