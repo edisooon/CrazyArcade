@@ -18,7 +18,7 @@ using System.Threading.Tasks;
 
 namespace CrazyArcade.BombFeature
 {
-    public class WaterBomb : CAGridBoxEntity, IPlayerCollidable, IExplosionCollidable, IExplodable, IBossCollidable
+    public class WaterBomb : CAGridBoxEntity, IExplosionCollidable, IExplodable, IBossCollidable
     {
         int BlastLength;
         float DetonateTimer;
@@ -212,17 +212,6 @@ namespace CrazyArcade.BombFeature
         {
             Point mdir = moveDir[(int)dir];
             return manager.CheckAvailable(new GridBoxPosition(initialPos.X + mdir.X, initialPos.Y + mdir.Y, (int)GridObjectDepth.Box)) == null;
-        }
-
-        public void CollisionLogic(Rectangle overlap, IPlayerCollisionBehavior collisionPartner)
-        {
-            //if (hasNotLeft.Contains(collisionPartner)) return;
-            //this.direction = (collisionPartner as Character).direction;
-            //if (collisionPartner.CouldKick && )
-            //{
-            //    kick(direction);
-            //}
-
         }
 
         public IExplosion explode()
