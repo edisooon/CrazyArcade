@@ -33,7 +33,7 @@ namespace CrazyArcade.PlayerStateMachine
             //character.parentScene.AddSprite(turtle);
             character.SceneDelegate.ToAddEntity(owl);
             this.spriteAnims = new SpriteAnimation[4];
-
+            character.spriteAnims = SetSprites();
             this.character = character;
 
             d1HeldDown = false;

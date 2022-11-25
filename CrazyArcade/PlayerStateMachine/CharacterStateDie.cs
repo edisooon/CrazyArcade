@@ -16,6 +16,7 @@ namespace CrazyArcade.PlayerStateMachine
             this.character = character;
             die = new SpriteAnimation[1];
             die[0] = new SpriteAnimation(TextureSingleton.GetPlayer1(), 11, 7, 275, 531, 108, 10);
+            character.spriteAnims = SetSprites();
         }
 
         public bool CouldGetPowerup { get => false; }
@@ -43,7 +44,6 @@ namespace CrazyArcade.PlayerStateMachine
             if (character.SpriteAnim.getCurrentFrame() == character.SpriteAnim.getTotalFrames() - 1)
             {
                 character.playerState = new CharacterStateFree(character);
-                character.spriteAnims = character.playerState.SetSprites();
                 character.playerState.SetSpeed();
                 character.lives--;
                 if (character.lives == 0)

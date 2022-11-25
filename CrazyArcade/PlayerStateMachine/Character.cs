@@ -35,11 +35,12 @@ namespace CrazyArcade.PlayerStateMachine
 
         public override SpriteAnimation SpriteAnim => spriteAnims[animationHandleInt];
 
+        public ICharacterState State => playerState;
+
         public Character()
         {
             //ModifiedSpeed = DefaultSpeed;
             playerState = new CharacterStateFree(this);
-            spriteAnims = playerState.SetSprites();
             playerState.SetSpeed();
             direction = Dir.Down;
             GameCoord = new Vector2(3, 3);
@@ -77,8 +78,6 @@ namespace CrazyArcade.PlayerStateMachine
         public void CollisionDestroyLogic()
         {
             this.playerState.ProcessAttaction();
-            
-            this.spriteAnims = this.playerState.SetSprites();
             this.playerState.SetSpeed();
         }
         public override void Load()
@@ -93,29 +92,24 @@ namespace CrazyArcade.PlayerStateMachine
         //}
         public void IncreaseBlastLength()
         {
-            if(this.playerState.CouldGetPowerup)
-                playerItems.AddItem(new BlastLengthModifier());
+            playerItems.AddItem(new BlastLengthModifier());
         }
         public void EnableKick()
         {
-            if (this.playerState.CouldGetPowerup)
-                playerItems.AddItem(new KickModifier());
+            playerItems.AddItem(new KickModifier());
         }
         public void SwitchToMountedState()
         {
             this.playerState = new CharacterStateTurtle(this);
-            spriteAnims = this.playerState.SetSprites();
             this.playerState.SetSpeed();
         }
         public void IncreaseSpeed()
         {
-            if (this.playerState.CouldGetPowerup)
-                playerItems.AddItem(new SpeedModifier());
+            playerItems.AddItem(new SpeedModifier());
         }
         public void IncreaseBombCount()
         {
-            if (this.playerState.CouldGetPowerup)
-                playerItems.AddItem(new BombCountModifier());
+            playerItems.AddItem(new BombCountModifier());
         }
         public void IncreaseScore(int score)
         {

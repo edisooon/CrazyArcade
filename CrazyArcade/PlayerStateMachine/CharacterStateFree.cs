@@ -23,6 +23,7 @@ namespace CrazyArcade.PlayerStateMachine
         {
             this.spriteAnims = new SpriteAnimation[4];
             this.character = character;
+            character.spriteAnims = SetSprites();
             d1HeldDown = false;
             d2HeldDown = false;
         }
@@ -53,24 +54,24 @@ namespace CrazyArcade.PlayerStateMachine
             {
                 character.SpriteAnim.playing = true;
             }
-            if (Keyboard.GetState().IsKeyDown(Keys.E))
-            {
-                character.playerState = new CharacterStateBubble(character);
-                character.spriteAnims = character.playerState.SetSprites();
-                character.playerState.SetSpeed();
-            }
-            if (Keyboard.GetState().IsKeyDown(Keys.D1) && !d1HeldDown)
-            {
-                d1HeldDown = true;
-                character.CurrentBlastLength = character.CurrentBlastLength + 1 < 5 ? character.CurrentBlastLength + 1 : 5;
-            }
-            d1HeldDown = Keyboard.GetState().IsKeyDown(Keys.D1);
-            if (Keyboard.GetState().IsKeyDown(Keys.D2) && !d2HeldDown)
-            {
-                d2HeldDown = true;
-                character.BombCapacity = character.BombCapacity + 1 < 5 ? character.BombCapacity + 1 : 5;
-            }
-            d2HeldDown = Keyboard.GetState().IsKeyDown(Keys.D2);
+            //if (Keyboard.GetState().IsKeyDown(Keys.E))
+            //{
+            //    character.playerState = new CharacterStateBubble(character);
+            //    character.spriteAnims = character.playerState.SetSprites();
+            //    character.playerState.SetSpeed();
+            //}
+            //if (Keyboard.GetState().IsKeyDown(Keys.D1) && !d1HeldDown)
+            //{
+            //    d1HeldDown = true;
+            //    character.CurrentBlastLength = character.CurrentBlastLength + 1 < 5 ? character.CurrentBlastLength + 1 : 5;
+            //}
+            //d1HeldDown = Keyboard.GetState().IsKeyDown(Keys.D1);
+            //if (Keyboard.GetState().IsKeyDown(Keys.D2) && !d2HeldDown)
+            //{
+            //    d2HeldDown = true;
+            //    character.BombCapacity = character.BombCapacity + 1 < 5 ? character.BombCapacity + 1 : 5;
+            //}
+            //d2HeldDown = Keyboard.GetState().IsKeyDown(Keys.D2);
         }
         public void ProcessItem()
         {

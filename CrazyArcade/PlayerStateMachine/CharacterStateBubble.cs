@@ -24,6 +24,7 @@ namespace CrazyArcade.PlayerStateMachine
             this.character = character;
             character.animationHandleInt = 0;
             bubble = new PlayerBubble(character, character.parentScene);
+            character.spriteAnims = SetSprites();
             character.SceneDelegate.ToAddEntity(bubble);
         }
 
@@ -53,7 +54,6 @@ namespace CrazyArcade.PlayerStateMachine
             if (elapsedTime > popTime)
             {
                 character.playerState = new CharacterStateFree(character);
-                character.spriteAnims = character.playerState.SetSprites();
                 bubble.bubbleInt = 2;
                 character.playerState.SetSpeed();
                 character.lives--;
