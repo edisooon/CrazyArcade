@@ -76,7 +76,7 @@ namespace CrazyArcade.Demo1
 
         public void UpdatePosition()
         {
-            Console.WriteLine(GameCoord.Y + "********");
+            Console.WriteLine(GameCoord.X + "********");
             Vector2 newGameCoord = new Vector2(GameCoord.X, GameCoord.Y);
             newGameCoord += trans.RevScale(CurrentSpeed);
 
@@ -105,6 +105,12 @@ namespace CrazyArcade.Demo1
 
             // the player would move with CurrentSpeed if 1.is moving inside a block(handling the case when player hasn't left the bomb) 2. is going to a new block but not obstacles ahead 3.edge case of 2
             if (!toNewBlock || couldMoveFree || couldMoveThrough) GameCoord = newGameCoord;
+            else if (!slideToDownOrRight && !slideToUpOrLeft)
+            {
+                // PLAYER has been blocked
+                if (horizontallyMove) GameCoord = new Vector2((float)Math.Round(GameCoord.X), GameCoord.Y);
+                else GameCoord = new Vector2(GameCoord.X, (float)Math.Round(GameCoord.Y));
+            }
             else if (slideToUpOrLeft)
             {
                 if (verticallyMove)
@@ -134,14 +140,6 @@ namespace CrazyArcade.Demo1
                     if ((int)GameCoord.Y + 1 - GameCoord.Y >= slidingSpeed) GameCoord = new Vector2(GameCoord.X, GameCoord.Y + slidingSpeed);
                     else GameCoord = new Vector2(GameCoord.X, (int)GameCoord.Y + 1);
                 }
-            }
-            else
-            {
-                // PLAYER has been blocked
-                if (direction == Dir.Left) GameCoord = new Vector2((int)GameCoord.X, GameCoord.Y);
-                else if(direction == Dir.Right) GameCoord = new Vector2((int)GameCoord.X+1, GameCoord.Y);
-                else if (direction == Dir.Up) GameCoord = new Vector2(GameCoord.X, (int)GameCoord.Y);
-                else if (direction == Dir.Down) GameCoord = new Vector2(GameCoord.X, (int)GameCoord.Y+1);
             }
 
 

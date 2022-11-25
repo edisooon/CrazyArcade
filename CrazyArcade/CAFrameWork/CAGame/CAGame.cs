@@ -78,8 +78,8 @@ public class CAGame : Game, IGameDelegate, ITransitionCompleteHandler
         transitionNum = 0;
         stageNum = 0;
         //_graphics.IsFullScreen = true;
-        _graphics.PreferredBackBufferWidth = 1366;
-        _graphics.PreferredBackBufferHeight = 768;
+        _graphics.PreferredBackBufferWidth = 900;
+        _graphics.PreferredBackBufferHeight = 600;
         _graphics.ApplyChanges();
         base.Initialize();
         
