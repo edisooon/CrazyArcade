@@ -11,9 +11,9 @@ namespace CrazyArcade.CAFrameWork.GridBoxSystem
 		{
 		}
         private Dictionary<GridBoxPosition, IGridBox> map = new Dictionary<GridBoxPosition, IGridBox>();
-        public IGridBox CheckAvailable(GridBoxPosition position)
+        public bool CheckAvailable(GridBoxPosition position)
         {
-            return map.ContainsKey(position) ? map[position] : null;
+            return !map.ContainsKey(position);
         }
         public bool MoveBoxTo(IGridBox box, GridBoxPosition position)
         {
@@ -37,7 +37,7 @@ namespace CrazyArcade.CAFrameWork.GridBoxSystem
             if (sprite is IGridBox)
             {
                 IGridBox gridBox = (sprite as IGridBox);
-                if (CheckAvailable(gridBox.Position)==null)
+                if (CheckAvailable(gridBox.Position))
                 {
                     map[gridBox.Position] = gridBox;
                     Console.WriteLine("put in: " + gridBox.Position.X + " " + gridBox.Position.Y + " " + gridBox.Position.Depth);

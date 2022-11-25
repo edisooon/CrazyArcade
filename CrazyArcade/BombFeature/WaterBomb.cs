@@ -210,7 +210,7 @@ namespace CrazyArcade.BombFeature
         private bool couldMove(Dir dir, GridBoxPosition initialPos)
         {
             Point mdir = moveDir[(int)dir];
-            return manager.CheckAvailable(new GridBoxPosition(initialPos.X + mdir.X, initialPos.Y + mdir.Y, (int)GridObjectDepth.Box))==null;
+            return manager.CheckAvailable(new GridBoxPosition(initialPos.X + mdir.X, initialPos.Y + mdir.Y, (int)GridObjectDepth.Box));
         }
 
         public void CollisionLogic(Rectangle overlap, IPlayerCollisionBehavior collisionPartner)

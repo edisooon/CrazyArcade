@@ -82,8 +82,8 @@ namespace CrazyArcade.Demo1
             Vector2 upLeftBorder = new Vector2(direction == Dir.Right ? newGameCoord.X + 1 : newGameCoord.X, direction == Dir.Down ? newGameCoord.Y + 1 : newGameCoord.Y);
             Vector2 bottomRightBorder = new Vector2(verticallyMove ? upLeftBorder.X+1 : upLeftBorder.X, horizontallyMove ? upLeftBorder.Y+1 : upLeftBorder.Y);
 
-            bool slideToUpOrLeft = manager.CheckAvailable(new GridBoxPosition(upLeftBorder, (int)GridObjectDepth.Box))==null;
-            bool slideToDownOrRight = manager.CheckAvailable(new GridBoxPosition(bottomRightBorder, (int)GridObjectDepth.Box))==null;
+            bool slideToUpOrLeft = manager.CheckAvailable(new GridBoxPosition(upLeftBorder, (int)GridObjectDepth.Box));
+            bool slideToDownOrRight = manager.CheckAvailable(new GridBoxPosition(bottomRightBorder, (int)GridObjectDepth.Box));
 
             bool couldMoveFree = slideToUpOrLeft && slideToDownOrRight;
             bool couldMoveThrough = slideToUpOrLeft && (verticallyMove ? upLeftBorder.X==(int)upLeftBorder.X : upLeftBorder.Y==(int)upLeftBorder.Y);
