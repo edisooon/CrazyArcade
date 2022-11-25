@@ -14,19 +14,18 @@ using System.Threading.Tasks;
 
 namespace CrazyArcade.PlayerStateMachine
 {
-    public class CharacterStateTurtle : ICharacterState
+    public class CharacterStateMounted : ICharacterState
     {
         private Character character;
-        private PlayerTurtle turtle;
-        public CharacterStateTurtle(Character character)
+        private PlayerRide ride;
+        public CharacterStateMounted(Character character)
         {
             this.character = character;
             character.animationHandleInt = 0;
-            turtle = new PlayerTurtle(character);
-            //character.SceneDelegate.ToAddEntity(turtle);
-
+            ride = new PlayerTurtle(character);
+            character.SceneDelegate.ToAddEntity(ride);
             character.spriteAnims = SetSprites();
-            character.ModifiedSpeed = character.DefaultSpeed * .8f;
+            //character.ModifiedSpeed = character.DefaultSpeed * .8f;   // different rides should give character different speeds
 
         }
 
@@ -59,19 +58,19 @@ namespace CrazyArcade.PlayerStateMachine
             {
                 character.SpriteAnim.playing = false;
                 character.SpriteAnim.setFrame(0);
-                turtle.SpriteAnim.playing = false;
-                turtle.SpriteAnim.setFrame(0);
+                ride.SpriteAnim.playing = false;
+                ride.SpriteAnim.setFrame(0);
             }
             else
             {
                 character.SpriteAnim.playing = true;
-                turtle.SpriteAnim.playing = true;
+                ride.SpriteAnim.playing = true;
             }
 
         }
         public void endState()
         {
-            turtle.Delete_Self();
+            ride.Delete_Self();
         }
 
         public SpriteAnimation[] SetSprites()

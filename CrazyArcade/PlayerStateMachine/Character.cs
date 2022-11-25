@@ -46,7 +46,7 @@ namespace CrazyArcade.PlayerStateMachine
             //currentBlastLength = defaultBlastLength;
             DrawOrder = 1;
             lives = 2;
-            Console.WriteLine("Count: " + ++CCount);
+            //Console.WriteLine("Count: " + ++CCount);
             //this.bboxOffset = new Point(20, 20);
         }
         public override void Update(GameTime time)
@@ -96,10 +96,11 @@ namespace CrazyArcade.PlayerStateMachine
         {
             playerItems.AddItem(new KickModifier());
         }
-        public void SwitchToMountedState()
-        {
-            this.playerState = new CharacterStateTurtle(this);
-        }
+        //public void SwitchToMountedState()
+        //{
+        //    this.playerState = new CharacterStateMounted(this);
+        //    Console.WriteLine("has triggerred");
+        //}
         public void IncreaseSpeed()
         {
             playerItems.AddItem(new SpeedModifier());
@@ -112,7 +113,6 @@ namespace CrazyArcade.PlayerStateMachine
         {
             if (this.playerState.CouldGetItem)
             {
-
                 this.score += score;
                 UI_Singleton.ChangeComponentText("score", "scoreText", "Score : " + this.score);
             }

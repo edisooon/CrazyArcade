@@ -28,6 +28,8 @@
     <None Remove="CAFrameWork\GridBoxSystem\" />
     <None Remove="CAFrameWork\InputSystem\" />
     <None Remove="Utilities\" />
+    <None Remove="PlayerStateMachine\CharacterStateMounted\" />
+    <None Remove="PlayerStateMachine\CharacterStateMounted\PlayerRide\" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Icon.ico" />
@@ -44,6 +46,8 @@
     <Folder Include="CAFrameWork\GridBoxSystem\" />
     <Folder Include="CAFrameWork\InputSystem\" />
     <Folder Include="Utilities\" />
+    <Folder Include="PlayerStateMachine\CharacterStateMounted\" />
+    <Folder Include="PlayerStateMachine\CharacterStateMounted\PlayerRide\" />
   </ItemGroup>
   <Target Name="RestoreDotnetTools" BeforeTargets="Restore">
     <Message Text="Restoring dotnet tools" Importance="High" />
