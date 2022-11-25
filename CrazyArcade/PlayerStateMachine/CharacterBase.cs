@@ -77,7 +77,7 @@ namespace CrazyArcade.Demo1
 
             bool verticallyMove = direction == Dir.Up || direction == Dir.Down, horizontallyMove = direction == Dir.Left || direction == Dir.Right;
             bool toNewBlock = isToNewBlock(newGameCoord, GameCoord, verticallyMove);
-            float blockDist = 0.2f;
+            float slideTriggerPoint = 0.3f;
 
             Vector2 upLeftBorder = new Vector2(direction == Dir.Right ? newGameCoord.X + 1 : newGameCoord.X, direction == Dir.Down ? newGameCoord.Y + 1 : newGameCoord.Y);
             Vector2 bottomRightBorder = new Vector2(verticallyMove ? upLeftBorder.X+1 : upLeftBorder.X, horizontallyMove ? upLeftBorder.Y+1 : upLeftBorder.Y);
@@ -96,12 +96,13 @@ namespace CrazyArcade.Demo1
             {
                 if (verticallyMove)
                 {
-
+                    if ((int)GameCoord.X + 1 - GameCoord.X < slideTriggerPoint) return;
                     if (GameCoord.X - (int)GameCoord.X >= slidingSpeed) GameCoord = new Vector2(GameCoord.X - slidingSpeed, GameCoord.Y);
                     else GameCoord = new Vector2((int)GameCoord.X, GameCoord.Y);
                 }
                 else if(horizontallyMove)
                 {
+                    if ((int)GameCoord.Y + 1 - GameCoord.Y < slideTriggerPoint) return;
                     if (GameCoord.Y - (int)GameCoord.Y >= slidingSpeed) GameCoord = new Vector2(GameCoord.X, GameCoord.Y - slidingSpeed);
                     else GameCoord = new Vector2(GameCoord.X, (int)GameCoord.Y);
                 }
@@ -110,11 +111,13 @@ namespace CrazyArcade.Demo1
             {
                 if (verticallyMove)
                 {
+                    if (GameCoord.X - (int)GameCoord.X < slideTriggerPoint) return;
                     if ((int)GameCoord.X + 1 - GameCoord.X >= slidingSpeed) GameCoord = new Vector2(GameCoord.X + slidingSpeed, GameCoord.Y);
                     else GameCoord = new Vector2((int)GameCoord.X + 1, GameCoord.Y);
                 }
                 else if (horizontallyMove)
                 {
+                    if (GameCoord.Y - (int)GameCoord.Y < slideTriggerPoint) return;
                     if ((int)GameCoord.Y + 1 - GameCoord.Y >= slidingSpeed) GameCoord = new Vector2(GameCoord.X, GameCoord.Y + slidingSpeed);
                     else GameCoord = new Vector2(GameCoord.X, (int)GameCoord.Y + 1);
                 }
