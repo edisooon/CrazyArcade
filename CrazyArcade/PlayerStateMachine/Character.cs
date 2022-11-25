@@ -93,11 +93,13 @@ namespace CrazyArcade.PlayerStateMachine
         //}
         public void IncreaseBlastLength()
         {
-            playerItems.AddItem(new BlastLengthModifier());
+            if(this.playerState.CouldGetPowerup)
+                playerItems.AddItem(new BlastLengthModifier());
         }
         public void EnableKick()
         {
-            playerItems.AddItem(new KickModifier());
+            if (this.playerState.CouldGetPowerup)
+                playerItems.AddItem(new KickModifier());
         }
         public void SwitchToMountedState()
         {
@@ -107,16 +109,23 @@ namespace CrazyArcade.PlayerStateMachine
         }
         public void IncreaseSpeed()
         {
-            playerItems.AddItem(new SpeedModifier());
+            if (this.playerState.CouldGetPowerup)
+                playerItems.AddItem(new SpeedModifier());
         }
         public void IncreaseBombCount()
         {
-            playerItems.AddItem(new BombCountModifier());
+            if (this.playerState.CouldGetPowerup)
+                playerItems.AddItem(new BombCountModifier());
         }
         public void IncreaseScore(int score)
         {
-            this.score += score;
-            UI_Singleton.ChangeComponentText("score", "scoreText", "Score : " + this.score);
+            if (this.playerState.CouldGetPowerup)
+            {
+
+                this.score += score;
+                UI_Singleton.ChangeComponentText("score", "scoreText", "Score : " + this.score);
+            }
+
         }
 
 

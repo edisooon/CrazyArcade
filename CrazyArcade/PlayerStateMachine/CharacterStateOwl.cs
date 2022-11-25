@@ -20,6 +20,11 @@ namespace CrazyArcade.PlayerStateMachine
         public SpriteAnimation[] spriteAnims;
         private bool d1HeldDown;
         private bool d2HeldDown;
+
+        public bool CouldPutBomb => throw new NotImplementedException();
+
+        public bool CouldGetPowerup => throw new NotImplementedException();
+
         public CharacterStateOwl(Character character)
         {
             this.character = character;
@@ -91,11 +96,6 @@ namespace CrazyArcade.PlayerStateMachine
                 spriteAnims[i].Scale = character.SpriteAnim.Scale;
             }
             return spriteAnims;
-        }
-
-        public bool CouldPutBomb()
-        {
-            return true;
         }
     }
 }
