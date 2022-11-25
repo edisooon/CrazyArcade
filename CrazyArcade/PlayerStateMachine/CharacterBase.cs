@@ -76,6 +76,7 @@ namespace CrazyArcade.Demo1
 
         public void UpdatePosition()
         {
+            Console.WriteLine(GameCoord.Y + "********");
             Vector2 newGameCoord = new Vector2(GameCoord.X, GameCoord.Y);
             newGameCoord += trans.RevScale(CurrentSpeed);
 
@@ -134,6 +135,15 @@ namespace CrazyArcade.Demo1
                     else GameCoord = new Vector2(GameCoord.X, (int)GameCoord.Y + 1);
                 }
             }
+            else
+            {
+                // PLAYER has been blocked
+                if (direction == Dir.Left) GameCoord = new Vector2((int)GameCoord.X, GameCoord.Y);
+                else if(direction == Dir.Right) GameCoord = new Vector2((int)GameCoord.X+1, GameCoord.Y);
+                else if (direction == Dir.Up) GameCoord = new Vector2(GameCoord.X, (int)GameCoord.Y);
+                else if (direction == Dir.Down) GameCoord = new Vector2(GameCoord.X, (int)GameCoord.Y+1);
+            }
+
 
 
             //switch (direction)
