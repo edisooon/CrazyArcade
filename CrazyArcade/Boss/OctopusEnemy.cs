@@ -194,7 +194,7 @@ namespace CrazyArcade.Boss
             }
             internalRectangle.X = X;
             internalRectangle.Y = Y;
-            Debug.WriteLine("Oct XY: ("+this.X+","+this.Y+")" );
+            //Debug.WriteLine("Oct XY: ("+this.X+","+this.Y+")" );
 
             //Debug.WriteLine("Octo Default Update");
         }
