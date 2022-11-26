@@ -1,6 +1,7 @@
 ﻿using CrazyArcade.BombFeature;
 using CrazyArcade.CAFramework;
 using CrazyArcade.Content;
+using CrazyArcade.GameGridSystems;
 using CrazyArcade.Items;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -23,6 +24,7 @@ namespace CrazyArcade.PlayerStateMachine
             this.character = character;
             character.animationHandleInt = 0;
             LoadRide(type);
+            character.bboxOffset.Y = CAGameGridSystems.BlockLength;
             character.spriteAnims = SetSprites();
             //character.ModifiedSpeed = character.DefaultSpeed * .8f;   // different rides should give character different speeds
 
@@ -54,6 +56,7 @@ namespace CrazyArcade.PlayerStateMachine
         {
             // when player takes attaction by the explosion, it switches to its free state
             character.playerState = new CharacterStateFree(character);
+            endState();
         }
 
         public void ProcessItem()

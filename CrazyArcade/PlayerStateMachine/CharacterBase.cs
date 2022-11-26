@@ -32,11 +32,14 @@ namespace CrazyArcade.Demo1
         public Vector2 moveInputs = new(0, 0);
         private int blockLength = CAGameGridSystems.BlockLength;
         protected Rectangle blockBoundingBox = new Rectangle(0, 0, CAGameGridSystems.BlockLength, CAGameGridSystems.BlockLength);
-        protected Point bboxOffset = new Point(3, 20);
+        public Point bboxOffset = new Point(3, 20);
         protected bool blockBboxOn = true;
         public Dir direction = Dir.Down;
         public IGridBoxManager manager;
         public IGridBoxManager Manager { get => manager; set => manager = value; }
+
+        public float xOffset = 0;
+        public float yOffset = 0;
 
 
         //----------IGridable Start------------

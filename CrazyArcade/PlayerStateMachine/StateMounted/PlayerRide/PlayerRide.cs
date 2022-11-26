@@ -19,8 +19,6 @@ namespace CrazyArcade.PlayerStateMachine
         {
             ridesTexture = TextureSingleton.GetRides();
             this.character = character;
-            X = character.X;
-            Y = character.Y;
             DrawOrder = character.ActualDrawOrder - 2;
 
             yOffset = 35;
