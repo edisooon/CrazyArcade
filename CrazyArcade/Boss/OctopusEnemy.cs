@@ -118,6 +118,7 @@ namespace CrazyArcade.Boss
             //Animation
             texture = TextureSingleton.GetOctoBoss();
             spriteAnims = new SpriteAnimation[4];
+            //Debug.WriteLine("Octo Constructor");
         }
 
         public override void Load()
@@ -157,16 +158,19 @@ namespace CrazyArcade.Boss
             deathAnimation = new SpriteAnimation(texture, 1941, 43, 108, 104, 1, 0, 1);
             deathAnimation.setWidthHeight(108, 104);
             deathAnimation.Position = new Vector2(X, Y);
+
+            //Debug.WriteLine("Octo Load");
         }
 
         public override void Update(GameTime time)
         {
             state.Update(time);
+
+            //Debug.WriteLine("Octo Update (main)");
         }
 
         public void defaultUpdate(GameTime time)
         {
-            /**
             // handled animation updated (position and frame) in abstract level
 
             SpriteAnim.Position = new Vector2(X, Y);
@@ -191,12 +195,14 @@ namespace CrazyArcade.Boss
             internalRectangle.X = X;
             internalRectangle.Y = Y;
             Debug.WriteLine("Oct XY: ("+this.X+","+this.Y+")" );
-            **/
+
+            //Debug.WriteLine("Octo Default Update");
         }
 
         public void UpdateAnimation(Dir dir)
         {
             this.spriteAnims[(int)direction].Position = new Vector2(X, Y);
+            //Debug.WriteLine("Octo Update Animation");
         }
 
         //IPlayerCollidable Stuff
@@ -226,9 +232,7 @@ namespace CrazyArcade.Boss
                     justAttacked = false;
                     return xDifference >= squareSize + xoffSet;
                 case Dir.Up:
-
                     return yDifference <= yoffSet;
-
                 case Dir.Down:
                     return yDifference >= squareSize+yoffSet;
                 case Dir.Left:
@@ -242,6 +246,7 @@ namespace CrazyArcade.Boss
                     }
                     return false;
             }
+            //Debug.WriteLine("Octo Change Dir");
             return false;
         }
         
@@ -257,20 +262,21 @@ namespace CrazyArcade.Boss
                 UpdateAnimation(dir);
             }
             // go to center
-            else if (dir == Dir.Left && xDifference < 5 && !justAttacked)
+            /**else if (dir == Dir.Left && xDifference < 5 && !justAttacked)
             {
                 direction = Dir.Down;
             }
             else if (dir == Dir.Down && xDifference < squareSize + xoffSet && yDifference > (squareSize / 2) + yoffSet - 1 && !justAttacked)
             {
                 justAttacked = true;
-                state = new OctopusAttack(this,1);
+                //state = new OctopusAttack(this,1);
                 this.squareBlast();
                 direction = Dir.Up;
                 //changeDir will put it back on course
-            }
+            }**/
             GameCoord += SpeedVector[(int)dir];
             justInjured = false;
+            //Debug.WriteLine("Octo Move");
         }
 
         public void shoot() {
@@ -296,6 +302,8 @@ namespace CrazyArcade.Boss
             this.SceneDelegate.ToAddEntity(projectile);
             //this.scene.AddSprite(projectile);
             //resume movement if necessary
+
+            //Debug.WriteLine("Octo Shoot");
         }
 
         public void squareBlast()
@@ -321,6 +329,7 @@ namespace CrazyArcade.Boss
             {
                 this.SceneDelegate.ToAddEntity(waterExplosionEdges[i]);
             }
+            //Debug.WriteLine("Octo Square Blast");
         }
         public void toggleHurtSprites(Boolean hurt) {
             if (hurt){
@@ -360,6 +369,8 @@ namespace CrazyArcade.Boss
                 state = new OctopusWounded(this);
                 //Debug.WriteLine("health: " + health);
             }
+
+            //Debug.WriteLine("Octo Hurt Boss");
         }
     }
     //Octopus Specific States
@@ -406,6 +417,7 @@ namespace CrazyArcade.Boss
                     enemy.state = new OctopusNormal(enemy);
                 }
             }
+            //Debug.WriteLine("Octo Attack Update");
         }
     }
     public class OctopusNormal : IEnemyState
@@ -424,6 +436,7 @@ namespace CrazyArcade.Boss
         public void Update(GameTime time)
         {
             enemy.defaultUpdate(time);
+            //Debug.WriteLine("Octo normal update");
         }
     }
     public class OctopusWounded : IEnemyState
@@ -465,7 +478,7 @@ namespace CrazyArcade.Boss
                 }
             }
             //Debug.WriteLine("Timer: " + timer);
-            
+            //Debug.WriteLine("Octo wounded update");
         }
     }
     public class OctopusDead : IEnemyState
@@ -506,6 +519,8 @@ namespace CrazyArcade.Boss
                 enemy.spriteAnims[0].Color = Color.White * opacity;
                 timer += 1.0f;
             }
+
+            //Debug.WriteLine("Octo Dead update");
         }
     }
 }
