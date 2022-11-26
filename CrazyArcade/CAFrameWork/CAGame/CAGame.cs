@@ -31,8 +31,9 @@ public class CAGame : Game, IGameDelegate, ITransitionCompleteHandler
     public String[] LevelSongTitles;
     public Song song;
     //Random for test purposes and counter
+    //load
     Random rnd = new Random();
-    int newElements = 0;
+    int newElements = 0+0;
     //
     private ITransition transition = null;
     string[] levelFileNames;
