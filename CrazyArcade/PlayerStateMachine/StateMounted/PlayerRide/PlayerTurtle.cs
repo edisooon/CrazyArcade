@@ -1,5 +1,6 @@
 ﻿using CrazyArcade.CAFramework;
 using CrazyArcade.Content;
+using CrazyArcade.GameGridSystems;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
@@ -17,14 +18,14 @@ namespace CrazyArcade.PlayerStateMachine
         {
             this.spriteAnims = new SpriteAnimation[4];
             // public SpriteAnimation(Texture2D texture, int startX, int startY, int width, int height, int frames, int offset, int fps) : base(texture, startX, startY, frames, width, height, offset )
-            spriteAnims[(int)Dir.Up] = new SpriteAnimation(ridesTexture, 15, 5, 29, 30, 2, 18, 6);
+            spriteAnims[(int)Dir.Up] = new SpriteAnimation(ridesTexture, 15, 5, 29, 31, 2, 18, 6);
             spriteAnims[(int)Dir.Down] = new SpriteAnimation(ridesTexture, 14, 37, 30, 31, 2, 19, 6);
             spriteAnims[(int)Dir.Left] = new SpriteAnimation(ridesTexture, 5, 69, 41, 31, 2, 5, 6);
             spriteAnims[(int)Dir.Right] = new SpriteAnimation(ridesTexture, 12, 101, 42, 31, 2, 5, 6);
-            for (int i = 0; i < 4; i++)
-            {
-                spriteAnims[i].Scale = 1.1f;
-            }
+            //for (int i = 0; i < 4; i++)
+            //{
+            //    spriteAnims[i].SetScale(CAGameGridSystems.BlockLength / 31f);
+            //}
             character.ModifiedSpeed = character.DefaultSpeed * .8f;
         }
         public override void Update(GameTime time)
