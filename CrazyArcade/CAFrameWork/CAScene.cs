@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using CrazyArcade.CAFramework;
-using CrazyArcade.CAFramework.Controller;
 using CrazyArcade.CAFrameWork.CAGame;
 using CrazyArcade.CAFrameWork.GameStates;
 using CrazyArcade.CAFrameWork.Transition;
@@ -66,10 +65,6 @@ namespace CrazyArcade.CAFramework
             foreach (IGameSystem system in systems)
             {
                 system.Update(time);
-                if (system is IControllable)
-                {
-                    (system as IControllable).Controller.Update(time);
-                }
                 UpdateSprite(time);
             }
         }
