@@ -48,7 +48,7 @@ namespace CrazyArcade.CAFrameWork.GameStates
         {
             if (Keyboard.GetState().IsKeyDown(Keys.R))
             {
-                this.gameRef.NewInstance();
+                this.gameRef.NewGame();
             }
             else if (Keyboard.GetState().IsKeyDown(Keys.Escape))
             {

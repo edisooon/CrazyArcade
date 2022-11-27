@@ -5,7 +5,8 @@ namespace CrazyArcade.CAFrameWork.CAGame
 {
 	public interface IGameDelegate
 	{
-		public void NewInstance();
+		public void NewGame();
+		public void StartGame();
 		public ISceneState Scene { get; set; }
 		public void Quit();
         void StageTransitTo(int stageNum, int dir);

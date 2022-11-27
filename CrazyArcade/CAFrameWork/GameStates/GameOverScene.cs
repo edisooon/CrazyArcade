@@ -34,8 +34,6 @@ namespace CrazyArcade.CAFrameWork.GameStates
         }
         public override void LoadSprites()
         {
-            //Temporary, will be changed to game over text
-            //this.AddSprite(new Balloon(new Vector2(400, 200)));
         }
 
         public override void LoadSystems()
@@ -45,7 +43,7 @@ namespace CrazyArcade.CAFrameWork.GameStates
         {
             if(Keyboard.GetState().IsKeyDown(Keys.R))
             {
-                this.gameRef.NewInstance();
+                this.gameRef.NewGame();
             }
             else if(Keyboard.GetState().IsKeyDown(Keys.Escape))
             {

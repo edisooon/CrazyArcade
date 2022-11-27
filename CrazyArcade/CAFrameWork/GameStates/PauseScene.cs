@@ -67,6 +67,10 @@ namespace CrazyArcade.CAFrameWork.GameStates
             {
                 TogglePause();
             }
+            if (ks.IsKeyDown(Keys.M))
+            {
+                gameRef.NewGame();
+            }
 
             // To be implemented in sprint 5
             /*if(inButton(ms))

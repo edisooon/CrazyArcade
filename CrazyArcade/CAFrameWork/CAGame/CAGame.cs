@@ -54,7 +54,12 @@ public class CAGame : Game, IGameDelegate, ITransitionCompleteHandler
         get { return scene; }
         set { scene = value; }
     }
-    public void NewInstance()
+    public void StartGame()
+    {
+        scene = new DemoScene(this, "Level_0.json", StageOffset);
+        base.Initialize();
+    }
+    public void NewGame()
     {
         this.Initialize();
     }
@@ -66,8 +71,9 @@ public class CAGame : Game, IGameDelegate, ITransitionCompleteHandler
     {
         gameGUI = new GUI();
         UI_Singleton.internalGUI = gameGUI;
-        scene = new DemoScene(this, "Level_0.json", StageOffset);
+        //scene = new DemoScene(this, "Level_0.json", StageOffset);
         TextureSingleton.LoadAllTextures(Content);
+        scene = new MainMenuScene(this);
         //TestLoad guiLoad = new TestLoad();
         //guiLoad.LoadGUI();
         song = Content.Load<Song>("playground");
@@ -77,8 +83,7 @@ public class CAGame : Game, IGameDelegate, ITransitionCompleteHandler
         CurrentLevel = test.levelObject;
         transitionNum = 0;
         stageNum = 0;
-        base.Initialize();
-        
+        base.Initialize();        
     }
 
     protected override void LoadContent()
