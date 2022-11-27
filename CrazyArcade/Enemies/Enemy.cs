@@ -20,7 +20,7 @@ namespace CrazyArcade.Enemies
         protected float yDifference;
         protected SpriteEffects effect;
         protected Vector2 Start;
-        private float centerEnemyValue;
+        private readonly float CenterEnemyValue;
         private Vector2 gamePos;
         private Vector2 pos;
         public IEnemyState state;
@@ -28,8 +28,8 @@ namespace CrazyArcade.Enemies
         private float timer;
         protected int fps = 10;
         public IGridBoxManager gridBoxManager;
-        public readonly int enemySize = 30;
-        Rectangle blockDetector = new Rectangle(0, 0, 1, 20);
+        protected const int EnemySize = 30;
+        Rectangle blockDetector = new(0, 0, 1, EnemySize/3);
         public int XDetectionOffset;
         public int YDetectionOffset;
         public int turnFLag = 0;
@@ -79,15 +79,15 @@ namespace CrazyArcade.Enemies
         {   
             
             //36 is the size of each block
-            centerEnemyValue = ((1f - (float)enemySize / blockSize)) / 2f;
+            CenterEnemyValue = ((1f - (float)EnemySize / blockSize)) / 2f;
             timer = 0;
-            GameCoord = new Vector2(centerEnemyValue + (float)x, centerEnemyValue + (float)y);
+            GameCoord = new Vector2(CenterEnemyValue + (float)x, CenterEnemyValue + (float)y);
             Start = GameCoord;
             state = new EnemyDownState(this);
             
         }
         
-        protected Rectangle internalRectangle = new Rectangle(0, 0, 30, 30);
+        protected Rectangle internalRectangle = new(0, 0, EnemySize, EnemySize);
         //player collision
 
         public Rectangle boundingBox => internalRectangle;
