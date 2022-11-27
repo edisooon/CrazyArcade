@@ -1,5 +1,4 @@
-﻿using CrazyArcade.Demo1;
-using CrazyArcade.Enemies;
+﻿using CrazyArcade.Enemies;
 using CrazyArcade.Boss;
 using CrazyArcade.CAFramework;
 using CrazyArcade.Items;
@@ -7,7 +6,6 @@ using CrazyArcade.Blocks;
 using CrazyArcade.PlayerStateMachine;
 using System.Collections.Generic;
 using Vector2 = Microsoft.Xna.Framework.Vector2;
-using Rectangle = Microsoft.Xna.Framework.Rectangle;
 using Microsoft.Xna.Framework.Input;
 using CrazyArcade.CAFrameWork.InputSystem;
 using CrazyArcade.CAFrameWork.Transition;

@@ -7,6 +7,7 @@ using CrazyArcade.GameGridSystems;
 using CrazyArcade.BombFeature;
 using CrazyArcade.CAFrameWork.GridBoxSystem;
 using CrazyArcade.EnemyCollision;
+using System.Runtime.CompilerServices;
 
 namespace CrazyArcade.Enemies
 {
@@ -19,7 +20,7 @@ namespace CrazyArcade.Enemies
         protected float yDifference;
         protected SpriteEffects effect;
         protected Vector2 Start;
-        private float centerEnemyValue;
+        private readonly float CenterEnemyValue;
         private Vector2 gamePos;
         private Vector2 pos;
         public IEnemyState state;
@@ -27,11 +28,12 @@ namespace CrazyArcade.Enemies
         private float timer;
         protected int fps = 10;
         public IGridBoxManager gridBoxManager;
-        public readonly int enemySize = 30;
-        Rectangle blockDetector = new Rectangle(0, 0, 1, 20);
+        protected const int EnemySize = 30;
+        Rectangle blockDetector = new(0, 0, 1, 2*(EnemySize/3));
         public int XDetectionOffset;
         public int YDetectionOffset;
         public int turnFLag = 0;
+        private readonly float blockSize = 36;
         //----------IGridable Start------------
         public Vector2 ScreenCoord
         {
@@ -71,22 +73,25 @@ namespace CrazyArcade.Enemies
             }
         }
         //----------IGridable End------------
+
+        //
         public Enemy(int x, int y)
         {   
+            
             //36 is the size of each block
-            centerEnemyValue = ((1f - (float)enemySize / 36f)) / 2f;
+            CenterEnemyValue = ((1f - (float)EnemySize / blockSize)) / 2f;
             timer = 0;
-            GameCoord = new Vector2(centerEnemyValue + (float)x, centerEnemyValue + (float)y);
+            GameCoord = new Vector2(CenterEnemyValue + (float)x, CenterEnemyValue + (float)y);
             Start = GameCoord;
             state = new EnemyDownState(this);
             
         }
-
-        protected Rectangle internalRectangle = new Rectangle(0, 0, 30, 30);
         
+        protected Rectangle internalRectangle = new(0, 0, EnemySize, EnemySize);
+        //player collision
 
         public Rectangle boundingBox => internalRectangle;
-
+        //player collision
         public void CollisionLogic(Rectangle overlap, IPlayerCollisionBehavior collisionPartner)
         {
             collisionPartner.CollisionDestroyLogic();
@@ -101,6 +106,10 @@ namespace CrazyArcade.Enemies
             SpriteAnim.setEffect(effect);
             xDifference = GameCoord.X - Start.X;
             yDifference = GameCoord.Y - Start.Y;
+            internalRectangle.X = X;
+            internalRectangle.Y = Y;
+            blockDetector.X = X + XDetectionOffset;
+            blockDetector.Y = Y + YDetectionOffset;
 
             if (timer > 1f / 6)
             {
@@ -112,10 +121,7 @@ namespace CrazyArcade.Enemies
             {
                 timer += (float)time.ElapsedGameTime.TotalMilliseconds;
             }
-            internalRectangle.X = X;
-            internalRectangle.Y = Y;
-            blockDetector.X = X + XDetectionOffset;
-            blockDetector.Y = Y + YDetectionOffset;
+            
         }
 
         protected abstract Vector2[] SpeedVector { get; }
@@ -139,6 +145,7 @@ namespace CrazyArcade.Enemies
 
         public void SetDetectorValues(int xOffset,int yOffset,int width,int height)
         {
+            //These values change the location of block detection blocks. The block is always in front of the enemy sprite
             XDetectionOffset = xOffset;
             YDetectionOffset = yOffset;
             blockDetector.Width = width;
