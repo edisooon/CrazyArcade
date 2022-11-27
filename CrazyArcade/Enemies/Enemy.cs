@@ -29,7 +29,7 @@ namespace CrazyArcade.Enemies
         protected int fps = 10;
         public IGridBoxManager gridBoxManager;
         protected const int EnemySize = 30;
-        Rectangle blockDetector = new(0, 0, 1, EnemySize/3);
+        Rectangle blockDetector = new(0, 0, 1, 2*(EnemySize/3));
         public int XDetectionOffset;
         public int YDetectionOffset;
         public int turnFLag = 0;
