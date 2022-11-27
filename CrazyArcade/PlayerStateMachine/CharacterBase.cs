@@ -12,10 +12,11 @@ using CrazyArcade.CAFrameWork.GridBoxSystem;
 using CrazyArcade.PlayerStateMachine.PlayerItemInteractions;
 using CrazyArcade.BombFeature;
 using CrazyArcade.CAFrameWork.Transition;
+using CrazyArcade.PlayerStateMachine;
 
 namespace CrazyArcade.Demo1
 {
-    public abstract class CharacterBase : CAEntity, IGridable, IGridBoxReciever
+    public abstract class CharacterBase : CAEntity, IGridable, IPlayer
     {
         public float DefaultSpeed = 5;
         public float ModifiedSpeed;
@@ -85,25 +86,30 @@ namespace CrazyArcade.Demo1
             bool toNewBlock = isToNewBlock(newGameCoord, GameCoord, verticallyMove);
             float slideTriggerPoint = 0.3f;
 
+
             Vector2 upLeftBorder = new Vector2(direction == Dir.Right ? newGameCoord.X + 1 : newGameCoord.X, direction == Dir.Down ? newGameCoord.Y + 1 : newGameCoord.Y);
             Vector2 bottomRightBorder = new Vector2(verticallyMove ? upLeftBorder.X+1 : upLeftBorder.X, horizontallyMove ? upLeftBorder.Y+1 : upLeftBorder.Y);
 
+            Vector2[] dir = new Vector2[] {  }
             IGridBox upLeftObstacle = manager.CheckAvailable(new GridBoxPosition(upLeftBorder, (int)GridObjectDepth.Box));
             bool slideToUpOrLeft = upLeftObstacle == null;
             IGridBox downRightObstacle = manager.CheckAvailable(new GridBoxPosition(bottomRightBorder, (int)GridObjectDepth.Box));
             bool slideToDownOrRight = downRightObstacle == null;
             if (toNewBlock)
-            {
-                // handle the special case of obstacles' behaviors
-                // 1) water bomb
-                if (CouldKick)
-                {
-                    if (upLeftObstacle is WaterBomb) characterKickBomb(upLeftObstacle as WaterBomb);
-                    if (downRightObstacle is WaterBomb) characterKickBomb(downRightObstacle as WaterBomb);
-                }
-                // 2) door
-                if (upLeftObstacle is Door) characterToNextLevel(upLeftObstacle as Door);
-                if (downRightObstacle is Door) characterToNextLevel(downRightObstacle as Door);
+			{
+				if (upLeftObstacle is IPlayerCollidable) (upLeftObstacle as IPlayerCollidable).PreCollide(this);
+				if (downRightObstacle is IPlayerCollidable) (downRightObstacle as IPlayerCollidable).PreCollide(this);
+
+				//// handle the special case of obstacles' behaviors
+				//// 1) water bombx
+				//if (CouldKick)
+    //            {
+    //                if (upLeftObstacle is WaterBomb) characterKickBomb(upLeftObstacle as WaterBomb);
+    //                if (downRightObstacle is WaterBomb) characterKickBomb(downRightObstacle as WaterBomb);
+    //            }
+    //            // 2) door
+    //            if (upLeftObstacle is Door) characterToNextLevel(upLeftObstacle as Door);
+    //            if (downRightObstacle is Door) characterToNextLevel(downRightObstacle as Door);
 
             }
 
