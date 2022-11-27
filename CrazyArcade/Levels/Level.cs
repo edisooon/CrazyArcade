@@ -160,7 +160,7 @@ namespace CrazyArcade.Levels
             foreach (Vector2 vector in itemLocations)
             {
                
-                Entity = new CoinBag(Scene, vector);
+                Entity = new CoinBag(vector);
                 EntityList.Add(Entity);
             }
 
@@ -170,7 +170,7 @@ namespace CrazyArcade.Levels
             {
 
                 
-                EntityList.Add(new Balloon(Scene, vector));
+                EntityList.Add(new Balloon(vector));
 
             }
 
@@ -180,7 +180,7 @@ namespace CrazyArcade.Levels
             {
 
                 
-                EntityList.Add(new Sneaker(Scene, vector));
+                EntityList.Add(new Sneaker(vector));
             }
 
             itemLocations = currentLevel.GetItemLocation(CreateLevel.LevelItem.TurtlePosition);
@@ -188,7 +188,7 @@ namespace CrazyArcade.Levels
             foreach (Vector2 vector in itemLocations)
             {
                 
-                EntityList.Add(new Turtle(Scene, vector));
+                EntityList.Add(new Turtle(vector));
             }
 
             itemLocations = currentLevel.GetItemLocation(CreateLevel.LevelItem.PotionPosition);
@@ -196,7 +196,7 @@ namespace CrazyArcade.Levels
             foreach (Vector2 vector in itemLocations)
             {
                 
-                EntityList.Add(new Potion(Scene, vector));
+                EntityList.Add(new Potion(vector));
             }
 
             itemLocations = currentLevel.GetItemLocation(CreateLevel.LevelItem.CoinPosition);
@@ -204,7 +204,7 @@ namespace CrazyArcade.Levels
             foreach (Vector2 vector in itemLocations)
             {
                 
-                EntityList.Add(new Coin(Scene, vector));
+                EntityList.Add(new Coin(vector));
             }
 
             itemLocations = currentLevel.GetItemLocation(CreateLevel.LevelItem.KickPosition);
@@ -212,7 +212,7 @@ namespace CrazyArcade.Levels
             foreach (Vector2 vector in itemLocations)
             {
 
-                EntityList.Add(new KickBoot(Scene, vector));
+                EntityList.Add(new KickBoot(vector));
             }
 
             itemLocations = currentLevel.GetItemLocation(CreateLevel.LevelItem.BombPosition);

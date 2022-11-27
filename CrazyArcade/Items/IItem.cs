@@ -31,6 +31,7 @@ namespace CrazyArcade.Items
                 this.UpdateCoord(value);
             }
         }
+        
         public void UpdateCoord(Vector2 value)
         {
             this.X = (int)value.X;
@@ -60,10 +61,10 @@ namespace CrazyArcade.Items
         //----------IGridable End------------
         protected Rectangle hitbox;
         protected SpriteAnimation spriteAnimation;
-        protected ISceneDelegate parentScene;
-        public Item(ISceneDelegate parentScene, Vector2 position, Rectangle source, Texture2D texture, int frames, int fps)
+        //protected ISceneDelegate parentScene;
+        public Item(Vector2 position, Rectangle source, Texture2D texture, int frames, int fps)
         {
-            this.parentScene = parentScene;
+            //this.parentScene = parentScene;
             spriteAnimation = new SpriteAnimation(texture, frames, fps);
             spriteAnimation.Scale = 0.6f;
             GameCoord = position;
@@ -82,17 +83,52 @@ namespace CrazyArcade.Items
         {
         }
         //Assumes that @this is in the IScene that is passed
-        public void DeleteSelf(ISceneDelegate parentScene)
+        public void DeleteSelf()
         {
-            parentScene.ToRemoveEntity(this);
+            SceneDelegate.ToRemoveEntity(this);
         }
 
         public bool Collide(IExplosion bomb)
         {
-            DeleteSelf(parentScene);
+            DeleteSelf();
             return true;
         }
 
         public abstract void CollisionLogic(Rectangle overlap, IPlayerCollisionBehavior collisionPartner);
+        private static Dictionary<int, Func<Vector2, Item>> randList;
+        public static Dictionary<int, Func<Vector2, Item>> RandList
+        {
+            get
+            {
+                if (randList == null)
+                {
+                    randList = new Dictionary<int, Func<Vector2, Item>>();
+                    randList[10] = (pos) => new CoinBag(pos);   //0-10  (10%)
+                    randList[20] = (pos) => new Balloon(pos);   //10-20 (10%)
+                    randList[30] = (pos) => new Turtle(pos);
+                    randList[40] = (pos) => new KickBoot(pos);
+                    randList[50] = (pos) => new Sneaker(pos);
+                    randList[60] = (pos) => new Potion(pos);
+                    randList[70] = (pos) => new Coin(pos);
+                    randList[100] = (_) => null;                //70-100 (30%)
+                }
+                return randList;
+            }
+        }
+
+        public static Item Random(Vector2 pos)
+        {
+            List<int> keys = RandList.Keys.ToList();
+            keys.Sort();
+
+            Random rand = new Random();
+            int number = rand.Next(0, keys[keys.Count - 1]);
+            foreach (int key in keys)
+            {
+                if (key > number)
+                    return randList[key](pos);
+            }
+            return null;
+        }
     }
 }
