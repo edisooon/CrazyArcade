@@ -24,21 +24,25 @@ namespace CrazyArcade.Levels
         float scale;
         Vector2 border;
         Vector2 startPosition;
+        int[] keySet = new int[5];
 
         public Level(CAScene scene, string levelName)
         {
-            currentLevel = new CreateLevel(levelName);
-            this.Scene = scene;
-            EntityList = new List<CAEntity>();
-            LoadSprites();
-            LoadBorder();
-            int[] keySet = new int[5];
             keySet[0] = KeyBoardInput.KeyDown(Keys.Up);
             keySet[1] = KeyBoardInput.KeyDown(Keys.Down);
             keySet[2] = KeyBoardInput.KeyDown(Keys.Left);
             keySet[3] = KeyBoardInput.KeyDown(Keys.Right);
             keySet[4] = KeyBoardInput.KeyUp(Keys.Space);
-            EntityList.Add(new PlayerCharacter(keySet));
+            currentLevel = new CreateLevel(levelName);
+            this.Scene = scene;
+            EntityList = new List<CAEntity>();
+            LoadSprites();
+            LoadBorder();
+            PlayerCharacter player = new(keySet)
+            {
+                GameCoord = currentLevel.GetPlayerStart()
+            };
+            EntityList.Add(player);
         }
         public List<CAEntity> DrawLevel()
         {
@@ -58,15 +62,15 @@ namespace CrazyArcade.Levels
         {
             scale = .9f;
             border = currentLevel.GetBorder();
-            for (int i = (int)border.X; i >= 0; i--)
+            for (int i = (int)border.X+1; i >= 0; i--)
             {
-                LoadStone(i, -1);
-                LoadStone(i - 1, (int)border.Y - 1);
+                LoadStone(i, 0);
+                LoadStone(i, (int)border.Y+1);
             }
-            for (int i = (int)border.Y; i >= 0; i--)
+            for (int i = (int)border.Y+1; i >= 0; i--)
             {
-                LoadStone(-1, i - 1);
-                LoadStone((int)border.X, i - 1);
+                LoadStone(0, i);
+                LoadStone((int)border.X+1, i);
             }
         }
         private void LoadStone(int X, int Y)
@@ -79,11 +83,9 @@ namespace CrazyArcade.Levels
         }
         private void LoadSprites()
         {
-
             
             //TODO Find a way to reduce duplicate code
             scale = .9f;
-            //IMPORTANT!!!! uncomment tbis when Door Block class is implemented.
             itemLocations = currentLevel.GetItemLocation(CreateLevel.LevelItem.DoorPosition);
 
             for (int i = 0; i < itemLocations.Length; i += 2)
@@ -204,32 +206,40 @@ namespace CrazyArcade.Levels
                 EntityList.Add(new Coin(Scene, vector));
             }
 
+            itemLocations = currentLevel.GetItemLocation(CreateLevel.LevelItem.KickPosition);
+
+            foreach (Vector2 vector in itemLocations)
+            {
+
+                EntityList.Add(new KickBoot(Scene, vector));
+            }
+
             itemLocations = currentLevel.GetItemLocation(CreateLevel.LevelItem.BombPosition);
 
             foreach (Vector2 vector in itemLocations)
             {
-                EntityList.Add(new BombEnemySprite((int)vector.X, (int)vector.Y, Scene));
+                EntityList.Add(new BombEnemySprite((int)vector.X, (int)vector.Y));
             }
 
             itemLocations = currentLevel.GetItemLocation(CreateLevel.LevelItem.SquidPosition);
 
             foreach (Vector2 vector in itemLocations)
             {
-                EntityList.Add(new SquidEnemySprite((int)vector.X, (int)vector.Y, Scene));
+                EntityList.Add(new SquidEnemySprite((int)vector.X, (int)vector.Y));
             }
 
             itemLocations = currentLevel.GetItemLocation(CreateLevel.LevelItem.BatPosition);
 
             foreach (Vector2 vector in itemLocations)
             {
-                EntityList.Add(new BatEnemySprite((int)vector.X, (int)vector.Y, Scene));
+                EntityList.Add(new BatEnemySprite((int)vector.X, (int)vector.Y));
             }
 
             itemLocations = currentLevel.GetItemLocation(CreateLevel.LevelItem.RobotPosition);
 
             foreach (Vector2 vector in itemLocations)
             {
-                EntityList.Add(new RobotEnemySprite((int)vector.X, (int)vector.Y, Scene));
+                EntityList.Add(new RobotEnemySprite((int)vector.X, (int)vector.Y));
             }
 
             itemLocations = currentLevel.GetItemLocation(CreateLevel.LevelItem.OctoBossPosition);

@@ -35,9 +35,9 @@ namespace CrazyArcade.PlayerStateMachine
             d2HeldDown = false;
 
         }
-        public void ProcessAttaction()
+        public bool ProcessAttaction()
         {
-
+            return false;
         }
 
         public void ProcessItem()

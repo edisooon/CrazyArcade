@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using CrazyArcade.Boss;
+using CrazyArcade.BombFeature;
 
 namespace CrazyArcade.CAFrameWork.CollisionSystem
 {
@@ -35,12 +36,16 @@ namespace CrazyArcade.CAFrameWork.CollisionSystem
 
         public void RemoveSprite(IEntity sprite)
         {
-            if (sprite is IPlayerCollidable) triggers.Remove(sprite as IPlayerCollidable);
+            if (sprite is IPlayerCollidable)
+            {
+                triggers.Remove(sprite as IPlayerCollidable);
+            }
             if (sprite is IPlayerCollisionBehavior) playerBehaviors.Remove(sprite as IPlayerCollisionBehavior);
         }
 
         public void Update(GameTime time)
         {
+
             foreach (IPlayerCollidable trigger in triggers)
             {
                 foreach (IPlayerCollisionBehavior playerBehavior in playerBehaviors)

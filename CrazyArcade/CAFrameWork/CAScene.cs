@@ -8,6 +8,7 @@ using CrazyArcade.CAFrameWork.CAGame;
 using CrazyArcade.CAFrameWork.GameStates;
 using CrazyArcade.CAFrameWork.Transition;
 using CrazyArcade.GameGridSystems;
+using CrazyArcade.PlayerStateMachine;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
@@ -162,6 +163,29 @@ namespace CrazyArcade.CAFramework
         }
         protected bool loading = false;
         public bool Loading { set => loading = value; }
+
+        public LevelPersnstance GetData()
+        {
+            LevelPersnstance saveData = new();
+            foreach (IEntity entity in entities)
+            {
+                if (entity is ISavable)
+                {
+                    (entity as ISavable).Save(saveData);
+                }
+            }
+            return saveData;
+        }
+        public void LoadData(LevelPersnstance level)
+        {
+            foreach (IEntity entity in entities)
+            {
+                if (entity is ISavable)
+                {
+                    (entity as ISavable).Load(level);
+                }
+            }
+        }
     }
 }
 

@@ -3,12 +3,13 @@ using CrazyArcade.Blocks;
 using CrazyArcade.CAFramework;
 using CrazyArcade.CAFrameWork.GridBoxSystem;
 using CrazyArcade.GameGridSystems;
+using CrazyArcade.PlayerStateMachine;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
 namespace CrazyArcade.CAFrameWork.Transition
 {
-    public class Door : Block, IPlayerCollidable
+    public class Door : Block, IGridPlayerCollidable
     {
         bool isEnable = false;
         public override void Load()
@@ -18,7 +19,7 @@ namespace CrazyArcade.CAFrameWork.Transition
         private int stage;
         private Dir dir;
         private static Rectangle source = new Rectangle(0, 0, 80, 80);
-        public Door(Vector2 position, int to, Dir dir) : base(position, source, Content.TextureSingleton.GetDoor())
+        public Door(Vector2 position, int to, Dir dir) : base(new Vector2(position.X, position.Y), source, Content.TextureSingleton.GetDoor())
         {
             stage = to;
             this.dir = dir;
@@ -27,12 +28,17 @@ namespace CrazyArcade.CAFrameWork.Transition
         {
             base.Update(time);
         }
-        public override void CollisionLogic(Rectangle overlap, IPlayerCollisionBehavior collisionPartner)
+        public void toNextLevel()
         {
             if (SceneDelegate.IsDoorOpen())
             {
                 SceneDelegate.Transition(stage, dir);
             }
+        }
+
+        public void Collide(IPlayer player)
+        {
+            toNextLevel();
         }
     }
 }

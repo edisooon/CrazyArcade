@@ -23,6 +23,7 @@ namespace CrazyArcade.PlayerStateMachine.PlayerItemInteractions
         public int BombModifier;
         public int BlastModifier;
         public int SpeedModifier;
+        public bool CanKick;
         private int itemCount = 0;
         private Vector2 anchorPoint = new(50, 50);
         public ItemContainer()
@@ -78,6 +79,7 @@ namespace CrazyArcade.PlayerStateMachine.PlayerItemInteractions
             BombModifier = defaultBombMaximum;
             BlastModifier = defaultBlastLength;
             SpeedModifier = defaultSpeed;
+            CanKick = false;
         }
         private void RecalculateStats()
         {

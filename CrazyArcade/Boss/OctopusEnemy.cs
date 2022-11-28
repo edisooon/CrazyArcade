@@ -121,6 +121,7 @@ namespace CrazyArcade.Boss
             //Debug.WriteLine("Octo Constructor");
         }
 
+
         public override void Load()
         {
             //Load Sprites

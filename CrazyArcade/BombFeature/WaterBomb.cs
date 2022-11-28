@@ -2,6 +2,7 @@
 using CrazyArcade.Boss;
 using CrazyArcade.CAFramework;
 using CrazyArcade.CAFrameWork.GridBoxSystem;
+using CrazyArcade.CAFrameWork.SoundEffectSystem;
 using CrazyArcade.Content;
 using CrazyArcade.Demo1;
 using CrazyArcade.GameGridSystems;
@@ -10,22 +11,27 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.Contracts;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace CrazyArcade.BombFeature
 {
-    public class WaterBomb : CAGridBoxEntity, IPlayerCollidable, IExplosionCollidable, IExplodable, IBossCollidable
+    public class WaterBomb : CAGridBoxEntity, IGridPlayerCollidable, IExplosionCollidable, IExplodable, IBossCollidable
     {
         int BlastLength;
-
         float DetonateTimer;
         float DetonateTime;
-        Boolean characterHasLeft = false;
         private SpriteAnimation spriteAnims;
+        private Dir direction = Dir.Down;
+        private Point[] moveDir = new Point[4] { new Point(0, -1), new Point(-1, 0), new Point(0, 1), new Point(1, 0) };
+        private float speed = 10;
+        private Vector2[] move;
+        private bool isMoving = false;
         IBombCollectable owner;
         public override SpriteAnimation SpriteAnim => spriteAnims;
+        public HashSet<IPlayerCollisionBehavior> hasNotLeft;
 
         public Rectangle internalRectangle;
 
@@ -65,14 +71,18 @@ namespace CrazyArcade.BombFeature
         public Rectangle hitBox => new Rectangle(this.X, this.Y, 40, 40);
 
         private Rectangle[] AnimationFrames;
-        
-        public WaterBomb(Vector2 grid, int BlastLength, IBombCollectable character) : base(new GridBoxPosition(grid, (int)GridObjectDepth.Box))
-        {
 
+        private static Vector2 getBombPosition(Vector2 grid)
+        {
             Vector2 bombPosition = grid;
             bombPosition = bombPosition + new Vector2(0.5f);
             bombPosition.Floor();
-            gamePos = bombPosition;
+            return bombPosition;
+        }
+        
+        public WaterBomb(Vector2 grid, int BlastLength, IBombCollectable character) : base(new GridBoxPosition(getBombPosition(grid), (int)GridObjectDepth.Box))
+        {
+            gamePos = getBombPosition(grid);
 
             this.BlastLength = BlastLength;
             this.owner = character;
@@ -80,10 +90,13 @@ namespace CrazyArcade.BombFeature
             DetonateTime = 0;
             DetonateTimer = 3000;
             this.spriteAnims = new SpriteAnimation(TextureSingleton.GetBallons(), AnimationFrames, 8);
+            this.spriteAnims.SetScale(CAGameGridSystems.BlockLength*1.08f / 42f);
+            this.spriteAnims.Position = new Vector2(0, 4);
             internalRectangle = new Rectangle(X, Y, 40, 40);
+            move = new Vector2[4] { new Vector2(0, -speed), new Vector2(-speed, 0), new Vector2(0, speed), new Vector2(speed, 0) };
         }
 
-        public WaterBomb(Vector2 grid, int BlastLength, IBombCollectable character, Boolean iAmOctopus) : base(new GridBoxPosition(grid, (int)GridObjectDepth.Box))
+        public WaterBomb(Vector2 grid, int BlastLength, IBombCollectable character,Boolean iAmOctopus) : base(new GridBoxPosition(getBombPosition(grid), (int)GridObjectDepth.Box))
         {
             Vector2 bombPosition = grid;
             bombPosition = bombPosition + new Vector2(0.5f);
@@ -97,8 +110,7 @@ namespace CrazyArcade.BombFeature
             DetonateTimer = 0;
             this.spriteAnims = new SpriteAnimation(TextureSingleton.GetBallons(), AnimationFrames, 8);
             internalRectangle = new Rectangle(X, Y, 40, 40);
-
-            characterHasLeft = iAmOctopus;
+            move = new Vector2[4] { new Vector2(0, -speed), new Vector2(-speed, 0), new Vector2(0, speed), new Vector2(speed, 0) };
         }
 
 
@@ -112,9 +124,25 @@ namespace CrazyArcade.BombFeature
         }
         public override void Update(GameTime time)
         {
-            if (!characterHasLeft) updateCharacterHasLeft();
+            if(this.isMoving) updatePosition(time);
             Detonate(time);
         }
+
+        private void updatePosition(GameTime time)
+        {
+            float gameCoordMove = speed / CAGameGridSystems.BlockLength;
+            if (length-gameCoordMove> 0)
+            {
+                GameCoord += Trans.RevScale(move[(int)direction]);
+                length -= gameCoordMove;
+            } else
+            {
+                this.isMoving = false;
+                GameCoord = new Vector2(Position.X, Position.Y);
+                length = -1;
+            }
+        }
+
         public override void Load()
         {
             owner.SpendBomb();
@@ -127,6 +155,7 @@ namespace CrazyArcade.BombFeature
         {
             if(DetonateTime > DetonateTimer)
             {
+                SceneDelegate.ToAddEntity(new CASoundEffect("SoundEffects/BossExplosion"));
                 detector.Ignite(this);
             }
             else
@@ -135,29 +164,31 @@ namespace CrazyArcade.BombFeature
             }
         }
 
-        public void updateCharacterHasLeft()
+        private bool isColliding(IPlayerCollisionBehavior collisionPartner)
         {
-            //Rectangle checkRectangle = Rectangle.Intersect(this.boundingBox, owner.blockCollisionBoundingBox);
-            //if (checkRectangle.Width == 0 || checkRectangle.Height == 0)
-            //{
-            //    characterHasLeft = true;
-            //}
+            Rectangle checkRectangle = Rectangle.Intersect(this.boundingBox, collisionPartner.blockCollisionBoundingBox);
+            return checkRectangle.Width != 0 || checkRectangle.Height != 0;
         }
-
-        public void CollisionLogic(Rectangle overlap, IPlayerCollisionBehavior collisionPartner)
+        private float length = -1;  // due to the do while loop in kick
+        public void kick(Dir dir)
         {
-            if (!characterHasLeft) return;
-            int modifier = 1;
-            if (overlap.Width > overlap.Height)
+            this.direction = dir;
+            if (!couldMove(dir, this.Position)) return;
+            this.isMoving = true;
+            Point mdir = moveDir[(int)dir];
+            GridBoxPosition gridP = Position;
+            do
             {
-                if (Y < collisionPartner.blockCollisionBoundingBox.Y) modifier = -1;
-                collisionPartner.CollisionHaltLogic(new Point(0, modifier * overlap.Height));
-            }
-            else
-            {
-                if (X < collisionPartner.blockCollisionBoundingBox.X) modifier = -1;
-                collisionPartner.CollisionHaltLogic(new Point(modifier * overlap.Width, 0));
-            }
+                length++;
+                gridP.X += mdir.X;
+                gridP.Y += mdir.Y;
+            } while (manager.MoveBoxTo(this, gridP));
+            Console.WriteLine(length);
+        }
+        private bool couldMove(Dir dir, GridBoxPosition initialPos)
+        {
+            Point mdir = moveDir[(int)dir];
+            return manager.CheckAvailable(new GridBoxPosition(initialPos.X + mdir.X, initialPos.Y + mdir.Y, (int)GridObjectDepth.Box)) == null;
         }
 
         public IExplosion explode()
@@ -184,6 +215,13 @@ namespace CrazyArcade.BombFeature
             {
                 SceneDelegate.ToRemoveEntity(this);
             }
+        }
+
+
+        public void Collide(IPlayer player)
+        {
+            if (player.CouldKick)
+                this.kick(player.Direction);
         }
     }
 }
