@@ -232,21 +232,12 @@ namespace CrazyArcade.Boss
                     justAttacked = false;
                     return xDifference >= squareSize + xoffSet;
                 case Dir.Up:
-                    return yDifference <= yoffSet;
+                    return yDifference <= yoffSet-1;
                 case Dir.Down:
-                    return yDifference >= squareSize+yoffSet;
+                    return yDifference >= squareSize+yoffSet-1;
                 case Dir.Left:
-                    if (xDifference <= xoffSet)
-                    {
-                        if (justAttacked)
-                        {
-                            //speed *= 2;
-                        }
-                        return true;
-                    }
-                    return false;
+                    return xDifference <= xoffSet;
             }
-            //Debug.WriteLine("Octo Change Dir");
             return false;
         }
         
@@ -262,9 +253,10 @@ namespace CrazyArcade.Boss
                 UpdateAnimation(dir);
             }
             // go to center
-            /**else if (dir == Dir.Left && xDifference < 5 && !justAttacked)
+            else if (dir == Dir.Left && xDifference < 5 && !justAttacked)
             {
                 direction = Dir.Down;
+                UpdateAnimation(dir);
             }
             else if (dir == Dir.Down && xDifference < squareSize + xoffSet && yDifference > (squareSize / 2) + yoffSet - 1 && !justAttacked)
             {
@@ -272,8 +264,9 @@ namespace CrazyArcade.Boss
                 //state = new OctopusAttack(this,1);
                 this.squareBlast();
                 direction = Dir.Up;
+                UpdateAnimation(dir);
                 //changeDir will put it back on course
-            }**/
+            }
             GameCoord += SpeedVector[(int)dir];
             justInjured = false;
             //Debug.WriteLine("Octo Move");
