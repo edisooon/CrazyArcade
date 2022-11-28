@@ -23,6 +23,7 @@ namespace CrazyArcade.CAFrameWork.GridBoxSystem
 		{
 			X = (int)grid.X;
 			Y = (int)grid.Y;
+			//Console.WriteLine("new position:" + X + "," + Y);
 			Depth = depth;
 		}
 		public void Copy(GridBoxPosition position)
