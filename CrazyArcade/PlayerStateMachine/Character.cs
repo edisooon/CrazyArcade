@@ -24,7 +24,6 @@ namespace CrazyArcade.PlayerStateMachine
     {
 		public SpriteAnimation[] spriteAnims;
         public CAScene parentScene;
-        public ItemContainer playerItems = new();
         public ICharacterState playerState;
         public int animationHandleInt;
         public int CurrentBlastLength { get => playerItems.BlastModifier; set { playerItems.BlastModifier = value; } }
@@ -32,10 +31,8 @@ namespace CrazyArcade.PlayerStateMachine
         public int FreeModifiedSpeed { get => playerItems.SpeedModifier; }
         private int bombOut;
         public int BombsOut => bombOut;
-        public Dir direction = Dir.Down;
         static int CCount = 0;
         private int loseRideFlag = 5;
-        public bool CouldKick { get => playerItems.CanKick; }
         public int lives;
         private int score = 0;
         private bool invincible = false;
@@ -79,7 +76,7 @@ namespace CrazyArcade.PlayerStateMachine
         }
         public void CollisionHaltLogic(Point move)
         {
-            GameCoord -= Trans.RevScale(new Vector2(move.X, move.Y));
+            //GameCoord -= Trans.RevScale(new Vector2(move.X, move.Y));
         }
 
         //@implement IPlayerCollisionBehavior
