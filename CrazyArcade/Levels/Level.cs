@@ -62,15 +62,15 @@ namespace CrazyArcade.Levels
         {
             scale = .9f;
             border = currentLevel.GetBorder();
-            for (int i = (int)border.X; i >= 0; i--)
+            for (int i = (int)border.X+1; i >= 0; i--)
             {
-                LoadStone(i, -1);
-                LoadStone(i - 1, (int)border.Y - 1);
+                LoadStone(i, 0);
+                LoadStone(i, (int)border.Y+1);
             }
-            for (int i = (int)border.Y; i >= 0; i--)
+            for (int i = (int)border.Y+1; i >= 0; i--)
             {
-                LoadStone(-1, i - 1);
-                LoadStone((int)border.X, i - 1);
+                LoadStone(0, i);
+                LoadStone((int)border.X+1, i);
             }
         }
         private void LoadStone(int X, int Y)
@@ -83,7 +83,6 @@ namespace CrazyArcade.Levels
         }
         private void LoadSprites()
         {
-
             
             //TODO Find a way to reduce duplicate code
             scale = .9f;

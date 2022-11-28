@@ -14,7 +14,6 @@ namespace CrazyArcade.CAFrameWork.CollisionSystem
 {
     internal class PlayerCollisionSystem : IGameSystem
     {
-        List<WaterBomb> bombs = new List<WaterBomb>();  // to handle the collision between player and bomb
         List<IPlayerCollidable> triggers = new List<IPlayerCollidable>();
         List<IPlayerCollisionBehavior> playerBehaviors = new List<IPlayerCollisionBehavior>();
         public void AddSprite(IEntity sprite)
@@ -22,7 +21,6 @@ namespace CrazyArcade.CAFrameWork.CollisionSystem
             if (sprite is IPlayerCollidable)
             {
                 triggers.Add(sprite as IPlayerCollidable);
-                if (sprite is WaterBomb) bombs.Add(sprite as WaterBomb);
             }
             if (sprite is IPlayerCollisionBehavior)
             {
@@ -41,14 +39,13 @@ namespace CrazyArcade.CAFrameWork.CollisionSystem
             if (sprite is IPlayerCollidable)
             {
                 triggers.Remove(sprite as IPlayerCollidable);
-                bombs.Remove(sprite as WaterBomb);
             }
             if (sprite is IPlayerCollisionBehavior) playerBehaviors.Remove(sprite as IPlayerCollisionBehavior);
         }
 
         public void Update(GameTime time)
         {
-            UpdateHasNotLeftInBomb();
+
             foreach (IPlayerCollidable trigger in triggers)
             {
                 foreach (IPlayerCollisionBehavior playerBehavior in playerBehaviors)
@@ -64,11 +61,6 @@ namespace CrazyArcade.CAFrameWork.CollisionSystem
                     }
                 }
             }
-        }
-
-        private void UpdateHasNotLeftInBomb()
-        {
-            foreach (WaterBomb bomb in bombs) bomb.UpdateHasNotLeft(playerBehaviors);
         }
     }
 }

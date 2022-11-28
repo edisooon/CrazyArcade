@@ -15,7 +15,7 @@ namespace CrazyArcade.Blocks
     {
 
     }
-    public abstract class Block : CAGridBoxEntity, IBlock, IPlayerCollidable, IGridable, IExplosionCollidable, IEnemyCollidable
+    public abstract class Block : CAGridBoxEntity, IBlock, IGridable, IExplosionCollidable, IEnemyCollidable
     {
         //----------IGridable Start------------
         private Vector2 gamePos;
@@ -49,7 +49,7 @@ namespace CrazyArcade.Blocks
         //----------IGridable End------------
         protected SpriteAnimation spriteAnimation;
 
-        private Rectangle internalRectangle = new Rectangle(0, 0, 40, 40);
+        private Rectangle internalRectangle = new Rectangle(0, 0, CAGameGridSystems.BlockLength, CAGameGridSystems.BlockLength);
 
         public Block(Vector2 position, Rectangle source, Texture2D texture) : base(new GridBoxPosition((int)position.X, (int)position.Y, (int)GridObjectDepth.Box))
         {
@@ -85,21 +85,6 @@ namespace CrazyArcade.Blocks
         }
         public override void Load()
         {
-        }
-
-        public virtual void CollisionLogic(Rectangle overlap, IPlayerCollisionBehavior collisionPartner)
-        {
-            int modifier = 1;
-            if (overlap.Width > overlap.Height)
-            {
-                if (Y < collisionPartner.blockCollisionBoundingBox.Y) modifier = -1;
-                collisionPartner.CollisionHaltLogic(new Point(0, modifier * overlap.Height));
-            } 
-            else
-            {
-                if (X < collisionPartner.blockCollisionBoundingBox.X) modifier = -1;
-                collisionPartner.CollisionHaltLogic(new Point(modifier * overlap.Width, 0));
-            }
         }
 
         public virtual bool Collide(IExplosion bomb)
