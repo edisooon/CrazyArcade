@@ -70,7 +70,6 @@ namespace CrazyArcade.Enemies
             
         }
 
-        
         protected override Vector2[] SpeedVector => speedVector;
 
         /*
@@ -88,10 +87,7 @@ namespace CrazyArcade.Enemies
         };
 
 
-        void updateCoord()
-        {
-
-        }
+        
 
 
     }

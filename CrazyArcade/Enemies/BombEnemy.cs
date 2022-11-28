@@ -83,10 +83,6 @@ namespace CrazyArcade.Enemies
         };
 
 
-        void updateCoord()
-        {
-
-        }
 
 
 
