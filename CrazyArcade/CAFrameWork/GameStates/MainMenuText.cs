@@ -11,10 +11,10 @@ namespace CrazyArcade.CAFrameWork.GameStates
 {
     public class MainMenuText : GUIComposition
     {
-        public MainMenuText()
+        public MainMenuText(Vector2 pos)
         {
             IGUIComponent gameText = new GUIText("Main Menu Text", "Crazy Arcade");
-            SetPosition(new Vector2(350, 75));
+            SetPosition(pos);
             this.name = "Main Menu Gui";
             AddComponent(gameText);
         }

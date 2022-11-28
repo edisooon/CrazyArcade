@@ -12,7 +12,7 @@ namespace CrazyArcade.CAFrameWork.GameStates
 {
     public class ButtonBase : GUIBase
     {
-        public Rectangle DefaultButtonRectangle = new Rectangle(0, 0, 200, 50);
+        public static readonly Rectangle DefaultButtonRectangle = new(0, 0, 200, 50);
         public Rectangle Rect;
         public ButtonBase(string name)
         {

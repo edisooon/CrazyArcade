@@ -30,6 +30,7 @@ public class CAGame : Game, IGameDelegate, ITransitionCompleteHandler
     public ReadJSON map;
     public String[] LevelSongTitles;
     public Song song;
+    private Point ScreenSizeVals = new Point(900, 600);
     //Random for test purposes and counter
     Random rnd = new Random();
     int newElements = 0;
@@ -67,6 +68,7 @@ public class CAGame : Game, IGameDelegate, ITransitionCompleteHandler
     {
         base.Exit();
     }
+    public Point ScreenSize { get { return ScreenSizeVals; } }
     protected override void Initialize()
     {
         gameGUI = new GUI();
@@ -84,8 +86,8 @@ public class CAGame : Game, IGameDelegate, ITransitionCompleteHandler
         transitionNum = 0;
         stageNum = 0;
         //_graphics.IsFullScreen = true;
-        _graphics.PreferredBackBufferWidth = 900;
-        _graphics.PreferredBackBufferHeight = 600;
+        _graphics.PreferredBackBufferWidth = ScreenSize.X;
+        _graphics.PreferredBackBufferHeight = ScreenSize.Y;
         _graphics.ApplyChanges();
         base.Initialize();
         
