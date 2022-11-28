@@ -18,7 +18,7 @@ using System.Threading.Tasks;
 
 namespace CrazyArcade.BombFeature
 {
-    public class WaterBomb : CAGridBoxEntity, IExplosionCollidable, IExplodable, IBossCollidable
+    public class WaterBomb : CAGridBoxEntity, IGridPlayerCollidable, IExplosionCollidable, IExplodable, IBossCollidable
     {
         int BlastLength;
         float DetonateTimer;
@@ -215,6 +215,13 @@ namespace CrazyArcade.BombFeature
             {
                 SceneDelegate.ToRemoveEntity(this);
             }
+        }
+
+
+        public void Collide(IPlayer player)
+        {
+            if (player.CouldKick)
+                this.kick(player.Direction);
         }
     }
 }

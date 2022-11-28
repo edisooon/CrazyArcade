@@ -30,6 +30,7 @@ namespace CrazyArcade.Demo1
         protected Point bboxOffset = new Point(3, 20);
         protected bool blockBboxOn = true;
         public Dir direction = Dir.Down;
+        public Dir Direction => direction;
         public IGridBoxManager manager;
         public IGridBoxManager Manager { get => manager; set => manager = value; }
 
@@ -68,8 +69,6 @@ namespace CrazyArcade.Demo1
 
         public bool Active { get => blockBboxOn; set { blockBboxOn = value; } }
 
-
-
         public override void Update(GameTime time)
         {
             moveInputs = new(0, 0);
@@ -86,31 +85,17 @@ namespace CrazyArcade.Demo1
             bool toNewBlock = isToNewBlock(newGameCoord, GameCoord, verticallyMove);
             float slideTriggerPoint = 0.3f;
 
-
             Vector2 upLeftBorder = new Vector2(direction == Dir.Right ? newGameCoord.X + 1 : newGameCoord.X, direction == Dir.Down ? newGameCoord.Y + 1 : newGameCoord.Y);
             Vector2 bottomRightBorder = new Vector2(verticallyMove ? upLeftBorder.X+1 : upLeftBorder.X, horizontallyMove ? upLeftBorder.Y+1 : upLeftBorder.Y);
 
-            Vector2[] dir = new Vector2[] { };
             IGridBox upLeftObstacle = manager.CheckAvailable(new GridBoxPosition(upLeftBorder, (int)GridObjectDepth.Box));
             bool slideToUpOrLeft = upLeftObstacle == null;
             IGridBox downRightObstacle = manager.CheckAvailable(new GridBoxPosition(bottomRightBorder, (int)GridObjectDepth.Box));
             bool slideToDownOrRight = downRightObstacle == null;
             if (toNewBlock)
 			{
-				if (upLeftObstacle is IGridPlayerCollidable) (upLeftObstacle as IGridPlayerCollidable).PreCollide(this);
-				if (downRightObstacle is IGridPlayerCollidable) (downRightObstacle as IGridPlayerCollidable).PreCollide(this);
-
-				//// handle the special case of obstacles' behaviors
-				//// 1) water bombx
-				//if (CouldKick)
-    //            {
-    //                if (upLeftObstacle is WaterBomb) characterKickBomb(upLeftObstacle as WaterBomb);
-    //                if (downRightObstacle is WaterBomb) characterKickBomb(downRightObstacle as WaterBomb);
-    //            }
-    //            // 2) door
-    //            if (upLeftObstacle is Door) characterToNextLevel(upLeftObstacle as Door);
-    //            if (downRightObstacle is Door) characterToNextLevel(downRightObstacle as Door);
-
+                if (upLeftObstacle is IGridPlayerCollidable) (upLeftObstacle as IGridPlayerCollidable).Collide(this);
+                if (downRightObstacle is IGridPlayerCollidable) (downRightObstacle as IGridPlayerCollidable).Collide(this);
             }
 
 
@@ -198,16 +183,6 @@ namespace CrazyArcade.Demo1
             //if(direction == Dir.Down)   newGameCoord.
             //manager.CheckAvailable(new GridBoxPosition();
             //GameCoord += trans.RevScale(CurrentSpeed);
-        }
-
-        private void characterToNextLevel(Door door)
-        {
-            door.toNextLevel();
-        }
-
-        private void characterKickBomb(WaterBomb waterBomb)
-        {
-            waterBomb.kick(direction);
         }
 
         private bool isToNewBlock(Vector2 newGameCoord, Vector2 gameCoord, bool verticallyMove)
