@@ -30,6 +30,7 @@ namespace CrazyArcade.CAFrameWork.Transition
         }
         public void toNextLevel()
         {
+            Console.WriteLine("Door transit to: " + stage);
             if (SceneDelegate.IsDoorOpen())
             {
                 SceneDelegate.Transition(stage, dir);
