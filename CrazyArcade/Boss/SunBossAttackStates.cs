@@ -37,7 +37,7 @@ namespace CrazyArcade.Boss
             int diff = timer.FrameDiff.Milliseconds;
             if (bossDelegate.DidGetDemaged())
             {
-
+                return new SunBossHurtStates(bossDelegate, time);
             }
             if (timer.TotalMili > 1500)
             {
