@@ -40,8 +40,6 @@ namespace CrazyArcade.CAFrameWork.GridBoxSystem
                 if (CheckAvailable(gridBox.Position)==null)
                 {
                     map[gridBox.Position] = gridBox;
-                    Console.WriteLine("put in: " + gridBox.Position.X + " " + gridBox.Position.Y + " " + gridBox.Position.Depth);
-                    Console.WriteLine(map[new GridBoxPosition(gridBox.Position.X, gridBox.Position.Y, gridBox.Position.Depth)]);
                     gridBox.Manager = this;
                 } else
                 {

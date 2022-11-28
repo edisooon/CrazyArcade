@@ -77,7 +77,6 @@ namespace CrazyArcade.Demo1
 
         public void UpdatePosition()
         {
-            Console.WriteLine(GameCoord.X + "********");
             Vector2 newGameCoord = new Vector2(GameCoord.X, GameCoord.Y);
             newGameCoord += trans.RevScale(CurrentSpeed);
 
