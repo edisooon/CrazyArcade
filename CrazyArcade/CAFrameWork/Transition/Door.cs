@@ -29,6 +29,7 @@ namespace CrazyArcade.CAFrameWork.Transition
         }
         public override void CollisionLogic(Rectangle overlap, IPlayerCollisionBehavior collisionPartner)
         {
+            Console.WriteLine("Door transit to: " + stage);
             if (SceneDelegate.IsDoorOpen())
             {
                 SceneDelegate.Transition(stage, dir);
