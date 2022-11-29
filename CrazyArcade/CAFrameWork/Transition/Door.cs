@@ -40,7 +40,7 @@ namespace CrazyArcade.CAFrameWork.Transition
 		private IGridTransform trans = new NullTransform();
 		public IGridTransform Trans { get => trans; set => trans = value; }
 
-        public Rectangle boundingBox => new Rectangle((int)ScreenCoord.X, (int)ScreenCoord.Y, 80, 80);
+        public Rectangle boundingBox => new Rectangle((int)ScreenCoord.X + 20, (int)ScreenCoord.Y + 20, 40, 40);
 
         //----------IGridable End------------
         bool isEnable = false;
