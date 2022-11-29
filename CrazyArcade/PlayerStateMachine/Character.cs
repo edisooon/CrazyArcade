@@ -37,7 +37,7 @@ namespace CrazyArcade.PlayerStateMachine
         public int shields;
         public int needles;
         private int score = 0;
-        private bool invincible = false;
+        public bool invincible = false;
         private int ICounter = 0;
 
         public override SpriteAnimation SpriteAnim => spriteAnims[animationHandleInt];
@@ -182,7 +182,9 @@ namespace CrazyArcade.PlayerStateMachine
         }
         public void SetInvincibilityTime(int iTime)
         {
-            Debug.WriteLine("Here");
+            shields--;
+            //add shield effect here
+            SceneDelegate.ToAddEntity(new IncincibilityBubble(this, iTime));
             ICounter = iTime;
         }
     }
