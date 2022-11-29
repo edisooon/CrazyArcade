@@ -46,24 +46,19 @@ namespace CrazyArcade.PlayerStateMachine
 
         public Character()
         {
-            //ModifiedSpeed = DefaultSpeed;
             playerState = new CharacterStateFree(this);
             spriteAnims = playerState.SetSprites();
             playerState.SetSpeed();
             direction = Dir.Down;
             bombOut = 0;
             GameCoord = new Vector2(3, 3);
-            //currentBlastLength = defaultBlastLength;
             DrawOrder = 1;
             lives = 2;
-            Console.WriteLine("Count: " + ++CCount);
-            //this.bboxOffset = new Point(20, 20);
         }
         public override void Update(GameTime time)
         {
             ProcessInvincibility();
             playerState.ProcessState(time);
-            //Console.WriteLine("bombsOut: " + BombsOut);
             base.Update(time);
         }
         private void ProcessInvincibility()
@@ -122,23 +117,15 @@ namespace CrazyArcade.PlayerStateMachine
         {
             return (playerState is CharacterStateFree || playerState is CharacterStateTurtle);
         }
-        public void IncreaseBlastLength()
-        {
-            playerItems.AddItem(new BlastLengthModifier());
-        }
         public void SwitchToMountedState()
         {
             this.playerState = new CharacterStateTurtle(this);
             spriteAnims = this.playerState.SetSprites();
             this.playerState.SetSpeed();
         }
-        public void IncreaseSpeed()
+        public void ObtainItem(ItemModifier item)
         {
-            playerItems.AddItem(new SpeedModifier());
-        }
-        public void IncreaseBombCount()
-        {
-            playerItems.AddItem(new BombCountModifier());
+            playerItems.AddItem(item);
         }
         public void IncreaseScore(int score)
         {

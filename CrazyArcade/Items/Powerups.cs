@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using CrazyArcade.Blocks;
 using CrazyArcade.CAFramework;
 using CrazyArcade.PlayerStateMachine;
+using CrazyArcade.PlayerStateMachine.PlayerItemInteractions;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
@@ -24,7 +25,7 @@ namespace CrazyArcade.Items
         }
         public override void CollisionLogic(Rectangle overlap, IPlayerCollisionBehavior collisionPartner)
         {
-            collisionPartner.IncreaseBombCount();
+            collisionPartner.ObtainItem(new BombCountModifier());
             this.DeleteSelf(parentScene);
         }
     }
@@ -50,7 +51,7 @@ namespace CrazyArcade.Items
         }
         public override void CollisionLogic(Rectangle overlap, IPlayerCollisionBehavior collisionPartner)
         {
-            collisionPartner.IncreaseSpeed();
+            collisionPartner.ObtainItem(new SpeedModifier());
             this.DeleteSelf(parentScene);
         }
     }
@@ -76,7 +77,7 @@ namespace CrazyArcade.Items
         }
         public override void CollisionLogic(Rectangle overlap, IPlayerCollisionBehavior collisionPartner)
         {
-            collisionPartner.IncreaseBlastLength();
+            collisionPartner.ObtainItem(new BlastLengthModifier());
             this.DeleteSelf(parentScene);
         }
 
