@@ -34,8 +34,8 @@ namespace CrazyArcade.PlayerStateMachine
         static int CCount = 0;
         private int loseRideFlag = 5;
         public int lives;
-        private int shields;
-        private int needles;
+        public int shields;
+        public int needles;
         private int score = 0;
         private bool invincible = false;
         private int ICounter = 0;
@@ -68,10 +68,11 @@ namespace CrazyArcade.PlayerStateMachine
         }
         private void ProcessInvincibility()
         {
-            if(invincible)
+            if(ICounter > 0)
             {
-                ICounter++;
-                if(ICounter >= 30)
+                invincible = true;
+                ICounter--;
+                if(ICounter <= 30)
                 {
                     invincible = false;
                     ICounter = 0;
@@ -92,7 +93,7 @@ namespace CrazyArcade.PlayerStateMachine
                 
                 this.playerState = new CharacterStateFree(this);
                 loseRideFlag = 0;
-                invincible = true;
+                ICounter = 30;
             }
             else if (loseRideFlag >= 5)
             {
@@ -178,6 +179,11 @@ namespace CrazyArcade.PlayerStateMachine
                 lives = level.SavedStatInt["playerLives"];
                 UI_Singleton.ChangeComponentText("lifeCounter", "count", "Lives: " + lives);
             }
+        }
+        public void SetInvincibilityTime(int iTime)
+        {
+            Debug.WriteLine("Here");
+            ICounter = iTime;
         }
     }
 }

@@ -79,12 +79,12 @@ namespace CrazyArcade.PlayerStateMachine
 
         private void KeyN()
         {
-            Debug.WriteLine("Key V Pressed!");
+            playerState.ProcessItem("needle");
         }
         
         private void KeyB()
         {
-            Debug.WriteLine("Key B Pressed!");
+            playerState.ProcessItem("shield");
         }
 
         public Dictionary<int, Action> getCommands()

@@ -10,6 +10,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using CrazyArcade.GameGridSystems;
+using System.Diagnostics;
 
 namespace CrazyArcade.PlayerStateMachine
 {
@@ -69,6 +70,8 @@ namespace CrazyArcade.PlayerStateMachine
         }
         public void ProcessItem(string itemName)
         {
+
+            if (itemName == "shield") character.SetInvincibilityTime(300);
 
         }
         public void ProcessRide()
