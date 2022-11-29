@@ -67,7 +67,7 @@ namespace CrazyArcade.PlayerStateMachine
             }
             d2HeldDown = Keyboard.GetState().IsKeyDown(Keys.D2);
         }
-        public void ProcessItem()
+        public void ProcessItem(string itemName)
         {
 
         }

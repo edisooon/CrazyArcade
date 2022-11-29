@@ -34,6 +34,8 @@ namespace CrazyArcade.PlayerStateMachine
         static int CCount = 0;
         private int loseRideFlag = 5;
         public int lives;
+        private int shields;
+        private int needles;
         private int score = 0;
         private bool invincible = false;
         private int ICounter = 0;
@@ -54,6 +56,8 @@ namespace CrazyArcade.PlayerStateMachine
             lives = 2;
             Console.WriteLine("Count: " + ++CCount);
             //this.bboxOffset = new Point(20, 20);
+            shields = 2;
+            needles = 2;
         }
         public override void Update(GameTime time)
         {

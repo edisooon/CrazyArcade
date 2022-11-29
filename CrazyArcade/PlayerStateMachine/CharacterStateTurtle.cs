@@ -42,7 +42,7 @@ namespace CrazyArcade.PlayerStateMachine
             return true;
         }
 
-        public void ProcessItem()
+        public void ProcessItem(string itemName)
         {
 
         }
