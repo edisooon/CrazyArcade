@@ -1,4 +1,5 @@
 ﻿using System;
+using CrazyArcade.CAFramework;
 using Microsoft.Xna.Framework;
 
 namespace CrazyArcade.CAFrameWork.GridBoxSystem
@@ -31,6 +32,21 @@ namespace CrazyArcade.CAFrameWork.GridBoxSystem
 			X = position.X;
 			Y = position.Y;
 			Depth = position.Depth;
+		}
+		public GridBoxPosition Adj(Dir dir)
+		{
+			Point[] direction = new Point[]
+			{
+				new Point(0, -1),
+				new Point(-1, 0),
+				new Point(0, 1),
+				new Point(1, 0)
+			};
+			return new GridBoxPosition(this.X + direction[(int)dir].X, this.X + direction[(int)dir].Y, this.Depth);
+		}
+		public Point toPoint()
+		{
+			return new Point(this.X, this.Y);
 		}
 	}
 }

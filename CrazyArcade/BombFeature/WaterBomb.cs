@@ -223,5 +223,32 @@ namespace CrazyArcade.BombFeature
             if (player.CouldKick)
                 this.kick(player.Direction);
         }
+
+        public override bool IsSolid(Dir dir, bool couldKick)
+        {
+            return !couldKick || manager.CheckAvailable(base.Position.Adj(dir)) != null;
+        }
+        private void detect(HashSet<Point> set, Dir dir)
+        {
+            GridBoxPosition current = base.Position;
+            for (int i = 0; i < BlastLength; i++)
+            {
+                current = current.Adj(dir);
+                if (manager.CheckAvailable(current) != null)
+                {
+                    return;
+                }
+                set.Add(current.toPoint());
+            }
+        }
+        public override HashSet<Point> PotentialDangerousTile()
+        {
+            HashSet<Point> set = new HashSet<Point>();
+            for (int i = 0; i < 4; i++)
+            {
+                detect(set, (Dir)i);
+            }
+            return set;
+        }
     }
 }
