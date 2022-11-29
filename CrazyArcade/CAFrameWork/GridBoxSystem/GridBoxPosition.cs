@@ -7,6 +7,7 @@ namespace CrazyArcade.CAFrameWork.GridBoxSystem
 	enum GridObjectDepth
 	{
 		Box,
+		Item,
 		Tile
 	}
 	public struct GridBoxPosition
