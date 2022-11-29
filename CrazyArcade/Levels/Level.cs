@@ -25,7 +25,7 @@ namespace CrazyArcade.Levels
         float scale;
         Vector2 border;
         Vector2 startPosition;
-        int[] keySet = new int[5];
+        int[] keySet = new int[7];
 
         public Level(CAScene scene, string levelName)
         {
@@ -34,6 +34,8 @@ namespace CrazyArcade.Levels
             keySet[2] = KeyBoardInput.KeyDown(Keys.Left);
             keySet[3] = KeyBoardInput.KeyDown(Keys.Right);
             keySet[4] = KeyBoardInput.KeyUp(Keys.Space);
+            keySet[5] = KeyBoardInput.KeyUp(Keys.N);
+            keySet[6] = KeyBoardInput.KeyUp(Keys.B);
             currentLevel = new CreateLevel(levelName);
             this.Scene = scene;
             EntityList = new List<CAEntity>();

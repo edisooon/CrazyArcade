@@ -23,12 +23,14 @@ namespace CrazyArcade.PlayerStateMachine
         Dictionary<int, Action> commands = new Dictionary<int, Action>();
         public PlayerCharacter(int[] keySet) : base()
         {
-            Action[] actions = new Action[5];
+            Action[] actions = new Action[7];
             actions[0] = KeyUp;
             actions[1] = KeyDown;
             actions[2] = KeyLeft;
             actions[3] = KeyRight;
             actions[4] = KeySpace;
+            actions[5] = KeyN;
+            actions[6] = KeyB;
             for (int i = 0; i < keySet.Length; i++)
             {
                 commands[keySet[i]] = actions[i];
@@ -73,6 +75,16 @@ namespace CrazyArcade.PlayerStateMachine
         {
             if (playerState.ProcessAttaction())
                 SceneDelegate.ToAddEntity(new CASoundEffect("SoundEffects/PlaceBomb"));
+        }
+
+        private void KeyN()
+        {
+            Debug.WriteLine("Key V Pressed!");
+        }
+        
+        private void KeyB()
+        {
+            Debug.WriteLine("Key B Pressed!");
         }
 
         public Dictionary<int, Action> getCommands()
