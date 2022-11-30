@@ -44,7 +44,7 @@ namespace CrazyArcade.PlayerStateMachine
                 character.spriteAnims = character.playerState.SetSprites();
                 character.playerState.SetSpeed();
                 character.lives--;
-                if (character.lives == 0)
+                if (character.lives == 0 && !isPirate)
                 {
                     character.SceneDelegate.EndGame();
                 }

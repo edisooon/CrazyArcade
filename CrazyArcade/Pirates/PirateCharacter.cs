@@ -86,11 +86,13 @@ namespace CrazyArcade.Pirates
         {
             base.Load();
 			SceneDelegate.ToAddEntity(input);
+			SceneDelegate.IncreaseEnemyCount();
         }
         public override void Deload()
         {
             base.Deload();
 			SceneDelegate.ToRemoveEntity(input);
+			SceneDelegate.DecreaseEnemyCount();
         }
     }
 }

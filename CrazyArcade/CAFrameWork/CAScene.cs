@@ -159,9 +159,9 @@ namespace CrazyArcade.CAFramework
             gameRef.StageTransitTo(stage, (int)dir);
         }
 
-        public virtual bool IsDoorOpen()
-        {
-            return false;
+        public bool IsDoorOpen()
+		{
+			return enemyCount <= 0;
         }
         protected bool loading = false;
         public bool Loading { set => loading = value; }
@@ -187,6 +187,16 @@ namespace CrazyArcade.CAFramework
                     (entity as ISavable).Load(level);
                 }
             }
+        }
+        private int enemyCount = 0;
+        public void IncreaseEnemyCount()
+        {
+            enemyCount++;
+        }
+
+        public void DecreaseEnemyCount()
+		{
+			enemyCount--;
         }
     }
 }

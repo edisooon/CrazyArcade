@@ -85,7 +85,7 @@ namespace CrazyArcade.Demo1
             //This may not be neccessary
             this.AddSprite(new KeyBoardInput());
             this.AddSprite(new CASoundEffect("SoundEffects/StageStart"));
-            this.AddSprite(new PirateCharacter());
+            //this.AddSprite(new PirateCharacter());
         }
         public override void EndGame()
         {
@@ -98,22 +98,6 @@ namespace CrazyArcade.Demo1
         public override void Victory()
         {
             gameRef.Scene = new VictoryScene(gameRef);
-        }
-        public override bool IsDoorOpen()
-        {
-            if (loading)
-            {
-                loading = false;
-                return false;
-            }
-            foreach(IEntity entity in entities)
-            {
-                if (entity is Enemy || entity is IBossCollideBehaviour)
-                {
-                    return false;
-                }
-            }
-            return true;
         }
     }
 }
