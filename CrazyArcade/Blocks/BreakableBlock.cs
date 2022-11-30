@@ -17,6 +17,7 @@ namespace CrazyArcade.Blocks
         public BreakableBlock(ISceneDelegate parentScene, Vector2 position, Rectangle source) : base(position, source, Content.TextureSingleton.GetDesertBlocks())
         {
             this.parentScene = parentScene;
+            this.parentScene.ToAddEntity(Item.Random(position));
         }
 
         public void DeleteSelf()
