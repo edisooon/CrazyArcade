@@ -2,10 +2,10 @@
     "Background": [ 128, 170, 255 ],
     "Border": [ 13, 13 ],
     "Blocks": {
-      "Door": [
-        [ 11, 11 ],
-        [ 7, 3 ]
-      ],
+        "Door": [
+            [ 11, 11 ],
+            [ 7, 3 ]
+        ],
         "LightSand": [
             [ 4, 0 ],
             [ 8, 0 ],
@@ -67,20 +67,21 @@
     },
     "Items": {
         "CoinBag": [
-    ],
+        ],
         "Balloon": [
-    ],
+        ],
         "Sneaker": [
-    ],
+        ],
         "Turtle": [
-    ],
+        ],
         "Potion": [
-    ],
+        ],
         "Coin": [
-    ],
+        ],
         "Kick": []
     },
     "Player": [ 0, 0 ],
+    "Pirate": [],
     "Enemies": {
         "Bomb": [
             [ 2, 9 ],

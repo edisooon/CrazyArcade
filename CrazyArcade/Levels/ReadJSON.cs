@@ -66,7 +66,9 @@ public class LevelSchema
 
     public int[] Player { get; set; }
 
-    public LevelEnemies Enemies { get; set; }
+	public int[][] Pirate { get; set; }
+
+	public LevelEnemies Enemies { get; set; }
 
     public LevelBoss Boss { get; set; }
 }

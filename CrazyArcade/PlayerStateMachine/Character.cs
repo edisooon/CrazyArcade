@@ -20,7 +20,7 @@ namespace CrazyArcade.PlayerStateMachine
      * State machine is implemented here
      * 
      */
-    public class Character: CharacterBase, IBombCollectable, IExplosionCollidable, IPlayerCollisionBehavior, ISavable
+    public class Character: CharacterBase, IBombCollectable, IExplosionCollidable, IPlayerCollisionBehavior
     {
 		public SpriteAnimation[] spriteAnims;
         public CAScene parentScene;
@@ -41,11 +41,12 @@ namespace CrazyArcade.PlayerStateMachine
         private int ICounter = 0;
 
         public override SpriteAnimation SpriteAnim => spriteAnims[animationHandleInt];
-
-        public Character()
+        
+        public Character(bool isPirate) : base(isPirate)
         {
             //ModifiedSpeed = DefaultSpeed;
-            playerState = new CharacterStateFree(this);
+            this.isPirate = isPirate;
+            playerState = new CharacterStateFree(this, isPirate);
             spriteAnims = playerState.SetSprites();
             playerState.SetSpeed();
             direction = Dir.Down;
@@ -91,13 +92,13 @@ namespace CrazyArcade.PlayerStateMachine
             if (this.playerState is CharacterStateTurtle )
             {
                 
-                this.playerState = new CharacterStateFree(this);
+                this.playerState = new CharacterStateFree(this, isPirate);
                 loseRideFlag = 0;
                 ICounter = 30;
             }
             else if (loseRideFlag >= 5)
             {
-                this.playerState = new CharacterStateBubble(this);
+                this.playerState = new CharacterStateBubble(this, isPirate);
             }
             else
             {
@@ -133,7 +134,7 @@ namespace CrazyArcade.PlayerStateMachine
         }
         public void SwitchToMountedState()
         {
-            this.playerState = new CharacterStateTurtle(this);
+            this.playerState = new CharacterStateTurtle(this, isPirate);
             spriteAnims = this.playerState.SetSprites();
             this.playerState.SetSpeed();
         }
@@ -148,7 +149,7 @@ namespace CrazyArcade.PlayerStateMachine
         public void IncreaseScore(int score)
         {
             this.score += score;
-            UI_Singleton.ChangeComponentText("score", "scoreText", "Score : " + this.score);
+			if (!isPirate) UI_Singleton.ChangeComponentText("score", "scoreText", "Score : " + this.score);
         }
 
         public void SpendBomb()
@@ -172,12 +173,12 @@ namespace CrazyArcade.PlayerStateMachine
             if (level.SavedStatInt.ContainsKey("playerScore"))
             {
                 score = level.SavedStatInt["playerScore"];
-                UI_Singleton.ChangeComponentText("score", "scoreText", "Score : " + this.score);
+                if (!isPirate) UI_Singleton.ChangeComponentText("score", "scoreText", "Score : " + this.score);
             }
             if (level.SavedStatInt.ContainsKey("playerLives"))
             {
                 lives = level.SavedStatInt["playerLives"];
-                UI_Singleton.ChangeComponentText("lifeCounter", "count", "Lives: " + lives);
+				if (!isPirate) UI_Singleton.ChangeComponentText("lifeCounter", "count", "Lives: " + lives);
             }
         }
         public void SetInvincibilityTime(int iTime)

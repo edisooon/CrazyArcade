@@ -25,5 +25,6 @@ namespace CrazyArcade.PlayerStateMachine
         public void ProcessRide();
         //Code for dealing with attacking, return true if bomb placed
         public bool ProcessAttaction();
+
     }
 }

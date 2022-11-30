@@ -15,7 +15,7 @@ namespace CrazyArcade.UI.GUI_Compositions
         public LifeCounter()
         {
             name = "lifeCounter";
-            ItemBoxItem rep = new("lifeRep", new SpriteAnimation(TextureSingleton.GetPlayer1(), new Rectangle(12, 77, 44, 41)));
+            ItemBoxItem rep = new("lifeRep", new SpriteAnimation(TextureSingleton.GetPlayer(false), new Rectangle(12, 77, 44, 41)));
             rep.ChangeComponentTextureOutputRect(30, 30);
             AddComponent(rep);
             GUIText text = new("count", "Lives: -1");

@@ -21,8 +21,10 @@ namespace CrazyArcade.PlayerStateMachine
         public SpriteAnimation[] spriteAnims;
         private bool d1HeldDown;
         private bool d2HeldDown;
-        public CharacterStateTurtle(Character character)
+        private bool isPirate;
+        public CharacterStateTurtle(Character character, bool isPirate)
         {
+            this.isPirate = isPirate;
             this.character = character;
             character.animationHandleInt = 0;
             turtle = new PlayerTurtle(character);
@@ -71,7 +73,7 @@ namespace CrazyArcade.PlayerStateMachine
             }
             if (Keyboard.GetState().IsKeyDown(Keys.E))
             {
-                character.playerState = new CharacterStateBubble(character);
+                character.playerState = new CharacterStateBubble(character, isPirate);
                 character.spriteAnims = character.playerState.SetSprites();
                 character.playerState.SetSpeed();
 
@@ -103,10 +105,10 @@ namespace CrazyArcade.PlayerStateMachine
         public SpriteAnimation[] SetSprites()
         {
 
-            spriteAnims[(int)Dir.Up] = new SpriteAnimation(TextureSingleton.GetPlayer1(), new Rectangle(12, 460, 44, 52));
-            spriteAnims[(int)Dir.Down] = new SpriteAnimation(TextureSingleton.GetPlayer1(), new Rectangle(60, 460, 44, 52));
-            spriteAnims[(int)Dir.Left] = new SpriteAnimation(TextureSingleton.GetPlayer1(), new Rectangle(110, 460, 42, 56));
-            spriteAnims[(int)Dir.Right] = new SpriteAnimation(TextureSingleton.GetPlayer1(), new Rectangle(156, 460, 42, 56));
+            spriteAnims[(int)Dir.Up] = new SpriteAnimation(TextureSingleton.GetPlayer(isPirate), new Rectangle(12, 460, 44, 52));
+            spriteAnims[(int)Dir.Down] = new SpriteAnimation(TextureSingleton.GetPlayer(isPirate), new Rectangle(60, 460, 44, 52));
+            spriteAnims[(int)Dir.Left] = new SpriteAnimation(TextureSingleton.GetPlayer(isPirate), new Rectangle(110, 460, 42, 56));
+            spriteAnims[(int)Dir.Right] = new SpriteAnimation(TextureSingleton.GetPlayer(isPirate), new Rectangle(156, 460, 42, 56));
 
             for (int i = 0; i < 4; i++)
             {
