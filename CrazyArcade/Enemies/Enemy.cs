@@ -15,8 +15,6 @@ namespace CrazyArcade.Enemies
         public SpriteAnimation[] spriteAnims;
         public SpriteAnimation spriteAnim;
         public Dir direction;
-        protected float xDifference;
-        protected float yDifference;
         protected SpriteEffects effect;
         protected Vector2 Start;
         private float centerEnemyValue;
@@ -96,11 +94,8 @@ namespace CrazyArcade.Enemies
         {
 
             // handled animation updated (position and frame) in abstract level
-
             SpriteAnim.Position = new Vector2(X, Y);
             SpriteAnim.setEffect(effect);
-            xDifference = GameCoord.X - Start.X;
-            yDifference = GameCoord.Y - Start.Y;
 
             if (timer > 1f / 6)
             {
@@ -165,6 +160,10 @@ namespace CrazyArcade.Enemies
             // This stop enemy from moving right after turning
             turnFLag = 1;
             
+        }
+        public virtual void ShootProjectile(GameTime time)
+        {
+            //default is empty
         }
     }
 }
