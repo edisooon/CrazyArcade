@@ -30,7 +30,7 @@ namespace CrazyArcade.CAFrameWork.GameStates
         public override void Load()
         {
             UI_Singleton.ClearGUI();
-            UI_Singleton.AddPreDesignedComposite(new GameOverGUIComposition());
+            UI_Singleton.AddPreDesignedComposite(new TitleText("Game over title","Game Over"));
         }
         public override void LoadSprites()
         {

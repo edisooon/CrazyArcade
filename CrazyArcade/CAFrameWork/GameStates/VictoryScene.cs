@@ -26,7 +26,7 @@ namespace CrazyArcade.CAFrameWork.GameStates
         public override void Load()
         {
             UI_Singleton.ClearGUI();
-            UI_Singleton.AddPreDesignedComposite(new VictoryGUIComposition());
+            UI_Singleton.AddPreDesignedComposite(new TitleText("Victory text", "You Win!"));
             this.LoadSprites();
         }
 
