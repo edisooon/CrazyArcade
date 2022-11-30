@@ -91,7 +91,7 @@ namespace CrazyArcade.Enemies
 
         public override void ShootProjectile(GameTime time)
         {
-            float speedScale = .25f;
+            float speedScale = .2f;
             float centerOffset = .25f;
             Vector2 center = new(GameCoord.X + centerOffset, GameCoord.Y + centerOffset);
             sunBossProjectile = new SunBossProjectile(SceneDelegate, speedVector[(int)direction]* speedScale, center, new CATimer(time.TotalGameTime));
