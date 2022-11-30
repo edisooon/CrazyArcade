@@ -2,10 +2,10 @@
     "Background": [ 34, 204, 0 ],
     "Border": [ 13, 13 ],
     "Blocks": {
-      "Door": [
-        [ 11, 11 ],
-        [ 6, 3 ]
-      ],
+        "Door": [
+            [ 11, 11 ],
+            [ 6, 3 ]
+        ],
         "LightSand": [
         ],
         "DarkSand": [
@@ -75,6 +75,7 @@
         "Kick": []
     },
     "Player": [ 0, 0 ],
+    "Pirate": [],
     "Enemies": {
         "Bomb": [
             [ 3, 6 ],

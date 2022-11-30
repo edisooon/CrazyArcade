@@ -62,7 +62,7 @@
 	},
 	"Player": [ 0, 0 ],
 	"Pirate": [
-		[3, 3]
+		[9, 9]
 	],
 	"Enemies": {
 		"Bomb": [

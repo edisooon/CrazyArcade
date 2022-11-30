@@ -21,8 +21,8 @@ namespace CrazyArcade.CAFramework
         protected List<IEntity> entities = new List<IEntity>();
         public IGameDelegate gameRef;
 
-        private List<IEntity> newEntities = new List<IEntity>();
-        private List<IEntity> removeEntities = new List<IEntity>();
+        private Queue<IEntity> newEntities = new Queue<IEntity>();
+        private Queue<IEntity> removeEntities = new Queue<IEntity>();
         //-------------------ISceneState Start----------------------------
         protected IGridSystems gridSystems = new CAGameGridSystems(new Vector2(0, 0), 40);
         public Vector2 Camera { get => gridSystems.Camera; set => gridSystems.Camera = value; }
@@ -38,19 +38,6 @@ namespace CrazyArcade.CAFramework
 
         }
         //-------------------ISceneState End----------------------------
-        private void UpdateEntities()
-        {
-            foreach (IEntity entity in newEntities)
-            {
-                this.AddSprite(entity);
-            }
-            foreach (IEntity entity in removeEntities)
-            {
-                this.RemoveSprite(entity);
-            }
-            newEntities = new List<IEntity>();
-            removeEntities = new List<IEntity>();
-        }
 
         public abstract void LoadSystems();
 
@@ -89,17 +76,15 @@ namespace CrazyArcade.CAFramework
         }
         public void UpdateSprite(GameTime time)
         {
-            foreach (IEntity addSprite in newEntities)
-            {
-                this.AddSprite(addSprite);
-            }
-            foreach (IEntity removeSprite in removeEntities)
-            {
-                this.RemoveSprite(removeSprite);
-            }
-            removeEntities.Clear();
-            newEntities.Clear();
-        }
+			while (newEntities.Count > 0)
+			{
+				this.AddSprite(newEntities.Dequeue());
+			}
+			while (removeEntities.Count > 0)
+			{
+				this.RemoveSprite(removeEntities.Dequeue());
+			}
+		}
         public void AddSprite(IEntity sprite)
         {
             if (sprite == null)
@@ -138,12 +123,12 @@ namespace CrazyArcade.CAFramework
 
         public void ToAddEntity(IEntity entity)
         {
-            newEntities.Add(entity);
+            newEntities.Enqueue(entity);
         }
 
         public void ToRemoveEntity(IEntity entity)
         {
-            removeEntities.Add(entity);
+            removeEntities.Enqueue(entity);
         }
         public virtual void EndGame()
         {
