@@ -68,20 +68,20 @@ namespace CrazyArcade.CAFrameWork.InputSystem
                 this.dir = dir;
                 this.pos = point;
             }
-			public void Print()
-			{
-				recPrint();
-				Console.WriteLine();
-			}
-			private void recPrint()
-			{
-				if (Parent != null)
-				{
-					Console.Write(" -> ");
-					Parent.recPrint();
-				}
-				Console.Write("(Point: " + pos.X + " " + pos.Y + ")");
-			}
+			//public void Print()
+			//{
+			//	recPrint();
+			//	Console.WriteLine();
+			//}
+			//private void recPrint()
+			//{
+			//	if (Parent != null)
+			//	{
+			//		Console.Write(" -> ");
+			//		Parent.recPrint();
+			//	}
+			//	Console.Write("(Point: " + pos.X + " " + pos.Y + ")");
+			//}
         }
         bool isTargetBlock(Point point)
         {
@@ -247,8 +247,6 @@ namespace CrazyArcade.CAFrameWork.InputSystem
 			}
 			if (playerInRange.Contains(pirate.PiratePosition))
 			{
-				Console.WriteLine("update player range: " + playerInRange.Count);
-
 				res.Add(prefix + (int)PirateKeys.keySpace);
 			}
 			if ((node = findTarget()) != null)
@@ -275,12 +273,11 @@ namespace CrazyArcade.CAFrameWork.InputSystem
 				timer = new CATimer(time.TotalGameTime);
 			}
 			timer.Update(time.TotalGameTime);
-			if (timer.TotalMili > 50)
+			if (timer.TotalMili > 100)
 			{
 				timer = new CATimer(time.TotalGameTime);
 				updatePlayerRange();
 				keys = updateKey();
-				Console.WriteLine("update pirate");
 			}
 		}
     }
