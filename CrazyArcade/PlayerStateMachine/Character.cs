@@ -20,7 +20,7 @@ namespace CrazyArcade.PlayerStateMachine
      * State machine is implemented here
      * 
      */
-    public class Character: CharacterBase, IBombCollectable, IExplosionCollidable, IPlayerCollisionBehavior, ISavable
+    public class Character: CharacterBase, IBombCollectable, IExplosionCollidable, IPlayerCollisionBehavior
     {
 		public SpriteAnimation[] spriteAnims;
         public CAScene parentScene;
@@ -144,7 +144,7 @@ namespace CrazyArcade.PlayerStateMachine
         public void IncreaseScore(int score)
         {
             this.score += score;
-            UI_Singleton.ChangeComponentText("score", "scoreText", "Score : " + this.score);
+			if (!isPirate) UI_Singleton.ChangeComponentText("score", "scoreText", "Score : " + this.score);
         }
 
         public void SpendBomb()
@@ -168,12 +168,12 @@ namespace CrazyArcade.PlayerStateMachine
             if (level.SavedStatInt.ContainsKey("playerScore"))
             {
                 score = level.SavedStatInt["playerScore"];
-                UI_Singleton.ChangeComponentText("score", "scoreText", "Score : " + this.score);
+                if (!isPirate) UI_Singleton.ChangeComponentText("score", "scoreText", "Score : " + this.score);
             }
             if (level.SavedStatInt.ContainsKey("playerLives"))
             {
                 lives = level.SavedStatInt["playerLives"];
-                UI_Singleton.ChangeComponentText("lifeCounter", "count", "Lives: " + lives);
+				if (!isPirate) UI_Singleton.ChangeComponentText("lifeCounter", "count", "Lives: " + lives);
             }
         }
     }

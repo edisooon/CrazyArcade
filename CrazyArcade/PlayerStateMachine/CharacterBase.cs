@@ -18,7 +18,8 @@ namespace CrazyArcade.Demo1
 {
     public abstract class CharacterBase : CAEntity, IGridable, IPlayer
     {
-        public float DefaultSpeed = 5;
+        public float DefaultSpeed = 3;
+        
         public float ModifiedSpeed;
         public Vector2 CurrentSpeed = new(0, 0);
         public ItemContainer playerItems = new();
