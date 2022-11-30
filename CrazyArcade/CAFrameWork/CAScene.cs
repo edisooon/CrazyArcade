@@ -97,6 +97,8 @@ namespace CrazyArcade.CAFramework
         }
         public void AddSprite(IEntity sprite)
         {
+            if (sprite == null)
+                return;
             sprite.SceneDelegate = this;
             sprite.Load();
             foreach (IGameSystem system in systems)

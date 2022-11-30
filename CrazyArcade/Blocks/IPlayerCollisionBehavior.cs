@@ -24,6 +24,7 @@ namespace CrazyArcade.Blocks
         public void SwitchToMountedState();
         public void IncreaseSpeed();
         public void IncreaseBombCount();
+        public void EnableKick();
         public void IncreaseScore(int score);
         public bool Active { get; set; }
     }

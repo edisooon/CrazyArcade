@@ -18,7 +18,12 @@ namespace CrazyArcade.Boss
 
         public override IStates Update(GameTime time)
         {
-            return new SunBossNormalStates(bossDelegate, time);
+            base.Update(time);
+            if (timer.TotalMili > 1500)
+			{
+				return new SunBossNormalStates(bossDelegate, time);
+			}
+            return this;
         }
     }
 }

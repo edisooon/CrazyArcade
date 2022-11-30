@@ -45,23 +45,19 @@
   },
   "Items": {
     "CoinBag": [
-      [ 1, 7 ]
     ],
     "Balloon": [
-      [ 3, 7 ]
     ],
     "Sneaker": [
-      [ 5, 7 ]
     ],
     "Turtle": [
-      [ 7, 7 ]
     ],
     "Potion": [
-      [ 9, 7 ]
     ],
     "Coin": [
-      [ 11, 7 ]
-    ]
+    ],
+    "Kick": [
+    ] 
 
   },
   "Player": [ 0, 0 ],

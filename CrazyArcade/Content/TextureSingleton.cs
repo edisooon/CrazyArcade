@@ -26,7 +26,14 @@ namespace CrazyArcade.Content
         }
         private static void DefineArrays()
         {
-            fileNames = new string[] {"Balloons","BombEnemy", "Bubble", "DesertBlocks", "Pirate", "Player1", "Powerups", "Rides", "OctobossFull", "Sneaker", "Turtle", "Bomb", "Coin", "Coinbag", "Potion", "bomberman_enemies", "bombermanII_enemies","blue_background","splash", "door" };
+            fileNames = new string[] {
+                "Balloons","BombEnemy", "Bubble",           //0-2
+                "DesertBlocks", "Pirate", "Player1",        //3-5
+                "Powerups", "Rides", "OctobossFull",        //6-8
+                "Sneaker", "Turtle", "Bomb", "Coin",        //9-12
+                "Coinbag", "Potion", "bomberman_enemies",   //13-15
+                "bombermanII_enemies","blue_background",    //16-17
+                "splash", "door", "kick", "door_closed" };  //18-21
             spriteSheets = new Texture2D[fileNames.Length];
             fonts = new SpriteFont[1];
         }
@@ -126,11 +133,19 @@ namespace CrazyArcade.Content
             return spriteSheets[18];
         }
 
-        public static Texture2D GetDoor()
+		public static Texture2D GetDoorOpen()
+		{
+			return spriteSheets[19];
+		}
+		public static Texture2D GetKick()
         {
-            return spriteSheets[19];
-        }
-        public static SpriteFont getTestFont()
+            return spriteSheets[20];
+		}
+		public static Texture2D GetDoorClose()
+		{
+			return spriteSheets[21];
+		}
+		public static SpriteFont getTestFont()
         {
             return fonts[0];
         }
