@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using CrazyArcade.PlayerStateMachine;
+using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,11 +18,12 @@ namespace CrazyArcade.Blocks
         public Rectangle blockCollisionBoundingBox { get; }
         //The code that is executed when a collision is detected. (Called by the block)
         public bool CouldKick { get; }
+        public ICharacterState State { get; }   // some of the collision behaviors are state dependent, e.g., when player is in bubble state, it shouldn't "eat" items
         public void CollisionHaltLogic(Point amountMoved);
         public void CollisionDestroyLogic();
-        public bool canHaveItem();
+        //public bool canHaveItem();
         public void IncreaseBlastLength();
-        public void SwitchToMountedState();
+        //public void SwitchToMountedState();
         public void IncreaseSpeed();
         public void IncreaseBombCount();
         public void EnableKick();

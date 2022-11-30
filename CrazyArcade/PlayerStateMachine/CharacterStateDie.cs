@@ -9,30 +9,33 @@ namespace CrazyArcade.PlayerStateMachine
 {
     public class CharacterStateDie : ICharacterState
     {
-        SpriteAnimation[] die;
         private Character character;
         private bool isPirate;
         public CharacterStateDie(Character character, bool isPirate)
         {
             this.isPirate = isPirate;
             this.character = character;
-            die = new SpriteAnimation[1];
-            die[0] = new SpriteAnimation(TextureSingleton.GetPlayer(isPirate), 11, 7, 275, 531, 108, 10);
+            character.spriteAnims = SetSprites();
+            character.ModifiedSpeed = 0;
         }
 
-        public bool ProcessAttaction()
+        public bool CouldGetItem { get => false; }
+
+        public bool CouldPutBomb { get => false; }
+
+        public void ProcessAttaction()
         {
-            throw new NotImplementedException();
+            //player wouldn't take attaction any more when in dead state
         }
 
         public void ProcessItem()
         {
-            throw new NotImplementedException();
+            //player cannot process/use item when in dead state
         }
 
         public void ProcessRide()
         {
-            throw new NotImplementedException();
+            //player cannot get a ride when in dead state
         }
 
         public void ProcessState(GameTime time)
@@ -41,8 +44,6 @@ namespace CrazyArcade.PlayerStateMachine
             if (character.SpriteAnim.getCurrentFrame() == character.SpriteAnim.getTotalFrames() - 1)
             {
                 character.playerState = new CharacterStateFree(character, isPirate);
-                character.spriteAnims = character.playerState.SetSprites();
-                character.playerState.SetSpeed();
                 character.lives--;
                 if (character.lives == 0)
                 {
@@ -51,13 +52,10 @@ namespace CrazyArcade.PlayerStateMachine
             }
         }
 
-        public int SetSpeed()
-        {
-            return 0;
-        }
-
         public SpriteAnimation[] SetSprites()
         {
+            SpriteAnimation[] die = new SpriteAnimation[1];
+            die[0] = new SpriteAnimation(TextureSingleton.GetPlayer1(), 11, 7, 275, 531, 108, 10);
             return die;
         }
     }

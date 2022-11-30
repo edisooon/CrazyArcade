@@ -23,8 +23,11 @@ namespace CrazyArcade.Items
         }
         public override void CollisionLogic(Rectangle overlap, IPlayerCollisionBehavior collisionPartner)
         {
-            collisionPartner.IncreaseBombCount();
-            this.DeleteSelf();
+            if (collisionPartner.State.CouldGetItem)
+            {
+                collisionPartner.IncreaseBombCount();
+                this.DeleteSelf();
+            }
         }
     }
     public class CoinBag : Item
@@ -37,8 +40,11 @@ namespace CrazyArcade.Items
         }
         public override void CollisionLogic(Rectangle overlap, IPlayerCollisionBehavior collisionPartner)
         {
-            collisionPartner.IncreaseScore(50);
-            this.DeleteSelf();
+            if (collisionPartner.State.CouldGetItem)
+            {
+                collisionPartner.IncreaseScore(50);
+                this.DeleteSelf();
+            }
         }
     }
     public class Sneaker : Item
@@ -49,8 +55,11 @@ namespace CrazyArcade.Items
         }
         public override void CollisionLogic(Rectangle overlap, IPlayerCollisionBehavior collisionPartner)
         {
-            collisionPartner.IncreaseSpeed();
-            this.DeleteSelf();
+            if (collisionPartner.State.CouldGetItem)
+            {
+                collisionPartner.IncreaseSpeed();
+                this.DeleteSelf();
+            }
         }
     }
     public class Turtle : Item
@@ -61,8 +70,11 @@ namespace CrazyArcade.Items
         }
         public override void CollisionLogic(Rectangle overlap, IPlayerCollisionBehavior collisionPartner)
         {
-            collisionPartner.SwitchToMountedState();
-            this.DeleteSelf();
+            if (collisionPartner.State.CouldGetItem)
+            {
+                collisionPartner.State.ProcessRide();
+                this.DeleteSelf();
+            }
         }
 
     }
@@ -75,8 +87,11 @@ namespace CrazyArcade.Items
         }
         public override void CollisionLogic(Rectangle overlap, IPlayerCollisionBehavior collisionPartner)
         {
-            collisionPartner.IncreaseBlastLength();
-            this.DeleteSelf();
+            if (collisionPartner.State.CouldGetItem)
+            {
+                collisionPartner.IncreaseBlastLength();
+                this.DeleteSelf();
+            }
         }
 
         public override void Update(GameTime time)
@@ -94,8 +109,11 @@ namespace CrazyArcade.Items
         }
         public override void CollisionLogic(Rectangle overlap, IPlayerCollisionBehavior collisionPartner)
         {
-            collisionPartner.IncreaseScore(10);
-            this.DeleteSelf();
+            if (collisionPartner.State.CouldGetItem)
+            {
+                collisionPartner.IncreaseScore(10);
+                this.DeleteSelf();
+            }
         }
     }
     public class KickBoot : Item
@@ -106,9 +124,12 @@ namespace CrazyArcade.Items
 
         }
         public override void CollisionLogic(Rectangle overlap, IPlayerCollisionBehavior collisionPartner)
-        {
-            collisionPartner.EnableKick();
-            this.DeleteSelf();
+        { 
+            if (collisionPartner.State.CouldGetItem)
+            {
+                collisionPartner.EnableKick();
+                this.DeleteSelf();
+            }
         }
     }
 }
