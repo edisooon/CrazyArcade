@@ -16,6 +16,8 @@ namespace CrazyArcade.CAFramework
 		void Victory();
         void Transition(int stage, Dir dir);
 		bool IsDoorOpen();
+		void IncreaseEnemyCount();
+		void DecreaseEnemyCount();
     }
 }
 

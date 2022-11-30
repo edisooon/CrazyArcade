@@ -9,6 +9,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
 using CrazyArcade.GameGridSystems;
 using CrazyArcade.BombFeature;
+using CrazyArcade.CAFrameWork.GridBoxSystem;
 
 namespace CrazyArcade.Items
 {
@@ -17,12 +18,12 @@ namespace CrazyArcade.Items
     {
 
     }
-    public abstract class Item : CAEntity, IItem, IGridable, IExplosionCollidable, IPlayerCollidable
+    public abstract class Item : CAGridBoxEntity, IItem, IExplosionCollidable, IPlayerCollidable
     {
         //----------IGridable Start------------
         private Vector2 gamePos;
         private Vector2 pos;
-        public Vector2 ScreenCoord
+        public override Vector2 ScreenCoord
         {
             get => pos;
             set
@@ -38,7 +39,7 @@ namespace CrazyArcade.Items
             this.Y = (int)value.Y;
             hitbox = new Rectangle((int)ScreenCoord.X, (int)ScreenCoord.Y, 36, 36);
         }
-        public Vector2 GameCoord
+        public override Vector2 GameCoord
         {
             get => gamePos;
             set
@@ -49,7 +50,7 @@ namespace CrazyArcade.Items
         }
         private IGridTransform trans = new NullTransform();
 
-        public IGridTransform Trans
+        public override IGridTransform Trans
         {
             get => trans;
             set
@@ -63,6 +64,7 @@ namespace CrazyArcade.Items
         protected SpriteAnimation spriteAnimation;
         //protected ISceneDelegate parentScene;
         public Item(Vector2 position, Rectangle source, Texture2D texture, int frames, int fps)
+            : base(new GridBoxPosition((int)position.X, (int)position.Y, (int)GridObjectDepth.Item))
         {
             //this.parentScene = parentScene;
             spriteAnimation = new SpriteAnimation(texture, frames, fps);
@@ -130,5 +132,14 @@ namespace CrazyArcade.Items
             }
             return null;
         }
-    }
+
+		public override bool IsSolid(Dir dir, bool couldKick)
+        {
+            return false;
+        }
+		public override HashSet<Point> PotentialDangerousTile()
+        {
+            return new HashSet<Point>();
+        }
+	}
 }

@@ -67,8 +67,17 @@ namespace CrazyArcade.CAFrameWork.GridBoxSystem
         }
 
         public void Update(GameTime time)
+		{
+		    potentialDemageTiles = new HashSet<Point>();
+            foreach (IGridBox boxes in map.Values)
+            {
+                potentialDemageTiles.UnionWith(boxes.PotentialDangerousTile()); ;
+            }
+		}
+		HashSet<Point> potentialDemageTiles = new HashSet<Point>();
+		public bool IsPotentialDemageTile(Point point)
         {
-            //Empty
+            return potentialDemageTiles.Contains(point);
         }
     }
 }

@@ -139,7 +139,7 @@ namespace CrazyArcade.CAFrameWork.CollisionSystem
                 sceneDelegate.ToRemoveEntity(explodable);
             }
         }
-
+                
         public void RemoveAll()
         {
             triggers.Clear();
