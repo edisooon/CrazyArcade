@@ -157,12 +157,12 @@ namespace CrazyArcade.PlayerStateMachine
             CollisionDestroyLogic();
             return true;
         }
-        public void Save(LevelPersnstance level)
+        public void Save(LevelPersistence level)
         {
             level.SavedStatInt.Add("playerScore", score);
             level.SavedStatInt.Add("playerLives", lives);
         }
-        public void Load(LevelPersnstance level)
+        public void Load(LevelPersistence level)
         {
             if (level.SavedStatInt.ContainsKey("playerScore"))
             {

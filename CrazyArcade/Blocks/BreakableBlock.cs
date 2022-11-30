@@ -10,7 +10,7 @@ using CrazyArcade.CAFramework;
 
 namespace CrazyArcade.Blocks
 {
-    public abstract class BreakableBlock : Block, IBlock
+    public abstract class BreakableBlock : Block
     {
         ISceneDelegate parentScene;
 

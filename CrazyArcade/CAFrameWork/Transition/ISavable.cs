@@ -8,7 +8,7 @@ namespace CrazyArcade.CAFrameWork.Transition
 {
     public interface ISavable
     {
-        public void Save(LevelPersnstance level);
-        public void Load(LevelPersnstance level);
+        public void Save(LevelPersistence level);
+        public void Load(LevelPersistence level);
     }
 }

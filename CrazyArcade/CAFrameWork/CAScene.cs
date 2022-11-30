@@ -159,9 +159,9 @@ namespace CrazyArcade.CAFramework
         protected bool loading = false;
         public bool Loading { set => loading = value; }
 
-        public LevelPersnstance GetData()
+        public LevelPersistence GetData()
         {
-            LevelPersnstance saveData = new();
+            LevelPersistence saveData = new();
             foreach (IEntity entity in entities)
             {
                 if (entity is ISavable)
@@ -171,7 +171,7 @@ namespace CrazyArcade.CAFramework
             }
             return saveData;
         }
-        public void LoadData(LevelPersnstance level)
+        public void LoadData(LevelPersistence level)
         {
             foreach (IEntity entity in entities)
             {

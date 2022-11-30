@@ -14,8 +14,8 @@ namespace CrazyArcade.CAFramework
         void AddSprite(IEntity sprite);
         void RemoveSprite(IEntity sprite);
         void RemoveAllSprite();
-        LevelPersnstance GetData();
-        void LoadData(LevelPersnstance saveData);
+        LevelPersistence GetData();
+        void LoadData(LevelPersistence saveData);
     }
 }
 

@@ -11,11 +11,8 @@ namespace CrazyArcade.Blocks
 {
     //The purpose of this interface is to group together all blocks in the future. All code contained within must apply to all blocks, and changes can be 
     //Made in the future to enforce this. As of now however, it's purpose is to have an easy way to catagorise all blocks as this.
-    public interface IBlock : IEntity
-    {
-
-    }
-    public abstract class Block : CAGridBoxEntity, IBlock, IPlayerCollidable, IGridable, IExplosionCollidable, IEnemyCollidable
+    
+    public abstract class Block : CAGridBoxEntity, IPlayerCollidable, IGridable, IExplosionCollidable, IEnemyCollidable
     {
         //----------IGridable Start------------
         private Vector2 gamePos;
