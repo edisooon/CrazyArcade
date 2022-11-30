@@ -28,6 +28,7 @@ namespace CrazyArcade.UI.GUI_Components
         public SpriteAnimation Sprite { get => spriteAnim; set { spriteAnim = value; } }
         
         protected SpriteFont font = null;
+        public SpriteFont Font { get => font; }
         //Set to as a default as well as to test
         public void SetPosition(Vector2 newPosition)
         {

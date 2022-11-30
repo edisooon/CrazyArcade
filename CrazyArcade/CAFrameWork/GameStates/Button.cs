@@ -17,7 +17,7 @@ namespace CrazyArcade.CAFrameWork.GameStates
     public class Button : GUIComposition
     {
         ButtonBase button;
-        IGUIComponent text;
+        GUIText text;
         Rectangle buttonRectangle;
         private bool enlarged = false;
         private Action pressButtonAction;
@@ -30,10 +30,15 @@ namespace CrazyArcade.CAFrameWork.GameStates
             SetPosition(position);
             buttonRectangle = new Rectangle((int)position.X, (int)position.Y, button.Rect.Width, button.Rect.Height);
             SetButton();
-            //Centers text
-            text.SetPosition(new Vector2(buttonRectangle.Width - 125, buttonRectangle.Height - 37));
+            //Centers text in the button
+            text.SetPosition(new Vector2(buttonRectangle.Width/2 - (int)text.Font.MeasureString(content).X/2, buttonRectangle.Height/2 - (int)text.Font.MeasureString(content).Y/2));
             AddComponent(button);
             AddComponent(text);
+        }
+        public static Vector2 GetBasePosition(float pos)
+        {
+            //Positions the button in the correct segment of the screen based on pos
+            return new Vector2(CrazyArcade.CAGame.ScreenSize.X / 2 - ButtonBase.DefaultButtonRectangle.Width / 2, CrazyArcade.CAGame.ScreenSize.Y / pos - ButtonBase.DefaultButtonRectangle.Height / pos);
         }
         private void Enlarge()
         {
@@ -45,6 +50,7 @@ namespace CrazyArcade.CAFrameWork.GameStates
         {
             button.ChangeComponentTextureOutputRect(buttonRectangle.Width, buttonRectangle.Height);
             button.SetPosition(new Vector2(0, 0));
+            enlarged = false;
         }
         private bool HasMouse(MouseState mouse)
         {
