@@ -30,7 +30,7 @@ public class CAGame : Game, IGameDelegate, ITransitionCompleteHandler
     public ReadJSON map;
     public String[] LevelSongTitles;
     public Song song;
-    private Point ScreenSizeVals = new Point(900, 600);
+    private static Point ScreenSizeVals = new(900, 600);
     //Random for test purposes and counter
     Random rnd = new Random();
     int newElements = 0;
@@ -68,7 +68,7 @@ public class CAGame : Game, IGameDelegate, ITransitionCompleteHandler
     {
         base.Exit();
     }
-    public Point ScreenSize { get { return ScreenSizeVals; } }
+    public static Point ScreenSize { get { return ScreenSizeVals; } }
     protected override void Initialize()
     {
         gameGUI = new GUI();

@@ -6,7 +6,7 @@ namespace CrazyArcade.CAFrameWork.CAGame
 {
 	public interface IGameDelegate
 	{
-		public Point ScreenSize { get; }
+		public static Point ScreenSize { get; }
 		public void NewGame();
 		public void StartGame();
 		public ISceneState Scene { get; set; }
