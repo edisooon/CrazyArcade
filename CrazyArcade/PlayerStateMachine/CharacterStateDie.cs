@@ -24,17 +24,16 @@ namespace CrazyArcade.PlayerStateMachine
 
         public bool ProcessAttaction()
         {
-            throw new NotImplementedException();
+            return false;
         }
 
         public void ProcessItem()
         {
-            throw new NotImplementedException();
+            
         }
 
         public void ProcessRide()
         {
-            throw new NotImplementedException();
         }
 
         public void ProcessState(GameTime time)
