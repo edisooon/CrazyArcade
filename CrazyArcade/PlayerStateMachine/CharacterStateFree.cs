@@ -19,8 +19,10 @@ namespace CrazyArcade.PlayerStateMachine
         public SpriteAnimation[] spriteAnims;
         private bool d1HeldDown;
         private bool d2HeldDown;
-        public CharacterStateFree(Character character)
+		private bool isPirate;
+		public CharacterStateFree(Character character, bool isPirate)
         {
+            this.isPirate = isPirate;
             this.spriteAnims = new SpriteAnimation[4];
             this.character = character;
             d1HeldDown = false;
@@ -28,10 +30,10 @@ namespace CrazyArcade.PlayerStateMachine
         }
         public SpriteAnimation[] SetSprites()
         {
-            spriteAnims[(int)Dir.Up] = new SpriteAnimation(TextureSingleton.GetPlayer1(), 12, 14, 44, 56, 6, 4, 10);
-            spriteAnims[(int)Dir.Down] = new SpriteAnimation(TextureSingleton.GetPlayer1(), 12, 78, 44, 56, 6, 4, 10);
-            spriteAnims[(int)Dir.Left] = new SpriteAnimation(TextureSingleton.GetPlayer1(), 12, 142, 44, 56, 6, 4, 10);
-            spriteAnims[(int)Dir.Right] = new SpriteAnimation(TextureSingleton.GetPlayer1(), 12, 206, 44, 56, 6, 4, 10);
+            spriteAnims[(int)Dir.Up] = new SpriteAnimation(TextureSingleton.GetPlayer(isPirate), 12, 14, 44, 56, 6, 4, 10);
+            spriteAnims[(int)Dir.Down] = new SpriteAnimation(TextureSingleton.GetPlayer(isPirate), 12, 78, 44, 56, 6, 4, 10);
+            spriteAnims[(int)Dir.Left] = new SpriteAnimation(TextureSingleton.GetPlayer(isPirate), 12, 142, 44, 56, 6, 4, 10);
+            spriteAnims[(int)Dir.Right] = new SpriteAnimation(TextureSingleton.GetPlayer(isPirate), 12, 206, 44, 56, 6, 4, 10);
             return spriteAnims;
         }
         public void ProcessState(GameTime time)
@@ -50,7 +52,7 @@ namespace CrazyArcade.PlayerStateMachine
             }
             if (Keyboard.GetState().IsKeyDown(Keys.E))
             {
-                character.playerState = new CharacterStateBubble(character);
+                character.playerState = new CharacterStateBubble(character, isPirate);
                 character.spriteAnims = character.playerState.SetSprites();
                 character.playerState.SetSpeed();
             }

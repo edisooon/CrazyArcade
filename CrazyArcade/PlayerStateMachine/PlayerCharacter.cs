@@ -22,7 +22,7 @@ namespace CrazyArcade.PlayerStateMachine
     {
         
         Dictionary<int, Action> commands = new Dictionary<int, Action>();
-        public PlayerCharacter(int[] keySet) : base()
+        public PlayerCharacter(int[] keySet) : base(false)
         {
             Action[] actions = new Action[5];
             actions[0] = KeyUp;

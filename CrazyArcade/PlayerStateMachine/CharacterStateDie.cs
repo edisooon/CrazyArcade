@@ -11,11 +11,13 @@ namespace CrazyArcade.PlayerStateMachine
     {
         SpriteAnimation[] die;
         private Character character;
-        public CharacterStateDie(Character character)
+        private bool isPirate;
+        public CharacterStateDie(Character character, bool isPirate)
         {
+            this.isPirate = isPirate;
             this.character = character;
             die = new SpriteAnimation[1];
-            die[0] = new SpriteAnimation(TextureSingleton.GetPlayer1(), 11, 7, 275, 531, 108, 10);
+            die[0] = new SpriteAnimation(TextureSingleton.GetPlayer(isPirate), 11, 7, 275, 531, 108, 10);
         }
 
         public bool ProcessAttaction()
@@ -38,7 +40,7 @@ namespace CrazyArcade.PlayerStateMachine
             //throw new NotImplementedException();
             if (character.SpriteAnim.getCurrentFrame() == character.SpriteAnim.getTotalFrames() - 1)
             {
-                character.playerState = new CharacterStateFree(character);
+                character.playerState = new CharacterStateFree(character, isPirate);
                 character.spriteAnims = character.playerState.SetSprites();
                 character.playerState.SetSpeed();
                 character.lives--;

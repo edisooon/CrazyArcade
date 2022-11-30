@@ -68,9 +68,9 @@ namespace CrazyArcade.Content
 
         }
 
-        public static Texture2D GetPlayer1()
+        public static Texture2D GetPlayer(bool isPirate)
         {
-            return spriteSheets[5];
+            return isPirate ? GetPirate() : spriteSheets[5];
         }
 
         public static Texture2D GetPowerUps()

@@ -19,7 +19,7 @@ namespace CrazyArcade.Pirates
         public int BlastLength => this.CurrentBlastLength;
 
 		Dictionary<int, Action> commands = new Dictionary<int, Action>();
-		public PirateCharacter() : base()
+		public PirateCharacter() : base(true)
 		{
 			this.input = new PirateController();
 			input.Pirate = this;

@@ -39,11 +39,12 @@ namespace CrazyArcade.PlayerStateMachine
         private int ICounter = 0;
 
         public override SpriteAnimation SpriteAnim => spriteAnims[animationHandleInt];
-
-        public Character()
+        private bool isPirate;
+        public Character(bool isPirate)
         {
             //ModifiedSpeed = DefaultSpeed;
-            playerState = new CharacterStateFree(this);
+            this.isPirate = isPirate;
+            playerState = new CharacterStateFree(this, isPirate);
             spriteAnims = playerState.SetSprites();
             playerState.SetSpeed();
             direction = Dir.Down;
@@ -86,13 +87,13 @@ namespace CrazyArcade.PlayerStateMachine
             if (this.playerState is CharacterStateTurtle )
             {
                 
-                this.playerState = new CharacterStateFree(this);
+                this.playerState = new CharacterStateFree(this, isPirate);
                 loseRideFlag = 0;
                 invincible = true;
             }
             else if (loseRideFlag >= 5)
             {
-                this.playerState = new CharacterStateBubble(this);
+                this.playerState = new CharacterStateBubble(this, isPirate);
             }
             else
             {
@@ -128,7 +129,7 @@ namespace CrazyArcade.PlayerStateMachine
         }
         public void SwitchToMountedState()
         {
-            this.playerState = new CharacterStateTurtle(this);
+            this.playerState = new CharacterStateTurtle(this, isPirate);
             spriteAnims = this.playerState.SetSprites();
             this.playerState.SetSpeed();
         }
