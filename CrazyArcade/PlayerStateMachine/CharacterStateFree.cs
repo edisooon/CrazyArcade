@@ -82,12 +82,12 @@ namespace CrazyArcade.PlayerStateMachine
         public void ProcessRide()
         {
             // could, more code in the future
-            this.character.playerState = new CharacterStateMounted(this.character, RideType.Turtle);
+            this.character.playerState = new CharacterStateMounted(this.character, RideType.Turtle, isPirate);
         }
         public void ProcessAttaction()
         {
             // when player takes attaction by the explosion, it switches to its bubble state
-            character.playerState = new CharacterStateBubble(character);
+            character.playerState = new CharacterStateBubble(character, isPirate);
         }
 
     }

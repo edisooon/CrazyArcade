@@ -19,8 +19,10 @@ namespace CrazyArcade.PlayerStateMachine
     {
         private Character character;
         private PlayerRide ride;
-        public CharacterStateMounted(Character character, RideType type)
+        bool isPirate;
+        public CharacterStateMounted(Character character, RideType type, bool isPirate)
         {
+            this.isPirate = isPirate;
             this.character = character;
             character.animationHandleInt = 0;
             LoadRide(type);
@@ -55,7 +57,7 @@ namespace CrazyArcade.PlayerStateMachine
         public void ProcessAttaction()
         {
             // when player takes attaction by the explosion, it switches to its free state
-            character.playerState = new CharacterStateFree(character);
+            character.playerState = new CharacterStateFree(character, isPirate);
             endState();
         }
 
@@ -96,10 +98,10 @@ namespace CrazyArcade.PlayerStateMachine
         public SpriteAnimation[] SetSprites()
         {
             SpriteAnimation[] spriteAnims = new SpriteAnimation[4];
-            spriteAnims[(int)Dir.Up] = new SpriteAnimation(TextureSingleton.GetPlayer1(), new Rectangle(12, 460, 44, 56));
-            spriteAnims[(int)Dir.Down] = new SpriteAnimation(TextureSingleton.GetPlayer1(), new Rectangle(60, 460, 44, 56));
-            spriteAnims[(int)Dir.Left] = new SpriteAnimation(TextureSingleton.GetPlayer1(), new Rectangle(110, 460, 44, 56));
-            spriteAnims[(int)Dir.Right] = new SpriteAnimation(TextureSingleton.GetPlayer1(), new Rectangle(156, 460, 44, 56));
+            spriteAnims[(int)Dir.Up] = new SpriteAnimation(TextureSingleton.GetPlayer(isPirate), new Rectangle(12, 460, 44, 56));
+            spriteAnims[(int)Dir.Down] = new SpriteAnimation(TextureSingleton.GetPlayer(isPirate), new Rectangle(60, 460, 44, 56));
+            spriteAnims[(int)Dir.Left] = new SpriteAnimation(TextureSingleton.GetPlayer(isPirate), new Rectangle(110, 460, 44, 56));
+            spriteAnims[(int)Dir.Right] = new SpriteAnimation(TextureSingleton.GetPlayer(isPirate), new Rectangle(156, 460, 44, 56));
 
             for (int i = 0; i < 4; i++)
             {

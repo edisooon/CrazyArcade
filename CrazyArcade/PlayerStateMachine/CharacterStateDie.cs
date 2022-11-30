@@ -55,7 +55,7 @@ namespace CrazyArcade.PlayerStateMachine
         public SpriteAnimation[] SetSprites()
         {
             SpriteAnimation[] die = new SpriteAnimation[1];
-            die[0] = new SpriteAnimation(TextureSingleton.GetPlayer1(), 11, 7, 275, 531, 108, 10);
+            die[0] = new SpriteAnimation(TextureSingleton.GetPlayer(isPirate), 11, 7, 275, 531, 108, 10);
             return die;
         }
     }
