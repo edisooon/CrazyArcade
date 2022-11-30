@@ -25,11 +25,11 @@ namespace CrazyArcade.Pirates
 			this.input = new PirateController();
 			input.Pirate = this;
 			Action[] actions = new Action[5];
-			//actions[0] = KeyUp;
-			//actions[1] = KeyLeft;
-			//actions[2] = KeyDown;
-			//actions[3] = KeyRight;
-			//actions[4] = KeySpace;
+			actions[0] = KeyUp;
+			actions[1] = KeyLeft;
+			actions[2] = KeyDown;
+			actions[3] = KeyRight;
+			actions[4] = KeySpace;
 			int[] keySet = input.ValidKeys;
 			for (int i = 0; i < keySet.Length; i++)
 			{
