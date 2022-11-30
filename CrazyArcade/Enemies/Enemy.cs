@@ -9,8 +9,8 @@ using CrazyArcade.CAFrameWork.GridBoxSystem;
 using CrazyArcade.EnemyCollision;
 
 namespace CrazyArcade.Enemies
-{ 
-    public abstract class Enemy: CAEntity, IPlayerCollidable, IGridable, IExplosionCollidable, IEnemyCollisionBehavior
+{
+    public abstract class Enemy: EnemyEntity, IPlayerCollidable, IGridable, IExplosionCollidable, IEnemyCollisionBehavior
     {
         public SpriteAnimation[] spriteAnims;
         public SpriteAnimation spriteAnim;

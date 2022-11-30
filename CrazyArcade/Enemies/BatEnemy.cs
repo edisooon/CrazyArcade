@@ -30,6 +30,7 @@ namespace CrazyArcade.Enemies
 
         public override void Load()
         {
+            base.Load();
             direction = Dir.Down;
             effect = SpriteEffects.None;
             texture = TextureSingleton.GetBombermanIIEnemies();

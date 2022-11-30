@@ -9,10 +9,12 @@ namespace CrazyArcade.PlayerStateMachine
     public class CharacterStateNew : ICharacterState
     {
         SpriteAnimation[] start;
-        public CharacterStateNew()
+        private bool isPirate;
+        public CharacterStateNew(bool isPirate)
         {
+            this.isPirate = isPirate;
             start = new SpriteAnimation[1];
-            start[0] = new SpriteAnimation(TextureSingleton.GetPlayer1(), 10, 7, 527, 480, 64, 10);
+            start[0] = new SpriteAnimation(TextureSingleton.GetPlayer(isPirate), 10, 7, 527, 480, 64, 10);
         }
 
         public bool ProcessAttaction()
@@ -44,6 +46,7 @@ namespace CrazyArcade.PlayerStateMachine
         {
             return start;
         }
+
     }
 }
 

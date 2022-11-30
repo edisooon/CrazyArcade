@@ -13,6 +13,7 @@ namespace CrazyArcade.PlayerStateMachine.PlayerItemInteractions
     {
         public SpeedModifier()
         {
+            MaxCount = 1;
             Name = "shoeItem";
             ItemRep = new SpriteAnimation(TextureSingleton.GetRollerskates(), new Rectangle(0, 0, 64, 64));
         }
