@@ -55,10 +55,10 @@ namespace CrazyArcade.PlayerStateMachine
                 bubble.bubbleInt = 2;
                 character.playerState.SetSpeed();
                 character.lives--;
-                UI_Singleton.ChangeComponentText("lifeCounter", "count", "Lives: " + character.lives);
+                if (!isPirate) UI_Singleton.ChangeComponentText("lifeCounter", "count", "Lives: " + character.lives);
                 if (character.lives == 0)
                 {
-                    character.SceneDelegate.EndGame();
+                    character.playerState = new CharacterStateDie(this.character, isPirate);
                 }
             }
             elapsedTime += (float)time.ElapsedGameTime.TotalMilliseconds;
