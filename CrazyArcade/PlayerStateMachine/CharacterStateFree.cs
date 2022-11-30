@@ -79,7 +79,7 @@ namespace CrazyArcade.PlayerStateMachine
         }
         public int SetSpeed()
         {
-            character.ModifiedSpeed = character.DefaultSpeed;
+            character.ModifiedSpeed = character.FreeModifiedSpeed;
             return 1;
         }
         public bool ProcessAttaction()
