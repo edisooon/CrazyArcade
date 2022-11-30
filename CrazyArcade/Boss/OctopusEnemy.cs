@@ -49,8 +49,8 @@ namespace CrazyArcade.Boss
         protected Vector2[] SpeedVector;
         public float speed = 0.15f;
         private int squareSize = 4;
-        private int xoffSet = 3;
-        private int yoffSet = 2;
+        private int xoffset = 4;
+        private int yoffset = 4;
 
         //Out of Use
         //public Rectangle outputFrame1;
@@ -231,13 +231,13 @@ namespace CrazyArcade.Boss
             switch (dir){
                 case Dir.Right:
                     justAttacked = false;
-                    return xDifference >= squareSize + xoffSet;
+                    return xDifference >= squareSize + xoffset;
                 case Dir.Up:
-                    return yDifference <= yoffSet-1;
+                    return yDifference <= yoffset-1;
                 case Dir.Down:
-                    return yDifference >= squareSize+yoffSet-1;
+                    return yDifference >= squareSize+yoffset-1;
                 case Dir.Left:
-                    return xDifference <= xoffSet;
+                    return xDifference <= xoffset;
             }
             return false;
         }
@@ -259,7 +259,7 @@ namespace CrazyArcade.Boss
                 direction = Dir.Down;
                 UpdateAnimation(dir);
             }
-            else if (dir == Dir.Down && xDifference < squareSize + xoffSet && yDifference > (squareSize / 2) + yoffSet - 1 && !justAttacked)
+            else if (dir == Dir.Down && xDifference < squareSize + xoffset && yDifference > (squareSize / 2) + yoffset - 1 && !justAttacked)
             {
                 justAttacked = true;
                 //state = new OctopusAttack(this,1);
@@ -304,42 +304,62 @@ namespace CrazyArcade.Boss
         {
             //change to attacking state aka make still
             //execute square blast attack
-            WaterBomb[] waterExplosionEdges = new WaterBomb[18];
-            int[,] edgeCoords = { { 3, 3}, { 4, 3 }, { 5, 3 }, { 6, 3 }, { 7, 3 },
-                                  { 3, 8}, { 4, 8 }, { 5, 8 }, { 6, 8 }, { 7, 8 }, 
-                                  { 2, 4 }, { 2, 5 }, { 2, 6 }, { 2, 7 },
-                                  { 8, 4 }, { 8, 5 }, { 8, 6 }, { 8, 7 }};
+            int squaresize = 6;
+
+            WaterBomb[,] waterExplosionEdges = new WaterBomb[4, squaresize];
+            int[,,] edgeCoords = getSquareCoords(squaresize);
             //resume movement if necessary
-            for(int i = 0; i < waterExplosionEdges.Length; i++){
-                int d;
-                if (i < 5) d = 1;//left
-                else if (i < 10) d = 3;//right
-                else if (i < 14) d = 2;//down
-                else d = 0;//up
-                waterExplosionEdges[i] = new WaterBomb(new Vector2(edgeCoords[i,0]+1, edgeCoords[i,1]), 0, this, true);
-                this.SceneDelegate.ToAddEntity(waterExplosionEdges[i]);
+            for(int side = 0; side < 4; side++){
+                for (int spot = 0; spot < squaresize; spot++)
+                {
+                    waterExplosionEdges[side, spot] = new WaterBomb(new Vector2(edgeCoords[side,spot,0], edgeCoords[side,spot,1]), 0, this, true);
+                    this.SceneDelegate.ToAddEntity(waterExplosionEdges[side, spot]);
+                }
             }
-            for (int i = 0; i < waterExplosionEdges.Length; i++)
-            {
-                this.SceneDelegate.ToAddEntity(waterExplosionEdges[i]);
-            }
-            //Debug.WriteLine("Octo Square Blast");
         }
-        public void toggleHurtSprites(Boolean hurt) {
-            if (hurt){
-                //tint = Color.Red;
-                //this.spriteAnims[(int)Dir.Up] = new SpriteAnimation(texture, 1, 1560, 18, 110, 153, fps);
-                //InputFramesDown[0] = new Rectangle(991, 26, 107, 135);
-               // InputFramesDown[1] = new Rectangle(1181, 22, 108, 145);
-                //this.spriteAnims[(int)Dir.Down] = new SpriteAnimation(texture, InputFramesDown, fps);
-                //left one doesn't change
-                //InputFramesRight[0] = new Rectangle(1371, 17, 108, 153);
-                //this.spriteAnims[(int)Dir.Right] = new SpriteAnimation(texture, InputFramesRight, fps);
-                //update to show change if necessary
+        public int[,,] getSquareCoords(int squaresize) {
+            int[,,] edgeCoords = new int[4, squaresize, 2];
+            for (int side = 0; side < 4; side++)
+            {
+                if (side == 0)
+                {
+                    //up
+                    for (int i = 0; i < squaresize; i++)
+                    {
+                        edgeCoords[side, i, 0] = xoffset + i;
+                        edgeCoords[side, i, 1] = yoffset;
+                    }
+                }
+                else if (side == 1)
+                {
+                    //left
+                    for (int i = 0; i < squaresize; i++)
+                    {
+                        edgeCoords[side, i, 0] = xoffset;
+                        edgeCoords[side, i, 1] = yoffset + i+1;
+                    }
+                    
+                }
+                else if (side == 2)
+                {
+                    //down
+                    for (int i = 0; i < squaresize; i++)
+                    {
+                        edgeCoords[side, i, 0] = xoffset + i+1;
+                        edgeCoords[side, i, 1] = yoffset + squaresize;
+                    }
+                }
+                else
+                {
+                    //right
+                    for (int i = 0; i < squaresize; i++)
+                    {
+                        edgeCoords[side, i, 0] = xoffset + squaresize;
+                        edgeCoords[side, i, 1] = yoffset + i;
+                    }
+                }
             }
-            else {
-                //this.Load();
-            }
+            return edgeCoords;
         }
         //IBombCollectable stuff
         public void RecollectBomb()
