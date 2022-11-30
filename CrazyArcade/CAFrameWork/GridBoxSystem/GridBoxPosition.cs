@@ -21,7 +21,14 @@ namespace CrazyArcade.CAFrameWork.GridBoxSystem
 			Y = y;
 			Depth = depth;
         }
-        public GridBoxPosition(Vector2 grid, int depth)
+		public GridBoxPosition(Point grid, int depth)
+		{
+			X = grid.X;
+			Y = grid.Y;
+			//Console.WriteLine("new position:" + X + "," + Y);
+			Depth = depth;
+		}
+		public GridBoxPosition(Vector2 grid, int depth)
 		{
 			X = (int)grid.X;
 			Y = (int)grid.Y;
@@ -43,7 +50,7 @@ namespace CrazyArcade.CAFrameWork.GridBoxSystem
 				new Point(0, 1),
 				new Point(1, 0)
 			};
-			return new GridBoxPosition(this.X + direction[(int)dir].X, this.X + direction[(int)dir].Y, this.Depth);
+			return new GridBoxPosition(this.X + direction[(int)dir].X, this.Y + direction[(int)dir].Y, this.Depth);
 		}
 		public Point toPoint()
 		{
