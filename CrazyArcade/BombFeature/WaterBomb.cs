@@ -195,7 +195,7 @@ namespace CrazyArcade.BombFeature
         {
             DeleteSelf();
             canExplode = false;
-            return new Explosion(new Point((int)GameCoord.X, (int)GameCoord.Y), BlastLength, this.SceneDelegate, this.trans);
+            return new Explosion(new Point((int)GameCoord.X, (int)GameCoord.Y), BlastLength, this.SceneDelegate, this.trans, owner);
         }
 
         public override void Deload()
