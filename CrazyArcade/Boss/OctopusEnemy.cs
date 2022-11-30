@@ -37,6 +37,7 @@ namespace CrazyArcade.Boss
         public int health;
         public Boolean justAttacked = true;
         public Boolean justInjured = false;
+        public Boolean useSquare;
 
         //Background Stuff
 
@@ -114,6 +115,7 @@ namespace CrazyArcade.Boss
             timer = 0;
             health = 100;
             state = new OctopusNormal(this);
+            useSquare = true;
 
             //Animation
             texture = TextureSingleton.GetOctoBoss();
@@ -249,6 +251,11 @@ namespace CrazyArcade.Boss
 
             if (ChangeDir(dir))
             {
+                Debug.WriteLine("1"+useSquare);
+                if (!useSquare) {
+                    Debug.WriteLine("2"+useSquare);
+                    this.shoot();
+                }
                 this.shoot();
                 direction = (Dir)((((int)dir) + 1) % 4);
                 UpdateAnimation(dir);
@@ -263,7 +270,7 @@ namespace CrazyArcade.Boss
             {
                 justAttacked = true;
                 //state = new OctopusAttack(this,1);
-                this.squareBlast();
+                if (useSquare) { this.squareBlast(); }
                 direction = Dir.Up;
                 UpdateAnimation(dir);
                 //changeDir will put it back on course
@@ -294,10 +301,8 @@ namespace CrazyArcade.Boss
             }
             WaterBomb projectile = new WaterBomb((destination),1,this);
             this.SceneDelegate.ToAddEntity(projectile);
-            //this.scene.AddSprite(projectile);
-            //resume movement if necessary
-
-            //Debug.WriteLine("Octo Shoot");
+            useSquare = true;
+            Debug.WriteLine("Octo Shoot");
         }
 
         public void squareBlast()
@@ -305,7 +310,7 @@ namespace CrazyArcade.Boss
             //change to attacking state aka make still
             //execute square blast attack
             int squaresize = 6;
-
+            useSquare = false;
             WaterBomb[,] waterExplosionEdges = new WaterBomb[4, squaresize];
             int[,,] edgeCoords = getSquareCoords(squaresize);
             //resume movement if necessary
