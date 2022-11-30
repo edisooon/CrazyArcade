@@ -22,6 +22,7 @@ using CrazyArcade.CAFrameWork.GameStates;
 using CrazyArcade.CAFrameWork.InputSystem;
 using CrazyArcade.UI;
 using CrazyArcade.CAFrameWork.SoundEffectSystem;
+using CrazyArcade.Pirates;
 
 namespace CrazyArcade.Demo1
 {
@@ -84,6 +85,7 @@ namespace CrazyArcade.Demo1
             //This may not be neccessary
             this.AddSprite(new KeyBoardInput());
             this.AddSprite(new CASoundEffect("SoundEffects/StageStart"));
+            this.AddSprite(new PirateCharacter());
         }
         public override void EndGame()
         {

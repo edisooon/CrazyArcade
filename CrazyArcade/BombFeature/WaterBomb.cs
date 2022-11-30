@@ -248,6 +248,7 @@ namespace CrazyArcade.BombFeature
             {
                 detect(set, (Dir)i);
             }
+            set.Add(this.Position.toPoint());
             return set;
         }
     }

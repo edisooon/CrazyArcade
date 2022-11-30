@@ -1,11 +1,12 @@
 ﻿using System;
+using CrazyArcade.Pirates;
+
 namespace CrazyArcade.CAFrameWork.InputSystem
 {
-	public class IPirateInput
+	public interface IPirateInput: IInput
 	{
-		public IPirateInput()
-		{
-		}
+		IPirate Pirate { set; }
+		int[] ValidKeys { get; }
 	}
 }
 

@@ -19,49 +19,77 @@ namespace CrazyArcade.CAFrameWork.InputSystem
 		keyRight	= 3,
 		keySpace	= 4
 	}
-	public class PirateController: CAEntity, IInput, IGridBoxReciever
+	public class PirateController: CAEntity, IPirateInput, IGridBoxReciever
 	{
+		private ITimer timer;
+
         private int prefix;
         private const int baseIndex = 1000;
         private static int count = 0;
 
         private IGridBoxManager manager;
         public IGridBoxManager Manager { get => manager; set => manager = value; }
+        public IPirate Pirate { set => pirate = value; }
+
+		private int[] validKeys;
+        public int[] ValidKeys => validKeys;
 
         private IPirate pirate;
 
-        public PirateController(IPirate pirate)
+        public PirateController()
 		{
             count += 50;
             prefix = baseIndex + count;
-            this.pirate = pirate;
+			validKeys = new int[]
+			{
+				prefix + 0,
+				prefix + 1,
+				prefix + 2,
+				prefix + 3,
+				prefix + 4,
+			};
 		}
-
-        public HashSet<int> GetInputs()
-        {
-            if (manager == null)
-            {
-                return new HashSet<int>();
-            }
-			return updateKey();
-        }
+		private HashSet<int> keys = new HashSet<int>();
+		public HashSet<int> GetInputs() => keys;
         class Node
         {
             private Point pos;
 			private Dir dir;
 			public Point Pos => pos;
 			public Dir Direction => dir;
-            public Node(Dir dir, Point point)
+			public Node Parent;
+			public Node(Dir dir, Point point, Node parent) : this(dir, point)
+			{
+				this.Parent = parent;
+			}
+
+			public Node(Dir dir, Point point)
             {
                 this.dir = dir;
                 this.pos = point;
             }
+			public void Print()
+			{
+				recPrint();
+				Console.WriteLine();
+			}
+			private void recPrint()
+			{
+				if (Parent != null)
+				{
+					Console.Write(" -> ");
+					Parent.recPrint();
+				}
+				Console.Write("(Point: " + pos.X + " " + pos.Y + ")");
+			}
         }
         bool isTargetBlock(Point point)
         {
-            return manager.CheckAvailable(
-                new GridBoxPosition(point, (int)GridObjectDepth.Item)
-            ) is Item || playerInRange.Contains(point);
+			return (manager.CheckAvailable(
+				new GridBoxPosition(point, (int)GridObjectDepth.Item)
+			) is Item && manager.CheckAvailable(
+				new GridBoxPosition(point, (int)GridObjectDepth.Box)
+			) == null) || playerInRange.Contains(point);
         }
 		bool isBreakable(Point point)
 		{
@@ -98,7 +126,7 @@ namespace CrazyArcade.CAFrameWork.InputSystem
 						if (!traveled.Contains(newP))
 						{
 							traveled.Add(newP);
-							q.Enqueue(new Node(node.Direction, newP));
+							q.Enqueue(new Node(node.Direction, newP, node));
 						}
 					}
 				}
@@ -199,41 +227,61 @@ namespace CrazyArcade.CAFrameWork.InputSystem
 			playerInRange = new HashSet<Point>();
 			foreach (Vector2 pos in this.SceneDelegate.PlayerPositions)
 			{
+				playerInRange.Add(new Point((int)pos.X, (int)pos.Y));
 				playerInRange.UnionWith(PotentialDangerousTile(new Point((int)pos.X, (int)pos.Y)));
 			}
+
 		}
 		private HashSet<int> updateKey()
 		{
+			if (manager == null || pirate == null) return new HashSet<int>();
 			HashSet<int> res = new HashSet<int>();
 			Node node;
 			if (pirate.RemainingBombs == 0)
 			{
 				if (!isSafe(pirate.PiratePosition) && (node = findSafe()) != null)
 				{
-					res.Add(baseIndex + (int)node.Direction);
+					res.Add(prefix + (int)node.Direction);
 				}
 				return res;
 			}
 			if (playerInRange.Contains(pirate.PiratePosition))
 			{
-				res.Add(baseIndex + (int)PirateKeys.keySpace);
+				Console.WriteLine("update player range: " + playerInRange.Count);
+
+				res.Add(prefix + (int)PirateKeys.keySpace);
 			}
 			if ((node = findTarget()) != null)
 			{
-				res.Add(baseIndex + (int)node.Direction);
-			} else if ((node = findBreakable()) != null)
-			{
-				res.Add(baseIndex + (int)node.Direction);
-			} else if ((node = findSafe()) != null)
-			{
-				res.Add(baseIndex + (int)node.Direction);
+				res.Add(prefix + (int)node.Direction);
 			}
+			//else if ((node = findBreakable()) != null)
+			//{
+			//	res.Add(prefix + (int)node.Direction);
+			//}
+			//else if ((node = findSafe()) != null)
+			//{
+			//	res.Add(prefix + (int)node.Direction);
+			//}
 			return res;
 		}
         public override void Update(GameTime time)
         {
             base.Update(time);
-			updatePlayerRange();
+			if (pirate == null)
+				return;
+			if (timer == null)
+			{
+				timer = new CATimer(time.TotalGameTime);
+			}
+			timer.Update(time.TotalGameTime);
+			if (timer.TotalMili > 50)
+			{
+				timer = new CATimer(time.TotalGameTime);
+				updatePlayerRange();
+				keys = updateKey();
+				Console.WriteLine("update pirate");
+			}
 		}
     }
 }

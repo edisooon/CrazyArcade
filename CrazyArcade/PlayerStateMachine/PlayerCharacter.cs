@@ -20,6 +20,7 @@ namespace CrazyArcade.PlayerStateMachine
 {
     public class PlayerCharacter : Character, IInputController
     {
+        
         Dictionary<int, Action> commands = new Dictionary<int, Action>();
         public PlayerCharacter(int[] keySet) : base()
         {

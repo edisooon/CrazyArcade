@@ -1,62 +1,96 @@
 ﻿using System;
+using System.Collections.Generic;
 using CrazyArcade.CAFramework;
 using CrazyArcade.CAFrameWork.InputSystem;
+using CrazyArcade.CAFrameWork.SoundEffectSystem;
 using CrazyArcade.GameGridSystems;
 using CrazyArcade.PlayerStateMachine;
 using Microsoft.Xna.Framework;
 
 namespace CrazyArcade.Pirates
 {
-	public class PirateCharacter: CAEntity, IPirate
+	public class PirateCharacter: Character, IPirate
 	{
-		PlayerCharacter character;
 		IPirateInput input;
 
-		public PirateCharacter(IPirateInput input)
-        {
-			this.input = input;
+
+        public int RemainingBombs => this.BombCapacity - this.BombsOut;
+
+        public int BlastLength => this.CurrentBlastLength;
+
+		Dictionary<int, Action> commands = new Dictionary<int, Action>();
+		public PirateCharacter() : base()
+		{
+			this.input = new PirateController();
 			input.Pirate = this;
-			character = new PlayerCharacter(input.ValidKeys);
-        }
-
-        public int RemainingBombs => throw new NotImplementedException();
-
-        public int BlastLength => throw new NotImplementedException();
-
-		//----------IGridable Start------------
-		private Vector2 gamePos;
-		private Vector2 pos;
-		protected Rectangle enemyBoundingBox = new Rectangle(0, 0, 36, 36);
-		public  Vector2 ScreenCoord
-		{
-			get => pos;
-			set
+			Action[] actions = new Action[5];
+			actions[0] = KeyUp;
+			actions[1] = KeyLeft;
+			actions[2] = KeyDown;
+			actions[3] = KeyRight;
+			actions[4] = KeySpace;
+			int[] keySet = input.ValidKeys;
+			for (int i = 0; i < keySet.Length; i++)
 			{
-				pos = value;
-				this.UpdateCoord(value);
+				commands[keySet[i]] = actions[i];
 			}
 		}
-		public void UpdateCoord(Vector2 value)
+
+		private bool isMoving()
 		{
-			this.X = (int)value.X;
-			this.Y = (int)value.Y;
+			return moveInputs.X != 0 || moveInputs.Y != 0;
 		}
-		public  Vector2 GameCoord
+
+		private void KeyUp()
 		{
-			get => gamePos;
-			set
-			{
-				gamePos = value;
-				ScreenCoord = trans.Trans(value);
-			}
+			if (isMoving()) return;
+			moveInputs.Y -= 1;
+			direction = Dir.Up;
+
 		}
-		private IGridTransform trans = new NullTransform();
-		public  IGridTransform Trans { get => trans; set => trans = value; }
-		//----------IGridable End------------
-		public override void Load()
+
+		private void KeyDown()
+		{
+			if (isMoving()) return;
+			moveInputs.Y += 1;
+			direction = Dir.Down;
+		}
+
+		private void KeyLeft()
+		{
+			if (isMoving()) return;
+			moveInputs.X -= 1;
+			direction = Dir.Left;
+		}
+
+		private void KeyRight()
+		{
+			if (isMoving()) return;
+			moveInputs.X += 1;
+			direction = Dir.Right;
+		}
+
+		private void KeySpace()
+		{
+			Console.WriteLine();
+			if (playerState.ProcessAttaction())
+				SceneDelegate.ToAddEntity(new CASoundEffect("SoundEffects/PlaceBomb"));
+		}
+
+		public Dictionary<int, Action> getCommands()
+		{
+			return commands;
+		}
+
+        public override void Load()
         {
-			this.SceneDelegate.ToAddEntity(character);
-			this.SceneDelegate.ToAddEntity(input);
+            base.Load();
+			SceneDelegate.ToAddEntity(input);
+        }
+        public override void Deload()
+        {
+            base.Deload();
+			SceneDelegate.ToRemoveEntity(input);
         }
     }
 }
