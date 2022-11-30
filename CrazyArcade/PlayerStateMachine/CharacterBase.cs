@@ -16,7 +16,7 @@ using CrazyArcade.PlayerStateMachine;
 
 namespace CrazyArcade.Demo1
 {
-    public abstract class CharacterBase : CAEntity, IGridable, IGridBoxReciever, IBombCollectable
+    public abstract class CharacterBase : CAEntity, IGridable, IPlayer, IBombCollectable
     {
         public float DefaultSpeed = 5;
         public float ModifiedSpeed;
@@ -35,6 +35,7 @@ namespace CrazyArcade.Demo1
         public Point bboxOffset = new Point(3, 20);
         protected bool blockBboxOn = true;
         public Dir direction = Dir.Down;
+        public Dir Direction => direction;
         public IGridBoxManager manager;
         public IGridBoxManager Manager { get => manager; set => manager = value; }
 
@@ -89,6 +90,7 @@ namespace CrazyArcade.Demo1
             Console.WriteLine("Spend: " + BombsOut);
         }
 
+
         public override void Update(GameTime time)
         {
             moveInputs = new(0, 0);
@@ -112,18 +114,9 @@ namespace CrazyArcade.Demo1
             IGridBox downRightObstacle = manager.CheckAvailable(new GridBoxPosition(bottomRightBorder, (int)GridObjectDepth.Box));
             bool slideToDownOrRight = downRightObstacle == null;
             if (toNewBlock)
-            {
-                // handle the special case of obstacles' behaviors
-                // 1) water bomb
-                if (CouldKick)
-                {
-                    if (upLeftObstacle is WaterBomb) characterKickBomb(upLeftObstacle as WaterBomb);
-                    if (downRightObstacle is WaterBomb) characterKickBomb(downRightObstacle as WaterBomb);
-                }
-                // 2) door
-                if (upLeftObstacle is Door) characterToNextLevel(upLeftObstacle as Door);
-                if (downRightObstacle is Door) characterToNextLevel(downRightObstacle as Door);
-
+			{
+                if (upLeftObstacle is IGridPlayerCollidable) (upLeftObstacle as IGridPlayerCollidable).Collide(this);
+                if (downRightObstacle is IGridPlayerCollidable) (downRightObstacle as IGridPlayerCollidable).Collide(this);
             }
 
 
@@ -213,23 +206,6 @@ namespace CrazyArcade.Demo1
             //GameCoord += trans.RevScale(CurrentSpeed);
         }
 
-        private void characterToNextLevel(Door door)
-        {
-            door.toNextLevel();
-        }
-
-        private void characterKickBomb(WaterBomb waterBomb)
-        {
-            waterBomb.kick(direction);
-        }
-
-        protected bool putBomb()
-        {
-            if (this.BombsOut >= this.BombCapacity) return false;
-            this.SceneDelegate.ToAddEntity(new WaterBomb(this.GameCoord, this.CurrentBlastLength, this));
-            return true;
-        }
-
         private bool isToNewBlock(Vector2 newGameCoord, Vector2 gameCoord, bool verticallyMove)
         {
             float newX = newGameCoord.X, newY = newGameCoord.Y, oldX = gameCoord.X, oldY = gameCoord.Y;
@@ -240,6 +216,13 @@ namespace CrazyArcade.Demo1
         public void CalculateMovement()
         {
             CurrentSpeed = moveInputs * ModifiedSpeed;
+        }
+
+        protected bool putBomb()
+        {
+            if (this.BombsOut >= this.BombCapacity) return false;
+            this.SceneDelegate.ToAddEntity(new WaterBomb(this.GameCoord, this.CurrentBlastLength, this));
+            return true;
         }
     }
 }
