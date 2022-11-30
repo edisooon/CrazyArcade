@@ -42,12 +42,7 @@ namespace CrazyArcade.CAFrameWork.GameStates
         }
         public override void Update(GameTime time)
         {
-            KeyboardState state = Keyboard.GetState();
             MouseState mouse = Mouse.GetState();
-            if(state.IsKeyDown(Keys.P))
-            {
-                this.gameRef.StartGame();
-            }
             for(int i = 0; i < buttons.Length; i++)
             {
                 buttons[i].Update(mouse, gameRef);
