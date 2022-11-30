@@ -83,7 +83,8 @@ namespace CrazyArcade.PlayerStateMachine
         {
             if (character.needles <= 0) return;
             character.needles--;
-            character.playerState = new CharacterStateFree(character);
+            UI_Singleton.ChangeComponentText("needle", "itemCount", "X" + character.needles);
+            character.playerState = new CharacterStateFree(character, isPirate);
             character.spriteAnims = character.playerState.SetSprites();
             //there has to be a better way of doing this
             character.playerState.SetSpeed();

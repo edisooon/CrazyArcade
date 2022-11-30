@@ -19,7 +19,7 @@ namespace CrazyArcade.Blocks
         public bool CouldKick { get; }
         public void CollisionHaltLogic(Point amountMoved);
         public void CollisionDestroyLogic();
-        public bool canHaveItem();
+        public bool CanHaveItem();
         public void IncreaseBlastLength();
         public void SwitchToMountedState();
         public void IncreaseSpeed();

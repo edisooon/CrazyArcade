@@ -56,9 +56,8 @@ namespace CrazyArcade.PlayerStateMachine
             DrawOrder = 1;
             lives = 2;
             Console.WriteLine("Count: " + ++CCount);
-            //this.bboxOffset = new Point(20, 20);
-            shields = 2;
             needles = 2;
+            shields = 2;
         }
         public override void Update(GameTime time)
         {
@@ -110,7 +109,7 @@ namespace CrazyArcade.PlayerStateMachine
         }
         public override void Load()
         {
-
+            if (!isPirate) UI_Singleton.ChangeComponentText("needle", "count", "X" + needles);
         }
 
         //@Implement IBombCollectable
@@ -120,7 +119,7 @@ namespace CrazyArcade.PlayerStateMachine
             Console.WriteLine("Recollect: " + BombsOut);
         }
         //@implement IItemCollidable
-        public bool canHaveItem()
+        public bool CanHaveItem()
         {
             return (playerState is CharacterStateFree || playerState is CharacterStateTurtle);
         }
@@ -165,25 +164,41 @@ namespace CrazyArcade.PlayerStateMachine
         }
         public void Save(LevelPersnstance level)
         {
+            //pirates should not be able to save at all, even if they somehow live
+            if (isPirate) return;
             level.SavedStatInt.Add("playerScore", score);
             level.SavedStatInt.Add("playerLives", lives);
+            level.SavedStatInt.Add("needle", needles);
+            level.SavedStatInt.Add("shield", shields);
         }
         public void Load(LevelPersnstance level)
         {
+            if (isPirate) return;
             if (level.SavedStatInt.ContainsKey("playerScore"))
             {
                 score = level.SavedStatInt["playerScore"];
-                if (!isPirate) UI_Singleton.ChangeComponentText("score", "scoreText", "Score : " + this.score);
+                UI_Singleton.ChangeComponentText("score", "scoreText", "Score : " + this.score);
             }
             if (level.SavedStatInt.ContainsKey("playerLives"))
             {
                 lives = level.SavedStatInt["playerLives"];
-				if (!isPirate) UI_Singleton.ChangeComponentText("lifeCounter", "count", "Lives: " + lives);
+				UI_Singleton.ChangeComponentText("lifeCounter", "count", "Lives: " + lives);
+            }
+            if (level.SavedStatInt.ContainsKey("needle"))
+            {
+                lives = level.SavedStatInt["shield"];
+				UI_Singleton.ChangeComponentText("needle", "count", "X" + needles);
+            }
+            if (level.SavedStatInt.ContainsKey("shield"))
+            {
+                lives = level.SavedStatInt["shield"];
+                UI_Singleton.ChangeComponentText("shield", "count", "X" + shields);
             }
         }
         public void SetInvincibilityTime(int iTime)
         {
             shields--;
+            UI_Singleton.ChangeComponentText("shield", "itemCount", "X" + shields);
             //add shield effect here
             SceneDelegate.ToAddEntity(new IncincibilityBubble(this, iTime));
             ICounter = iTime;
