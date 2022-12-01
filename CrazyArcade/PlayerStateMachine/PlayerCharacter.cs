@@ -75,7 +75,7 @@ namespace CrazyArcade.PlayerStateMachine
                 SceneDelegate.ToAddEntity(new CASoundEffect("SoundEffects/PlaceBomb"));
         }
 
-        public Dictionary<int, Action> getCommands()
+        public Dictionary<int, Action> GetCommands()
         {
             return commands;
         }
