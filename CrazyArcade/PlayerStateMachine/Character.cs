@@ -165,14 +165,22 @@ namespace CrazyArcade.PlayerStateMachine
         }
         public void Load(LevelPersnstance level)
         {
+            /*
+            *This is a quick and dirty way to make this change. The way that I'm currently making these changes
+            *is by incrementing each of the stats by a static ammount every time a level transition happens.
+            *Hypothetically, the only way to currently transition out of a level is by beating it, but currently debug
+            *switching will give the player rewards too, so be careful.
+            */
             if (level.SavedStatInt.ContainsKey("playerScore"))
             {
                 score = level.SavedStatInt["playerScore"];
+                score += 100;
                 if (!isPirate) UI_Singleton.ChangeComponentText("score", "scoreText", "Score : " + this.score);
             }
             if (level.SavedStatInt.ContainsKey("playerLives"))
             {
                 lives = level.SavedStatInt["playerLives"];
+                lives += 1;
 				if (!isPirate) UI_Singleton.ChangeComponentText("lifeCounter", "count", "Lives: " + lives);
             }
         }
