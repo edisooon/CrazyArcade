@@ -7,6 +7,7 @@ using CrazyArcade.Blocks;
 using CrazyArcade.CAFramework;
 using CrazyArcade.CAFramework.Controller;
 using CrazyArcade.CAFrameWork.CAGame;
+using CrazyArcade.CAFrameWork.InputSystem;
 using CrazyArcade.Demo1;
 using CrazyArcade.Items;
 using CrazyArcade.PlayerStateMachine;
@@ -29,26 +30,26 @@ namespace CrazyArcade.CAFrameWork.GameStates
 
         public override void Load()
         {
+            base.Load();
             UI_Singleton.ClearGUI();
             UI_Singleton.AddPreDesignedComposite(new TitleText("Game over title","Game Over"));
         }
         public override void LoadSprites()
         {
+            this.AddSprite(new KeyBoardInput());
+			this.AddSprite(new InputManager(getCommands()));
         }
-
-        public override void LoadSystems()
+        private Dictionary<int, Action> getCommands()
         {
-        }
-        public override void Update(GameTime time)
+            Dictionary<int, Action> res = new Dictionary<int, Action>();
+            res[KeyBoardInput.KeyDown(Keys.R)] = gameRef.NewGame;
+			res[KeyBoardInput.KeyDown(Keys.Escape)] = gameRef.Quit;
+            return res;
+		}
+		public override void LoadSystems()
         {
-            if(Keyboard.GetState().IsKeyDown(Keys.R))
-            {
-                this.gameRef.NewGame();
-            }
-            else if(Keyboard.GetState().IsKeyDown(Keys.Escape))
-            {
-                this.gameRef.Quit();
-            }
-        }
+            this.systems.Add(new InputSystems());
+			this.systems.Add(new CAGameLogicSystem());
+		}
     }
 }

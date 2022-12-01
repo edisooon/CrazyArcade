@@ -11,6 +11,7 @@ using System.Transactions;
 using Microsoft.Xna.Framework.Input;
 using CrazyArcade.CAFrameWork.CAGame;
 using Microsoft.Xna.Framework.Graphics;
+using System.Reflection;
 
 namespace CrazyArcade.CAFrameWork.GameStates
 {
@@ -52,10 +53,30 @@ namespace CrazyArcade.CAFrameWork.GameStates
             button.SetPosition(new Vector2(0, 0));
             enlarged = false;
         }
-        private bool HasMouse(MouseState mouse)
+		private bool HasMouse(Point mouse)
         {
-            return buttonRectangle.Intersects(new Rectangle(mouse.X,mouse.Y,0,0));
+            return buttonRectangle.Intersects(new Rectangle(mouse.X, mouse.Y, 0, 0));
         }
+
+		private bool HasMouse(MouseState mouse)
+        {
+            return buttonRectangle.Intersects(new Rectangle(mouse.X, mouse.Y, 0, 0));
+        }
+        public void Update(Point mouse, bool leftDown, IGameDelegate gameRef)
+        {
+			if (HasMouse(mouse))
+			{
+				Enlarge();
+			}
+			if (!HasMouse(mouse) && enlarged)
+			{
+				SetButton();
+			}
+			if (HasMouse(mouse) && leftDown)
+			{
+				pressButtonAction();
+			}
+		}
         public void Update(MouseState mouse, IGameDelegate gameRef)
         {
             if(HasMouse(mouse))
