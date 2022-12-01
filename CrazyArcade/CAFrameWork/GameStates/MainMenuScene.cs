@@ -73,6 +73,7 @@ namespace CrazyArcade.CAFrameWork.GameStates
             {
                 buttons[i].Update(mousePos, leftClick, gameRef);
             }
+            leftClick = false;
         }
     }
 }
