@@ -16,10 +16,7 @@ namespace CrazyArcade.CAFrameWork.InputSystem
 		{
 		}
         HashSet<int> inputs = new HashSet<int>();
-        public HashSet<int> GetInputs()
-        {
-            return inputs;
-        }
+        public HashSet<int> GetInputs() => inputs;
         public override void Update(GameTime time)
         {
             KeyboardState state = Keyboard.GetState();
