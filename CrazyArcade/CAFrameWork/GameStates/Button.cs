@@ -55,7 +55,7 @@ namespace CrazyArcade.CAFrameWork.GameStates
         }
 		private bool HasMouse(Point mouse)
         {
-            return buttonRectangle.Intersects(new Rectangle(mouse.X, mouse.Y, 0, 0));
+            return buttonRectangle.Contains(mouse);
         }
 
 		private bool HasMouse(MouseState mouse)

@@ -34,7 +34,6 @@ namespace CrazyArcade.CAFrameWork.InputSystem
 		HashSet<int> previous = new HashSet<int>();
 		public HashSet<int> GetInputs()
 		{
-			Console.WriteLine("update mouse");
 			HashSet<int> res = new HashSet<int>();
 			MouseState state = Mouse.GetState();
 			res.Add(mouseXStartIndex + state.Position.X);
@@ -47,8 +46,6 @@ namespace CrazyArcade.CAFrameWork.InputSystem
 				res.Add((int)MouseStatus.RightClick);
 			else if (previous.Contains((int)MouseStatus.RightDown))
 				res.Add((int)MouseStatus.RightClick);
-			foreach (int code in res)
-				Console.WriteLine("Code: " + code);
 			previous = res;
 			return res;
 		}
