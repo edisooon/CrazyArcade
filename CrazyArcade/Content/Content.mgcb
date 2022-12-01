@@ -347,6 +347,18 @@
 /processorParam:TextureFormat=Color
 /build:Powerups.png
 
+#begin radar.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:radar.png
+
 #begin Rides.png
 /importer:TextureImporter
 /processor:TextureProcessor

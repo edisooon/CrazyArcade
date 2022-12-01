@@ -26,6 +26,8 @@ namespace CrazyArcade.UI.GUI_Loading
             UI_Singleton.MoveCompositePosition("levelCounter", new Vector2(370, 0));
             UI_Singleton.AddPreDesignedComposite(new ItemCountComposition("needle", new SpriteAnimation(TextureSingleton.GetNeedle(), new Rectangle(0, 0, 162, 164))));
             UI_Singleton.MoveCompositePosition("needle", new Vector2(750,150));
+            UI_Singleton.AddPreDesignedComposite(new ItemCountComposition("shield", new SpriteAnimation(TextureSingleton.GetShield(), new Rectangle(0, 0, 237, 289))));
+            UI_Singleton.MoveCompositePosition("shield", new Vector2(800, 150));
         }
     }
 }
