@@ -30,11 +30,7 @@ namespace CrazyArcade.PlayerStateMachine
         }
         public override void Update(GameTime time)
         {
-            if (direction == Dir.Up || direction == Dir.Down)
-            {
-                xOffset = 4;
-            }
-            else if (direction == Dir.Left)
+            if (direction == Dir.Left)
             {
                 xOffset = 2;
             }
