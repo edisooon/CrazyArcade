@@ -69,6 +69,7 @@ namespace CrazyArcade.Items
             //this.parentScene = parentScene;
             spriteAnimation = new SpriteAnimation(texture, frames, fps);
             spriteAnimation.Scale = 0.6f;
+            if (texture == Content.TextureSingleton.GetOwl()) spriteAnimation.SetScale(1);
             GameCoord = position;
             this.DrawOrder = -1;
         }
