@@ -118,34 +118,21 @@ namespace CrazyArcade.PlayerStateMachine
         {
             return (playerState is CharacterStateFree || playerState is CharacterStateTurtle);
         }
-        public void IncreaseBlastLength()
-        {
-            playerItems.AddItem(new BlastLengthModifier());
-        }
-        public void EnableKick()
-        {
-            playerItems.AddItem(new KickModifier());
-        }
         public void SwitchToMountedState()
         {
             this.playerState = new CharacterStateTurtle(this);
             spriteAnims = this.playerState.SetSprites();
             this.playerState.SetSpeed();
         }
-        public void IncreaseSpeed()
-        {
-            playerItems.AddItem(new SpeedModifier());
-        }
-        public void IncreaseBombCount()
-        {
-            playerItems.AddItem(new BombCountModifier());
-        }
         public void IncreaseScore(int score)
         {
             this.score += score;
             UI_Singleton.ChangeComponentText("score", "scoreText", "Score : " + this.score);
         }
-
+        public void ObtainItem(ItemModifier item)
+        {
+            playerItems.AddItem(item);
+        }
         public void SpendBomb()
         {
             bombOut++;
