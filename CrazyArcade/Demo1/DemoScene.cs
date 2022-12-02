@@ -22,6 +22,7 @@ using CrazyArcade.CAFrameWork.GameStates;
 using CrazyArcade.CAFrameWork.InputSystem;
 using CrazyArcade.UI;
 using CrazyArcade.CAFrameWork.SoundEffectSystem;
+using Microsoft.Xna.Framework.Input;
 
 namespace CrazyArcade.Demo1
 {
@@ -53,7 +54,7 @@ namespace CrazyArcade.Demo1
         public override void LoadSystems()
         {
             //this.systems.Add(new BlockCollisionSystem());
-            systems.Add(new GameStateSwitcher(this));
+            //systems.Add(new GameStateSwitcher(this));
             //this.systems.Add(new CAControllerSystem());
             this.systems.Add(new CASoundSystem());
             this.systems.Add(new InputSystems());
@@ -83,6 +84,14 @@ namespace CrazyArcade.Demo1
             //This may not be neccessary
             this.AddSprite(new KeyBoardInput());
             this.AddSprite(new CASoundEffect("SoundEffects/StageStart"));
+            this.AddSprite(new InputManager(getCommands()));
+        }
+        private Dictionary<int, Action> getCommands()
+        {
+            Dictionary<int, Action> commands = new Dictionary<int, Action>();
+            commands[KeyBoardInput.KeyDown(Keys.Escape)] = TogglePause;
+            commands
+            return commands;
         }
         public override void EndGame()
         {
