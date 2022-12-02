@@ -72,7 +72,10 @@ namespace CrazyArcade.Items
         {
             if (collisionPartner.State.CouldGetItem)
             {
-                collisionPartner.State.ProcessRide(RideType.PirateTurtle);
+                Random rand = new Random();
+                int n = rand.Next(10);
+                RideType type = n <= 2 ? RideType.PirateTurtle : RideType.Turtle;
+                collisionPartner.State.ProcessRide(type);
                 this.DeleteSelf();
             }
         }
