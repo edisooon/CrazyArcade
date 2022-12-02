@@ -4,11 +4,13 @@ using CrazyArcade.Content;
 using Microsoft.Xna.Framework;
 using CrazyArcade.Items;
 using CrazyArcade.Levels;
+using CrazyArcade.CAFrameWork;
 
 namespace CrazyArcade.PlayerStateMachine
 {
     public class CharacterStateDie : ICharacterState
     {
+        ITimer timer;
         private Character character;
         private bool isPirate;
         public CharacterStateDie(Character character, bool isPirate)
@@ -40,22 +42,28 @@ namespace CrazyArcade.PlayerStateMachine
 
         public void ProcessState(GameTime time)
         {
-            //throw new NotImplementedException();
-            if (character.SpriteAnim.getCurrentFrame() == character.SpriteAnim.getTotalFrames() - 1)
+            if (timer == null)
             {
-                character.playerState = new CharacterStateFree(character, isPirate);
-                character.lives--;
-                if (character.lives == 0)
-                {
-                    character.SceneDelegate.EndGame();
-                }
+                timer = new CATimer(time.TotalGameTime);
             }
+            timer.Update(time.TotalGameTime);
+            if (timer.TotalMili > 1000)
+            {
+                character.SceneDelegate.ToRemoveEntity(character);
+				if (character.lives == 0 && !isPirate)
+				{
+					character.SceneDelegate.EndGame();
+				}
+			}
+			character.spriteAnims = character.playerState.SetSprites();
+			//throw new NotImplementedException();
+			
         }
 
         public SpriteAnimation[] SetSprites()
         {
             SpriteAnimation[] die = new SpriteAnimation[1];
-            die[0] = new SpriteAnimation(TextureSingleton.GetPlayer(isPirate), 11, 7, 275, 531, 108, 10);
+            die[0] = new FadeOutEffect(new SpriteAnimation(TextureSingleton.GetPlayer(isPirate), 11, 7, 275, 531, 108, 10), 1000);
             return die;
         }
     }

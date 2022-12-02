@@ -9,24 +9,67 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace CrazyArcade.CAFrameWork.Transition
 {
-    public class Door : Block, IGridPlayerCollidable
+    public class Door : CAEntity, IGridable, IPlayerCollidable
     {
-        bool isEnable = false;
-        public override void Load()
-        {
+		//----------IGridable Start------------
+		private Vector2 gamePos;
+		private Vector2 pos;
+		public Vector2 ScreenCoord
+		{
+			get => pos;
+			set
+			{
+				pos = value;
+				this.UpdateCoord(value);
+			}
+		}
+		public void UpdateCoord(Vector2 value)
+		{
+			this.X = (int)value.X;
+			this.Y = (int)value.Y;
+		}
+		public Vector2 GameCoord
+		{
+			get => gamePos;
+			set
+			{
+				gamePos = value;
+				ScreenCoord = trans.Trans(value);
+			}
+		}
+		private IGridTransform trans = new NullTransform();
+		public IGridTransform Trans { get => trans; set => trans = value; }
 
-        }
+        public Rectangle boundingBox => new Rectangle((int)ScreenCoord.X + 20, (int)ScreenCoord.Y + 20, 40, 40);
+
+        //----------IGridable End------------
+        bool isEnable = false;
+        bool isOpen = false;
         private int stage;
         private Dir dir;
         private static Rectangle source = new Rectangle(0, 0, 80, 80);
-        public Door(Vector2 position, int to, Dir dir) : base(new Vector2(position.X, position.Y), source, Content.TextureSingleton.GetDoor())
-        {
+        protected SpriteAnimation spriteAnimation;
+		public override SpriteAnimation SpriteAnim => this.spriteAnimation;
+
+		public Door(Vector2 position, int to, Dir dir) {
             stage = to;
             this.dir = dir;
-        }
-        public override void Update(GameTime time)
+			spriteAnimation = new SpriteAnimation(Content.TextureSingleton.GetDoorClose(), source);
+			GameCoord = position;
+		}
+
+		public override void Load()
+		{
+
+		}
+		public override void Update(GameTime time)
         {
             base.Update(time);
+            if (SceneDelegate.IsDoorOpen() && !isOpen)
+            {
+                spriteAnimation = new SpriteAnimation(Content.TextureSingleton.GetDoorOpen(), source);
+                isOpen = true;
+            }
         }
         public void toNextLevel()
         {
@@ -37,10 +80,10 @@ namespace CrazyArcade.CAFrameWork.Transition
             }
         }
 
-        public void Collide(IPlayer player)
-        {
-            toNextLevel();
-        }
+        public void CollisionLogic(Rectangle overlap, IPlayerCollisionBehavior collisionPartner)
+		{
+			toNextLevel();
+		}
     }
 }
 

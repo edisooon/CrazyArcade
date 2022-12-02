@@ -18,15 +18,17 @@ namespace CrazyArcade.Demo1
 {
     public abstract class CharacterBase : CAEntity, IGridable, IPlayer, IBombCollectable
     {
-        public float DefaultSpeed = 5;
+        public float DefaultSpeed = 3;
+        public bool isPirate;
         public float ModifiedSpeed;
         public Vector2 CurrentSpeed = new(0, 0);
         public int CurrentBlastLength { get => playerItems.BlastModifier; set { playerItems.BlastModifier = value; } }
         public int BombCapacity { get => playerItems.BombModifier; set { playerItems.BombModifier = value; } }
-        public int FreeModifiedSpeed { get => playerItems.SpeedModifier; }
+        //public int FreeModifiedSpeed { get => playerItems.SpeedModifier; }
         private int bombOut = 0;
         public int BombsOut => bombOut;
-        public ItemContainer playerItems = new();
+
+        public ItemContainer playerItems;
         public bool CouldKick { get => playerItems.CanKick; }
         public int defaultBlastLength = 1;
         public Vector2 moveInputs = new(0, 0);
@@ -39,9 +41,14 @@ namespace CrazyArcade.Demo1
         public IGridBoxManager manager;
         public IGridBoxManager Manager { get => manager; set => manager = value; }
 
-        public float xOffset = 0;
-        public float yOffset = 0;
+        //public float xOffset = 0;
+        //public float yOffset = 0;
 
+        public CharacterBase(bool isPirate)
+        {
+            this.isPirate = isPirate;
+            playerItems = new(isPirate);
+        }
 
         //----------IGridable Start------------
         private Vector2 gamePos;

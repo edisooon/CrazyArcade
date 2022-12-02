@@ -72,7 +72,7 @@ namespace CrazyArcade.Items
         {
             if (collisionPartner.State.CouldGetItem)
             {
-                collisionPartner.State.ProcessRide(RideType.Turtle);
+                collisionPartner.State.ProcessRide(RideType.PirateTurtle);
                 this.DeleteSelf();
             }
         }

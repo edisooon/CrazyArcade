@@ -20,7 +20,8 @@ namespace CrazyArcade.PlayerStateMachine
      * State machine is implemented here
      * 
      */
-    public class Character: CharacterBase, IExplosionCollidable, IPlayerCollisionBehavior, ISavable
+
+    public class Character: CharacterBase, IBombCollectable, IExplosionCollidable, IPlayerCollisionBehavior
     {
 		public SpriteAnimation[] spriteAnims;
         public CAScene parentScene;
@@ -36,8 +37,8 @@ namespace CrazyArcade.PlayerStateMachine
         public override SpriteAnimation SpriteAnim => spriteAnims[animationHandleInt];
 
         public ICharacterState State => playerState;
-        private bool isPirate;
-        public Character(bool isPirate)
+        
+        public Character(bool isPirate) : base(isPirate)
         {
             //ModifiedSpeed = DefaultSpeed;
             this.isPirate = isPirate;
@@ -112,12 +113,8 @@ namespace CrazyArcade.PlayerStateMachine
         }
         public void IncreaseScore(int score)
         {
-            if (this.playerState.CouldGetItem)
-            {
-                this.score += score;
-                UI_Singleton.ChangeComponentText("score", "scoreText", "Score : " + this.score);
-            }
-
+            this.score += score;
+			if (!isPirate) UI_Singleton.ChangeComponentText("score", "scoreText", "Score : " + this.score);
         }
 
 
@@ -136,12 +133,12 @@ namespace CrazyArcade.PlayerStateMachine
             if (level.SavedStatInt.ContainsKey("playerScore"))
             {
                 score = level.SavedStatInt["playerScore"];
-                UI_Singleton.ChangeComponentText("score", "scoreText", "Score : " + this.score);
+                if (!isPirate) UI_Singleton.ChangeComponentText("score", "scoreText", "Score : " + this.score);
             }
             if (level.SavedStatInt.ContainsKey("playerLives"))
             {
                 lives = level.SavedStatInt["playerLives"];
-                UI_Singleton.ChangeComponentText("lifeCounter", "count", "Lives: " + lives);
+				if (!isPirate) UI_Singleton.ChangeComponentText("lifeCounter", "count", "Lives: " + lives);
             }
         }
     }

@@ -15,10 +15,11 @@ using System.Diagnostics;
 using CrazyArcade.CAFrameWork.InputSystem;
 using Microsoft.Xna.Framework.Input;
 using CrazyArcade.CAFrameWork.SoundEffectSystem;
+using CrazyArcade.CAFrameWork.Transition;
 
 namespace CrazyArcade.PlayerStateMachine
 {
-    public class PlayerCharacter : Character, IInputController
+    public class PlayerCharacter : Character, IInputController, ISavable
     {
         
         Dictionary<int, Action> commands = new Dictionary<int, Action>();

@@ -60,10 +60,10 @@ namespace CrazyArcade.PlayerStateMachine
                 character.playerState = new CharacterStateFree(character, isPirate);
                 bubble.bubbleInt = 2;
                 character.lives--;
-                UI_Singleton.ChangeComponentText("lifeCounter", "count", "Lives: " + character.lives);
+                if (!isPirate) UI_Singleton.ChangeComponentText("lifeCounter", "count", "Lives: " + character.lives);
                 if (character.lives == 0)
                 {
-                    character.SceneDelegate.EndGame();
+                    character.playerState = new CharacterStateDie(this.character, isPirate);
                 }
             }
             elapsedTime += (float)time.ElapsedGameTime.TotalMilliseconds;

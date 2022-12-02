@@ -70,7 +70,7 @@ namespace CrazyArcade.BombFeature
 
         public void Collide(IBossCollideBehaviour boss)
         {
-            throw new NotImplementedException();
+
         }
     }
 }
