@@ -74,6 +74,7 @@ namespace CrazyArcade.Items
             {
                 Random rand = new Random();
                 int n = rand.Next(10);
+                // 30% pirate Turtle, 70% turtle
                 RideType type = n <= 2 ? RideType.PirateTurtle : RideType.Turtle;
                 collisionPartner.State.ProcessRide(type);
                 this.DeleteSelf();
