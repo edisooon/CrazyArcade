@@ -183,16 +183,18 @@ namespace CrazyArcade.PlayerStateMachine
             if (level.SavedStatInt.ContainsKey("playerLives"))
             {
                 lives = level.SavedStatInt["playerLives"];
+                lives += 1;
 				UI_Singleton.ChangeComponentText("lifeCounter", "count", "Lives: " + lives);
             }
             if (level.SavedStatInt.ContainsKey("needle"))
             {
-                lives = level.SavedStatInt["shield"];
-				UI_Singleton.ChangeComponentText("needle", "count", "X" + needles);
+                needles = level.SavedStatInt["shield"];
+                needles += 1;
+                UI_Singleton.ChangeComponentText("needle", "count", "X" + needles);
             }
             if (level.SavedStatInt.ContainsKey("shield"))
             {
-                lives = level.SavedStatInt["shield"];
+                shields = level.SavedStatInt["shield"];
                 UI_Singleton.ChangeComponentText("shield", "count", "X" + shields);
             }
         }
