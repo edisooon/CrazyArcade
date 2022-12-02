@@ -82,7 +82,7 @@ namespace CrazyArcade.PlayerStateMachine
         public void ProcessRide()
         {
             // could, more code in the future
-            this.character.playerState = new CharacterStateMounted(this.character, RideType.Turtle, isPirate);
+            this.character.playerState = new CharacterStateMounted(this.character, RideType.Owl, isPirate);
         }
         public void ProcessAttaction()
         {

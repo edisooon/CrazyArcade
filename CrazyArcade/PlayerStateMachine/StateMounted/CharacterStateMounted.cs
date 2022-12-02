@@ -39,10 +39,11 @@ namespace CrazyArcade.PlayerStateMachine
                 ride = new PlayerTurtle(character);
             }else if(type == RideType.PirateTurtle)
             {
-
-            }else if(type == RideType.Owl)
+                ride = new PlayerPirateTurtle(character);
+            }
+            else if(type == RideType.Owl)
             {
-
+                ride = new PlayerOwl(character);
             }else if(type == RideType.SpaceCraft)
             {
 
