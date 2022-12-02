@@ -46,7 +46,7 @@ namespace CrazyArcade.PlayerStateMachine
             //player cannot process item when in bubble state
         }
 
-        public void ProcessRide()
+        public void ProcessRide(RideType type)
         {
             //player cannot get a ride when in bubble state
         }

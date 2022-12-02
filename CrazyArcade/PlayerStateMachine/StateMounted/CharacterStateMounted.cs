@@ -68,7 +68,7 @@ namespace CrazyArcade.PlayerStateMachine
             // could, more code in the future
         }
 
-        public void ProcessRide()
+        public void ProcessRide(RideType type)
         {
             // could, more code in the future
         }

@@ -23,7 +23,7 @@ namespace CrazyArcade.PlayerStateMachine
         //code for dealing with functionality of item upon current state
         public void ProcessItem();
         //Code for obtaining a rideable mount
-        public void ProcessRide();
+        public void ProcessRide(RideType type);
         //Code for dealing with attaction
         public void ProcessAttaction();
         // decide if the character could/could not put bomb at current state

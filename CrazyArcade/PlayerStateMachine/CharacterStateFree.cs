@@ -79,10 +79,10 @@ namespace CrazyArcade.PlayerStateMachine
         {
             // could, more code in the future
         }
-        public void ProcessRide()
+        public void ProcessRide(RideType type)
         {
             // could, more code in the future
-            this.character.playerState = new CharacterStateMounted(this.character, RideType.Owl, isPirate);
+            this.character.playerState = new CharacterStateMounted(this.character, type, isPirate);
         }
         public void ProcessAttaction()
         {
