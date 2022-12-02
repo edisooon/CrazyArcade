@@ -233,6 +233,7 @@ namespace CrazyArcade.Boss
             switch (dir){
                 case Dir.Right:
                     justAttacked = false;
+                    useSquare = !useSquare;
                     return xDifference >= squareSize + xoffset;
                 case Dir.Up:
                     return yDifference <= yoffset-1;
@@ -251,29 +252,26 @@ namespace CrazyArcade.Boss
 
             if (ChangeDir(dir))
             {
-                Debug.WriteLine("1"+useSquare);
-                if (!useSquare) {
-                    Debug.WriteLine("2"+useSquare);
-                    this.shoot();
-                }
-                this.shoot();
+                if(!useSquare)this.shoot();
                 direction = (Dir)((((int)dir) + 1) % 4);
                 UpdateAnimation(dir);
             }
+            if (useSquare) {
             // go to center
-            else if (dir == Dir.Left && xDifference < 5 && !justAttacked)
-            {
-                direction = Dir.Down;
-                UpdateAnimation(dir);
-            }
-            else if (dir == Dir.Down && xDifference < squareSize + xoffset && yDifference > (squareSize / 2) + yoffset - 1 && !justAttacked)
-            {
-                justAttacked = true;
-                //state = new OctopusAttack(this,1);
-                if (useSquare) { this.squareBlast(); }
-                direction = Dir.Up;
-                UpdateAnimation(dir);
-                //changeDir will put it back on course
+                if (dir == Dir.Left && xDifference < squareSize + xoffset-2 && !justAttacked)
+                {
+                    direction = Dir.Down;
+                    UpdateAnimation(dir);
+                }
+                else if (dir == Dir.Down && xDifference < squareSize + xoffset && yDifference > (squareSize / 2) + yoffset - 1 && !justAttacked)
+                {
+                    justAttacked = true;
+                    //state = new OctopusAttack(this,1);
+                    this.squareBlast(); 
+                    direction = Dir.Up;
+                    UpdateAnimation(dir);
+                    //changeDir will put it back on course
+                }
             }
             GameCoord += SpeedVector[(int)dir];
             justInjured = false;
@@ -301,7 +299,6 @@ namespace CrazyArcade.Boss
             }
             WaterBomb projectile = new WaterBomb((destination),1,this);
             this.SceneDelegate.ToAddEntity(projectile);
-            useSquare = true;
             Debug.WriteLine("Octo Shoot");
         }
 
@@ -310,7 +307,6 @@ namespace CrazyArcade.Boss
             //change to attacking state aka make still
             //execute square blast attack
             int squaresize = 6;
-            useSquare = false;
             WaterBomb[,] waterExplosionEdges = new WaterBomb[4, squaresize];
             int[,,] edgeCoords = getSquareCoords(squaresize);
             //resume movement if necessary
