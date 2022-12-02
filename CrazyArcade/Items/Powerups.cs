@@ -82,6 +82,24 @@ namespace CrazyArcade.Items
         }
 
     }
+
+    public class Owl : Item
+    {
+        private static Rectangle source = new Rectangle(14, 131, 37, 59);
+        public Owl(Vector2 position) : base(position, source, Content.TextureSingleton.GetOwl(), 3, 5)
+        {
+        }
+        public override void CollisionLogic(Rectangle overlap, IPlayerCollisionBehavior collisionPartner)
+        {
+            if (collisionPartner.State.CouldGetItem)
+            {
+                RideType type = RideType.Owl;
+                collisionPartner.State.ProcessRide(type);
+                this.DeleteSelf();
+            }
+        }
+
+    }
     public class Potion : Item
     {
 
