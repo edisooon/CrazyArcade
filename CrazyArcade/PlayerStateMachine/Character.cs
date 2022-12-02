@@ -109,7 +109,7 @@ namespace CrazyArcade.PlayerStateMachine
         }
         public override void Load()
         {
-            if (!isPirate) UI_Singleton.ChangeComponentText("needle", "count", "X" + needles);
+
         }
 
         //@Implement IBombCollectable
@@ -177,7 +177,8 @@ namespace CrazyArcade.PlayerStateMachine
             if (level.SavedStatInt.ContainsKey("playerScore"))
             {
                 score = level.SavedStatInt["playerScore"];
-                UI_Singleton.ChangeComponentText("score", "scoreText", "Score : " + this.score);
+                score += 100;
+                if (!isPirate) UI_Singleton.ChangeComponentText("score", "scoreText", "Score : " + this.score);
             }
             if (level.SavedStatInt.ContainsKey("playerLives"))
             {
