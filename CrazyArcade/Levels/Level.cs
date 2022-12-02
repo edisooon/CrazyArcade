@@ -245,6 +245,14 @@ namespace CrazyArcade.Levels
                 EntityList.Add(new RobotEnemySprite((int)vector.X, (int)vector.Y));
             }
 
+            itemLocations = currentLevel.GetItemLocation(CreateLevel.LevelItem.MimicPosition);
+
+            foreach (Vector2 vector in itemLocations)
+            {
+
+                EntityList.Add(new MimicEnemySprite((int)vector.X, (int)vector.Y));
+            }
+
             itemLocations = currentLevel.GetItemLocation(CreateLevel.LevelItem.OctoBossPosition);
 
             foreach (Vector2 vector in itemLocations)

@@ -209,4 +209,31 @@ namespace CrazyArcade.Enemies
 
         }
     }
+    public class EnemyRadarState : EnemyState
+    {
+        public ISceneDelegate scene;
+        public EnemyRadarState(Enemy enemy)
+        {
+            //move these two lines to the EnemyState Abstract Class
+            this.enemy = enemy;
+            scene = enemy.SceneDelegate;
+
+        }
+
+
+        public override void Update(GameTime time)
+        {
+            if (timer > fadeTime)
+            {
+                scene.ToRemoveEntity(enemy);
+            }
+            else
+            {
+                opacity = 1f - timer / fadeTime;
+                enemy.spriteAnims[0].Color = Color.White * opacity;
+                timer += (float)time.ElapsedGameTime.TotalMilliseconds;
+            }
+
+        }
+    }
 }

@@ -104,6 +104,8 @@ public class LevelEnemies
     public int[][] Bat { get; set; }
 
     public int[][] Robot { get; set; }
+
+    public int[][] Mimic { get; set; }
 }
 
 public class LevelItems

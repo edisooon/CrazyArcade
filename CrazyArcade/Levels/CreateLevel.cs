@@ -54,7 +54,8 @@ namespace CrazyArcade.Levels
 			PotionPosition,
 			CoinPosition,
 			KickPosition,
-			PiratePosition
+			PiratePosition,
+			MimicPosition
 		}
 
 		public Vector2 GetStartPosition(int[] coord)
@@ -175,8 +176,10 @@ namespace CrazyArcade.Levels
 				case (int)LevelItem.PiratePosition:
 					array = GetStartPositionArray(levelObject.Pirate);
 					break;
-
-				default:
+                case (int)LevelItem.MimicPosition:
+                    array = GetStartPositionArray(levelObject.Enemies.Mimic);
+                    break;
+                default:
 
 					break;
 				
