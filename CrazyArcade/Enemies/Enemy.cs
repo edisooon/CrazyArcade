@@ -85,9 +85,10 @@ namespace CrazyArcade.Enemies
 
         public Rectangle boundingBox => internalRectangle;
 
-        public void CollisionLogic(Rectangle overlap, IPlayerCollisionBehavior collisionPartner)
+        public virtual void CollisionLogic(Rectangle overlap, IPlayerCollisionBehavior collisionPartner)
         {
-            collisionPartner.CollisionDestroyLogic();
+           collisionPartner.CollisionDestroyLogic();
+           
 
         }
         public override void Update(GameTime time)

@@ -1,4 +1,7 @@
-﻿using CrazyArcade.CAFramework;
+﻿using CrazyArcade.Blocks;
+using CrazyArcade.BombFeature;
+using CrazyArcade.CAFramework;
+using CrazyArcade.CAFrameWork.SoundEffectSystem;
 using CrazyArcade.Content;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -6,11 +9,11 @@ using static System.Formats.Asn1.AsnWriter;
 
 namespace CrazyArcade.Enemies
 {
-    public class MimicEnemySprite : Enemy
+    public class MimicEnemySprite : Enemy, IBombCollectable
 
     {
         private Texture2D texture;
-
+        
         public override SpriteAnimation SpriteAnim => spriteAnims[0];
 
         public MimicEnemySprite(int x, int y) : base(x, y)
@@ -32,9 +35,17 @@ namespace CrazyArcade.Enemies
             spriteAnims[(int)Dir.Up] = new SpriteAnimation(texture, 5, 5);
             spriteAnims[0].setWidthHeight(36, 36);
             spriteAnims[0].Color = Color.LightSlateGray;
+
         }
+        
+        public override void CollisionLogic(Rectangle overlap, IPlayerCollisionBehavior collisionPartner)
+        {
+            WaterBomb projectile = new WaterBomb(GameCoord, 2, this);
+            SceneDelegate.ToAddEntity(new CASoundEffect("SoundEffects/PlaceBomb"));
+            this.SceneDelegate.ToAddEntity(projectile);
+            state = new EnemyDeathState(this);
 
-
+        }
 
         protected override Vector2[] SpeedVector => speedVector;
 
@@ -51,7 +62,15 @@ namespace CrazyArcade.Enemies
             new Vector2(0.0f, 0.0f),
             new Vector2(0.0f, 0.0f),
         };
+        void IBombCollectable.RecollectBomb()
+        {
 
+        }
+
+        void IBombCollectable.SpendBomb()
+        {
+
+        }
 
 
     }
