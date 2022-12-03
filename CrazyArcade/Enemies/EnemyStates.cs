@@ -177,6 +177,7 @@ namespace CrazyArcade.Enemies
         public EnemyDeathState(Enemy Enemy) : base(Enemy)
         {
             enemy.spriteAnims = new SpriteAnimation[1];
+            //Changes animation frames to death animation
             enemy.spriteAnims[0] = enemy.deathAnimation;
             enemy.direction=0;
             opacity = 1f;
@@ -193,6 +194,7 @@ namespace CrazyArcade.Enemies
             }
             else
             {
+                //fades out with timer
                 opacity = 1f - timer / fadeTime;
                 enemy.spriteAnims[0].Color = Color.White * opacity;
                 timer += (float)time.ElapsedGameTime.TotalMilliseconds;

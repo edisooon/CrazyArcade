@@ -87,8 +87,6 @@ public class CAGame : Game, IGameDelegate, ITransitionCompleteHandler
 
     protected override void LoadContent()
     {
-        
-        //Load it here
         _spriteBatch = new SpriteBatch(GraphicsDevice);
 
         LevelSongTitles = new string[] { "playground", "comical", "bridge", "dream", "kodama", "worldbeat", "funtimes", "funtimes", "comical" };
@@ -124,14 +122,7 @@ public class CAGame : Game, IGameDelegate, ITransitionCompleteHandler
                 stageNum--;
                 transitionNum = stageNum;
                 makeTransition(gameTime, -transitionDisplacement);
-
-                //MediaPlayer.Stop();
-                //song = Content.Load<Song>(LevelSongTitles[stageNum]);
-                //MediaPlayer.Play(song);
-
-                //new TestLoad().LoadGUI();
-                //UI_Singleton.ChangeComponentText("levelCounter", "text", "Level " + stageNum);
-            }
+}
             else if (Mouse.GetState().RightButton == ButtonState.Pressed && stageNum < levelFileNames.Length-1)
             {
                 
@@ -149,7 +140,7 @@ public class CAGame : Game, IGameDelegate, ITransitionCompleteHandler
     {
 
         //Begin save
-        LevelPersnstance saveData = scene.GetData(); 
+        LevelPersistence saveData = scene.GetData(); 
 
         MediaPlayer.Stop();
         song = Content.Load<Song>(LevelSongTitles[stageNum]);
