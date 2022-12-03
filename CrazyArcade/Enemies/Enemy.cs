@@ -86,6 +86,9 @@ namespace CrazyArcade.Enemies
         }
         
         protected Rectangle internalRectangle = new(0, 0, EnemySize, EnemySize);
+        private float xDifference;
+        private float yDifference;
+
         //player collision
 
         public Rectangle boundingBox => internalRectangle;
