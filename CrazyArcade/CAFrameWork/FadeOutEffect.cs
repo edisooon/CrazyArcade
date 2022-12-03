@@ -9,6 +9,7 @@ namespace CrazyArcade.CAFrameWork
 		ITimer timer;
 		private SpriteAnimation decoratee;
 		int duraction;
+		
         public FadeOutEffect(SpriteAnimation anim, int duractionInMili)
 		{
 			decoratee = anim;

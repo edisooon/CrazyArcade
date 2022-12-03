@@ -13,9 +13,14 @@ namespace CrazyArcade.PlayerStateMachine
         ITimer timer;
         private Character character;
         private bool isPirate;
-        public CharacterStateDie(Character character, bool isPirate)
-        {
-            this.isPirate = isPirate;
+		SpriteAnimation[] die = new SpriteAnimation[1];
+		public CharacterStateDie(Character character, bool isPirate)
+		{
+            SpriteAnimation anim = new SpriteAnimation(TextureSingleton.GetPlayer(isPirate), 11, 7, 275, 531, 108, 10);
+            anim.Scale = 0.5f;
+			die[0] = new FadeOutEffect(anim, 1000);
+            //die[0].Scale = 0.5f;
+			this.isPirate = isPirate;
             this.character = character;
             character.spriteAnims = SetSprites();
             character.ModifiedSpeed = 0;
@@ -62,8 +67,6 @@ namespace CrazyArcade.PlayerStateMachine
 
         public SpriteAnimation[] SetSprites()
         {
-            SpriteAnimation[] die = new SpriteAnimation[1];
-            die[0] = new FadeOutEffect(new SpriteAnimation(TextureSingleton.GetPlayer(isPirate), 11, 7, 275, 531, 108, 10), 1000);
             return die;
         }
     }
