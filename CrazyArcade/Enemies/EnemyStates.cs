@@ -1,4 +1,5 @@
 ﻿using CrazyArcade.CAFramework;
+using CrazyArcade.CAFrameWork.GridBoxSystem;
 using Microsoft.Xna.Framework;
 using System;
 using static System.Formats.Asn1.AsnWriter;
@@ -14,9 +15,15 @@ namespace CrazyArcade.Enemies
     }
     public abstract class EnemyState: IEnemyState
     {
+        protected ISceneDelegate scene;
         protected Enemy enemy;
         protected float timer = 0;
         private readonly float shootTime = 1000;
+        public EnemyState(Enemy Enemy)
+        {
+            this.enemy = Enemy;
+            scene = enemy.SceneDelegate;
+        }
         public virtual void ChangeDirection()
         {
 
@@ -39,15 +46,13 @@ namespace CrazyArcade.Enemies
     
     public class EnemyLeftState : EnemyState
     {
-        public ISceneDelegate scene;
         private readonly int xOffset = -4;
         private readonly int yOffset = 2;
         private readonly int width = 1;
         private readonly int height = 26;
-        public EnemyLeftState(Enemy Enemy)
+        public EnemyLeftState(Enemy Enemy): base(Enemy)
         {
-            this.enemy = Enemy;
-            scene = enemy.SceneDelegate;
+          
             enemy.direction = Dir.Left;
             //This sets the size and location of the enemy block collision detector
             //It changes location and orientation based on which direction the enemy is going.
@@ -71,15 +76,12 @@ namespace CrazyArcade.Enemies
     }
     public class EnemyRightState : EnemyState
     {
-        public ISceneDelegate scene;
         private readonly int xOffset = 33;
         private readonly int yOffset = 2;
         private readonly int width = 1;
         private readonly int height = 26;
-        public EnemyRightState(Enemy Enemy)
+        public EnemyRightState(Enemy Enemy) : base(Enemy)
         {
-            this.enemy = Enemy;
-            scene = enemy.SceneDelegate;
             enemy.direction = Dir.Right;
             //This sets the size and location of the enemy block collision detector
             //It changes location and orientation based on which direction the enemy is going.
@@ -105,15 +107,12 @@ namespace CrazyArcade.Enemies
     }
     public class EnemyUpState : EnemyState
     {
-        public ISceneDelegate scene;
         private readonly int xOffset = 2;
         private readonly int yOffset = -4;
         private readonly int width = 26;
         private readonly int height = 1;
-        public EnemyUpState(Enemy Enemy)
+        public EnemyUpState(Enemy Enemy) : base(Enemy)
         {
-            this.enemy = Enemy;
-            scene = enemy.SceneDelegate;
             enemy.direction = Dir.Up;
             //This sets the size and location of the enemy block collision detector
             //It changes location and orientation based on which direction the enemy is going.
@@ -141,16 +140,12 @@ namespace CrazyArcade.Enemies
     }
     public class EnemyDownState : EnemyState
     {
-       
-        public ISceneDelegate scene;
         private readonly int xOffset = 2;
         private readonly int yOffset = 33;
         private readonly int width = 26;
         private readonly int height = 1;
-        public EnemyDownState(Enemy enemy)
+        public EnemyDownState(Enemy enemy): base(enemy)
         {
-            this.enemy = enemy;
-            scene = enemy.SceneDelegate;
             enemy.direction = Dir.Down;
             //This sets the size and location of the enemy block collision detector
             //It changes location and orientation based on which direction the enemy is going.
@@ -177,14 +172,10 @@ namespace CrazyArcade.Enemies
 
     public class EnemyDeathState : EnemyState
     {
-        public ISceneDelegate scene;
         private float opacity;
         private readonly float fadeTime;
-        public EnemyDeathState(Enemy enemy)
+        public EnemyDeathState(Enemy Enemy) : base(Enemy)
         {
-            this.enemy=enemy;
-            scene = enemy.SceneDelegate;
-
             enemy.spriteAnims = new SpriteAnimation[1];
             //Changes animation frames to death animation
             enemy.spriteAnims[0] = enemy.deathAnimation;
@@ -211,4 +202,5 @@ namespace CrazyArcade.Enemies
 
         }
     }
+    
 }
