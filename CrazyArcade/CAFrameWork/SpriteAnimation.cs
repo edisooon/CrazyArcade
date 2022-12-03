@@ -100,6 +100,10 @@ namespace CrazyArcade.CAFramework
         {
             this.Scale = newScale;
         }
+        public void SetColor(Color color)
+        {
+            this.Color = color;
+        }
 
     }
 

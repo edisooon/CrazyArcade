@@ -34,9 +34,12 @@ namespace CrazyArcade.PlayerStateMachine
             return false;
         }
 
-        public void ProcessItem()
+        public void ProcessItem(string itemName)
         {
-            //nope
+            if (itemName == "needle")
+            {
+                NeedleItem();
+            }
         }
 
         public void ProcessRide()
@@ -75,6 +78,17 @@ namespace CrazyArcade.PlayerStateMachine
             SpriteAnimation[] newSprites = new SpriteAnimation[1];
             newSprites[0] = new SpriteAnimation(TextureSingleton.GetPlayer(isPirate), 12, 389, 44, 56, 2, 4, 10);
             return newSprites;
+        }
+        private void NeedleItem()
+        {
+            if (character.needles <= 0) return;
+            character.needles--;
+            UI_Singleton.ChangeComponentText("needle", "itemCount", "X" + character.needles);
+            character.playerState = new CharacterStateFree(character, isPirate);
+            character.spriteAnims = character.playerState.SetSprites();
+            //there has to be a better way of doing this
+            character.playerState.SetSpeed();
+            bubble.bubbleInt = 2;
         }
     }
 }

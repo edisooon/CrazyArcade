@@ -34,8 +34,10 @@ namespace CrazyArcade.PlayerStateMachine
         static int CCount = 0;
         private int loseRideFlag = 5;
         public int lives;
+        public int shields;
+        public int needles;
         private int score = 0;
-        private bool invincible = false;
+        public bool invincible = false;
         private int ICounter = 0;
 
         public override SpriteAnimation SpriteAnim => spriteAnims[animationHandleInt];
@@ -52,9 +54,10 @@ namespace CrazyArcade.PlayerStateMachine
             GameCoord = new Vector2(3, 3);
             //currentBlastLength = defaultBlastLength;
             DrawOrder = 1;
-            lives = 2;
+            lives = 5;
             Console.WriteLine("Count: " + ++CCount);
-            //this.bboxOffset = new Point(20, 20);
+            needles = 5;
+            shields = 5;
         }
         public override void Update(GameTime time)
         {
@@ -65,10 +68,11 @@ namespace CrazyArcade.PlayerStateMachine
         }
         private void ProcessInvincibility()
         {
-            if(invincible)
+            if(ICounter > 0)
             {
-                ICounter++;
-                if(ICounter >= 30)
+                invincible = true;
+                ICounter--;
+                if(ICounter <= 30)
                 {
                     invincible = false;
                     ICounter = 0;
@@ -89,7 +93,7 @@ namespace CrazyArcade.PlayerStateMachine
                 
                 this.playerState = new CharacterStateFree(this, isPirate);
                 loseRideFlag = 0;
-                invincible = true;
+                ICounter = 30;
             }
             else if (loseRideFlag >= 5)
             {
@@ -147,21 +151,48 @@ namespace CrazyArcade.PlayerStateMachine
         }
         public void Save(LevelPersistence level)
         {
+            //pirates should not be able to save at all, even if they somehow live
+            if (isPirate) return;
             level.SavedStatInt.Add("playerScore", score);
             level.SavedStatInt.Add("playerLives", lives);
+            level.SavedStatInt.Add("needle", needles);
+            level.SavedStatInt.Add("shield", shields);
         }
         public void Load(LevelPersistence level)
         {
+            if (isPirate) return;
             if (level.SavedStatInt.ContainsKey("playerScore"))
             {
                 score = level.SavedStatInt["playerScore"];
+                score += 100;
                 if (!isPirate) UI_Singleton.ChangeComponentText("score", "scoreText", "Score : " + this.score);
             }
             if (level.SavedStatInt.ContainsKey("playerLives"))
             {
                 lives = level.SavedStatInt["playerLives"];
-				if (!isPirate) UI_Singleton.ChangeComponentText("lifeCounter", "count", "Lives: " + lives);
+                lives += 1;
+				UI_Singleton.ChangeComponentText("lifeCounter", "count", "Lives: " + lives);
             }
+            if (level.SavedStatInt.ContainsKey("needle"))
+            {
+                needles = level.SavedStatInt["needle"];
+                needles += 1;
+                UI_Singleton.ChangeComponentText("needle", "itemCount", "X" + needles);
+            }
+            if (level.SavedStatInt.ContainsKey("shield"))
+            {
+                shields = level.SavedStatInt["shield"];
+                shields += 1;
+                UI_Singleton.ChangeComponentText("shield", "itemCount", "X" + shields);
+            }
+        }
+        public void SetInvincibilityTime(int iTime)
+        {
+            shields--;
+            UI_Singleton.ChangeComponentText("shield", "itemCount", "X" + shields);
+            //add shield effect here
+            SceneDelegate.ToAddEntity(new IncincibilityBubble(this, iTime));
+            ICounter = iTime;
         }
     }
 }

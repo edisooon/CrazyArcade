@@ -10,6 +10,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using CrazyArcade.GameGridSystems;
+using System.Diagnostics;
 
 namespace CrazyArcade.PlayerStateMachine
 {
@@ -69,8 +70,10 @@ namespace CrazyArcade.PlayerStateMachine
             }
             d2HeldDown = Keyboard.GetState().IsKeyDown(Keys.D2);
         }
-        public void ProcessItem()
+        public void ProcessItem(string itemName)
         {
+
+            if (itemName == "shield" && !character.invincible && character.shields > 0) character.SetInvincibilityTime(300);
 
         }
         public void ProcessRide()

@@ -22,7 +22,7 @@ namespace CrazyArcade.PlayerStateMachine
             throw new NotImplementedException();
         }
 
-        public void ProcessItem()
+        public void ProcessItem(string itemName)
         {
             throw new NotImplementedException();
         }

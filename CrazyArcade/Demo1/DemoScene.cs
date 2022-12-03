@@ -74,6 +74,8 @@ namespace CrazyArcade.Demo1
                 {
                     players.Add(entity as PlayerCharacter);
                     UI_Singleton.ChangeComponentText("lifeCounter", "count", "Lives: " + (entity as PlayerCharacter).lives);
+                    UI_Singleton.ChangeComponentText("needle", "itemCount", "X" + (entity as PlayerCharacter).needles);
+                    UI_Singleton.ChangeComponentText("shield", "itemCount", "X" + (entity as PlayerCharacter).shields);
                 }
                 this.AddSprite(entity);
             }

@@ -13,8 +13,7 @@ namespace CrazyArcade.PlayerStateMachine.PlayerItemInteractions
     public class ItemContainer
     {
         /*
-         * This is going to be a bit more hard coded and coupled than I would like. If anyone has 
-         * a better way of making it less coupled, please let me know.
+         * This will contain the stats here, obtained by picking up items on the ground
          */
         public Dictionary<string, ItemModifier> ItemBox = new();
         private List<ItemModifier> guiList = new();

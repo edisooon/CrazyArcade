@@ -1,4 +1,7 @@
-﻿using CrazyArcade.UI.GUI_Compositions;
+﻿using CrazyArcade.CAFramework;
+using CrazyArcade.Content;
+using CrazyArcade.Items;
+using CrazyArcade.UI.GUI_Compositions;
 using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
@@ -8,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace CrazyArcade.UI.GUI_Loading
 {
-    public class TestLoad : IGUILoad
+    public class DefaultLoad : IGUILoad
     {
         public void LoadGUI()
         {
@@ -21,6 +24,10 @@ namespace CrazyArcade.UI.GUI_Loading
             UI_Singleton.MoveComponentPosition("levelCounter", "text", new Vector2(15, 0));
             UI_Singleton.MoveCompositePosition("itemBoxTitle", new Vector2(60, 30));
             UI_Singleton.MoveCompositePosition("levelCounter", new Vector2(370, 0));
+            UI_Singleton.AddPreDesignedComposite(new ItemCountComposition("needle", new SpriteAnimation(TextureSingleton.GetNeedle(), new Rectangle(0, 0, 162, 164))));
+            UI_Singleton.MoveCompositePosition("needle", new Vector2(775,50));
+            UI_Singleton.AddPreDesignedComposite(new ItemCountComposition("shield", new SpriteAnimation(TextureSingleton.GetShield(), new Rectangle(0, 0, 237, 289))));
+            UI_Singleton.MoveCompositePosition("shield", new Vector2(825, 50));
         }
     }
 }
