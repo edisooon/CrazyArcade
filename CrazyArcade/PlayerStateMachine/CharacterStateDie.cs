@@ -16,8 +16,8 @@ namespace CrazyArcade.PlayerStateMachine
 		SpriteAnimation[] die = new SpriteAnimation[1];
 		public CharacterStateDie(Character character, bool isPirate)
 		{
-            SpriteAnimation anim = new SpriteAnimation(TextureSingleton.GetPlayer(isPirate), 11, 7, 275, 531, 108, 10);
-            anim.Scale = 0.5f;
+            SpriteAnimation anim = new SpriteAnimation(TextureSingleton.GetPlayer(isPirate), 11, 11, 275, 535, 101, 10);
+            //anim.SetScale(0.5f);
 			die[0] = new FadeOutEffect(anim, 1000);
             //die[0].Scale = 0.5f;
 			this.isPirate = isPirate;
@@ -60,15 +60,20 @@ namespace CrazyArcade.PlayerStateMachine
 					character.SceneDelegate.EndGame();
 				}
 			}
-			character.spriteAnims = character.playerState.SetSprites();
 			//throw new NotImplementedException();
 			
         }
 
         public SpriteAnimation[] SetSprites()
         {
-            return die;
-        }
+			SpriteAnimation[] spriteAnims = new SpriteAnimation[1];
+			spriteAnims[0] = new SpriteAnimation(TextureSingleton.GetPlayer(isPirate), 11, 11, 275, 535, 101, 10);
+			spriteAnims[0] = new FadeOutEffect(spriteAnims[0], 1000);
+            //spriteAnims[(int)Dir.Down] = new SpriteAnimation(TextureSingleton.GetPlayer(isPirate), 12, 78, 44, 56, 6, 4, 10);
+			//spriteAnims[(int)Dir.Left] = new SpriteAnimation(TextureSingleton.GetPlayer(isPirate), 12, 142, 44, 56, 6, 4, 10);
+			//spriteAnims[(int)Dir.Right] = new SpriteAnimation(TextureSingleton.GetPlayer(isPirate), 12, 206, 44, 56, 6, 4, 10);
+			return spriteAnims;
+		}
     }
 }
 

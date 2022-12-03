@@ -9,8 +9,14 @@ namespace CrazyArcade.CAFrameWork
 		ITimer timer;
 		private SpriteAnimation decoratee;
 		int duraction;
-		
-        public FadeOutEffect(SpriteAnimation anim, int duractionInMili)
+		public override float Scale {
+			get => base.Scale;
+			set {
+				base.Scale = value;
+				decoratee.Scale = value;
+			}
+		}
+		public FadeOutEffect(SpriteAnimation anim, int duractionInMili)
 		{
 			decoratee = anim;
 			this.CopyFrom(decoratee);
@@ -27,8 +33,8 @@ namespace CrazyArcade.CAFrameWork
 			base.Update(gameTime);
 			decoratee.Update(gameTime);
 			this.CopyFrom(decoratee);
-			decoratee.Scale = 2;
-			this.Scale = 2;
+			//decoratee.Scale = 2;
+			//this.Scale = 2;
 			this.Color = Color * (1.0f - (float)timer.TotalMili / (float)duraction);
 		}
 
