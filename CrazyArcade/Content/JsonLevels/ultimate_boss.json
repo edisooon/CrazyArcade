@@ -62,16 +62,19 @@
     },
     "Player": [ 0, 0 ],
     "Pirate": [],
-    "Enemies": {
-        "Bomb": [
-        ],
-        "Squid": [
-        ],
-        "Bat": [
-        ],
-        "Robot": [
-        ]
-    },
+  "Enemies": {
+    "Bomb": [
+    ],
+    "Squid": [
+    ],
+    "Bat": [
+    ],
+    "Robot": [
+    ],
+    "Mimic": [
+
+    ]
+  },
     "Boss": {
         "Sun": [
             [ 6, 5 ]

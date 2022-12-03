@@ -29,7 +29,6 @@ namespace CrazyArcade.Enemies
         {
             base.Load();
             texture = TextureSingleton.GetBombEnemy();
-            direction = Dir.Down;
 
 
             InputFramesRight = new Rectangle[3];
