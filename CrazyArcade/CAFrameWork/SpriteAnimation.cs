@@ -85,12 +85,12 @@ namespace CrazyArcade.CAFramework
             
         }
 
-        //public void setWidthHeight(int w, int h)
-        //{
-        //    this.Width = w;
-        //    this.Height = h;
-        //    this.rectangleFlag = 1;
-        //}
+        public void setWidthHeight(int w, int h)
+        {
+            this.Width = w;
+            this.Height = h;
+            this.rectangleFlag = 1;
+        }
         public void setEffect(SpriteEffects effect)
         {
             this.SpriteEffect = effect;
