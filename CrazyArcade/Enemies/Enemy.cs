@@ -11,13 +11,11 @@ using System.Runtime.CompilerServices;
 
 namespace CrazyArcade.Enemies
 {
-    public abstract class Enemy: CAEntity, IPlayerCollidable, IGridable, IExplosionCollidable, IEnemyCollisionBehavior
+    public abstract class Enemy: EnemyEntity, IPlayerCollidable, IGridable, IExplosionCollidable, IEnemyCollisionBehavior
     {
         public SpriteAnimation[] spriteAnims;
         public SpriteAnimation spriteAnim;
         public Dir direction;
-        protected float xDifference;
-        protected float yDifference;
         protected SpriteEffects effect;
         protected Vector2 Start;
         private readonly float CenterEnemyValue;
@@ -101,7 +99,6 @@ namespace CrazyArcade.Enemies
         {
 
             // handled animation updated (position and frame) in abstract level
-
             SpriteAnim.Position = new Vector2(X, Y);
             SpriteAnim.setEffect(effect);
             xDifference = GameCoord.X - Start.X;
@@ -172,6 +169,10 @@ namespace CrazyArcade.Enemies
             // This stop enemy from moving right after turning
             turnFLag = 1;
             
+        }
+        public virtual void ShootProjectile(GameTime time)
+        {
+            //default is empty
         }
     }
 }

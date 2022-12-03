@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using CrazyArcade.CAFramework;
 using CrazyArcade.GameGridSystems;
 using Microsoft.Xna.Framework;
@@ -18,6 +19,9 @@ namespace CrazyArcade.CAFrameWork.GridBoxSystem
         public abstract IGridTransform Trans { get; set; }
         public abstract Vector2 ScreenCoord { get; set; }
         public abstract Vector2 GameCoord { get; set; }
+
+        public abstract bool IsSolid(Dir dir, bool couldKick);
+        public abstract HashSet<Point> PotentialDangerousTile();
     }
 }
 

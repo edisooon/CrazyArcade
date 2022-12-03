@@ -8,22 +8,23 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using CrazyArcade.Blocks;
+using CrazyArcade.Boss;
 
 namespace CrazyArcade.BombFeature
 {
-    internal class WaterExplosionCenter : CAEntity, IPlayerCollidable
-    {
+    internal class WaterExplosionCenter : CAEntity, IBossCollidable
+	{
         static int FrameLength = 40;
         private SpriteAnimation spriteAnims;
         float AliveTime = 0;
         float Lifespan = 500;
         public override SpriteAnimation SpriteAnim => spriteAnims;
 
-        public Rectangle internalRectangle;
 
-        public Rectangle boundingBox => internalRectangle;
+		public Rectangle hitBox => internalRectangle;
 
-        private Rectangle[] AnimationFrames;
+		public Rectangle internalRectangle;
+		private Rectangle[] AnimationFrames;
         public WaterExplosionCenter(int X = 0, int Y = 0)
         {
             this.X = X;
@@ -65,6 +66,11 @@ namespace CrazyArcade.BombFeature
         public void CollisionLogic(Rectangle overlap, IPlayerCollisionBehavior collisionPartner)
         {
             collisionPartner.CollisionDestroyLogic();
+        }
+
+        public void Collide(IBossCollideBehaviour boss)
+        {
+
         }
     }
 }

@@ -21,6 +21,7 @@ using CrazyArcade.CAFrameWork.GameStates;
 using CrazyArcade.CAFrameWork.InputSystem;
 using CrazyArcade.UI;
 using CrazyArcade.CAFrameWork.SoundEffectSystem;
+using CrazyArcade.Pirates;
 
 namespace CrazyArcade.Demo1
 {
@@ -36,9 +37,10 @@ namespace CrazyArcade.Demo1
             {
                 List<Vector2> res = new List<Vector2>();
                 foreach(PlayerCharacter player in players)
-                {
-                    res.Add(player.GameCoord + new Vector2(0.2f, 0.4f));
-                }
+				{
+					//res.Add(player.GameCoord + new Vector2(0.2f, 0.4f));
+					res.Add(player.GameCoord);
+				}
                 return res;
             }
         }
@@ -82,6 +84,7 @@ namespace CrazyArcade.Demo1
             //This may not be neccessary
             this.AddSprite(new KeyBoardInput());
             this.AddSprite(new CASoundEffect("SoundEffects/StageStart"));
+            //this.AddSprite(new PirateCharacter());
         }
         public override void EndGame()
         {
@@ -94,22 +97,6 @@ namespace CrazyArcade.Demo1
         public override void Victory()
         {
             gameRef.Scene = new VictoryScene(gameRef);
-        }
-        public override bool IsDoorOpen()
-        {
-            if (loading)
-            {
-                loading = false;
-                return false;
-            }
-            foreach(IEntity entity in entities)
-            {
-                if (entity is Enemy || entity is IBossCollideBehaviour)
-                {
-                    return false;
-                }
-            }
-            return true;
         }
     }
 }

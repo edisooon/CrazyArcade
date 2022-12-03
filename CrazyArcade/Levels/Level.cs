@@ -10,6 +10,7 @@ using Microsoft.Xna.Framework.Input;
 using CrazyArcade.CAFrameWork.InputSystem;
 using CrazyArcade.CAFrameWork.Transition;
 using System;
+using CrazyArcade.Pirates;
 
 namespace CrazyArcade.Levels
 {
@@ -256,7 +257,12 @@ namespace CrazyArcade.Levels
                 EntityList.Add(new SunBoss(Scene));
             }
 
+			itemLocations = currentLevel.GetItemLocation(CreateLevel.LevelItem.PiratePosition);
 
-        }
+			foreach (Vector2 vector in itemLocations)
+			{
+				EntityList.Add(new PirateCharacter());
+			}
+		}
     }
 }
