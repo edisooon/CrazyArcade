@@ -119,34 +119,21 @@ namespace CrazyArcade.PlayerStateMachine
         {
             return (playerState is CharacterStateFree || playerState is CharacterStateTurtle);
         }
-        public void IncreaseBlastLength()
-        {
-            playerItems.AddItem(new BlastLengthModifier());
-        }
-        public void EnableKick()
-        {
-            playerItems.AddItem(new KickModifier());
-        }
         public void SwitchToMountedState()
         {
             this.playerState = new CharacterStateTurtle(this, isPirate);
             spriteAnims = this.playerState.SetSprites();
             this.playerState.SetSpeed();
         }
-        public void IncreaseSpeed()
-        {
-            playerItems.AddItem(new SpeedModifier());
-        }
-        public void IncreaseBombCount()
-        {
-            playerItems.AddItem(new BombCountModifier());
-        }
         public void IncreaseScore(int score)
         {
             this.score += score;
 			if (!isPirate) UI_Singleton.ChangeComponentText("score", "scoreText", "Score : " + this.score);
         }
-
+        public void ObtainItem(ItemModifier item)
+        {
+            playerItems.AddItem(item);
+        }
         public void SpendBomb()
         {
             bombOut++;
@@ -158,12 +145,12 @@ namespace CrazyArcade.PlayerStateMachine
             CollisionDestroyLogic();
             return true;
         }
-        public void Save(LevelPersnstance level)
+        public void Save(LevelPersistence level)
         {
             level.SavedStatInt.Add("playerScore", score);
             level.SavedStatInt.Add("playerLives", lives);
         }
-        public void Load(LevelPersnstance level)
+        public void Load(LevelPersistence level)
         {
             if (level.SavedStatInt.ContainsKey("playerScore"))
             {

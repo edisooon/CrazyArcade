@@ -2,7 +2,6 @@
 using CrazyArcade.Levels;
 using CrazyArcade.BombFeature;
 using CrazyArcade.CAFramework;
-using CrazyArcade.CAFramework.Controller;
 using CrazyArcade.PlayerStateMachine;
 using System;
 using System.Collections.Generic;

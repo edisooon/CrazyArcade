@@ -3,7 +3,6 @@ using System.Threading;
 using CrazyArcade.Boss;
 using System.Timers;
 using CrazyArcade.CAFramework;
-using CrazyArcade.CAFramework.Controller;
 using CrazyArcade.Content;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;

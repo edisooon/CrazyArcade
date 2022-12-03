@@ -1,6 +1,5 @@
 ﻿using CrazyArcade.Blocks;
 using CrazyArcade.CAFramework;
-using CrazyArcade.CAFramework.Controller;
 using CrazyArcade.Content;
 using CrazyArcade.Demo1;
 using Microsoft.Xna.Framework;
