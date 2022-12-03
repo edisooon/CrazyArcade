@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using CrazyArcade.PlayerStateMachine.PlayerItemInteractions;
+using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,12 +20,9 @@ namespace CrazyArcade.Blocks
         public bool CouldKick { get; }
         public void CollisionHaltLogic(Point amountMoved);
         public void CollisionDestroyLogic();
-        public bool CanHaveItem();
-        public void IncreaseBlastLength();
+        public bool canHaveItem();
         public void SwitchToMountedState();
-        public void IncreaseSpeed();
-        public void IncreaseBombCount();
-        public void EnableKick();
+        public void ObtainItem(ItemModifier item);
         public void IncreaseScore(int score);
         public bool Active { get; set; }
     }

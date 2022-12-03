@@ -328,23 +328,6 @@ namespace CrazyArcade.Boss
                 this.scene.ToAddEntity(waterExplosionEdges[i]);
             }
         }
-        public void toggleHurtSprites(Boolean hurt) {
-            if (hurt){
-                //tint = Color.Red;
-                //this.spriteAnims[(int)Dir.Up] = new SpriteAnimation(texture, 1, 1560, 18, 110, 153, fps);
-                //InputFramesDown[0] = new Rectangle(991, 26, 107, 135);
-               // InputFramesDown[1] = new Rectangle(1181, 22, 108, 145);
-                //this.spriteAnims[(int)Dir.Down] = new SpriteAnimation(texture, InputFramesDown, fps);
-                //left one doesn't change
-                //InputFramesRight[0] = new Rectangle(1371, 17, 108, 153);
-                //this.spriteAnims[(int)Dir.Right] = new SpriteAnimation(texture, InputFramesRight, fps);
-                //update to show change if necessary
-            }
-            else {
-                //this.Load();
-            }
-        }
-        //IBombCollectable stuff
         public void RecollectBomb()
         {
             //Infinite Bombs
