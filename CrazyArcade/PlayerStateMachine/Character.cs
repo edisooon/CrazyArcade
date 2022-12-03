@@ -54,10 +54,10 @@ namespace CrazyArcade.PlayerStateMachine
             GameCoord = new Vector2(3, 3);
             //currentBlastLength = defaultBlastLength;
             DrawOrder = 1;
-            lives = 2;
+            lives = 5;
             Console.WriteLine("Count: " + ++CCount);
-            needles = 2;
-            shields = 2;
+            needles = 5;
+            shields = 5;
         }
         public override void Update(GameTime time)
         {
@@ -188,14 +188,15 @@ namespace CrazyArcade.PlayerStateMachine
             }
             if (level.SavedStatInt.ContainsKey("needle"))
             {
-                needles = level.SavedStatInt["shield"];
+                needles = level.SavedStatInt["needle"];
                 needles += 1;
-                UI_Singleton.ChangeComponentText("needle", "count", "X" + needles);
+                UI_Singleton.ChangeComponentText("needle", "itemCount", "X" + needles);
             }
             if (level.SavedStatInt.ContainsKey("shield"))
             {
                 shields = level.SavedStatInt["shield"];
-                UI_Singleton.ChangeComponentText("shield", "count", "X" + shields);
+                shields += 1;
+                UI_Singleton.ChangeComponentText("shield", "itemCount", "X" + shields);
             }
         }
         public void SetInvincibilityTime(int iTime)
