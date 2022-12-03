@@ -119,7 +119,7 @@ namespace CrazyArcade.PlayerStateMachine
             Console.WriteLine("Recollect: " + BombsOut);
         }
         //@implement IItemCollidable
-        public bool CanHaveItem()
+        public bool canHaveItem()
         {
             return (playerState is CharacterStateFree || playerState is CharacterStateTurtle);
         }
