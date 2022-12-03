@@ -33,8 +33,6 @@ namespace CrazyArcade.CAFrameWork
 			base.Update(gameTime);
 			decoratee.Update(gameTime);
 			this.CopyFrom(decoratee);
-			//decoratee.Scale = 2;
-			//this.Scale = 2;
 			this.Color = Color * (1.0f - (float)timer.TotalMili / (float)duraction);
 		}
 
