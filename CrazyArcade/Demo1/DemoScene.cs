@@ -54,7 +54,6 @@ namespace CrazyArcade.Demo1
         public override void LoadSystems()
         {
             //this.systems.Add(new BlockCollisionSystem());
-            //systems.Add(new GameStateSwitcher(this));
             //this.systems.Add(new CAControllerSystem());
             this.systems.Add(new CASoundSystem());
             this.systems.Add(new InputSystems());
@@ -90,7 +89,8 @@ namespace CrazyArcade.Demo1
         {
             Dictionary<int, Action> commands = new Dictionary<int, Action>();
             commands[KeyBoardInput.KeyDown(Keys.Escape)] = TogglePause;
-            commands
+            commands[KeyBoardInput.KeyDown(Keys.V)] = Victory;
+            commands[KeyBoardInput.KeyDown(Keys.O)] = EndGame;
             return commands;
         }
         public override void EndGame()

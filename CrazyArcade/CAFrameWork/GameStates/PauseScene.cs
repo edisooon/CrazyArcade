@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using CrazyArcade.CAFramework;
 using CrazyArcade.CAFrameWork.CAGame;
+using CrazyArcade.CAFrameWork.InputSystem;
 using CrazyArcade.CAFrameWork.Transition;
 using CrazyArcade.Items;
 using CrazyArcade.UI;
@@ -40,6 +41,7 @@ namespace CrazyArcade.CAFrameWork.GameStates
         public override void Load()
         {
             LoadGUI();
+            base.Load();
         }
         private void LoadGUI()
         {
@@ -59,18 +61,40 @@ namespace CrazyArcade.CAFrameWork.GameStates
         }
         public override void LoadSprites()
         {
+            AddSprite(new KeyBoardInput());
+            AddSprite(new MouseInput());
+            AddSprite(new InputManager(getCommands(), getRangeCommands()));
         }
 
         public override void LoadSystems()
         {
+            systems.Add(new InputSystems());
+            systems.Add(new CAGameLogicSystem());
+        }
+        private bool leftClick = false;
+        private Point mousePos = new Point();
+        private Dictionary<int, Action> getCommands()
+        {
+            Dictionary<int, Action> commands = new Dictionary<int, Action>();
+            commands[KeyBoardInput.KeyDown(Keys.P)] = TogglePause;
+            commands[(int)MouseStatus.LeftDown] = () => leftClick = true;
+            return commands;
+        }
+        private Dictionary<CodeRange, Action<int>> getRangeCommands()
+        {
+            Dictionary<CodeRange, Action<int>> commands = new Dictionary<CodeRange, Action<int>>();
+            commands[MouseInput.CodeRangeX] = (val) => mousePos.X = val - MouseInput.CodeRangeX.Start;
+            commands[MouseInput.CodeRangeY] = (val) => mousePos.Y = val - MouseInput.CodeRangeY.Start;
+            return commands;
         }
         public override void Update(GameTime time)
         {
-            MouseState ms = Mouse.GetState();
+            base.Update(time);
             foreach(Button button in buttons)
             {
-                button.Update(ms, gameRef);
+                button.Update(mousePos, leftClick, gameRef);
             }
+            leftClick = false;
         }
         public override void TogglePause()
         {
