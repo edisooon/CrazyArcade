@@ -24,7 +24,7 @@ namespace CrazyArcade.Items
         //----------IGridable Start------------
         private Vector2 gamePos;
         private Vector2 pos;
-        public bool canExplode = true;
+       
         public override Vector2 ScreenCoord
         {
             get => pos;
@@ -64,6 +64,7 @@ namespace CrazyArcade.Items
         //----------IGridable End------------
         protected Rectangle hitbox;
         protected SpriteAnimation spriteAnimation;
+        public bool canExplode = true;
         //protected ISceneDelegate parentScene;
         public Item(Vector2 position, Rectangle source, Texture2D texture, int frames, int fps)
             : base(new GridBoxPosition((int)position.X, (int)position.Y, (int)GridObjectDepth.Item))

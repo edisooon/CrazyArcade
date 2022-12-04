@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Xml.Linq;
 using CrazyArcade.Blocks;
 using CrazyArcade.CAFramework;
+using CrazyArcade.CAFrameWork.DoorUtils;
 using CrazyArcade.CAFrameWork.GridBoxSystem;
 using CrazyArcade.Items;
 using CrazyArcade.Pirates;
@@ -88,6 +89,8 @@ namespace CrazyArcade.CAFrameWork.InputSystem
 			return (manager.CheckAvailable(
 				new GridBoxPosition(point, (int)GridObjectDepth.Item)
 			) is Item && manager.CheckAvailable(
+                new GridBoxPosition(point, (int)GridObjectDepth.Item)
+            ) is not Key && manager.CheckAvailable (
 				new GridBoxPosition(point, (int)GridObjectDepth.Box)
 			) == null) || playerInRange.Contains(point);
         }

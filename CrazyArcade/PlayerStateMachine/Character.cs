@@ -39,9 +39,10 @@ namespace CrazyArcade.PlayerStateMachine
         private int score = 0;
         public bool invincible = false;
         private int ICounter = 0;
-
         public override SpriteAnimation SpriteAnim => spriteAnims[animationHandleInt];
-        
+
+        public bool Pirate => isPirate;
+
         public Character(bool isPirate) : base(isPirate)
         {
             //ModifiedSpeed = DefaultSpeed;

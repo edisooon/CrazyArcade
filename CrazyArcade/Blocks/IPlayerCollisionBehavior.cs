@@ -25,5 +25,6 @@ namespace CrazyArcade.Blocks
         public void ObtainItem(ItemModifier item);
         public void IncreaseScore(int score);
         public bool Active { get; set; }
+        public bool Pirate { get; }
     }
 }
