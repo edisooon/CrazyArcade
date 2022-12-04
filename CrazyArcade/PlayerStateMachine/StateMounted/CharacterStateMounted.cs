@@ -109,7 +109,7 @@ namespace CrazyArcade.PlayerStateMachine
 
         public void ProcessItem(string itemName)
         {
-            throw new NotImplementedException();
+            if (itemName == "shield" && !character.invincible && character.shields > 0) character.SetInvincibilityTime(300);
         }
     }
 }
