@@ -22,6 +22,7 @@ using CrazyArcade.CAFrameWork.InputSystem;
 using CrazyArcade.UI;
 using CrazyArcade.CAFrameWork.SoundEffectSystem;
 using CrazyArcade.Pirates;
+using CrazyArcade.CAFrameWork.DoorUtils;
 
 namespace CrazyArcade.Demo1
 {
@@ -65,7 +66,8 @@ namespace CrazyArcade.Demo1
             this.systems.Add(new BossCollisionSystem());
             this.systems.Add(new CAGameLogicSystem());
             this.systems.Add(gridSystems);
-            systems.Add(new EnemyCollisionSystem());
+            this.systems.Add(new EnemyCollisionSystem());
+            this.systems.Add(new DoorManager(this));
             //this.systems.Add(new LevelManager(this, new DemoController()));
             level = new Level(this, fileName);
             foreach (IEntity entity in level.DrawLevel())

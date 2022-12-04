@@ -91,7 +91,8 @@ namespace CrazyArcade.Items
         public static Rectangle source = new Rectangle(0, 0, 60, 60);
         public Coin(Vector2 position) : base(position, source, Content.TextureSingleton.GetCoin(), 10, 10)
         {
-
+            canExplode = false;
+            Debug.WriteLine("Coin Made at " + GameCoord);
         }
         public override void CollisionLogic(Rectangle overlap, IPlayerCollisionBehavior collisionPartner)
         {

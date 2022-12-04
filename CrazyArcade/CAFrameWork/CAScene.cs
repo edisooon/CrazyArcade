@@ -27,7 +27,7 @@ namespace CrazyArcade.CAFramework
         public Vector2 Camera { get => gridSystems.Camera; set => gridSystems.Camera = value; }
         public Vector2 StageOffset { get => gridSystems.StageOffset; set => gridSystems.StageOffset = value; }
         public abstract List<Vector2> PlayerPositions { get; }
-
+        public bool doorFlag = false;
         public void EndAfterTransition()
         {
 
@@ -141,7 +141,7 @@ namespace CrazyArcade.CAFramework
 
         public bool IsDoorOpen()
 		{
-			return enemyCount <= 0;
+			return doorFlag;
         }
         protected bool loading = false;
         public bool Loading { set => loading = value; }
@@ -177,6 +177,10 @@ namespace CrazyArcade.CAFramework
         public void DecreaseEnemyCount()
 		{
 			enemyCount--;
+        }
+        public int GetEnemyCount()
+        {
+            return enemyCount;
         }
     }
 }

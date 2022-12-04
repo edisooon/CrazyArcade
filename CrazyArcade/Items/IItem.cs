@@ -10,6 +10,7 @@ using Microsoft.Xna.Framework;
 using CrazyArcade.GameGridSystems;
 using CrazyArcade.BombFeature;
 using CrazyArcade.CAFrameWork.GridBoxSystem;
+using System.Diagnostics;
 
 namespace CrazyArcade.Items
 {
@@ -23,6 +24,7 @@ namespace CrazyArcade.Items
         //----------IGridable Start------------
         private Vector2 gamePos;
         private Vector2 pos;
+        public bool canExplode = true;
         public override Vector2 ScreenCoord
         {
             get => pos;
@@ -92,6 +94,7 @@ namespace CrazyArcade.Items
 
         public bool Collide(IExplosion bomb)
         {
+            if (!canExplode) return true;
             DeleteSelf();
             return true;
         }
