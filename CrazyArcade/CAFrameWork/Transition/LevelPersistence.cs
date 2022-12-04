@@ -7,10 +7,10 @@ using System.Threading.Tasks;
 namespace CrazyArcade.CAFrameWork.Transition
 {
     //This class is loaded at the end of a previous level, and the start of a next level
-    public class LevelPersnstance
+    public class LevelPersistence
     {
         public Dictionary<string, int> SavedStatInt;
-        public LevelPersnstance() 
+        public LevelPersistence() 
         {
             SavedStatInt = new();
         }

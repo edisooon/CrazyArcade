@@ -34,7 +34,7 @@ namespace CrazyArcade.Content
                 "Coinbag", "Potion", "bomberman_enemies",   //13-15
                 "bombermanII_enemies","blue_background",    //16-17
                 "splash", "door", "kick", "door_closed",  //18-21
-                "owl"};                                   //22
+                "needle", "radar", "owl"};                         //22-24
             spriteSheets = new Texture2D[fileNames.Length];
             fonts = new SpriteFont[1];
         }
@@ -146,9 +146,17 @@ namespace CrazyArcade.Content
 		{
 			return spriteSheets[21];
 		}
-        public static Texture2D GetOwl()
+        public static Texture2D GetNeedle()
         {
             return spriteSheets[22];
+        }
+        public static Texture2D GetShield()
+        {
+            return spriteSheets[23];
+        }
+        public static Texture2D GetOwl()
+        {
+            return spriteSheets[24];
         }
         public static SpriteFont getTestFont()
         {

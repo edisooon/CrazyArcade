@@ -1,6 +1,5 @@
 ﻿using System;
 
-using CrazyArcade.CAFramework.Controller;
 using CrazyArcade.Singletons;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -25,7 +24,7 @@ namespace CrazyArcade.Demo1
         public int CurrentBlastLength { get => playerItems.BlastModifier; set { playerItems.BlastModifier = value; } }
         public int BombCapacity { get => playerItems.BombModifier; set { playerItems.BombModifier = value; } }
         //public int FreeModifiedSpeed { get => playerItems.SpeedModifier; }
-        private int bombOut = 0;
+        protected int bombOut = 0;
         public int BombsOut => bombOut;
 
         public ItemContainer playerItems;

@@ -63,11 +63,6 @@ namespace CrazyArcade.PlayerStateMachine
             endState();
         }
 
-        public void ProcessItem()
-        {
-            // could, more code in the future
-        }
-
         public void ProcessRide(RideType type)
         {
             // could, more code in the future
@@ -112,5 +107,9 @@ namespace CrazyArcade.PlayerStateMachine
             return spriteAnims;
         }
 
+        public void ProcessItem(string itemName)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

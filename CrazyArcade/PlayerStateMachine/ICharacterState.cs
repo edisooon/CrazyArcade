@@ -20,8 +20,8 @@ namespace CrazyArcade.PlayerStateMachine
                                                           // ====> both is put in the constructor of CharacterState now (so that we don't have to do neither when switch to new state)
         //Sets the speed of the player character    =======> 
         //public int SetSpeed();
-        //code for dealing with functionality of item upon current state
-        public void ProcessItem();
+        //code for dealing with the obtaining of items (can be changed?)
+        public void ProcessItem(string itemName);
         //Code for obtaining a rideable mount
         public void ProcessRide(RideType type);
         //Code for dealing with attaction

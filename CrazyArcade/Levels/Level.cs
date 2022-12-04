@@ -1,5 +1,4 @@
-﻿using CrazyArcade.Demo1;
-using CrazyArcade.Enemies;
+﻿using CrazyArcade.Enemies;
 using CrazyArcade.Boss;
 using CrazyArcade.CAFramework;
 using CrazyArcade.Items;
@@ -7,7 +6,6 @@ using CrazyArcade.Blocks;
 using CrazyArcade.PlayerStateMachine;
 using System.Collections.Generic;
 using Vector2 = Microsoft.Xna.Framework.Vector2;
-using Rectangle = Microsoft.Xna.Framework.Rectangle;
 using Microsoft.Xna.Framework.Input;
 using CrazyArcade.CAFrameWork.InputSystem;
 using CrazyArcade.CAFrameWork.Transition;
@@ -26,7 +24,7 @@ namespace CrazyArcade.Levels
         float scale;
         Vector2 border;
         Vector2 startPosition;
-        int[] keySet = new int[5];
+        int[] keySet = new int[7];
 
         public Level(CAScene scene, string levelName)
         {
@@ -35,6 +33,8 @@ namespace CrazyArcade.Levels
             keySet[2] = KeyBoardInput.KeyDown(Keys.Left);
             keySet[3] = KeyBoardInput.KeyDown(Keys.Right);
             keySet[4] = KeyBoardInput.KeyUp(Keys.Space);
+            keySet[5] = KeyBoardInput.KeyUp(Keys.N);
+            keySet[6] = KeyBoardInput.KeyUp(Keys.B);
             currentLevel = new CreateLevel(levelName);
             this.Scene = scene;
             EntityList = new List<CAEntity>();
@@ -243,6 +243,14 @@ namespace CrazyArcade.Levels
             foreach (Vector2 vector in itemLocations)
             {
                 EntityList.Add(new RobotEnemySprite((int)vector.X, (int)vector.Y));
+            }
+
+            itemLocations = currentLevel.GetItemLocation(CreateLevel.LevelItem.MimicPosition);
+
+            foreach (Vector2 vector in itemLocations)
+            {
+
+                EntityList.Add(new MimicEnemySprite((int)vector.X, (int)vector.Y));
             }
 
             itemLocations = currentLevel.GetItemLocation(CreateLevel.LevelItem.OctoBossPosition);

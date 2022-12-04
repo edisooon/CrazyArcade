@@ -35,7 +35,7 @@ namespace CrazyArcade.PlayerStateMachine
             //player wouldn't take attaction any more when in dead state
         }
 
-        public void ProcessItem()
+        public void ProcessItem(string itemName)
         {
             //player cannot process/use item when in dead state
         }

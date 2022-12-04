@@ -41,9 +41,12 @@ namespace CrazyArcade.PlayerStateMachine
             //player wouldn't take attaction any more when in bubble state
         }
 
-        public void ProcessItem()
+        public void ProcessItem(string itemName)
         {
-            //player cannot process item when in bubble state
+            if (itemName == "needle")
+            {
+                NeedleItem();
+            }
         }
 
         public void ProcessRide(RideType type)
@@ -74,6 +77,14 @@ namespace CrazyArcade.PlayerStateMachine
             SpriteAnimation[] newSprites = new SpriteAnimation[1];
             newSprites[0] = new SpriteAnimation(TextureSingleton.GetPlayer(isPirate), 12, 389, 44, 56, 2, 4, 10);
             return newSprites;
+        }
+        private void NeedleItem()
+        {
+            if (character.needles <= 0) return;
+            character.needles--;
+            UI_Singleton.ChangeComponentText("needle", "itemCount", "X" + character.needles);
+            character.playerState = new CharacterStateFree(character, isPirate);
+            bubble.bubbleInt = 2;
         }
     }
 }
