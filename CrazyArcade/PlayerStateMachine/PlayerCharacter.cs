@@ -89,7 +89,7 @@ namespace CrazyArcade.PlayerStateMachine
             playerState.ProcessItem("shield");
         }
 
-        public Dictionary<int, Action> getCommands()
+        public Dictionary<int, Action> GetCommands()
         {
             return commands;
         }
