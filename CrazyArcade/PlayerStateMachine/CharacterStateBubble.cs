@@ -1,5 +1,7 @@
 ﻿using CrazyArcade.CAFramework;
+using CrazyArcade.CAFrameWork.SoundEffectSystem;
 using CrazyArcade.Content;
+using CrazyArcade.Enemies;
 using CrazyArcade.Items;
 using CrazyArcade.Levels;
 using CrazyArcade.UI;

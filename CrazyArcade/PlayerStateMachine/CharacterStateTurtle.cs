@@ -1,5 +1,6 @@
 ﻿using CrazyArcade.BombFeature;
 using CrazyArcade.CAFramework;
+using CrazyArcade.CAFrameWork.SoundEffectSystem;
 using CrazyArcade.Content;
 using CrazyArcade.Items;
 using Microsoft.Xna.Framework;

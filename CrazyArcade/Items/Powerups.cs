@@ -7,6 +7,8 @@ using System.Text;
 using System.Threading.Tasks;
 using CrazyArcade.Blocks;
 using CrazyArcade.CAFramework;
+using CrazyArcade.CAFrameWork.SoundEffectSystem;
+using CrazyArcade.Enemies;
 using CrazyArcade.PlayerStateMachine;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -26,6 +28,7 @@ namespace CrazyArcade.Items
         {
             collisionPartner.IncreaseBombCount();
             this.DeleteSelf(parentScene);
+            this.SceneDelegate.ToAddEntity(new CASoundEffect("SoundEffects/PowerUpSound"));
         }
     }
     public class CoinBag : Item
@@ -40,6 +43,7 @@ namespace CrazyArcade.Items
         {
             collisionPartner.IncreaseScore(50);
             this.DeleteSelf(parentScene);
+            this.SceneDelegate.ToAddEntity(new CASoundEffect("SoundEffects/CoinSound"));
         }
     }
     public class Sneaker : Item
@@ -52,6 +56,7 @@ namespace CrazyArcade.Items
         {
             collisionPartner.IncreaseSpeed();
             this.DeleteSelf(parentScene);
+            this.SceneDelegate.ToAddEntity(new CASoundEffect("SoundEffects/PowerUpSound"));
         }
     }
     public class Turtle : Item
@@ -64,6 +69,7 @@ namespace CrazyArcade.Items
         {
             collisionPartner.SwitchToMountedState();
             this.DeleteSelf(parentScene);
+            this.SceneDelegate.ToAddEntity(new CASoundEffect("SoundEffects/PowerUpSound"));
         }
 
     }
@@ -78,6 +84,7 @@ namespace CrazyArcade.Items
         {
             collisionPartner.IncreaseBlastLength();
             this.DeleteSelf(parentScene);
+            this.SceneDelegate.ToAddEntity(new CASoundEffect("SoundEffects/PowerUpSound"));
         }
 
         public override void Update(GameTime time)
@@ -96,7 +103,9 @@ namespace CrazyArcade.Items
         public override void CollisionLogic(Rectangle overlap, IPlayerCollisionBehavior collisionPartner)
         {
             collisionPartner.IncreaseScore(10);
-            this.DeleteSelf(parentScene);
+            this.DeleteSelf(parentScene); 
+            this.SceneDelegate.ToAddEntity(new CASoundEffect("SoundEffects/CoinSound"));
+
         }
     }
 }

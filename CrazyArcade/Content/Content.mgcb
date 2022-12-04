@@ -353,11 +353,29 @@
 /processorParam:Quality=Best
 /build:SoundEffects/BossExplosion.wav
 
+#begin SoundEffects/CoinSound.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:SoundEffects/CoinSound.wav
+
 #begin SoundEffects/DoorSound.wav
 /importer:WavImporter
 /processor:SoundEffectProcessor
 /processorParam:Quality=Best
 /build:SoundEffects/DoorSound.wav
+
+#begin SoundEffects/EnemyDies.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:SoundEffects/EnemyDies.wav
+
+#begin SoundEffects/LevelComplete.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:SoundEffects/LevelComplete.wav
 
 #begin SoundEffects/PlaceBomb.wav
 /importer:WavImporter
@@ -365,11 +383,29 @@
 /processorParam:Quality=Best
 /build:SoundEffects/PlaceBomb.wav
 
+#begin SoundEffects/PowerUpSound.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:SoundEffects/PowerUpSound.wav
+
+#begin SoundEffects/StageClear.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:SoundEffects/StageClear.wav
+
 #begin SoundEffects/StageStart.wav
 /importer:WavImporter
 /processor:SoundEffectProcessor
 /processorParam:Quality=Best
 /build:SoundEffects/StageStart.wav
+
+#begin SoundEffects/TakeDamageSound.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:SoundEffects/TakeDamageSound.wav
 
 #begin splash.png
 /importer:TextureImporter

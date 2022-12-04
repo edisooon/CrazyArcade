@@ -2,6 +2,7 @@
 using CrazyArcade.Blocks;
 using CrazyArcade.CAFramework;
 using CrazyArcade.CAFrameWork.GridBoxSystem;
+using CrazyArcade.CAFrameWork.SoundEffectSystem;
 using CrazyArcade.GameGridSystems;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -31,6 +32,7 @@ namespace CrazyArcade.CAFrameWork.Transition
         {
             if (SceneDelegate.IsDoorOpen())
             {
+                SceneDelegate.ToAddEntity(new CASoundEffect("SoundEffects/DoorSound"));
                 SceneDelegate.Transition(stage, dir);
             }
         }

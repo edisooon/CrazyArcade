@@ -1,4 +1,5 @@
 ﻿using CrazyArcade.CAFramework;
+using CrazyArcade.CAFrameWork.SoundEffectSystem;
 using Microsoft.Xna.Framework;
 using System;
 
@@ -186,6 +187,7 @@ namespace CrazyArcade.Enemies
             timer = 0;
             opacity = 1f;
             fadeTime = 100f;
+            enemy.SceneDelegate.ToAddEntity(new CASoundEffect("SoundEffects/EnemyDies"));
 
         }
         public void ChangeDirection()

@@ -13,6 +13,7 @@ using CrazyArcade.UI;
 using CrazyArcade.UI.GUI_Compositions;
 using CrazyArcade.CAFrameWork.Transition;
 using CrazyArcade.UI.GUI_Components;
+using CrazyArcade.CAFrameWork.SoundEffectSystem;
 
 namespace CrazyArcade.PlayerStateMachine
 {
@@ -86,6 +87,8 @@ namespace CrazyArcade.PlayerStateMachine
         //@implement IPlayerCollisionBehavior
         public void CollisionDestroyLogic()
         {
+            this.SceneDelegate.ToAddEntity(new CASoundEffect("SoundEffects/TakeDamageSound"));
+
             if (this.playerState is CharacterStateBubble || invincible) return;
             if (this.playerState is CharacterStateTurtle )
             {
