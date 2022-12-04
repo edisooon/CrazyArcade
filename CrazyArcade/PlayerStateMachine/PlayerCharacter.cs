@@ -1,4 +1,4 @@
-﻿using CrazyArcade.CAFramework.Controller;
+﻿
 using CrazyArcade.CAFramework;
 using System;
 using System.Collections.Generic;
@@ -15,20 +15,24 @@ using System.Diagnostics;
 using CrazyArcade.CAFrameWork.InputSystem;
 using Microsoft.Xna.Framework.Input;
 using CrazyArcade.CAFrameWork.SoundEffectSystem;
+using CrazyArcade.CAFrameWork.Transition;
 
 namespace CrazyArcade.PlayerStateMachine
 {
-    public class PlayerCharacter : Character, IInputController
+    public class PlayerCharacter : Character, IInputController, ISavable
     {
+        
         Dictionary<int, Action> commands = new Dictionary<int, Action>();
-        public PlayerCharacter(int[] keySet) : base()
+        public PlayerCharacter(int[] keySet) : base(false)
         {
-            Action[] actions = new Action[5];
+            Action[] actions = new Action[7];
             actions[0] = KeyUp;
             actions[1] = KeyDown;
             actions[2] = KeyLeft;
             actions[3] = KeyRight;
             actions[4] = KeySpace;
+            actions[5] = KeyN;
+            actions[6] = KeyB;
             for (int i = 0; i < keySet.Length; i++)
             {
                 commands[keySet[i]] = actions[i];
@@ -75,7 +79,17 @@ namespace CrazyArcade.PlayerStateMachine
                 SceneDelegate.ToAddEntity(new CASoundEffect("SoundEffects/PlaceBomb"));
         }
 
-        public Dictionary<int, Action> GetCommands()
+        private void KeyN()
+        {
+            playerState.ProcessItem("needle");
+        }
+        
+        private void KeyB()
+        {
+            playerState.ProcessItem("shield");
+        }
+
+        public Dictionary<int, Action> getCommands()
         {
             return commands;
         }

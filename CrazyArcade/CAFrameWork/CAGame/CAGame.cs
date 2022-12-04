@@ -95,8 +95,6 @@ public class CAGame : Game, IGameDelegate, ITransitionCompleteHandler
 
     protected override void LoadContent()
     {
-        
-        //Load it here
         _spriteBatch = new SpriteBatch(GraphicsDevice);
 
         LevelSongTitles = new string[] { "playground", "comical", "bridge", "dream", "kodama", "worldbeat", "funtimes", "funtimes", "comical" };
@@ -105,7 +103,7 @@ public class CAGame : Game, IGameDelegate, ITransitionCompleteHandler
         CurrentLevel = test.levelObject;
         map = new ReadJSON("Map.json", ReadJSON.fileType.MapFile);
         levelFileNames = map.mapObject.Levels;
-        new TestLoad().LoadGUI();
+        new DefaultLoad().LoadGUI();
         UI_Singleton.ChangeComponentText("levelCounter", "text", "Level " + stageNum);
         scene.Load();
     }
@@ -132,13 +130,6 @@ public class CAGame : Game, IGameDelegate, ITransitionCompleteHandler
                 stageNum--;
                 transitionNum = stageNum;
                 makeTransition(gameTime, -transitionDisplacement);
-
-                //MediaPlayer.Stop();
-                //song = Content.Load<Song>(LevelSongTitles[stageNum]);
-                //MediaPlayer.Play(song);
-
-                //new TestLoad().LoadGUI();
-                //UI_Singleton.ChangeComponentText("levelCounter", "text", "Level " + stageNum);
             }
             else if (Keyboard.GetState().IsKeyDown(Keys.OemPlus) && stageNum < levelFileNames.Length-1)
             {
@@ -157,13 +148,13 @@ public class CAGame : Game, IGameDelegate, ITransitionCompleteHandler
     {
 
         //Begin save
-        LevelPersnstance saveData = scene.GetData(); 
+        LevelPersistence saveData = scene.GetData(); 
 
         MediaPlayer.Stop();
         song = Content.Load<Song>(LevelSongTitles[stageNum]);
         MediaPlayer.Play(song);
 
-        new TestLoad().LoadGUI();
+        new DefaultLoad().LoadGUI();
         UI_Singleton.ChangeComponentText("levelCounter", "text", "Level " + stageNum);
         ISceneState newState = new DemoScene(this, levelFileNames[stageNum], StageOffset);
         newState.Load();

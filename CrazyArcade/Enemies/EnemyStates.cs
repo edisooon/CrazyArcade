@@ -1,6 +1,8 @@
 ﻿using CrazyArcade.CAFramework;
+using CrazyArcade.CAFrameWork.GridBoxSystem;
 using Microsoft.Xna.Framework;
 using System;
+using static System.Formats.Asn1.AsnWriter;
 
 
 namespace CrazyArcade.Enemies
@@ -9,27 +11,56 @@ namespace CrazyArcade.Enemies
     {
         void ChangeDirection();
         void Update(GameTime time);
+
     }
-    public class EnemyLeftState : IEnemyState
+    public abstract class EnemyState: IEnemyState
     {
-        private readonly Enemy enemy;
-        public ISceneDelegate scene;
+        protected ISceneDelegate scene;
+        protected Enemy enemy;
+        protected float timer = 0;
+        private readonly float shootTime = 1000;
+        public EnemyState(Enemy Enemy)
+        {
+            this.enemy = Enemy;
+            scene = enemy.SceneDelegate;
+        }
+        public virtual void ChangeDirection()
+        {
+
+        }
+        public virtual void Update(GameTime time)
+        {
+            if (timer > shootTime)
+            {
+                enemy.ShootProjectile(time);
+                timer = 0;
+            }
+            else
+            {
+                timer += (float)time.ElapsedGameTime.TotalMilliseconds;
+            }
+            
+            enemy.Move();
+        }
+    }
+    
+    public class EnemyLeftState : EnemyState
+    {
         private readonly int xOffset = -4;
         private readonly int yOffset = 2;
         private readonly int width = 1;
         private readonly int height = 26;
-        public EnemyLeftState(Enemy enemy)
+        public EnemyLeftState(Enemy Enemy): base(Enemy)
         {
-            this.enemy = enemy;
-            scene = enemy.SceneDelegate;
+          
             enemy.direction = Dir.Left;
             //This sets the size and location of the enemy block collision detector
             //It changes location and orientation based on which direction the enemy is going.
             enemy.SetDetectorValues(xOffset, yOffset, width, height);
         }
-        public void ChangeDirection()
+        public override void ChangeDirection()
         {
-            Random rnd = new Random();
+            Random rnd = new();
             int num = rnd.Next();
             if (num % 2 == 0)
             {
@@ -42,33 +73,24 @@ namespace CrazyArcade.Enemies
             
         }
 
-        public void Update(GameTime time)
-        {
-
-            enemy.Move();
-        }
     }
-    public class EnemyRightState : IEnemyState
+    public class EnemyRightState : EnemyState
     {
-        private readonly Enemy enemy;
-        public ISceneDelegate scene;
         private readonly int xOffset = 33;
         private readonly int yOffset = 2;
         private readonly int width = 1;
         private readonly int height = 26;
-        public EnemyRightState(Enemy enemy)
+        public EnemyRightState(Enemy Enemy) : base(Enemy)
         {
-            this.enemy = enemy;
-            scene = enemy.SceneDelegate;
             enemy.direction = Dir.Right;
             //This sets the size and location of the enemy block collision detector
             //It changes location and orientation based on which direction the enemy is going.
             enemy.SetDetectorValues(xOffset, yOffset, width, height);
 
         }
-        public void ChangeDirection()
+        public override void ChangeDirection()
         {
-            Random rnd = new Random();
+            Random rnd = new();
             int num = rnd.Next();
             if (num % 2 == 0)
             {
@@ -82,33 +104,25 @@ namespace CrazyArcade.Enemies
 
         }
 
-        public void Update(GameTime time) {
-
-            enemy.Move();
-        }
     }
-    public class EnemyUpState : IEnemyState
+    public class EnemyUpState : EnemyState
     {
-        private readonly Enemy enemy;
-        public ISceneDelegate scene;
         private readonly int xOffset = 2;
         private readonly int yOffset = -4;
         private readonly int width = 26;
         private readonly int height = 1;
-        public EnemyUpState(Enemy enemy)
+        public EnemyUpState(Enemy Enemy) : base(Enemy)
         {
-            this.enemy = enemy;
-            scene = enemy.SceneDelegate;
             enemy.direction = Dir.Up;
             //This sets the size and location of the enemy block collision detector
             //It changes location and orientation based on which direction the enemy is going.
             enemy.SetDetectorValues(xOffset, yOffset, width, height);
 
         }
-        public void ChangeDirection()
+        public override void ChangeDirection()
         {
 
-            Random rnd = new Random();
+            Random rnd = new();
             int num = rnd.Next();
             
             if (num % 2 == 0)
@@ -122,31 +136,24 @@ namespace CrazyArcade.Enemies
 
         }
 
-        public void Update(GameTime time)
-        {
-            enemy.Move();
-        }
+      
     }
-    public class EnemyDownState : IEnemyState
+    public class EnemyDownState : EnemyState
     {
-        private readonly Enemy enemy;
-        public ISceneDelegate scene;
         private readonly int xOffset = 2;
         private readonly int yOffset = 33;
         private readonly int width = 26;
         private readonly int height = 1;
-        public EnemyDownState(Enemy enemy)
+        public EnemyDownState(Enemy enemy): base(enemy)
         {
-            this.enemy = enemy;
-            scene = enemy.SceneDelegate;
             enemy.direction = Dir.Down;
             //This sets the size and location of the enemy block collision detector
             //It changes location and orientation based on which direction the enemy is going.
             enemy.SetDetectorValues(xOffset, yOffset, width, height);
         }
-        public void ChangeDirection()
+        public override void ChangeDirection()
         {
-            Random rnd = new Random();
+            Random rnd = new();
             int num = rnd.Next();
 
             if (num % 2 == 0)
@@ -161,40 +168,25 @@ namespace CrazyArcade.Enemies
 
         }
 
-        public void Update(GameTime time)
-        {
-            enemy.Move();
-        }
     }
 
-    public class EnemyDeathState : IEnemyState
+    public class EnemyDeathState : EnemyState
     {
-        private readonly Enemy enemy;
-        public ISceneDelegate scene;
-        private float timer;
         private float opacity;
         private readonly float fadeTime;
-        public EnemyDeathState(Enemy enemy)
+        public EnemyDeathState(Enemy Enemy) : base(Enemy)
         {
-            this.enemy=enemy;
-            scene = enemy.SceneDelegate;
-
             enemy.spriteAnims = new SpriteAnimation[1];
+            //Changes animation frames to death animation
             enemy.spriteAnims[0] = enemy.deathAnimation;
             enemy.direction=0;
-
-            timer = 0;
             opacity = 1f;
             fadeTime = 100f;
 
         }
-        public void ChangeDirection()
-        {
-
-        }
 
 
-        public void Update(GameTime time)
+        public override void Update(GameTime time)
         {
             if (timer > fadeTime)
             {
@@ -202,6 +194,7 @@ namespace CrazyArcade.Enemies
             }
             else
             {
+                //fades out with timer
                 opacity = 1f - timer / fadeTime;
                 enemy.spriteAnims[0].Color = Color.White * opacity;
                 timer += (float)time.ElapsedGameTime.TotalMilliseconds;
@@ -209,4 +202,5 @@ namespace CrazyArcade.Enemies
 
         }
     }
+    
 }

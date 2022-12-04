@@ -1,8 +1,4 @@
-﻿using System;
-using System.Text.Json;
-using System.IO;
-using System.Diagnostics;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 
 using CrazyArcade.Levels;
 using CrazyArcade.GameGridSystems;
@@ -53,7 +49,9 @@ namespace CrazyArcade.Levels
 			TurtlePosition,
 			PotionPosition,
 			CoinPosition,
-			KickPosition
+			KickPosition,
+			PiratePosition,
+			MimicPosition
 		}
 
 		public Vector2 GetStartPosition(int[] coord)
@@ -171,7 +169,12 @@ namespace CrazyArcade.Levels
                 case (int)LevelItem.KickPosition:
                     array = GetStartPositionArray(levelObject.Items.Kick);
                     break;
-
+				case (int)LevelItem.PiratePosition:
+					array = GetStartPositionArray(levelObject.Pirate);
+					break;
+                case (int)LevelItem.MimicPosition:
+                    array = GetStartPositionArray(levelObject.Enemies.Mimic);
+                    break;
                 default:
 
 					break;

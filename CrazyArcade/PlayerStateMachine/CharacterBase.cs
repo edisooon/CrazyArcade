@@ -1,6 +1,5 @@
 ﻿using System;
 
-using CrazyArcade.CAFramework.Controller;
 using CrazyArcade.Singletons;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -18,10 +17,11 @@ namespace CrazyArcade.Demo1
 {
     public abstract class CharacterBase : CAEntity, IGridable, IPlayer
     {
-        public float DefaultSpeed = 5;
+        public float DefaultSpeed = 3;
+        public bool isPirate;
         public float ModifiedSpeed;
         public Vector2 CurrentSpeed = new(0, 0);
-        public ItemContainer playerItems = new();
+        public ItemContainer playerItems;
         public bool CouldKick { get => playerItems.CanKick; }
         public int defaultBlastLength = 1;
         public Vector2 moveInputs = new(0, 0);
@@ -34,6 +34,11 @@ namespace CrazyArcade.Demo1
         public IGridBoxManager manager;
         public IGridBoxManager Manager { get => manager; set => manager = value; }
 
+        public CharacterBase(bool isPirate)
+        {
+            this.isPirate = isPirate;
+            playerItems = new(isPirate);
+        }
 
         //----------IGridable Start------------
         private Vector2 gamePos;

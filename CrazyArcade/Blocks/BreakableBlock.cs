@@ -10,13 +10,14 @@ using CrazyArcade.CAFramework;
 
 namespace CrazyArcade.Blocks
 {
-    public abstract class BreakableBlock : Block, IBlock
+    public abstract class BreakableBlock : Block
     {
         ISceneDelegate parentScene;
 
         public BreakableBlock(ISceneDelegate parentScene, Vector2 position, Rectangle source) : base(position, source, Content.TextureSingleton.GetDesertBlocks())
         {
             this.parentScene = parentScene;
+            this.parentScene.ToAddEntity(Item.Random(position));
         }
 
         public void DeleteSelf()

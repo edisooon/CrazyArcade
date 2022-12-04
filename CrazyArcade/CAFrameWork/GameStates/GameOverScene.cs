@@ -5,7 +5,6 @@ using System.Text;
 using System.Threading.Tasks;
 using CrazyArcade.Blocks;
 using CrazyArcade.CAFramework;
-using CrazyArcade.CAFramework.Controller;
 using CrazyArcade.CAFrameWork.CAGame;
 using CrazyArcade.CAFrameWork.InputSystem;
 using CrazyArcade.Demo1;

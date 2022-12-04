@@ -1,4 +1,5 @@
-﻿using CrazyArcade.UI;
+﻿using CrazyArcade.Demo1;
+using CrazyArcade.UI;
 using CrazyArcade.UI.GUI_Compositions;
 using Microsoft.Xna.Framework;
 using System;
@@ -12,23 +13,24 @@ namespace CrazyArcade.PlayerStateMachine.PlayerItemInteractions
     public class ItemContainer
     {
         /*
-         * This is going to be a bit more hard coded and coupled than I would like. If anyone has 
-         * a better way of making it less coupled, please let me know.
+         * This will contain the stats here, obtained by picking up items on the ground
          */
         public Dictionary<string, ItemModifier> ItemBox = new();
         private List<ItemModifier> guiList = new();
         private static readonly int defaultBlastLength = 1;
         private static readonly int defaultBombMaximum = 1;
-        private static readonly int defaultSpeed = 5;
+        private static readonly int defaultSpeed = 3;
         public int BombModifier;
         public int BlastModifier;
         public int SpeedModifier;
         public bool CanKick;
         private int itemCount = 0;
+        private bool isPirate;
         private Vector2 anchorPoint = new(50, 50);
-        public ItemContainer()
+        public ItemContainer(bool isPirate)
         {
             ResetStats();
+            this.isPirate = isPirate;
         }
         public void AddItem(ItemModifier item)
         {
@@ -91,12 +93,14 @@ namespace CrazyArcade.PlayerStateMachine.PlayerItemInteractions
         }
         private void GenerateGuiElement(ItemModifier item, int count)
         {
+            if (isPirate) return;
             UI_Singleton.AddPreDesignedComposite(new ItemCountComposition(item.Name, item.ItemRep));
             UpdateGuiItemCount(item);
             UI_Singleton.MoveCompositePosition(item.Name, anchorPoint + new Vector2((count % 2) * 50, ((count-1) / 2) * 50));
         }
-        private static void UpdateGuiItemCount(ItemModifier item)
+        private void UpdateGuiItemCount(ItemModifier item)
         {
+            if (isPirate) return;
             UI_Singleton.ChangeComponentText(item.Name, "itemCount", "X" + item.CurrentCount.ToString());
         }
     }

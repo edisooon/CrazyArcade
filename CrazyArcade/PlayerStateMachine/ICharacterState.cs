@@ -20,10 +20,11 @@ namespace CrazyArcade.PlayerStateMachine
         //Sets the speed of the player character
         public int SetSpeed();
         //code for dealing with the obtaining of items (can be changed?)
-        public void ProcessItem();
+        public void ProcessItem(string itemName);
         //Code for obtaining a rideable mount
         public void ProcessRide();
         //Code for dealing with attacking, return true if bomb placed
         public bool ProcessAttaction();
+
     }
 }

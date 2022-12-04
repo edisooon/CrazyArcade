@@ -38,7 +38,7 @@ namespace CrazyArcade.CAFrameWork.GameStates
         {
             for(int i = 0;i < listSize;i++)
             {
-                victoryCoinBags.Add(new CoinBag(this, new Vector2(100*i,0)));
+                victoryCoinBags.Add(new CoinBag(new Vector2(100*i,0)));
                 this.AddSprite(victoryCoinBags[i]);
             }
             this.AddSprite(new InputManager(getCommands()));
