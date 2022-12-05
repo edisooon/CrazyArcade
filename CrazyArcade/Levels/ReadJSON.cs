@@ -128,5 +128,5 @@ public class LevelItems
 }
 public class LevelFlags
 {
-    public int PuzzleFlag { get; set; }
+    public int[] PuzzleFlag { get; set; }
 }

@@ -57,6 +57,11 @@ namespace CrazyArcade.CAFrameWork.DoorUtils
             {
                 sunBossList.Add(sun);
             }
+            if (sprite is ObtainFlag flag)
+            {
+                if (flag.flag) AllEnemiesKilled(flag.keyPos);
+                sceneRep.ToRemoveEntity(flag);
+            }
         }
 
         public void RemoveAll()
