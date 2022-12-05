@@ -1,5 +1,9 @@
 ﻿using System;
+using System.Diagnostics;
+using CrazyArcade.BombFeature;
 using CrazyArcade.CAFramework;
+using CrazyArcade.Items;
+using Microsoft.Xna.Framework;
 
 namespace CrazyArcade.Enemies
 {
@@ -16,6 +20,10 @@ namespace CrazyArcade.Enemies
         {
             base.Deload();
 			SceneDelegate.DecreaseEnemyCount();
+            if (SceneDelegate.GetEnemyCount() <= 0)
+            {
+               
+            }
         }
     }
 }
