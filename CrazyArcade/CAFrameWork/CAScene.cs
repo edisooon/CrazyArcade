@@ -134,6 +134,10 @@ namespace CrazyArcade.CAFramework
         public virtual void Victory()
         {
         }
+        public virtual void MainMenu()
+        {
+            gameRef.NewGame();
+        }
         public void Transition(int stage, Dir dir)
         {
             gameRef.StageTransitTo(stage, (int)dir);

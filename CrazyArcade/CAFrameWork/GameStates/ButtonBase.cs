@@ -12,10 +12,13 @@ namespace CrazyArcade.CAFrameWork.GameStates
 {
     public class ButtonBase : GUIBase
     {
+        public static readonly Rectangle DefaultButtonRectangle = new(0, 0, 200, 50);
+        public Rectangle Rect;
         public ButtonBase(string name)
         {
+            Rect = DefaultButtonRectangle;
             this.name = name;
-            this.Sprite = new SpriteAnimation(TextureSingleton.GetBlueBackground(), new Rectangle(0, 0, 100, 20));
+            this.Sprite = new SpriteAnimation(TextureSingleton.GetBlueBackground(), DefaultButtonRectangle);
             Sprite.rectangleFlag = 1;
         }
     }
