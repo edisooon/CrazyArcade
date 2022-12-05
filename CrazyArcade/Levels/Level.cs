@@ -12,6 +12,7 @@ using CrazyArcade.CAFrameWork.Transition;
 using System;
 using CrazyArcade.Pirates;
 using CrazyArcade.CAFrameWork.DoorUtils;
+using static CrazyArcade.Levels.CreateLevel;
 
 namespace CrazyArcade.Levels
 {
@@ -80,9 +81,20 @@ namespace CrazyArcade.Levels
         {
 
             startPosition = currentLevel.GetStartPosition(new int[2] { X, Y });
-            Entity = new Rock(startPosition);
+            Entity = new DefaultBlock(startPosition, CreateLevel.LevelItem.StonePosition);
             Entity.SpriteAnim.Scale = scale;
             EntityList.Add(Entity);
+        }
+        private Dictionary<LevelItem, Vector2[]> getLocations()
+        { 
+            Func<LevelItem, Vector2[]> gil = currentLevel.GetItemLocation;
+            Dictionary<LevelItem, Vector2[]> locations = new ();
+            foreach(LevelItem type in Enum.GetValues(typeof(LevelItem)))
+            {
+                locations[type] = gil(type);
+            }
+            locations.Remove(LevelItem.DoorPosition);
+            return locations;
         }
         private void LoadSprites()
         {

@@ -7,19 +7,33 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using CrazyArcade.CAFramework;
+using CrazyArcade.Levels;
 
 namespace CrazyArcade.Blocks
 {
-    public abstract class BreakableBlock : Block
+    public class BreakableBlock : Block
     {
         ISceneDelegate parentScene;
 
-        public BreakableBlock(ISceneDelegate parentScene, Vector2 position, Rectangle source) : base(position, source, Content.TextureSingleton.GetDesertBlocks())
+        public BreakableBlock(ISceneDelegate parentScene, Vector2 position, CreateLevel.LevelItem type) : base(position, getSource(type), Content.TextureSingleton.GetDesertBlocks())
         {
             this.parentScene = parentScene;
             this.parentScene.ToAddEntity(Item.Random(position));
         }
-
+        private static Rectangle getSource(CreateLevel.LevelItem type)
+        {
+            /*BlueCrate = new Rectangle(10, 306, 40, 63);
+            GreenCrate = new Rectangle(60, 306, 40, 63);
+            CyanCrate = new Rectangle(110, 306, 40, 63);*/
+            switch (type)
+            {
+                case CreateLevel.LevelItem.DarkSandPosition:
+                    return new Rectangle(60, 10, 40, 44);
+                //Default is light sand
+                default:
+                    return new Rectangle(10, 10, 40, 44);
+            }
+        }
         public void DeleteSelf()
         {
             parentScene.ToRemoveEntity(this);
@@ -31,29 +45,4 @@ namespace CrazyArcade.Blocks
             return false;
         }
     }
-    public class BlueCrate : BreakableBlock
-    {
-        private static Rectangle source = new Rectangle(10, 306, 40, 63);
-        public BlueCrate(ISceneDelegate parentScene, Vector2 position) : base(parentScene, position, source)
-        {
-
-        }
-    }
-    public class GreenCrate : BreakableBlock
-    {
-        private static Rectangle source = new Rectangle(60, 306, 40, 63);
-        public GreenCrate(ISceneDelegate parentScene, Vector2 position) : base(parentScene, position, source)
-        {
-
-        }
-    }
-    public class CyanCrate : BreakableBlock
-    {
-        private static Rectangle source = new Rectangle(110, 306, 40, 63);
-        public CyanCrate(ISceneDelegate parentScene, Vector2 position) : base(parentScene, position, source)
-        {
-
-        }
-    }
-
 }
