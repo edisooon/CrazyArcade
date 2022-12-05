@@ -11,6 +11,7 @@ using CrazyArcade.CAFrameWork.InputSystem;
 using CrazyArcade.CAFrameWork.Transition;
 using System;
 using CrazyArcade.Pirates;
+using CrazyArcade.CAFrameWork.DoorUtils;
 
 namespace CrazyArcade.Levels
 {
@@ -274,5 +275,9 @@ namespace CrazyArcade.Levels
 				EntityList.Add(new PirateCharacter());
 			}
 		}
+        private void LoadFlags()
+        {
+            EntityList.Add(new ObtainFlag(currentLevel.Get));
+        }
     }
 }

@@ -53,6 +53,10 @@ namespace CrazyArcade.Levels
 			PiratePosition,
 			MimicPosition
 		}
+		public enum FlagEnum
+		{
+			PuzzleFlag
+		}
 
 		public Vector2 GetStartPosition(int[] coord)
 		{
@@ -195,5 +199,12 @@ namespace CrazyArcade.Levels
             }
 			return array;
         }
+		public bool GetFlag(FlagEnum flag)
+		{
+			if (flag == FlagEnum.PuzzleFlag)
+			{
+				if (levelObject.Flags.PuzzleFlag == 0) return false; else return true;
+			}
+		}
     }
 }

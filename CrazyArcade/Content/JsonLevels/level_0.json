@@ -85,5 +85,8 @@
 		"Octo": [
 
 		]
+	},
+	"Flags": {
+		"PuzzleFlag" : 1
 	}
 }
