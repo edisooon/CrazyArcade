@@ -74,7 +74,7 @@ namespace CrazyArcade.Pirates
 		private void KeySpace()
 		{
 			Console.WriteLine();
-			if (playerState.ProcessAttaction())
+			if (playerState.CouldPutBomb && this.putBomb())
 				SceneDelegate.ToAddEntity(new CASoundEffect("SoundEffects/PlaceBomb"));
 		}
 

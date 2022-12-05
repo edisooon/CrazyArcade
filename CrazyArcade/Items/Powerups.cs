@@ -24,8 +24,11 @@ namespace CrazyArcade.Items
         }
         public override void CollisionLogic(Rectangle overlap, IPlayerCollisionBehavior collisionPartner)
         {
-            collisionPartner.ObtainItem(new BombCountModifier());
-            this.DeleteSelf();
+            if (collisionPartner.State.CouldGetItem)
+            {
+                collisionPartner.ObtainItem(new BombCountModifier());
+                this.DeleteSelf();
+            }
         }
     }
     public class CoinBag : Item
@@ -38,8 +41,11 @@ namespace CrazyArcade.Items
         }
         public override void CollisionLogic(Rectangle overlap, IPlayerCollisionBehavior collisionPartner)
         {
-            collisionPartner.IncreaseScore(50);
-            this.DeleteSelf();
+            if (collisionPartner.State.CouldGetItem)
+            {
+                collisionPartner.IncreaseScore(50);
+                this.DeleteSelf();
+            }
         }
     }
     public class Sneaker : Item
@@ -50,8 +56,11 @@ namespace CrazyArcade.Items
         }
         public override void CollisionLogic(Rectangle overlap, IPlayerCollisionBehavior collisionPartner)
         {
-            collisionPartner.ObtainItem(new SpeedModifier());
-            this.DeleteSelf();
+            if (collisionPartner.State.CouldGetItem)
+            {
+                collisionPartner.ObtainItem(new SpeedModifier());
+                this.DeleteSelf();
+            }
         }
     }
     public class Turtle : Item
@@ -62,8 +71,33 @@ namespace CrazyArcade.Items
         }
         public override void CollisionLogic(Rectangle overlap, IPlayerCollisionBehavior collisionPartner)
         {
-            collisionPartner.SwitchToMountedState();
-            this.DeleteSelf();
+            if (collisionPartner.State.CouldGetItem)
+            {
+                Random rand = new Random();
+                int n = rand.Next(10);
+                // 30% pirate Turtle, 70% turtle
+                RideType type = n <= 2 ? RideType.PirateTurtle : RideType.Turtle;
+                collisionPartner.State.ProcessRide(type);
+                this.DeleteSelf();
+            }
+        }
+
+    }
+
+    public class Owl : Item
+    {
+        private static Rectangle source = new Rectangle(14, 131, 37, 59);
+        public Owl(Vector2 position) : base(position, source, Content.TextureSingleton.GetOwl(), 3, 5)
+        {
+        }
+        public override void CollisionLogic(Rectangle overlap, IPlayerCollisionBehavior collisionPartner)
+        {
+            if (collisionPartner.State.CouldGetItem)
+            {
+                RideType type = RideType.Owl;
+                collisionPartner.State.ProcessRide(type);
+                this.DeleteSelf();
+            }
         }
 
     }
@@ -76,8 +110,11 @@ namespace CrazyArcade.Items
         }
         public override void CollisionLogic(Rectangle overlap, IPlayerCollisionBehavior collisionPartner)
         {
-            collisionPartner.ObtainItem(new BlastLengthModifier());
-            this.DeleteSelf();
+            if (collisionPartner.State.CouldGetItem)
+            {
+                collisionPartner.ObtainItem(new BlastLengthModifier());
+                this.DeleteSelf();
+            }
         }
 
         public override void Update(GameTime time)
@@ -95,8 +132,11 @@ namespace CrazyArcade.Items
         }
         public override void CollisionLogic(Rectangle overlap, IPlayerCollisionBehavior collisionPartner)
         {
-            collisionPartner.IncreaseScore(10);
-            this.DeleteSelf();
+            if (collisionPartner.State.CouldGetItem)
+            {
+                collisionPartner.IncreaseScore(10);
+                this.DeleteSelf();
+            }
         }
     }
     public class KickBoot : Item
@@ -108,8 +148,11 @@ namespace CrazyArcade.Items
         }
         public override void CollisionLogic(Rectangle overlap, IPlayerCollisionBehavior collisionPartner)
         {
-            collisionPartner.ObtainItem(new KickModifier());
-            this.DeleteSelf();
+            if (collisionPartner.State.CouldGetItem)
+            {
+                collisionPartner.ObtainItem(new KickModifier());
+                this.DeleteSelf();
+            }
         }
     }
 }
