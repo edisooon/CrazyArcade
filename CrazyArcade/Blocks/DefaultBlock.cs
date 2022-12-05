@@ -55,6 +55,26 @@ namespace CrazyArcade.Blocks
         {
         }
     }
-
+    public class BlueCrateBlock : DefaultBlock
+    {
+        private static Rectangle source = new Rectangle(10, 306, 40, 63);
+        public BlueCrateBlock(Vector2 position) : base( position, source)
+        {
+        }
+    }
+    public class GreenCrateBlock : DefaultBlock
+    {
+        private static Rectangle source = new Rectangle(60, 306, 40, 63);
+        public GreenCrateBlock(Vector2 position) : base(position, source)
+        {
+        }
+    }
+    public class TealCrateBlock : DefaultBlock
+    {
+        private static Rectangle source = new Rectangle(110, 306, 40, 63);
+        public TealCrateBlock(Vector2 position) : base( position, source)
+        {
+        }
+    }
 
 }

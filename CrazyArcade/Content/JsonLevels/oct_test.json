@@ -1,24 +1,33 @@
 {
     "Background": [ 102, 0, 153 ],
     "Border": [ 13, 13 ],
-    "Blocks": {
-        "Door": [
-            [ 11, 11 ],
-            [ 8, 3 ]
-        ],
-        "LightSand": [
-        ],
-        "DarkSand": [
-        ],
-        "Stone": [
-        ],
-        "Cactus": [
-        ],
-        "DarkTree": [
-        ],
-        "LightTree": [
-        ]
-    },
+  "Blocks": {
+    "Door": [
+      [ 11, 11 ],
+      [ 8, 3 ]
+    ],
+    "LightSand": [
+    ],
+    "DarkSand": [
+    ],
+    "Stone": [
+    ],
+    "Cactus": [
+    ],
+    "DarkTree": [
+    ],
+    "LightTree": [
+    ],
+    "GreenCrate": [
+
+    ],
+    "BlueCrate": [
+
+    ],
+    "TealCrate": [
+
+    ]
+  },
     "Items": {
         "CoinBag": [
         ],

@@ -40,6 +40,15 @@
 		],
 		"LightTree": [
 			[ 3, 9 ]
+		],
+		"GreenCrate": [
+			[0,1]
+		],
+		"BlueCrate": [
+			[0,2]
+		],
+		"TealCrate": [
+			[0,3]
 		]
 
 	},

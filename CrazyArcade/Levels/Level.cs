@@ -156,7 +156,33 @@ namespace CrazyArcade.Levels
                 Entity.SpriteAnim.Scale = .9f;
                 EntityList.Add(Entity);
             }
+            itemLocations = currentLevel.GetItemLocation(CreateLevel.LevelItem.BlueCratePosition);
 
+            foreach (Vector2 vector in itemLocations)
+            {
+
+                Entity = new BlueCrateBlock(vector);
+                Entity.SpriteAnim.Scale = .9f;
+                EntityList.Add(Entity);
+            }
+            itemLocations = currentLevel.GetItemLocation(CreateLevel.LevelItem.GreenCratePosition);
+
+            foreach (Vector2 vector in itemLocations)
+            {
+
+                Entity = new GreenCrateBlock(vector);
+                Entity.SpriteAnim.Scale = .9f;
+                EntityList.Add(Entity);
+            }
+            itemLocations = currentLevel.GetItemLocation(CreateLevel.LevelItem.TealCratePosition);
+
+            foreach (Vector2 vector in itemLocations)
+            {
+
+                Entity = new TealCrateBlock(vector);
+                Entity.SpriteAnim.Scale = .9f;
+                EntityList.Add(Entity);
+            }
             itemLocations = currentLevel.GetItemLocation(CreateLevel.LevelItem.CoinBagPosition);
 
             foreach (Vector2 vector in itemLocations)

@@ -51,7 +51,10 @@ namespace CrazyArcade.Levels
 			CoinPosition,
 			KickPosition,
 			PiratePosition,
-			MimicPosition
+			MimicPosition,
+            BlueCratePosition,
+			GreenCratePosition,
+            TealCratePosition
 		}
 
 		public Vector2 GetStartPosition(int[] coord)
@@ -174,6 +177,15 @@ namespace CrazyArcade.Levels
 					break;
                 case (int)LevelItem.MimicPosition:
                     array = GetStartPositionArray(levelObject.Enemies.Mimic);
+                    break;
+				case (int)LevelItem.TealCratePosition:
+                    array = GetStartPositionArray(levelObject.Blocks.TealCrate);
+                    break;
+                case (int)LevelItem.BlueCratePosition:
+                    array = GetStartPositionArray(levelObject.Blocks.BlueCrate);
+                    break;
+                case (int)LevelItem.GreenCratePosition:
+                    array = GetStartPositionArray(levelObject.Blocks.GreenCrate);
                     break;
                 default:
 
