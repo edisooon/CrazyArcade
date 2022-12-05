@@ -65,7 +65,7 @@ namespace CrazyArcade.PlayerStateMachine
             dest = initial;
         }
 
-        public void ProcessRide(RideType type)
+        public void ProcessRide(RideType type, Vector2 pos)
         {
         }
 

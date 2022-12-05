@@ -80,7 +80,7 @@ namespace CrazyArcade.PlayerStateMachine
         {
             if (itemName == "shield" && !character.invincible && character.shields > 0) character.SetInvincibilityTime(300);
         }
-        public void ProcessRide(RideType type)
+        public void ProcessRide(RideType type, Vector2 pos)
         {
             // could, more code in the future
             //this.character.playerState = new CharacterStateMounted(this.character, type, isPirate);
