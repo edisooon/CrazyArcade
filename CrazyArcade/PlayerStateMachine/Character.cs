@@ -39,7 +39,7 @@ namespace CrazyArcade.PlayerStateMachine
 
         public bool Pirate => isPirate;
 
-        public override SpriteAnimation SpriteAnim => spriteAnims[animationHandleInt];
+        //public override SpriteAnimation SpriteAnim => spriteAnims[animationHandleInt];
 
         public ICharacterState State => playerState;
         
