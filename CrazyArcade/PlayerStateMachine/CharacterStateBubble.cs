@@ -26,12 +26,19 @@ namespace CrazyArcade.PlayerStateMachine
             this.character = character;
             character.animationHandleInt = 0;
             bubble = new PlayerBubble(character, character.parentScene);
+            character.spriteAnims = SetSprites();
+            character.ModifiedSpeed = 2;
             character.SceneDelegate.ToAddEntity(bubble);
+
         }
-        public bool ProcessAttaction()
+
+        public bool CouldGetItem { get => false; }
+
+        public bool CouldPutBomb { get => false; }
+
+        public void ProcessAttaction()
         {
-            //can't
-            return false;
+            //player wouldn't take attaction any more when in bubble state
         }
 
         public void ProcessItem(string itemName)
@@ -42,9 +49,9 @@ namespace CrazyArcade.PlayerStateMachine
             }
         }
 
-        public void ProcessRide()
+        public void ProcessRide(RideType type)
         {
-            //Nope
+            //player cannot get a ride when in bubble state
         }
 
         public void ProcessState(GameTime time)
@@ -54,9 +61,7 @@ namespace CrazyArcade.PlayerStateMachine
             if (elapsedTime > popTime)
             {
                 character.playerState = new CharacterStateFree(character, isPirate);
-                character.spriteAnims = character.playerState.SetSprites();
                 bubble.bubbleInt = 2;
-                character.playerState.SetSpeed();
                 character.lives--;
                 if (!isPirate) UI_Singleton.ChangeComponentText("lifeCounter", "count", "Lives: " + character.lives);
                 if (character.lives == 0)
@@ -65,12 +70,6 @@ namespace CrazyArcade.PlayerStateMachine
                 }
             }
             elapsedTime += (float)time.ElapsedGameTime.TotalMilliseconds;
-        }
-
-        public int SetSpeed()
-        {
-            character.ModifiedSpeed = 2;
-            return 1;
         }
 
         public SpriteAnimation[] SetSprites()
@@ -85,9 +84,6 @@ namespace CrazyArcade.PlayerStateMachine
             character.needles--;
             UI_Singleton.ChangeComponentText("needle", "itemCount", "X" + character.needles);
             character.playerState = new CharacterStateFree(character, isPirate);
-            character.spriteAnims = character.playerState.SetSprites();
-            //there has to be a better way of doing this
-            character.playerState.SetSpeed();
             bubble.bubbleInt = 2;
         }
     }
