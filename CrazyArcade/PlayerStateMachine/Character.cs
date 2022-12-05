@@ -56,7 +56,7 @@ namespace CrazyArcade.PlayerStateMachine
         }
         public override void Update(GameTime time)
         {
-            //ProcessInvincibility();
+            ProcessInvincibility();
             playerState.ProcessState(time);
             //Console.WriteLine("bombsOut: " + BombsOut);
             base.Update(time);

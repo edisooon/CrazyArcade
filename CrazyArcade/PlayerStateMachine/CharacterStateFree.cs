@@ -89,6 +89,7 @@ namespace CrazyArcade.PlayerStateMachine
         public void ProcessAttaction()
         {
             // when player takes attaction by the explosion, it switches to its bubble state
+            if (character.invincible) return;
             character.playerState = new CharacterStateBubble(character, isPirate);
         }
 
