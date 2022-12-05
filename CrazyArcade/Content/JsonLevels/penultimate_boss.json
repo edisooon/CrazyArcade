@@ -80,7 +80,27 @@
         "Kick": []
     },
     "Player": [ 0, 0 ],
-    "Pirate": [],
+    "Pirate": []
+
+  },
+  "Items": {
+    "CoinBag": [
+    ],
+    "Balloon": [
+    ],
+    "Sneaker": [
+    ],
+    "Turtle": [
+    ],
+    "Potion": [
+    ],
+    "Coin": [
+    ],
+    "Kick": []
+  },
+  "Player": [ 0, 0 ],
+  "Pirate": [],
+
   "Enemies": {
     "Bomb": [
     ],
@@ -94,11 +114,14 @@
 
     ]
   },
-    "Boss": {
-        "Sun": [
-        ],
-        "Octo": [
-            [ 6, 5 ]
-        ]
-    }
+  "Boss": {
+    "Sun": [
+    ],
+    "Octo": [
+      [ 6, 5 ]
+    ]
+  },
+  "Flags": {
+    "PuzzleFlag": [ 0, 0, 0 ]
+  }
 }

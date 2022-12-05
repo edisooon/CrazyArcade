@@ -82,14 +82,16 @@
     "Robot": [
     ],
     "Mimic": [
-
     ]
   },
-    "Boss": {
-        "Sun": [
-            [ 6, 5 ]
-        ],
-        "Octo": [
-        ]
-    }
+  "Boss": {
+    "Sun": [
+      [ 6, 5 ]
+    ],
+    "Octo": [
+    ]
+  },
+  "Flags": {
+    "PuzzleFlag": [ 0, 0, 0 ]
+  }
 }

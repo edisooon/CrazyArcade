@@ -8,34 +8,89 @@ using CrazyArcade.UI.GUI_Compositions;
 using CrazyArcade.Content;
 using Microsoft.Xna.Framework;
 using System.Transactions;
+using Microsoft.Xna.Framework.Input;
+using CrazyArcade.CAFrameWork.CAGame;
+using Microsoft.Xna.Framework.Graphics;
+using System.Reflection;
 
 namespace CrazyArcade.CAFrameWork.GameStates
 {
     public class Button : GUIComposition
     {
-        IGUIComponent button;
-        IGUIComponent text;
-        public Button(string name, Vector2 position)
+        ButtonBase button;
+        GUIText text;
+        Rectangle buttonRectangle;
+        private bool enlarged = false;
+        private Action pressButtonAction;
+        public Button(string name, string content, Vector2 position, Action action)
         {
+            pressButtonAction = action;
             this.name = name;
-            button = new ButtonBase("resume");
-            text = new GUIText("resume text", "Resume");
-            SetButton();
+            button = new ButtonBase(content);
+            text = new GUIText(name, content);
             SetPosition(position);
-            //Centers text
-            text.SetPosition(new Vector2(position.X, position.Y));
+            buttonRectangle = new Rectangle((int)position.X, (int)position.Y, button.Rect.Width, button.Rect.Height);
+            SetButton();
+            //Centers text in the button
+            text.SetPosition(new Vector2(buttonRectangle.Width/2 - (int)text.Font.MeasureString(content).X/2, buttonRectangle.Height/2 - (int)text.Font.MeasureString(content).Y/2));
             AddComponent(button);
             AddComponent(text);
         }
-        public void Enlarge()
+        public static Vector2 GetBasePosition(float pos)
         {
-            button.ChangeComponentTextureOutputRect(220, 70);
-            button.SetPosition(new Vector2(Position.X - 10, Position.Y - 10));
+            //Positions the button in the correct segment of the screen based on pos
+            return new Vector2(CrazyArcade.CAGame.ScreenSize.X / 2 - ButtonBase.DefaultButtonRectangle.Width / 2, CrazyArcade.CAGame.ScreenSize.Y / pos - ButtonBase.DefaultButtonRectangle.Height / pos);
+        }
+        private void Enlarge()
+        {
+            button.ChangeComponentTextureOutputRect(buttonRectangle.Width+20, buttonRectangle.Height+20);
+            button.SetPosition(new Vector2(-10, -10));
+            enlarged = true;
         }
         public void SetButton()
         {
-            button.ChangeComponentTextureOutputRect(200, 50);
-            button.SetPosition(Position);
+            button.ChangeComponentTextureOutputRect(buttonRectangle.Width, buttonRectangle.Height);
+            button.SetPosition(new Vector2(0, 0));
+            enlarged = false;
+        }
+		private bool HasMouse(Point mouse)
+        {
+            return buttonRectangle.Contains(mouse);
+        }
+
+		private bool HasMouse(MouseState mouse)
+        {
+            return buttonRectangle.Intersects(new Rectangle(mouse.X, mouse.Y, 0, 0));
+        }
+        public void Update(Point mouse, bool leftDown, IGameDelegate gameRef)
+        {
+			if (HasMouse(mouse))
+			{
+				Enlarge();
+			}
+			if (!HasMouse(mouse) && enlarged)
+			{
+				SetButton();
+			}
+			if (HasMouse(mouse) && leftDown)
+			{
+				pressButtonAction();
+			}
+		}
+        public void Update(MouseState mouse, IGameDelegate gameRef)
+        {
+            if(HasMouse(mouse))
+            {
+                Enlarge();
+            }
+            if(!HasMouse(mouse) && enlarged)
+            {
+                SetButton();
+            }
+            if(HasMouse(mouse) && mouse.LeftButton.Equals(ButtonState.Pressed))
+            {
+                pressButtonAction();
+            }
         }
     }
 }

@@ -17,20 +17,26 @@ namespace CrazyArcade.PlayerStateMachine
     internal class CharacterStateFree : ICharacterState
     {
         private Character character;
-        public SpriteAnimation[] spriteAnims;
-        private bool d1HeldDown;
-        private bool d2HeldDown;
+        //private bool d1HeldDown;
+        //private bool d2HeldDown;
 		private bool isPirate;
 		public CharacterStateFree(Character character, bool isPirate)
         {
             this.isPirate = isPirate;
-            this.spriteAnims = new SpriteAnimation[4];
             this.character = character;
-            d1HeldDown = false;
-            d2HeldDown = false;
+            character.spriteAnims = SetSprites();
+            character.ModifiedSpeed = character.DefaultSpeed;   // not sure, since character shouldn't use default speed after being mounted, would modify later
+            //d1HeldDown = false;
+            //d2HeldDown = false;
         }
+
+        public bool CouldPutBomb { get => true; }
+
+        public bool CouldGetItem { get => true; }
+
         public SpriteAnimation[] SetSprites()
         {
+            SpriteAnimation[] spriteAnims = new SpriteAnimation[4];
             spriteAnims[(int)Dir.Up] = new SpriteAnimation(TextureSingleton.GetPlayer(isPirate), 12, 14, 44, 56, 6, 4, 10);
             spriteAnims[(int)Dir.Down] = new SpriteAnimation(TextureSingleton.GetPlayer(isPirate), 12, 78, 44, 56, 6, 4, 10);
             spriteAnims[(int)Dir.Left] = new SpriteAnimation(TextureSingleton.GetPlayer(isPirate), 12, 142, 44, 56, 6, 4, 10);
@@ -51,45 +57,41 @@ namespace CrazyArcade.PlayerStateMachine
             {
                 character.SpriteAnim.playing = true;
             }
-            if (Keyboard.GetState().IsKeyDown(Keys.E))
-            {
-                character.playerState = new CharacterStateBubble(character, isPirate);
-                character.spriteAnims = character.playerState.SetSprites();
-                character.playerState.SetSpeed();
-            }
-            if (Keyboard.GetState().IsKeyDown(Keys.D1) && !d1HeldDown)
-            {
-                d1HeldDown = true;
-                character.CurrentBlastLength = character.CurrentBlastLength + 1 < 5 ? character.CurrentBlastLength + 1 : 5;
-            }
-            d1HeldDown = Keyboard.GetState().IsKeyDown(Keys.D1);
-            if (Keyboard.GetState().IsKeyDown(Keys.D2) && !d2HeldDown)
-            {
-                d2HeldDown = true;
-                character.BombCapacity = character.BombCapacity + 1 < 5 ? character.BombCapacity + 1 : 5;
-            }
-            d2HeldDown = Keyboard.GetState().IsKeyDown(Keys.D2);
+            //if (Keyboard.GetState().IsKeyDown(Keys.E))
+            //{
+            //    character.playerState = new CharacterStateBubble(character);
+            //    character.spriteAnims = character.playerState.SetSprites();
+            //    character.playerState.SetSpeed();
+            //}
+            //if (Keyboard.GetState().IsKeyDown(Keys.D1) && !d1HeldDown)
+            //{
+            //    d1HeldDown = true;
+            //    character.CurrentBlastLength = character.CurrentBlastLength + 1 < 5 ? character.CurrentBlastLength + 1 : 5;
+            //}
+            //d1HeldDown = Keyboard.GetState().IsKeyDown(Keys.D1);
+            //if (Keyboard.GetState().IsKeyDown(Keys.D2) && !d2HeldDown)
+            //{
+            //    d2HeldDown = true;
+            //    character.BombCapacity = character.BombCapacity + 1 < 5 ? character.BombCapacity + 1 : 5;
+            //}
+            //d2HeldDown = Keyboard.GetState().IsKeyDown(Keys.D2);
         }
         public void ProcessItem(string itemName)
         {
-
             if (itemName == "shield" && !character.invincible && character.shields > 0) character.SetInvincibilityTime(300);
+        }
+        public void ProcessRide(RideType type)
+        {
+            // could, more code in the future
+            this.character.playerState = new CharacterStateMounted(this.character, type, isPirate);
+            //character.ModifiedSpeed = character.FreeModifiedSpeed;
+        }
+        public void ProcessAttaction()
+        {
+            // when player takes attaction by the explosion, it switches to its bubble state
+            if (character.invincible) return;
+            character.playerState = new CharacterStateBubble(character, isPirate);
+        }
 
-        }
-        public void ProcessRide()
-        {
-            //this.character.playerState = new CharacterStateRides(this.character);
-        }
-        public int SetSpeed()
-        {
-            character.ModifiedSpeed = character.FreeModifiedSpeed;
-            return 1;
-        }
-        public bool ProcessAttaction()
-        {
-            if (character.BombsOut >= character.BombCapacity) return false;
-            character.SceneDelegate.ToAddEntity(new WaterBomb(character.GameCoord, character.CurrentBlastLength, character));
-            return true;
-        }
     }
 }

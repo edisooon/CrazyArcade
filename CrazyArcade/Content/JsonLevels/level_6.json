@@ -103,9 +103,9 @@
         ],
         "Kick": []
 
-    },
-    "Player": [ 0, 0 ],
-    "Pirate": [],
+  },
+  "Player": [ 0, 0 ],
+  "Pirate": [],
   "Enemies": {
     "Bomb": [
       [ 6, 6 ],
@@ -125,10 +125,13 @@
 
     ]
   },
-    "Boss": {
-        "Sun": [
-        ],
-        "Octo": [
-        ]
-    }
+  "Boss": {
+    "Sun": [
+    ],
+    "Octo": [
+    ]
+  },
+  "Flags": {
+    "PuzzleFlag": [ 0, 0, 0 ]
+  }
 }

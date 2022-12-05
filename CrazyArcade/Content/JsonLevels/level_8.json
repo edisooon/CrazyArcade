@@ -110,10 +110,13 @@
 
     ]
   },
-    "Boss": {
-        "Sun": [
-        ],
-        "Octo": [
-        ]
-    }
+  "Boss": {
+    "Sun": [
+    ],
+    "Octo": [
+    ]
+  },
+  "Flags": {
+    "PuzzleFlag": [ 0, 0, 0 ]
+  }
 }

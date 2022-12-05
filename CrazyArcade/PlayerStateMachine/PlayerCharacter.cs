@@ -75,7 +75,7 @@ namespace CrazyArcade.PlayerStateMachine
 
         private void KeySpace()
         {
-            if (playerState.ProcessAttaction())
+            if (this.playerState.CouldPutBomb && this.putBomb())
                 SceneDelegate.ToAddEntity(new CASoundEffect("SoundEffects/PlaceBomb"));
         }
 
@@ -89,7 +89,7 @@ namespace CrazyArcade.PlayerStateMachine
             playerState.ProcessItem("shield");
         }
 
-        public Dictionary<int, Action> getCommands()
+        public Dictionary<int, Action> GetCommands()
         {
             return commands;
         }

@@ -11,6 +11,7 @@ using CrazyArcade.CAFrameWork.InputSystem;
 using CrazyArcade.CAFrameWork.Transition;
 using System;
 using CrazyArcade.Pirates;
+using CrazyArcade.CAFrameWork.DoorUtils;
 
 namespace CrazyArcade.Levels
 {
@@ -299,6 +300,13 @@ namespace CrazyArcade.Levels
 			{
 				EntityList.Add(new PirateCharacter());
 			}
+            LoadFlags();
 		}
+        private void LoadFlags()
+        {
+            int[] flagArray = System.Array.Empty<int>();
+            flagArray = currentLevel.GetFlag(CreateLevel.FlagEnum.PuzzleFlag);
+            EntityList.Add(new ObtainFlag((flagArray[0] == 1), new Vector2(flagArray[1], flagArray[2])));
+        }
     }
 }

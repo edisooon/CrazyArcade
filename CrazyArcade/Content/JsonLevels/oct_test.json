@@ -17,11 +17,11 @@
     "DarkTree": [
     ],
     "LightTree": [
+
     ],
     "GreenCrate": [
 
     ],
-    "BlueCrate": [
 
     ],
     "TealCrate": [
@@ -42,10 +42,10 @@
         "Coin": [
         ]
 
-    },
-    "Player": [ 0, 0 ],
-    "Pirate": [],
-  "Enemies": {
+    ]
+  },
+  "Items": {
+    "CoinBag": [
     "Bomb": [
     ],
     "Squid": [
@@ -58,11 +58,14 @@
 
     ]
   },
-    "Boss": {
-        "Sun": [
-            [ 4, 7 ]
-        ],
-        "Octo": [
-        ]
-    }
+  "Boss": {
+    "Sun": [
+      [ 4, 7 ]
+    ],
+    "Octo": [
+    ]
+  },
+  "Flags": {
+    "PuzzleFlag": [ 0, 0, 0 ]
+  }
 }
