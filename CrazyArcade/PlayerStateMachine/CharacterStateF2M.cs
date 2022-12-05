@@ -20,7 +20,7 @@ namespace CrazyArcade.PlayerStateMachine
         private Character character;
         private PlayerRide ride;
         private int initial;
-        private int high = 2*CAGameGridSystems.BlockLength;
+        private int high = CAGameGridSystems.BlockLength+20;
         private int dest = CAGameGridSystems.BlockLength;
         private float dist = 0; // the distance that character has moved
         bool isPirate;
@@ -76,7 +76,7 @@ namespace CrazyArcade.PlayerStateMachine
             character.animationHandleInt = (int)character.direction;
             if(dist < high - initial)
             {
-                character.bboxOffset.Y += 2;
+                character.bboxOffset.Y += 1;
             }
             else
             {
@@ -87,10 +87,10 @@ namespace CrazyArcade.PlayerStateMachine
                 }
                 else
                 {
-                    character.bboxOffset.Y -= 2;
+                    character.bboxOffset.Y -= 1;
                 }
             }
-            dist += 2;
+            dist += 1;
         }
 
         public SpriteAnimation[] SetSprites()

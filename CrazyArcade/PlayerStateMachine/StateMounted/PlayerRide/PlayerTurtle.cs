@@ -42,8 +42,8 @@ namespace CrazyArcade.PlayerStateMachine
             {
                 xOffset = 0;
             }
-            X = character.X + xOffset;
-            Y = character.Y + yOffset;
+            X = (character.playerState is CharacterStateF2M ? initialX : character.X) + xOffset;
+            Y = (character.playerState is CharacterStateF2M ? initialY : character.Y) + yOffset;
             direction = character.direction;
         }
     }

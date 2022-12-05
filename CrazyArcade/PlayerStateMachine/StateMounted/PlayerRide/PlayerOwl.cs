@@ -30,7 +30,6 @@ namespace CrazyArcade.PlayerStateMachine
         }
         public override void Update(GameTime time)
         {
-            if (character.playerState is CharacterStateF2M) return;
             if (direction == Dir.Left)
             {
                 xOffset = 2;
