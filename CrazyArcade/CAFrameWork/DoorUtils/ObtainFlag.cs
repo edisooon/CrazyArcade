@@ -14,6 +14,7 @@ namespace CrazyArcade.CAFrameWork.DoorUtils
         public ObtainFlag(bool flag)
         {
             this.flag = flag;
+
         }
         public override void Load()
         {

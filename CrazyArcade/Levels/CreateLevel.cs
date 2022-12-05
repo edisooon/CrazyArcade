@@ -201,10 +201,13 @@ namespace CrazyArcade.Levels
         }
 		public bool GetFlag(FlagEnum flag)
 		{
+			bool returnValue = false;
 			if (flag == FlagEnum.PuzzleFlag)
 			{
-				if (levelObject.Flags.PuzzleFlag == 0) return false; else return true;
+				//perhaps this could be a conditional expression, though it is lost on me
+				if (levelObject.Flags.PuzzleFlag == 0) returnValue =  false; else returnValue = true;
 			}
+			return returnValue;
 		}
     }
 }

@@ -274,10 +274,11 @@ namespace CrazyArcade.Levels
 			{
 				EntityList.Add(new PirateCharacter());
 			}
+            LoadFlags();
 		}
         private void LoadFlags()
         {
-            EntityList.Add(new ObtainFlag(currentLevel.Get));
+            EntityList.Add(new ObtainFlag(currentLevel.GetFlag(CreateLevel.FlagEnum.PuzzleFlag)));
         }
     }
 }
