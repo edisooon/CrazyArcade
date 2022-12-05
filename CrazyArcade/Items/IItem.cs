@@ -72,6 +72,7 @@ namespace CrazyArcade.Items
             //this.parentScene = parentScene;
             spriteAnimation = new SpriteAnimation(texture, frames, fps);
             spriteAnimation.Scale = 0.6f;
+            if (texture == Content.TextureSingleton.GetOwl()) spriteAnimation.SetScale(1);
             GameCoord = position;
             this.DrawOrder = -1;
         }
@@ -111,7 +112,8 @@ namespace CrazyArcade.Items
                     randList = new Dictionary<int, Func<Vector2, Item>>();
                     randList[10] = (pos) => new CoinBag(pos);   //0-10  (10%)
                     randList[20] = (pos) => new Balloon(pos);   //10-20 (10%)
-                    randList[30] = (pos) => new Turtle(pos);
+                    randList[90] = (pos) => new Turtle(pos);
+                    randList[90] = (pos) => new Owl(pos);
                     randList[40] = (pos) => new KickBoot(pos);
                     randList[50] = (pos) => new Sneaker(pos);
                     randList[60] = (pos) => new Potion(pos);

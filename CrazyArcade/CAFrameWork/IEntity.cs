@@ -11,8 +11,8 @@ namespace CrazyArcade.CAFramework
                        //i.e. return to pool or other behaviours
         void Update(GameTime time);
         void Draw(GameTime time, SpriteBatch batch);
+        public float ActualDrawOrder { get; }
         ISceneDelegate SceneDelegate { get; set; }
-        public int ActualDrawOrder { get; }
         public void RemoveFromStage();
     }
 }
