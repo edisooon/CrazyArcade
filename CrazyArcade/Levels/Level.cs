@@ -85,17 +85,6 @@ namespace CrazyArcade.Levels
             Entity.SpriteAnim.Scale = scale;
             EntityList.Add(Entity);
         }
-        private Dictionary<LevelItem, Vector2[]> getLocations()
-        { 
-            Func<LevelItem, Vector2[]> gil = currentLevel.GetItemLocation;
-            Dictionary<LevelItem, Vector2[]> locations = new ();
-            foreach(LevelItem type in Enum.GetValues(typeof(LevelItem)))
-            {
-                locations[type] = gil(type);
-            }
-            locations.Remove(LevelItem.DoorPosition);
-            return locations;
-        }
         private void LoadSprites()
         {
             
@@ -115,7 +104,7 @@ namespace CrazyArcade.Levels
             foreach (Vector2 vector in itemLocations)
             {
 
-                Entity = new LightSandBlock(Scene, vector);
+                Entity = new BreakableBlock(Scene, vector, LevelItem.LightSandPosition);
                 Entity.SpriteAnim.Scale = scale;
                 EntityList.Add(Entity);
             }
@@ -125,7 +114,7 @@ namespace CrazyArcade.Levels
             foreach (Vector2 vector in itemLocations)
             {
                 
-                Entity = new SandBlock(Scene, vector);
+                Entity = new BreakableBlock(Scene, vector, LevelItem.DarkSandPosition);
                 Entity.SpriteAnim.Scale = scale;
                 EntityList.Add(Entity);
             }
@@ -134,7 +123,7 @@ namespace CrazyArcade.Levels
             foreach (Vector2 vector in itemLocations)
             {
                 
-                Entity = new Rock(vector);
+                Entity = new DefaultBlock(vector, LevelItem.StonePosition);
                 Entity.SpriteAnim.Scale = scale;
                 EntityList.Add(Entity);
             }
@@ -144,7 +133,7 @@ namespace CrazyArcade.Levels
             foreach (Vector2 vector in itemLocations)
             {
                 
-                Entity = new Tree(vector);
+                Entity = new DefaultBlock(vector, LevelItem.LightSandPosition);
                 Entity.SpriteAnim.Scale = scale;
                 EntityList.Add(Entity);
             }
@@ -154,7 +143,7 @@ namespace CrazyArcade.Levels
             foreach (Vector2 vector in itemLocations)
             {
                 
-                Entity = new DarkTree(vector);
+                Entity = new DefaultBlock(vector, LevelItem.DarkTreePosition);
                 Entity.SpriteAnim.Scale = .9f;
                 EntityList.Add(Entity);
             }
@@ -165,7 +154,7 @@ namespace CrazyArcade.Levels
             foreach (Vector2 vector in itemLocations)
             {
                 
-                Entity = new Cactus(vector);
+                Entity = new DamageBlock(vector, LevelItem.CactusPosition);
                 Entity.SpriteAnim.Scale = .9f;
                 EntityList.Add(Entity);
             }
