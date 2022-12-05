@@ -83,7 +83,8 @@ namespace CrazyArcade.PlayerStateMachine
         public void ProcessRide(RideType type)
         {
             // could, more code in the future
-            this.character.playerState = new CharacterStateMounted(this.character, type, isPirate);
+            //this.character.playerState = new CharacterStateMounted(this.character, type, isPirate);
+            this.character.playerState = new CharacterStateF2M(this.character, type, isPirate);
             //character.ModifiedSpeed = character.FreeModifiedSpeed;
         }
         public void ProcessAttaction()

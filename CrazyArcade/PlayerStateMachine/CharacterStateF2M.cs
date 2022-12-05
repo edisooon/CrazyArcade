@@ -15,56 +15,60 @@ using System.Threading.Tasks;
 
 namespace CrazyArcade.PlayerStateMachine
 {
-    public class CharacterStateMounted : ICharacterState
+    public class CharacterStateF2M : ICharacterState
     {
         private Character character;
         private PlayerRide ride;
+        private int initial;
+        private int high = CAGameGridSystems.BlockLength + 5;
+        private int dest = CAGameGridSystems.BlockLength;
+        private float dist = 0; // the distance that character has moved
         bool isPirate;
-        public CharacterStateMounted(Character character, PlayerRide ride, bool isPirate)
+        public CharacterStateF2M(Character character, RideType type, bool isPirate)
         {
             this.isPirate = isPirate;
             this.character = character;
+            initial = character.bboxOffset.Y;
             character.animationHandleInt = 0;
+            LoadRide(type);
             character.bboxOffset.Y = CAGameGridSystems.BlockLength;
             character.spriteAnims = SetSprites();
-            //character.ModifiedSpeed = character.DefaultSpeed * .8f;   // different rides should give character different speeds
-
+            character.ModifiedSpeed = 0;   // different rides should give character different speeds
         }
 
-        //private void LoadRide(RideType type)
-        //{
-        //    if(type == RideType.Turtle)
-        //    {
-        //        ride = new PlayerTurtle(character);
-        //    }else if(type == RideType.PirateTurtle)
-        //    {
-        //        ride = new PlayerPirateTurtle(character);
-        //    }
-        //    else if(type == RideType.Owl)
-        //    {
-        //        ride = new PlayerOwl(character);
-        //    }else if(type == RideType.SpaceCraft)
-        //    {
+        private void LoadRide(RideType type)
+        {
+            if (type == RideType.Turtle)
+            {
+                ride = new PlayerTurtle(character);
+            }
+            else if (type == RideType.PirateTurtle)
+            {
+                ride = new PlayerPirateTurtle(character);
+            }
+            else if (type == RideType.Owl)
+            {
+                ride = new PlayerOwl(character);
+            }
+            else if (type == RideType.SpaceCraft)
+            {
 
-        //    }
-        //    character.SceneDelegate.ToAddEntity(ride);
-        //}
+            }
+            character.SceneDelegate.ToAddEntity(ride);
+        }
 
-        public bool CouldPutBomb { get => true; }
+        public bool CouldPutBomb { get => false; }
 
-        public bool CouldGetItem { get => true; }
+        public bool CouldGetItem { get => false; }
 
         public void ProcessAttaction()
         {
             // when player takes attaction by the explosion, it switches to its free state
-            character.playerState = new CharacterStateFree(character, isPirate);
-            character.bboxOffset.Y = 20;
-            endState();
+            dest = initial;
         }
 
         public void ProcessRide(RideType type)
         {
-            // could, more code in the future
         }
 
         public void ProcessState(GameTime time)
@@ -72,23 +76,23 @@ namespace CrazyArcade.PlayerStateMachine
             character.CalculateMovement();
             character.UpdatePosition();
             character.animationHandleInt = (int)character.direction;
-            if (character.CurrentSpeed.X == 0 && character.CurrentSpeed.Y == 0)
+            if(dist < high - initial)
             {
-                character.SpriteAnim.playing = false;
-                character.SpriteAnim.setFrame(0);
-                ride.SpriteAnim.playing = false;
-                ride.SpriteAnim.setFrame(0);
+                character.bboxOffset.Y += 1;
             }
             else
             {
-                character.SpriteAnim.playing = true;
-                ride.SpriteAnim.playing = true;
+                if (character.bboxOffset.Y == dest)
+                {
+                    if(dest == initial) character.playerState = new CharacterStateFree(character, isPirate);
+                    else character.playerState = new CharacterStateMounted(this.character, ride, isPirate);
+                }
+                else
+                {
+                    character.bboxOffset.Y -= 1;
+                }
             }
-
-        }
-        public void endState()
-        {
-            ride.Delete_Self();
+            dist += 1;
         }
 
         public SpriteAnimation[] SetSprites()
