@@ -1,4 +1,5 @@
-﻿using CrazyArcade.CAFramework;
+﻿using CrazyArcade.Boss;
+using CrazyArcade.CAFramework;
 using CrazyArcade.CAFrameWork.Transition;
 using CrazyArcade.Enemies;
 using CrazyArcade.Pirates;
@@ -19,6 +20,10 @@ namespace CrazyArcade.CAFrameWork.DoorUtils
         private Door door;
         private List<Enemy> enemyList = new();
         private List<PirateCharacter> pirateList = new();
+        //Since enemy does not contain the position on IGridable, we cannot use EnemyEntity, and therefore
+        //Must have a list for each kind of enemy
+        private List<SunBoss> sunBossList = new();
+        private List<OctopusEnemy> octopusList = new();
         private Key key;
         bool gotKey = false;
         public DoorManager(CAScene sceneRep)
@@ -44,6 +49,14 @@ namespace CrazyArcade.CAFrameWork.DoorUtils
             {
                 pirateList.Add(pirate);
             }
+            if (sprite is OctopusEnemy octo)
+            {
+                octopusList.Add(octo);
+            }
+            if (sprite is SunBoss sun)
+            {
+                sunBossList.Add(sun);
+            }
         }
 
         public void RemoveAll()
@@ -67,12 +80,24 @@ namespace CrazyArcade.CAFrameWork.DoorUtils
                 pirateList.Remove(pirate);
                 lastEnemyPos = pirate.GameCoord;
             }
+            if (sprite is OctopusEnemy octo)
+            {
+                octopusList.Remove(octo);
+                lastEnemyPos = octo.GameCoord;
+            }
+            if (sprite is SunBoss sun)
+            {
+                sunBossList.Remove(sun);
+                //Sunboss can be on top of blocks, just unlock the door to be safe
+                if (sunBossList.Count <= 0) OpenDoor();
+            }
             if (sprite is Key)
             {
                 key = null;
                 OpenDoor();
             }
-            if (enemyList.Count <= 0 && pirateList.Count <= 0 && !gotKey) AllEnemiesKilled(lastEnemyPos);
+            if (enemyList.Count <= 0 && pirateList.Count <= 0 &&
+                octopusList.Count <= 0 && !gotKey) AllEnemiesKilled(lastEnemyPos);
         }
 
         public void Update(GameTime time)
