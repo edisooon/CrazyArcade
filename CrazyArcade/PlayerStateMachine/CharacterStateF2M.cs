@@ -20,7 +20,7 @@ namespace CrazyArcade.PlayerStateMachine
         private Character character;
         private PlayerRide ride;
         private int initial;
-        private int high = CAGameGridSystems.BlockLength + 5;
+        private int high = 2*CAGameGridSystems.BlockLength;
         private int dest = CAGameGridSystems.BlockLength;
         private float dist = 0; // the distance that character has moved
         bool isPirate;
@@ -31,9 +31,7 @@ namespace CrazyArcade.PlayerStateMachine
             initial = character.bboxOffset.Y;
             character.animationHandleInt = 0;
             LoadRide(type);
-            character.bboxOffset.Y = CAGameGridSystems.BlockLength;
             character.spriteAnims = SetSprites();
-            character.ModifiedSpeed = 0;   // different rides should give character different speeds
         }
 
         private void LoadRide(RideType type)
@@ -73,26 +71,26 @@ namespace CrazyArcade.PlayerStateMachine
 
         public void ProcessState(GameTime time)
         {
-            character.CalculateMovement();
-            character.UpdatePosition();
+            //character.CalculateMovement();
+            //character.UpdatePosition();
             character.animationHandleInt = (int)character.direction;
             if(dist < high - initial)
             {
-                character.bboxOffset.Y += 1;
+                character.bboxOffset.Y += 2;
             }
             else
             {
-                if (character.bboxOffset.Y == dest)
+                if (character.bboxOffset.Y <= dest)
                 {
                     if(dest == initial) character.playerState = new CharacterStateFree(character, isPirate);
                     else character.playerState = new CharacterStateMounted(this.character, ride, isPirate);
                 }
                 else
                 {
-                    character.bboxOffset.Y -= 1;
+                    character.bboxOffset.Y -= 2;
                 }
             }
-            dist += 1;
+            dist += 2;
         }
 
         public SpriteAnimation[] SetSprites()

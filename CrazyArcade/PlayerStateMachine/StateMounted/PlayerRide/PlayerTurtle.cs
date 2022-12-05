@@ -26,7 +26,7 @@ namespace CrazyArcade.PlayerStateMachine
             //{
             //    spriteAnims[i].SetScale(CAGameGridSystems.BlockLength / 31f);
             //}
-            character.ModifiedSpeed = character.DefaultSpeed * .8f;
+            character.ModifiedSpeed = 1;
         }
         public override void Update(GameTime time)
         {

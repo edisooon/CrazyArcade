@@ -26,10 +26,11 @@ namespace CrazyArcade.PlayerStateMachine
             //{
             //    spriteAnims[i].SetScale(CAGameGridSystems.BlockLength / 31f);
             //}
-            character.ModifiedSpeed = character.DefaultSpeed * .8f;
+            character.ModifiedSpeed = 3;
         }
         public override void Update(GameTime time)
         {
+            if (character.playerState is CharacterStateF2M) return;
             if (direction == Dir.Left)
             {
                 xOffset = 2;

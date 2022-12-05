@@ -24,6 +24,7 @@ namespace CrazyArcade.PlayerStateMachine
         {
             this.isPirate = isPirate;
             this.character = character;
+            this.ride = ride;
             character.animationHandleInt = 0;
             character.bboxOffset.Y = CAGameGridSystems.BlockLength;
             character.spriteAnims = SetSprites();
