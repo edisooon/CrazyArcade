@@ -1,10 +1,10 @@
-﻿using System;
-using System.Text.Json;
-using System.IO;
-using System.Diagnostics;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 
 using CrazyArcade.Levels;
+using CrazyArcade.GameGridSystems;
+using System.Collections.Generic;
+using System;
+
 namespace CrazyArcade.Levels
 {
     public class CreateMap
@@ -50,7 +50,14 @@ namespace CrazyArcade.Levels
 			SneakerPosition,
 			TurtlePosition,
 			PotionPosition,
-			CoinPosition
+			CoinPosition,
+			KickPosition,
+			PiratePosition,
+			MimicPosition
+		}
+		public enum FlagEnum
+		{
+			PuzzleFlag
 		}
 
 		public Vector2 GetStartPosition(int[] coord)
@@ -70,7 +77,8 @@ namespace CrazyArcade.Levels
 
 		public Vector2 GetPlayerStart()
 		{
-			return GetStartPosition(levelObject.Player);
+			Vector2 playerStart = GetStartPosition(levelObject.Player);
+			return new Vector2(playerStart.X + 1, playerStart.Y + 1);
 		}
 		public Color GetBackgroundColor()
 		{
@@ -89,87 +97,119 @@ namespace CrazyArcade.Levels
 			{
 				case (int)LevelItem.PlayerPosition:
 					array[0] = GetStartPosition(levelObject.Player);
-					return array;
+					break;
 					
 				case (int)LevelItem.DoorPosition:
 					array = GetStartPositionArray(levelObject.Blocks.Door);
-					return array;
+					break;
 
                 case (int)LevelItem.LightSandPosition:
                     array = GetStartPositionArray(levelObject.Blocks.LightSand);
-                    return array;
+                    break;
                 case (int)LevelItem.DarkSandPosition:
 					array = GetStartPositionArray(levelObject.Blocks.DarkSand);
-					return array;
+					break;
 					
 				case (int)LevelItem.StonePosition:
 					array = GetStartPositionArray(levelObject.Blocks.Stone);
 
-					return array;
+					break;
                 case (int)LevelItem.CactusPosition:
                     array = GetStartPositionArray(levelObject.Blocks.Cactus);
-                    return array;
+                    break;
 
                 case (int)LevelItem.DarkTreePosition:
                     array = GetStartPositionArray(levelObject.Blocks.DarkTree);
-                    return array;
+                    break;
 
                 case (int)LevelItem.LightTreePosition:
                     array = GetStartPositionArray(levelObject.Blocks.LightTree);
-                    return array;
+                    break;
                 case (int)LevelItem.SunBossPosition:
 					array = GetStartPositionArray(levelObject.Boss.Sun);
-					return array;
+					break;
 					
 				case (int)LevelItem.OctoBossPosition:
 					array = GetStartPositionArray(levelObject.Boss.Octo);
-					return array;
+					break;
 			
 				case (int)LevelItem.BombPosition:
 					array = GetStartPositionArray(levelObject.Enemies.Bomb);
-					return array;
+					break;
 			
 				case (int)LevelItem.SquidPosition:
 					array = GetStartPositionArray(levelObject.Enemies.Squid);
-					return array;
+					break;
 					
 				case (int)LevelItem.BatPosition:
 					array = GetStartPositionArray(levelObject.Enemies.Bat);
-					return array;
+					break;
 					
 				case (int)LevelItem.RobotPosition:
 					array = GetStartPositionArray(levelObject.Enemies.Robot);
-					return array;
+					break;
 					
 				case (int)LevelItem.CoinBagPosition:
 					array = GetStartPositionArray(levelObject.Items.CoinBag);
-					return array;
+					break;
 					
 				case (int)LevelItem.BalloonPosition:
 					array = GetStartPositionArray(levelObject.Items.Balloon);
-					return array;
+					break;
 				
 				case (int)LevelItem.SneakerPosition:
 					array = GetStartPositionArray(levelObject.Items.Sneaker);
-					return array;
+					break;
 				
 				case (int)LevelItem.TurtlePosition:
 					array = GetStartPositionArray(levelObject.Items.Turtle);
-					return array;
+					break;
 					
 				case (int)LevelItem.PotionPosition:
 					array = GetStartPositionArray(levelObject.Items.Potion);
-					return array;
+					break;
 				
 				case (int)LevelItem.CoinPosition:
 					array = GetStartPositionArray(levelObject.Items.Coin);
-					return array;
-				
-				default:
+					break;
+                case (int)LevelItem.KickPosition:
+                    array = GetStartPositionArray(levelObject.Items.Kick);
+                    break;
+				case (int)LevelItem.PiratePosition:
+					array = GetStartPositionArray(levelObject.Pirate);
+					break;
+                case (int)LevelItem.MimicPosition:
+                    array = GetStartPositionArray(levelObject.Enemies.Mimic);
+                    break;
+                default:
 
-					return array;
+					break;
 				
 			}
+			return getJustifiedPositionArr(array);
 		}
-	}
+
+		// probably temporary method
+		// since the initialization of blocks, the indexes of border thus have to be negative
+		// which would cause issue in terms of collision due to integer casting
+        private Vector2[] getJustifiedPositionArr(Vector2[] array)
+        {
+			for(int i = 0; i < array.Length; i++)
+            {
+				Vector2 pos = array[i];
+                array[i] = new Vector2(pos.X + 1, pos.Y + 1);
+            }
+			return array;
+        }
+		public int[] GetFlag(FlagEnum flag)
+		{
+			int[] returnValue = System.Array.Empty<int>();
+			if (flag == FlagEnum.PuzzleFlag)
+			{
+				//perhaps this could be a conditional expression, though it is lost on me
+				returnValue = levelObject.Flags.PuzzleFlag;
+			}
+			return returnValue;
+		}
+    }
 }

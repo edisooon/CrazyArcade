@@ -11,7 +11,12 @@ namespace CrazyArcade.CAFramework
         public Color Color = Color.White;
         public Vector2 Origin;
         public float Rotation = 0f;
-        public float Scale = 1f;
+        private float scale = 1f;
+        public virtual float Scale
+        {
+            get => scale;
+            set => scale = value;
+        }
         public SpriteEffects SpriteEffect;
         public bool playing = true;
         protected Rectangle[] Rectangles;
@@ -99,6 +104,10 @@ namespace CrazyArcade.CAFramework
         public void SetScale(float newScale)
         {
             this.Scale = newScale;
+        }
+        public void SetColor(Color color)
+        {
+            this.Color = color;
         }
 
     }

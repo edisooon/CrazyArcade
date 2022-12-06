@@ -20,14 +20,13 @@ namespace CrazyArcade.Enemies
 
         public RobotEnemySprite(int x, int y) : base(x, y)
         {
-            this.spriteAnims = new SpriteAnimation[4];
+            this.spriteAnims = new SpriteAnimation[4]; 
         }
 
         public override void Load()
         {
-           
+            base.Load();
             texture = TextureSingleton.GetBombermanEnemies();
-            direction = Dir.Down;
             effect = SpriteEffects.None;
             InputFramesRight = new Rectangle[4];
             InputFramesUp = new Rectangle[4];
@@ -85,10 +84,7 @@ namespace CrazyArcade.Enemies
         };
 
 
-        void updateCoord()
-        {
 
-        }
     }
 }
 

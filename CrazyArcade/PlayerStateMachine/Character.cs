@@ -21,44 +21,42 @@ namespace CrazyArcade.PlayerStateMachine
      * State machine is implemented here
      * 
      */
-    public class Character: CharacterBase, IBombCollectable, IExplosionCollidable, IPlayerCollisionBehavior, ISavable
+
+    public class Character: CharacterBase, IBombCollectable, IExplosionCollidable, IPlayerCollisionBehavior
     {
 		public SpriteAnimation[] spriteAnims;
         public CAScene parentScene;
-        public ItemContainer playerItems = new();
         public ICharacterState playerState;
         public int animationHandleInt;
-        public int CurrentBlastLength { get => playerItems.BlastModifier; set { playerItems.BlastModifier = value; } }
-        public int BombCapacity {get => playerItems.BombModifier; set { playerItems.BombModifier = value; } }
-        public int FreeModifiedSpeed { get => playerItems.SpeedModifier; }
-        private int bombOut;
-        public int BombsOut => bombOut;
-        public Dir direction = Dir.Down;
         static int CCount = 0;
         private int loseRideFlag = 5;
-        private bool couldKick = true;
-        public bool CouldKick { get => couldKick; }
         public int lives;
+        public int shields;
+        public int needles;
         private int score = 0;
-        private bool invincible = false;
+        public bool invincible = false;
         private int ICounter = 0;
-
         public override SpriteAnimation SpriteAnim => spriteAnims[animationHandleInt];
 
-        public Character()
+        public bool Pirate => isPirate;
+
+        //public override SpriteAnimation SpriteAnim => spriteAnims[animationHandleInt];
+
+        public ICharacterState State => playerState;
+        
+        public Character(bool isPirate) : base(isPirate)
         {
             //ModifiedSpeed = DefaultSpeed;
-            playerState = new CharacterStateFree(this);
-            spriteAnims = playerState.SetSprites();
-            playerState.SetSpeed();
+            this.isPirate = isPirate;
+            playerState = new CharacterStateFree(this, isPirate);
             direction = Dir.Down;
-            bombOut = 0;
             GameCoord = new Vector2(3, 3);
             //currentBlastLength = defaultBlastLength;
             DrawOrder = 1;
-            lives = 2;
+            lives = 5;
             Console.WriteLine("Count: " + ++CCount);
-            //this.bboxOffset = new Point(20, 20);
+            needles = 5;
+            shields = 5;
         }
         public override void Update(GameTime time)
         {
@@ -67,12 +65,14 @@ namespace CrazyArcade.PlayerStateMachine
             //Console.WriteLine("bombsOut: " + BombsOut);
             base.Update(time);
         }
+
         private void ProcessInvincibility()
         {
-            if(invincible)
+            if(ICounter > 0)
             {
-                ICounter++;
-                if(ICounter >= 30)
+                invincible = true;
+                ICounter--;
+                if(ICounter <= 30)
                 {
                     invincible = false;
                     ICounter = 0;
@@ -81,60 +81,38 @@ namespace CrazyArcade.PlayerStateMachine
         }
         public void CollisionHaltLogic(Point move)
         {
-            GameCoord -= Trans.RevScale(new Vector2(move.X, move.Y));
+            //GameCoord -= Trans.RevScale(new Vector2(move.X, move.Y));
         }
 
         //@implement IPlayerCollisionBehavior
         public void CollisionDestroyLogic()
         {
-            this.SceneDelegate.ToAddEntity(new CASoundEffect("SoundEffects/TakeDamageSound"));
-
-            if (this.playerState is CharacterStateBubble || invincible) return;
-            if (this.playerState is CharacterStateTurtle )
-            {
-                
-                this.playerState = new CharacterStateFree(this);
-                loseRideFlag = 0;
-                invincible = true;
-            }
-            else if (loseRideFlag >= 5)
-            {
-                this.playerState = new CharacterStateBubble(this);
-            }
-            else
-            {
-                loseRideFlag++;
-            }
-            
-            this.spriteAnims = this.playerState.SetSprites();
-            this.playerState.SetSpeed();
+            this.playerState.ProcessAttaction();
         }
         public override void Load()
         {
 
         }
 
-        //@Implement IBombCollectable
-        public void RecollectBomb()
-        {
-            bombOut = bombOut-- >= 0 ? bombOut-- : 0;
-            Console.WriteLine("Recollect: " + BombsOut);
-        }
         //@implement IItemCollidable
-        public bool canHaveItem()
-        {
-            return (playerState is CharacterStateFree || playerState is CharacterStateTurtle);
-        }
+
+        //public bool canHaveItem()
+        //{
+        //    return (playerState is CharacterStateFree || playerState is CharacterStateTurtle);
+        //}
         public void IncreaseBlastLength()
         {
             playerItems.AddItem(new BlastLengthModifier());
         }
-        public void SwitchToMountedState()
+        public void EnableKick()
         {
-            this.playerState = new CharacterStateTurtle(this);
-            spriteAnims = this.playerState.SetSprites();
-            this.playerState.SetSpeed();
+            playerItems.AddItem(new KickModifier());
         }
+        //public void SwitchToMountedState()
+        //{
+        //    this.playerState = new CharacterStateMounted(this);
+        //    Console.WriteLine("has triggerred");
+        //}
         public void IncreaseSpeed()
         {
             playerItems.AddItem(new SpeedModifier());
@@ -146,13 +124,12 @@ namespace CrazyArcade.PlayerStateMachine
         public void IncreaseScore(int score)
         {
             this.score += score;
-            UI_Singleton.ChangeComponentText("score", "scoreText", "Score : " + this.score);
+			if (!isPirate) UI_Singleton.ChangeComponentText("score", "scoreText", "Score : " + this.score);
         }
 
-        public void SpendBomb()
+        public void ObtainItem(ItemModifier item)
         {
-            bombOut++;
-            Console.WriteLine("Spend: " + BombsOut);
+            playerItems.AddItem(item);
         }
 
         public bool Collide(IExplosion bomb)
@@ -160,23 +137,50 @@ namespace CrazyArcade.PlayerStateMachine
             CollisionDestroyLogic();
             return true;
         }
-        public void Save(LevelPersnstance level)
+        public void Save(LevelPersistence level)
         {
+            //pirates should not be able to save at all, even if they somehow live
+            if (isPirate) return;
             level.SavedStatInt.Add("playerScore", score);
             level.SavedStatInt.Add("playerLives", lives);
+            level.SavedStatInt.Add("needle", needles);
+            level.SavedStatInt.Add("shield", shields);
         }
-        public void Load(LevelPersnstance level)
+        public void Load(LevelPersistence level)
         {
+            if (isPirate) return;
             if (level.SavedStatInt.ContainsKey("playerScore"))
             {
                 score = level.SavedStatInt["playerScore"];
-                UI_Singleton.ChangeComponentText("score", "scoreText", "Score : " + this.score);
+                score += 100;
+                if (!isPirate) UI_Singleton.ChangeComponentText("score", "scoreText", "Score : " + this.score);
             }
             if (level.SavedStatInt.ContainsKey("playerLives"))
             {
                 lives = level.SavedStatInt["playerLives"];
-                UI_Singleton.ChangeComponentText("lifeCounter", "count", "Lives: " + lives);
+                lives += 1;
+				UI_Singleton.ChangeComponentText("lifeCounter", "count", "Lives: " + lives);
             }
+            if (level.SavedStatInt.ContainsKey("needle"))
+            {
+                needles = level.SavedStatInt["needle"];
+                needles += 1;
+                UI_Singleton.ChangeComponentText("needle", "itemCount", "X" + needles);
+            }
+            if (level.SavedStatInt.ContainsKey("shield"))
+            {
+                shields = level.SavedStatInt["shield"];
+                shields += 1;
+                UI_Singleton.ChangeComponentText("shield", "itemCount", "X" + shields);
+            }
+        }
+        public void SetInvincibilityTime(int iTime)
+        {
+            shields--;
+            UI_Singleton.ChangeComponentText("shield", "itemCount", "X" + shields);
+            //add shield effect here
+            SceneDelegate.ToAddEntity(new IncincibilityBubble(this, iTime));
+            ICounter = iTime;
         }
     }
 }

@@ -1,7 +1,8 @@
 using System;
 using System.Threading;
+using CrazyArcade.Boss;
+using System.Timers;
 using CrazyArcade.CAFramework;
-using CrazyArcade.CAFramework.Controller;
 using CrazyArcade.Content;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -16,6 +17,7 @@ namespace CrazyArcade.Enemies
         private Rectangle[] InputFramesUp;
         private Rectangle[] InputFramesDown;
         private Texture2D texture;
+        public SunBossProjectile sunBossProjectile;
 
         public override SpriteAnimation SpriteAnim => spriteAnims[(int)direction];
 
@@ -27,7 +29,8 @@ namespace CrazyArcade.Enemies
 
         public override void Load()
         {
-            direction = Dir.Down;
+            base.Load();
+           
             effect = SpriteEffects.None;
             texture = TextureSingleton.GetBombermanIIEnemies();
             InputFramesRight = new Rectangle[4];
@@ -60,11 +63,11 @@ namespace CrazyArcade.Enemies
             deathAnimation = new SpriteAnimation(texture, 165,134, 16, 16, 1, 0, 1);
             deathAnimation.setWidthHeight(30, 30);
             deathAnimation.Position = new Vector2(X, Y);
-            this.spriteAnims[(int)Dir.Up] = new SpriteAnimation(texture, InputFramesUp, fps);
-            this.spriteAnims[(int)Dir.Down] = new SpriteAnimation(texture, InputFramesDown, fps);
-            this.spriteAnims[(int)Dir.Left] = new SpriteAnimation(texture, InputFramesLeft, fps);
-            this.spriteAnims[(int)Dir.Right] = new SpriteAnimation(texture, InputFramesRight, fps);
-            foreach (SpriteAnimation anim in this.spriteAnims)
+            spriteAnims[(int)Dir.Up] = new SpriteAnimation(texture, InputFramesUp, fps);
+            spriteAnims[(int)Dir.Down] = new SpriteAnimation(texture, InputFramesDown, fps);
+            spriteAnims[(int)Dir.Left] = new SpriteAnimation(texture, InputFramesLeft, fps);
+            spriteAnims[(int)Dir.Right] = new SpriteAnimation(texture, InputFramesRight, fps);
+            foreach (SpriteAnimation anim in spriteAnims)
             {
                 anim.setWidthHeight(30, 30);
                 anim.Position = new Vector2(X, Y);
@@ -78,19 +81,23 @@ namespace CrazyArcade.Enemies
             Down = 2,
             Right = 3
          */
-        Vector2[] speedVector =
+        readonly Vector2[] speedVector =
         {
-            new Vector2(0.0f, -0.075f),
-            new Vector2(-0.075f, 0.0f),
-            new Vector2(0.0f, 0.075f),
-            new Vector2(0.075f, 0.0f),
+            new Vector2(0.0f, -0.05f),
+            new Vector2(-0.05f, 0.0f),
+            new Vector2(0.0f, 0.05f),
+            new Vector2(0.05f, 0.0f),
         };
 
-
-        void updateCoord()
+        public override void ShootProjectile(GameTime time)
         {
-
+            float speedScale = .2f;
+            float centerOffset = .25f;
+            Vector2 center = new(GameCoord.X + centerOffset, GameCoord.Y + centerOffset);
+            sunBossProjectile = new SunBossProjectile(SceneDelegate, speedVector[(int)direction]* speedScale, center, new CATimer(time.TotalGameTime));
+            SceneDelegate.ToAddEntity(sunBossProjectile);
         }
+
 
     }
 }

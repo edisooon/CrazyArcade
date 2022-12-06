@@ -11,9 +11,9 @@ namespace CrazyArcade.CAFrameWork.GridBoxSystem
 		{
 		}
         private Dictionary<GridBoxPosition, IGridBox> map = new Dictionary<GridBoxPosition, IGridBox>();
-        public bool CheckAvailable(GridBoxPosition position)
+        public IGridBox CheckAvailable(GridBoxPosition position)
         {
-            return !map.ContainsKey(position);
+            return !map.ContainsKey(position) ? null : map[position];
         }
         public bool MoveBoxTo(IGridBox box, GridBoxPosition position)
         {
@@ -37,11 +37,9 @@ namespace CrazyArcade.CAFrameWork.GridBoxSystem
             if (sprite is IGridBox)
             {
                 IGridBox gridBox = (sprite as IGridBox);
-                if (CheckAvailable(gridBox.Position))
+                if (CheckAvailable(gridBox.Position)==null)
                 {
                     map[gridBox.Position] = gridBox;
-                    Console.WriteLine("put in: " + gridBox.Position.X + " " + gridBox.Position.Y + " " + gridBox.Position.Depth);
-                    Console.WriteLine(map[new GridBoxPosition(gridBox.Position.X, gridBox.Position.Y, gridBox.Position.Depth)]);
                     gridBox.Manager = this;
                 } else
                 {
@@ -69,8 +67,17 @@ namespace CrazyArcade.CAFrameWork.GridBoxSystem
         }
 
         public void Update(GameTime time)
+		{
+		    potentialDemageTiles = new HashSet<Point>();
+            foreach (IGridBox boxes in map.Values)
+            {
+                potentialDemageTiles.UnionWith(boxes.PotentialDangerousTile()); ;
+            }
+		}
+		HashSet<Point> potentialDemageTiles = new HashSet<Point>();
+		public bool IsPotentialDemageTile(Point point)
         {
-            //Empty
+            return potentialDemageTiles.Contains(point);
         }
     }
 }

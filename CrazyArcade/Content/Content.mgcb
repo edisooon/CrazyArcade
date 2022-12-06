@@ -145,6 +145,18 @@
 /processorParam:TextureFormat=Color
 /build:DesertBlocks.png
 
+#begin door_closed.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:door_closed.png
+
 #begin door.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -170,6 +182,18 @@
 /processorParam:TextureFormat=Compressed
 /build:File.spritefont;testFont.spritefont
 
+#begin flat_medal4.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:flat_medal4.png
+
 #begin funtimes.mp3
 /importer:Mp3Importer
 /processor:SongProcessor
@@ -178,12 +202,6 @@
 
 #begin JsonLevels/level_0.json
 /copy:JsonLevels/level_0.json
-
-#begin JsonLevels/level_1.json
-/copy:JsonLevels/level_1.json
-
-#begin JsonLevels/level_2.json
-/copy:JsonLevels/level_2.json
 
 #begin JsonLevels/level_3.json
 /copy:JsonLevels/level_3.json
@@ -221,6 +239,18 @@
 /processorParam:Quality=Best
 /build:justkidding.mp3
 
+#begin kick.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:kick.png
+
 #begin kodama.mp3
 /importer:Mp3Importer
 /processor:SongProcessor
@@ -232,6 +262,18 @@
 /processor:SongProcessor
 /processorParam:Quality=Best
 /build:nature.mp3
+
+#begin needle.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:needle.png
 
 #begin OctoBoss.png
 /importer:TextureImporter
@@ -256,6 +298,18 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:OctobossFull.png
+
+#begin owl.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:owl.png
 
 #begin Pirate.png
 /importer:TextureImporter
@@ -310,6 +364,18 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Powerups.png
+
+#begin radar.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:radar.png
 
 #begin Rides.png
 /importer:TextureImporter

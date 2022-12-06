@@ -27,8 +27,8 @@ namespace CrazyArcade.Enemies
 
         public override void Load()
         {
+            base.Load();
             texture = TextureSingleton.GetBombermanEnemies();
-            direction = Dir.Down;
             effect = SpriteEffects.None;
             dirList = new Dir[4];
             InputFramesRight = new Rectangle[4];
@@ -70,7 +70,6 @@ namespace CrazyArcade.Enemies
             
         }
 
-        
         protected override Vector2[] SpeedVector => speedVector;
 
         /*
@@ -88,10 +87,7 @@ namespace CrazyArcade.Enemies
         };
 
 
-        void updateCoord()
-        {
-
-        }
+        
 
 
     }

@@ -18,6 +18,9 @@ From Default Scene
 
 	spacebar - drop bomb
 
+	B - Uses Shield
+	N - Uses Needle
+
 From anything but default
 	Esc - Quits game
 From pause

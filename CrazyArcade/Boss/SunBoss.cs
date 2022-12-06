@@ -5,10 +5,11 @@ using Microsoft.Xna.Framework;
 using CrazyArcade.GameGridSystems;
 using CrazyArcade.BombFeature;
 using CrazyArcade.Blocks;
+using CrazyArcade.Enemies;
 
 namespace CrazyArcade.Boss
 {
-	public class SunBoss: CAEntity, ISunBossDelegate, IGridable, IBossCollideBehaviour, IPlayerCollidable
+	public class SunBoss: EnemyEntity, ISunBossDelegate, IGridable, IBossCollideBehaviour, IPlayerCollidable
     {
         //----------------Test purpose-------------------
         ITimer timer;
@@ -59,7 +60,7 @@ namespace CrazyArcade.Boss
         public bool IsDead => Health <= 0;
         public int Health => health;
 
-        public Rectangle Range => new Rectangle(1, 1, 10, 10);
+        public Rectangle Range => new Rectangle(2, 2, 11, 11);
 
         public Rectangle hitBox => new Rectangle(this.X + 22, this.Y + 22, 132, 132);
 
@@ -67,6 +68,7 @@ namespace CrazyArcade.Boss
 
         public override void Load()
         {
+            base.Load();
             states = new SunBossStartStates(this, new GameTime());
         }
 
