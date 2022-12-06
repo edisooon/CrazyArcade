@@ -23,11 +23,18 @@ namespace CrazyArcade.Blocks
         private static Rectangle getSource(CreateLevel.LevelItem type)
         {
             switch(type)
-            {
+            { 
+
                 case CreateLevel.LevelItem.LightTreePosition:
                     return new Rectangle(10, 127, 63, 80);
                 case CreateLevel.LevelItem.DarkTreePosition:
                     return new Rectangle(83, 127, 63, 80);
+                case CreateLevel.LevelItem.BlueCratePosition:
+                    return new Rectangle(10, 306, 40, 63);
+                case CreateLevel.LevelItem.GreenCratePosition:
+                    return new Rectangle(60, 306, 40, 63);
+                case CreateLevel.LevelItem.TealCratePosition:
+                    return new Rectangle(110, 306, 40, 63);
                 //Default is Rock
                 default:
                     return new Rectangle(110, 10, 40, 47);
