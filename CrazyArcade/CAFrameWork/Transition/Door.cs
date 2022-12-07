@@ -77,7 +77,7 @@ namespace CrazyArcade.CAFrameWork.Transition
             Console.WriteLine("Door transit to: " + stage);
             if (isOpen)
             {
-                SceneDelegate.ToAddEntity(new CASoundEffect("SoundEffects/DoorSound"));
+                SceneDelegate.ToAddEntity(new CASoundEffect("SoundEffects/EnemyDies"));
                 SceneDelegate.Transition(stage, dir);
             }
         }

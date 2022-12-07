@@ -183,7 +183,7 @@ namespace CrazyArcade.Enemies
             enemy.direction=0;
             opacity = 1f;
             fadeTime = 100f;
-            enemy.SceneDelegate.ToAddEntity(new CASoundEffect("SoundEffects/EnemyDies"));
+            enemy.SceneDelegate.ToAddEntity(new CASoundEffect("SoundEffects/DoorSound"));
 
         }
 
