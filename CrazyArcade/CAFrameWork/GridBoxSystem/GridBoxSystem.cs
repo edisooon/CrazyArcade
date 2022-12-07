@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using CrazyArcade.CAFramework;
 using Microsoft.Xna.Framework;
 
@@ -10,7 +11,14 @@ namespace CrazyArcade.CAFrameWork.GridBoxSystem
 		public GridBoxSystem()
 		{
 		}
+        private List<IBoxOccupy> boxOccupies = new List<IBoxOccupy>();
         private Dictionary<GridBoxPosition, IGridBox> map = new Dictionary<GridBoxPosition, IGridBox>();
+        private bool isAvailable(GridBoxPosition position) {
+            return !map.ContainsKey(position) && (from occupy in boxOccupies
+                          where occupy.GetOccupiedBox() == new Point(position.X, position.Y)
+                          select occupy).Count() == 0;
+		}
+
         public IGridBox CheckAvailable(GridBoxPosition position)
         {
             return !map.ContainsKey(position) ? null : map[position];
@@ -19,7 +27,7 @@ namespace CrazyArcade.CAFrameWork.GridBoxSystem
         {
             Console.WriteLine("Contains: " + map.ContainsKey(box.Position));
 
-            if (map[box.Position] == box && !map.ContainsKey(position))
+            if (map[box.Position] == box && isAvailable(position))
             {
                 map.Remove(box.Position);
                 map[position] = box;
@@ -33,6 +41,10 @@ namespace CrazyArcade.CAFrameWork.GridBoxSystem
             if (sprite is IGridBoxReciever)
             {
                 (sprite as IGridBoxReciever).Manager = this;
+            }
+            if (sprite is IBoxOccupy)
+            {
+                boxOccupies.Add(sprite as IBoxOccupy);
             }
             if (sprite is IGridBox)
             {

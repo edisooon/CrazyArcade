@@ -9,7 +9,7 @@ namespace CrazyArcade.Blocks
 {
 	public class MoveableBlock: BreakableBlock, IGridPlayerCollidable
 	{
-		private readonly int duration = 500;
+		private readonly int duration = 100;
 		private class MoveOp
 		{
 			public MoveOp(Vector2 to, Dir dir)
@@ -33,6 +33,11 @@ namespace CrazyArcade.Blocks
 		ITimer timer;
 		public void Collide(IPlayer player)
 		{
+			bool isHorizantal = player.Direction == Dir.Left || player.Direction == Dir.Right;
+			bool isVertical = player.Direction == Dir.Up || player.Direction == Dir.Down;
+			if (isHorizantal && (int)(player.GameCoord.Y + 0.5f) != this.Position.Y) return;
+			if (isVertical && (int)(player.GameCoord.X + 0.5f) != this.Position.X) return;
+
 			GridBoxPosition pos = new GridBoxPosition(
 				this.Position.X + (int)displacement[(int)player.Direction].X,
 				this.Position.Y + (int)displacement[(int)player.Direction].Y,
@@ -53,11 +58,12 @@ namespace CrazyArcade.Blocks
 					timer = new CATimer(time.TotalGameTime);
 				}
 				timer.Update(time.TotalGameTime);
-				GameCoord = displacement[(int)moveOp.Dir] * timer.FrameDiff.Milliseconds / duration;
+				GameCoord += displacement[(int)moveOp.Dir] * timer.FrameDiff.Milliseconds / duration;
 				if (timer.TotalMili >= duration)
 				{
 					this.GameCoord = moveOp.To;
 					moveOp = null;
+					timer = null;
 				}
 			}
 		}

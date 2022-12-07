@@ -12,10 +12,10 @@ namespace CrazyArcade.Blocks
 {
     public abstract class BreakableBlock : Block
     {
-        private Item item;
+        private Func<Vector2, IItem> itemGenerator;
         public BreakableBlock(Vector2 position, Rectangle source) : base(position, source, Content.TextureSingleton.GetDesertBlocks())
         {
-            item = Item.Random(position);
+			itemGenerator = Item.Random();
         }
 
         public void DeleteSelf()
@@ -31,7 +31,7 @@ namespace CrazyArcade.Blocks
 		public override void Deload()
 		{
 			base.Deload();
-            SceneDelegate.ToAddEntity(item);
+            SceneDelegate.ToAddEntity(itemGenerator(this.GameCoord));
 		}
 	}
     public class BlueCrate : MoveableBlock
@@ -55,8 +55,13 @@ namespace CrazyArcade.Blocks
         private static Rectangle source = new Rectangle(110, 306, 40, 63);
         public CyanCrate(Vector2 position) : base(position, source)
         {
-
+            
         }
-    }
+		public override void Load()
+		{
+			base.Load();
+            base.spriteAnimation.Position.Y -= 13;
+		}
+	}
 
 }

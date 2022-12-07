@@ -23,14 +23,14 @@ namespace CrazyArcade.Blocks
     public class LightSandBlock : BreakableBlock
     {
         private static Rectangle source = new Rectangle(10, 10, 40, 44);
-        public LightSandBlock(ISceneDelegate parentScene, Vector2 position) : base(parentScene, position, source)
+        public LightSandBlock(Vector2 position) : base(position, source)
         {
         }
     }
     public class SandBlock : BreakableBlock
     {
         private static Rectangle source = new Rectangle(60, 10, 40, 44);
-        public SandBlock(ISceneDelegate parentScene, Vector2 position) : base(parentScene, position, source)
+        public SandBlock(Vector2 position) : base(position, source)
         {
         }
     }
