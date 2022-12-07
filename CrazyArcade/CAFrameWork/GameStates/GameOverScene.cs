@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using CrazyArcade.Blocks;
 using CrazyArcade.CAFramework;
 using CrazyArcade.CAFrameWork.CAGame;
+using CrazyArcade.CAFrameWork.InputSystem;
 using CrazyArcade.Demo1;
 using CrazyArcade.Items;
 using CrazyArcade.PlayerStateMachine;
@@ -16,10 +17,13 @@ using static System.Formats.Asn1.AsnWriter;
 
 namespace CrazyArcade.CAFrameWork.GameStates
 {
-    public class GameOverScene : CAScene
+    public class GameOverScene : MenuScene
     {
         public GameOverScene(IGameDelegate gameRef)
         {
+            buttons = new Button[2];
+            buttons[0] = new Button("Game Over Main Menu", "Main Menu", Button.GetBasePosition(2f), gameRef.NewGame);
+            buttons[1] = new Button("Game Over Restart", "Restart", Button.GetBasePosition(3f), gameRef.StartGame);
             this.gameRef = gameRef;
             this.Load();
         }
@@ -28,27 +32,12 @@ namespace CrazyArcade.CAFrameWork.GameStates
 
         public override void Load()
         {
+            base.Load();
             UI_Singleton.ClearGUI();
-            UI_Singleton.AddPreDesignedComposite(new GameOverGUIComposition());
-        }
-        public override void LoadSprites()
-        {
-            //Temporary, will be changed to game over text
-            //this.AddSprite(new Balloon(new Vector2(400, 200)));
-        }
-
-        public override void LoadSystems()
-        {
-        }
-        public override void Update(GameTime time)
-        {
-            if(Keyboard.GetState().IsKeyDown(Keys.R))
+            UI_Singleton.AddPreDesignedComposite(new TitleText("Game over title","Game Over"));
+            for (int i = 0; i < buttons.Length; i++)
             {
-                this.gameRef.NewInstance();
-            }
-            else if(Keyboard.GetState().IsKeyDown(Keys.Escape))
-            {
-                this.gameRef.Quit();
+                UI_Singleton.AddPreDesignedComposite(buttons[i]);
             }
         }
     }

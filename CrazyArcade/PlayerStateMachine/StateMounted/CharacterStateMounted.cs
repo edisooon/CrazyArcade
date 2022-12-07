@@ -58,6 +58,8 @@ namespace CrazyArcade.PlayerStateMachine
         public void ProcessAttaction()
         {
             // when player takes attaction by the explosion, it switches to its free state
+
+            if (character.invincible) return;
             character.playerState = new CharacterStateM2F(character, isPirate);
             endState();
         }
@@ -108,7 +110,7 @@ namespace CrazyArcade.PlayerStateMachine
 
         public void ProcessItem(string itemName)
         {
-            //if (itemName == "shield" && !character.invincible && character.shields > 0) character.SetInvincibilityTime(300);
+            if (itemName == "shield" && !character.invincible && character.shields > 0) character.SetInvincibilityTime(300);
         }
     }
 }

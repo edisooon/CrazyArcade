@@ -5,6 +5,7 @@ using System.Linq;
 using CrazyArcade.CAFramework;
 using CrazyArcade.CAFrameWork.CAGame;
 using CrazyArcade.CAFrameWork.GameStates;
+using CrazyArcade.CAFrameWork.InputSystem;
 using CrazyArcade.CAFrameWork.Transition;
 using CrazyArcade.GameGridSystems;
 using CrazyArcade.PlayerStateMachine;
@@ -27,7 +28,7 @@ namespace CrazyArcade.CAFramework
         public Vector2 Camera { get => gridSystems.Camera; set => gridSystems.Camera = value; }
         public Vector2 StageOffset { get => gridSystems.StageOffset; set => gridSystems.StageOffset = value; }
         public abstract List<Vector2> PlayerPositions { get; }
-
+        public bool doorFlag = false;
         public void EndAfterTransition()
         {
 
@@ -134,6 +135,10 @@ namespace CrazyArcade.CAFramework
         public virtual void Victory()
         {
         }
+        public virtual void MainMenu()
+        {
+            gameRef.NewGame();
+        }
         public void Transition(int stage, Dir dir)
         {
             gameRef.StageTransitTo(stage, (int)dir);
@@ -141,7 +146,7 @@ namespace CrazyArcade.CAFramework
 
         public bool IsDoorOpen()
 		{
-			return enemyCount <= 0;
+			return doorFlag;
         }
         protected bool loading = false;
         public bool Loading { set => loading = value; }
@@ -177,6 +182,19 @@ namespace CrazyArcade.CAFramework
         public void DecreaseEnemyCount()
 		{
 			enemyCount--;
+        }
+        public int GetEnemyCount()
+        {
+            return enemyCount;
+        }
+        protected Point mousePos = new Point();
+        protected bool leftClick = false;
+        public virtual Dictionary<CodeRange,Action<int>> getRangeCommands()
+        {
+            Dictionary<CodeRange, Action<int>> res = new Dictionary<CodeRange, Action<int>>();
+            res[MouseInput.CodeRangeX] = (val) => mousePos.X = val - MouseInput.CodeRangeX.Start;
+            res[MouseInput.CodeRangeY] = (val) => mousePos.Y = val - MouseInput.CodeRangeY.Start;
+            return res;
         }
     }
 }

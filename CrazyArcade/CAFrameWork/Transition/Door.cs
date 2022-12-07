@@ -2,6 +2,7 @@
 using CrazyArcade.Blocks;
 using CrazyArcade.CAFramework;
 using CrazyArcade.CAFrameWork.GridBoxSystem;
+using CrazyArcade.CAFrameWork.SoundEffectSystem;
 using CrazyArcade.GameGridSystems;
 using CrazyArcade.PlayerStateMachine;
 using Microsoft.Xna.Framework;
@@ -65,17 +66,18 @@ namespace CrazyArcade.CAFrameWork.Transition
 		public override void Update(GameTime time)
         {
             base.Update(time);
-            if (SceneDelegate.IsDoorOpen() && !isOpen)
+            /*if (SceneDelegate.IsDoorOpen() && !isOpen)
             {
                 spriteAnimation = new SpriteAnimation(Content.TextureSingleton.GetDoorOpen(), source);
                 isOpen = true;
-            }
+            }*/
         }
         public void toNextLevel()
         {
             Console.WriteLine("Door transit to: " + stage);
-            if (SceneDelegate.IsDoorOpen())
+            if (isOpen)
             {
+                SceneDelegate.ToAddEntity(new CASoundEffect("SoundEffects/EnemyDies"));
                 SceneDelegate.Transition(stage, dir);
             }
         }
@@ -84,6 +86,11 @@ namespace CrazyArcade.CAFrameWork.Transition
 		{
 			toNextLevel();
 		}
+		public void OpenDoor()
+		{
+            spriteAnimation = new SpriteAnimation(Content.TextureSingleton.GetDoorOpen(), source);
+            isOpen = true;
+        }
     }
 }
 

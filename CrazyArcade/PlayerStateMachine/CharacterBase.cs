@@ -15,7 +15,7 @@ using CrazyArcade.PlayerStateMachine;
 
 namespace CrazyArcade.Demo1
 {
-    public abstract class CharacterBase : CAEntity, IGridable, IPlayer, IBombCollectable
+    public abstract class CharacterBase : CAEntity, IPlayer, IBombCollectable
     {
         public float DefaultSpeed = 3;
         public bool isPirate;

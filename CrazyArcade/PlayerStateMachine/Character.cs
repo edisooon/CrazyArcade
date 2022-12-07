@@ -13,6 +13,7 @@ using CrazyArcade.UI;
 using CrazyArcade.UI.GUI_Compositions;
 using CrazyArcade.CAFrameWork.Transition;
 using CrazyArcade.UI.GUI_Components;
+using CrazyArcade.CAFrameWork.SoundEffectSystem;
 
 namespace CrazyArcade.PlayerStateMachine
 {
@@ -35,8 +36,11 @@ namespace CrazyArcade.PlayerStateMachine
         private int score = 0;
         public bool invincible = false;
         private int ICounter = 0;
-
         public override SpriteAnimation SpriteAnim => spriteAnims[animationHandleInt];
+
+        public bool Pirate => isPirate;
+
+        //public override SpriteAnimation SpriteAnim => spriteAnims[animationHandleInt];
 
         public ICharacterState State => playerState;
         
@@ -56,7 +60,7 @@ namespace CrazyArcade.PlayerStateMachine
         }
         public override void Update(GameTime time)
         {
-            //ProcessInvincibility();
+            ProcessInvincibility();
             playerState.ProcessState(time);
             //Console.WriteLine("bombsOut: " + BombsOut);
             base.Update(time);

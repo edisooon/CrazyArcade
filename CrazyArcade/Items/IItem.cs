@@ -10,6 +10,7 @@ using Microsoft.Xna.Framework;
 using CrazyArcade.GameGridSystems;
 using CrazyArcade.BombFeature;
 using CrazyArcade.CAFrameWork.GridBoxSystem;
+using System.Diagnostics;
 
 namespace CrazyArcade.Items
 {
@@ -23,6 +24,7 @@ namespace CrazyArcade.Items
         //----------IGridable Start------------
         private Vector2 gamePos;
         private Vector2 pos;
+       
         public override Vector2 ScreenCoord
         {
             get => pos;
@@ -62,6 +64,7 @@ namespace CrazyArcade.Items
         //----------IGridable End------------
         protected Rectangle hitbox;
         protected SpriteAnimation spriteAnimation;
+        public bool canExplode = true;
         //protected ISceneDelegate parentScene;
         public Item(Vector2 position, Rectangle source, Texture2D texture, int frames, int fps)
             : base(new GridBoxPosition((int)position.X, (int)position.Y, (int)GridObjectDepth.Item))
@@ -93,6 +96,7 @@ namespace CrazyArcade.Items
 
         public bool Collide(IExplosion bomb)
         {
+            if (!canExplode) return true;
             DeleteSelf();
             return true;
         }
@@ -108,19 +112,19 @@ namespace CrazyArcade.Items
                     randList = new Dictionary<int, Func<Vector2, Item>>();
                     randList[10] = (pos) => new CoinBag(pos);   //0-10  (10%)
                     randList[20] = (pos) => new Balloon(pos);   //10-20 (10%)
-                    randList[90] = (pos) => new Turtle(pos);
-                    //randList[90] = (pos) => new Owl(pos);
-                    //randList[40] = (pos) => new KickBoot(pos);
-                    //randList[50] = (pos) => new Sneaker(pos);
-                    //randList[60] = (pos) => new Potion(pos);
-                    //randList[70] = (pos) => new Coin(pos);
-                    randList[100] = (_) => null;                //70-100 (30%)
+                    randList[40] = (pos) => new KickBoot(pos);
+                    randList[50] = (pos) => new Sneaker(pos);
+                    randList[60] = (pos) => new Potion(pos);
+                    randList[70] = (pos) => new Coin(pos);
+                    randList[80] = (pos) => new Owl(pos);
+					randList[90] = (pos) => new Turtle(pos);
+					randList[100] = (_) => null;
                 }
                 return randList;
             }
         }
 
-        public static Item Random(Vector2 pos)
+        public static Func<Vector2, IItem> Random()
         {
             List<int> keys = RandList.Keys.ToList();
             keys.Sort();
@@ -130,7 +134,7 @@ namespace CrazyArcade.Items
             foreach (int key in keys)
             {
                 if (key > number)
-                    return randList[key](pos);
+                    return (Vector2 pos) => randList[key](pos);
             }
             return null;
         }

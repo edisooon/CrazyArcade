@@ -21,7 +21,8 @@ using CrazyArcade.CAFrameWork.GameStates;
 using CrazyArcade.CAFrameWork.InputSystem;
 using CrazyArcade.UI;
 using CrazyArcade.CAFrameWork.SoundEffectSystem;
-using CrazyArcade.Pirates;
+using CrazyArcade.CAFrameWork.DoorUtils;
+using Microsoft.Xna.Framework.Input;
 
 namespace CrazyArcade.Demo1
 {
@@ -54,7 +55,6 @@ namespace CrazyArcade.Demo1
         public override void LoadSystems()
         {
             //this.systems.Add(new BlockCollisionSystem());
-            systems.Add(new GameStateSwitcher(this));
             //this.systems.Add(new CAControllerSystem());
             this.systems.Add(new CASoundSystem());
             this.systems.Add(new InputSystems());
@@ -65,7 +65,8 @@ namespace CrazyArcade.Demo1
             this.systems.Add(new BossCollisionSystem());
             this.systems.Add(new CAGameLogicSystem());
             this.systems.Add(gridSystems);
-            systems.Add(new EnemyCollisionSystem());
+            this.systems.Add(new EnemyCollisionSystem());
+            this.systems.Add(new DoorManager(this));
             //this.systems.Add(new LevelManager(this, new DemoController()));
             level = new Level(this, fileName);
             foreach (IEntity entity in level.DrawLevel())
@@ -87,6 +88,16 @@ namespace CrazyArcade.Demo1
             this.AddSprite(new KeyBoardInput());
             this.AddSprite(new CASoundEffect("SoundEffects/StageStart"));
             //this.AddSprite(new PirateCharacter());
+            this.AddSprite(new InputManager(getCommands()));
+        }
+        private bool EscapePressed = false;
+        private Dictionary<int, Action> getCommands()
+        {
+            Dictionary<int, Action> commands = new Dictionary<int, Action>();
+            commands[KeyBoardInput.KeyDown(Keys.Escape)] = TogglePause;
+            /*commands[KeyBoardInput.KeyDown(Keys.V)] = Victory;
+            commands[KeyBoardInput.KeyDown(Keys.O)] = EndGame;*/
+            return commands;
         }
         public override void EndGame()
         {
@@ -94,11 +105,17 @@ namespace CrazyArcade.Demo1
         }
         public override void TogglePause()
         {
-            gameRef.Scene = new PauseScene(gameRef, this);
+            if (EscapePressed == true)
+            {
+                gameRef.Scene = new PauseScene(gameRef, this);
+                EscapePressed = false;
+            }
+            else EscapePressed = true;
         }
         public override void Victory()
         {
             gameRef.Scene = new VictoryScene(gameRef);
         }
+
     }
 }

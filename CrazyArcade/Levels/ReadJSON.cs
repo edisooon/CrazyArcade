@@ -71,6 +71,7 @@ public class LevelSchema
 	public LevelEnemies Enemies { get; set; }
 
     public LevelBoss Boss { get; set; }
+    public LevelFlags Flags { get; set; }
 }
 
 public class LevelBlocks
@@ -84,7 +85,8 @@ public class LevelBlocks
     public int[][] Cactus { get; set; }
     public int[][] DarkTree { get; set; }
     public int[][] LightTree { get; set; }
-    
+	public int[][] Cyan { get; set; }
+
 
 }
 
@@ -124,4 +126,8 @@ public class LevelItems
     public int[][] Coin { get; set; }
 
     public int[][] Kick { get; set; }
+}
+public class LevelFlags
+{
+    public int[] PuzzleFlag { get; set; }
 }
