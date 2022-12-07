@@ -38,8 +38,18 @@
 		"DarkTree": [
 			[ 3, 9 ]
 		],
+
 		"LightTree": [
 			[ 3, 9 ]
+		],
+		"BlueVending": [
+			[ 0, 1 ]
+		],
+		"RedVending": [
+			[ 0, 2 ]
+		],
+		"OrangeVending": [
+			[ 0, 3 ]
 		],
 		"Cyan": [
 			[7, 7]
