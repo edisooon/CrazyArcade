@@ -21,7 +21,6 @@ using CrazyArcade.CAFrameWork.GameStates;
 using CrazyArcade.CAFrameWork.InputSystem;
 using CrazyArcade.UI;
 using CrazyArcade.CAFrameWork.SoundEffectSystem;
-using CrazyArcade.Pirates;
 using CrazyArcade.CAFrameWork.DoorUtils;
 using Microsoft.Xna.Framework.Input;
 
@@ -111,5 +110,6 @@ namespace CrazyArcade.Demo1
         {
             gameRef.Scene = new VictoryScene(gameRef);
         }
+
     }
 }

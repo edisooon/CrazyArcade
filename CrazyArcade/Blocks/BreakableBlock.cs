@@ -13,12 +13,10 @@ namespace CrazyArcade.Blocks
 {
     public class BreakableBlock : Block
     {
-        ISceneDelegate parentScene;
-
-        public BreakableBlock(ISceneDelegate parentScene, Vector2 position, CreateLevel.LevelItem type) : base(position, getSource(type), Content.TextureSingleton.GetDesertBlocks())
+        private Func<Vector2, IItem> itemGenerator;
+        public BreakableBlock(Vector2 position, Rectangle source) : base(position, source, Content.TextureSingleton.GetDesertBlocks())
         {
-            this.parentScene = parentScene;
-            this.parentScene.ToAddEntity(Item.Random(position));
+			itemGenerator = Item.Random();
         }
         private static Rectangle getSource(CreateLevel.LevelItem type)
         {
@@ -36,7 +34,7 @@ namespace CrazyArcade.Blocks
         }
         public void DeleteSelf()
         {
-            parentScene.ToRemoveEntity(this);
+            SceneDelegate.ToRemoveEntity(this);
         }
 
         public override bool Collide(IExplosion bomb)
@@ -44,5 +42,40 @@ namespace CrazyArcade.Blocks
             DeleteSelf();
             return false;
         }
+		public override void Deload()
+		{
+			base.Deload();
+            SceneDelegate.ToAddEntity(itemGenerator(this.GameCoord));
+		}
+	}
+    public class BlueCrate : MoveableBlock
+    {
+        private static Rectangle source = new Rectangle(10, 306, 40, 63);
+        public BlueCrate(Vector2 position) : base(position, source)
+        {
+
+        }
     }
+    public class GreenCrate : MoveableBlock
+	{
+        private static Rectangle source = new Rectangle(60, 306, 40, 63);
+        public GreenCrate(Vector2 position) : base(position, source)
+        {
+
+        }
+    }
+    public class CyanCrate : MoveableBlock
+	{
+        private static Rectangle source = new Rectangle(110, 306, 40, 63);
+        public CyanCrate(Vector2 position) : base(position, source)
+        {
+            
+        }
+		public override void Load()
+		{
+			base.Load();
+            base.spriteAnimation.Position.Y -= 13;
+		}
+	}
+
 }
