@@ -12,17 +12,15 @@ namespace CrazyArcade.Blocks
 {
     public abstract class BreakableBlock : Block
     {
-        ISceneDelegate parentScene;
-
-        public BreakableBlock(ISceneDelegate parentScene, Vector2 position, Rectangle source) : base(position, source, Content.TextureSingleton.GetDesertBlocks())
+        private Item item;
+        public BreakableBlock(Vector2 position, Rectangle source) : base(position, source, Content.TextureSingleton.GetDesertBlocks())
         {
-            this.parentScene = parentScene;
-            this.parentScene.ToAddEntity(Item.Random(position));
+            item = Item.Random(position);
         }
 
         public void DeleteSelf()
         {
-            parentScene.ToRemoveEntity(this);
+            SceneDelegate.ToRemoveEntity(this);
         }
 
         public override bool Collide(IExplosion bomb)
@@ -30,27 +28,32 @@ namespace CrazyArcade.Blocks
             DeleteSelf();
             return false;
         }
-    }
-    public class BlueCrate : BreakableBlock
+		public override void Deload()
+		{
+			base.Deload();
+            SceneDelegate.ToAddEntity(item);
+		}
+	}
+    public class BlueCrate : MoveableBlock
     {
         private static Rectangle source = new Rectangle(10, 306, 40, 63);
-        public BlueCrate(ISceneDelegate parentScene, Vector2 position) : base(parentScene, position, source)
+        public BlueCrate(Vector2 position) : base(position, source)
         {
 
         }
     }
-    public class GreenCrate : BreakableBlock
-    {
+    public class GreenCrate : MoveableBlock
+	{
         private static Rectangle source = new Rectangle(60, 306, 40, 63);
-        public GreenCrate(ISceneDelegate parentScene, Vector2 position) : base(parentScene, position, source)
+        public GreenCrate(Vector2 position) : base(position, source)
         {
 
         }
     }
-    public class CyanCrate : BreakableBlock
-    {
+    public class CyanCrate : MoveableBlock
+	{
         private static Rectangle source = new Rectangle(110, 306, 40, 63);
-        public CyanCrate(ISceneDelegate parentScene, Vector2 position) : base(parentScene, position, source)
+        public CyanCrate(Vector2 position) : base(position, source)
         {
 
         }

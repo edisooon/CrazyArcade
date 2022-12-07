@@ -2,10 +2,10 @@
     "Background": [ 214, 176, 94 ],
     "Border": [ 13, 13 ],
     "Blocks": {
-      "Door": [
-        [ 11, 11 ],
-        [ 2, 3 ]
-      ],
+        "Door": [
+            [ 11, 11 ],
+            [ 2, 3 ]
+        ],
         "LightSand": [
             [ 2, 0 ],
             [ 4, 0 ],
@@ -59,6 +59,8 @@
         "DarkTree": [
         ],
         "LightTree": [
+        ],
+        "Cyan": [
         ]
     },
     "Items": {
