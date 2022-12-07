@@ -54,6 +54,9 @@ namespace CrazyArcade.Levels
 			KickPosition,
 			PiratePosition,
 			MimicPosition,
+            		BlueVendingPosition,
+            		RedVendingPosition,
+            		OrangeVendingPosition,
 			CyanPosition
 		}
 		public enum FlagEnum
@@ -186,7 +189,16 @@ namespace CrazyArcade.Levels
                 case LevelItem.MimicPosition:
                     array = GetStartPositionArray(levelObject.Enemies.Mimic);
                     break;
-				default:
+				case LevelItem.BlueVendingPosition:
+                    array = GetStartPositionArray(levelObject.Blocks.BlueVending);
+                    break;
+                case LevelItem.RedVendingPosition:
+                    array = GetStartPositionArray(levelObject.Blocks.RedVending);
+                    break;
+                case LevelItem.OrangeVendingPosition:
+                    array = GetStartPositionArray(levelObject.Blocks.OrangeVending);
+                    break;
+                default:
 
 					break;
 				
