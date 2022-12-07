@@ -5,6 +5,7 @@ using System.Linq;
 using CrazyArcade.CAFramework;
 using CrazyArcade.CAFrameWork.CAGame;
 using CrazyArcade.CAFrameWork.GameStates;
+using CrazyArcade.CAFrameWork.InputSystem;
 using CrazyArcade.CAFrameWork.Transition;
 using CrazyArcade.GameGridSystems;
 using CrazyArcade.PlayerStateMachine;
@@ -185,6 +186,15 @@ namespace CrazyArcade.CAFramework
         public int GetEnemyCount()
         {
             return enemyCount;
+        }
+        protected Point mousePos = new Point();
+        protected bool leftClick = false;
+        public virtual Dictionary<CodeRange,Action<int>> getRangeCommands()
+        {
+            Dictionary<CodeRange, Action<int>> res = new Dictionary<CodeRange, Action<int>>();
+            res[MouseInput.CodeRangeX] = (val) => mousePos.X = val - MouseInput.CodeRangeX.Start;
+            res[MouseInput.CodeRangeY] = (val) => mousePos.Y = val - MouseInput.CodeRangeY.Start;
+            return res;
         }
     }
 }

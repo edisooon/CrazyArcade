@@ -18,10 +18,9 @@ using Microsoft.Xna.Framework.Input;
 
 namespace CrazyArcade.CAFrameWork.GameStates
 {
-    public class PauseScene : CAScene
+    public class PauseScene : MenuScene
     {
         private ISceneState restoreScene;
-        Button[] buttons = new Button[3];
         TitleText titleText;
         public override List<Vector2> PlayerPositions => throw new NotImplementedException();
         public PauseScene(IGameDelegate game, ISceneState restoreScene)
@@ -29,6 +28,7 @@ namespace CrazyArcade.CAFrameWork.GameStates
             this.gameRef = game;
             this.restoreScene = restoreScene;
             titleText = new TitleText("Pause text", "Game Paused");
+            buttons = new Button[3];
             InitButtons();
             this.Load();
         }
@@ -59,42 +59,12 @@ namespace CrazyArcade.CAFrameWork.GameStates
                 UI_Singleton.RemoveComposition(buttons[i].Name);
             }
         }
-        public override void LoadSprites()
-        {
-            AddSprite(new KeyBoardInput());
-            AddSprite(new MouseInput());
-            AddSprite(new InputManager(getCommands(), getRangeCommands()));
-        }
-
-        public override void LoadSystems()
-        {
-            systems.Add(new InputSystems());
-            systems.Add(new CAGameLogicSystem());
-        }
-        private bool leftClick = false;
-        private Point mousePos = new Point();
-        private Dictionary<int, Action> getCommands()
+        protected override Dictionary<int, Action> getCommands()
         {
             Dictionary<int, Action> commands = new Dictionary<int, Action>();
             commands[KeyBoardInput.KeyDown(Keys.P)] = TogglePause;
-            commands[(int)MouseStatus.LeftDown] = () => leftClick = true;
+            commands[(int)MouseStatus.LeftClick] = () => leftClick = true;
             return commands;
-        }
-        private Dictionary<CodeRange, Action<int>> getRangeCommands()
-        {
-            Dictionary<CodeRange, Action<int>> commands = new Dictionary<CodeRange, Action<int>>();
-            commands[MouseInput.CodeRangeX] = (val) => mousePos.X = val - MouseInput.CodeRangeX.Start;
-            commands[MouseInput.CodeRangeY] = (val) => mousePos.Y = val - MouseInput.CodeRangeY.Start;
-            return commands;
-        }
-        public override void Update(GameTime time)
-        {
-            base.Update(time);
-            foreach(Button button in buttons)
-            {
-                button.Update(mousePos, leftClick, gameRef);
-            }
-            leftClick = false;
         }
         public override void TogglePause()
         {
