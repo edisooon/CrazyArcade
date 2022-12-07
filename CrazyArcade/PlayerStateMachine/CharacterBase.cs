@@ -13,7 +13,7 @@ using CrazyArcade.BombFeature;
 using CrazyArcade.CAFrameWork.Transition;
 using CrazyArcade.PlayerStateMachine;
 
-namespace CrazyArcade.Demo1
+namespace CrazyArcade.Final
 {
     public abstract class CharacterBase : CAEntity, IPlayer, IBombCollectable
     {

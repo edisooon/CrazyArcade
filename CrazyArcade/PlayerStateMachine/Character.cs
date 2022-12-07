@@ -1,7 +1,7 @@
 ﻿using System;
 using CrazyArcade.BombFeature;
 using CrazyArcade.CAFramework;
-using CrazyArcade.Demo1;
+using CrazyArcade.Final;
 using CrazyArcade.GameGridSystems;
 using Microsoft.Xna.Framework;
 using CrazyArcade.Items;

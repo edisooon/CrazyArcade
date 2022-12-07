@@ -4,7 +4,7 @@ using CrazyArcade.CAFramework;
 using CrazyArcade.CAFrameWork.GridBoxSystem;
 using CrazyArcade.CAFrameWork.SoundEffectSystem;
 using CrazyArcade.Content;
-using CrazyArcade.Demo1;
+using CrazyArcade.Final;
 using CrazyArcade.GameGridSystems;
 using CrazyArcade.PlayerStateMachine;
 using Microsoft.Xna.Framework;

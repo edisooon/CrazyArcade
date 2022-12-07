@@ -17,7 +17,7 @@
     <None Remove="Icon.ico" />
     <None Remove="Icon.bmp" />
     <None Remove="CAFramework\" />
-    <None Remove="Demo1\" />
+    <None Remove="Final\" />
     <None Remove="CAFramework\Controller\" />
     <None Remove="Boss\" />
     <None Remove="PlayerStateMachine\" />

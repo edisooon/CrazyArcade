@@ -24,9 +24,9 @@ using CrazyArcade.CAFrameWork.SoundEffectSystem;
 using CrazyArcade.CAFrameWork.DoorUtils;
 using Microsoft.Xna.Framework.Input;
 
-namespace CrazyArcade.Demo1
+namespace CrazyArcade.Final
 {
-    public class DemoScene : CAScene
+    public class FinalScene : CAScene
     {
         Level level;
         string fileName;
@@ -46,7 +46,7 @@ namespace CrazyArcade.Demo1
             }
         }
         
-        public DemoScene(IGameDelegate game, string fileName, Vector2 stageOffset)
+        public FinalScene(IGameDelegate game, string fileName, Vector2 stageOffset)
         {
             base.StageOffset = stageOffset;
             this.fileName = fileName;

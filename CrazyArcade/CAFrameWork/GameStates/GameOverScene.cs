@@ -7,7 +7,7 @@ using CrazyArcade.Blocks;
 using CrazyArcade.CAFramework;
 using CrazyArcade.CAFrameWork.CAGame;
 using CrazyArcade.CAFrameWork.InputSystem;
-using CrazyArcade.Demo1;
+using CrazyArcade.Final;
 using CrazyArcade.Items;
 using CrazyArcade.PlayerStateMachine;
 using CrazyArcade.UI;

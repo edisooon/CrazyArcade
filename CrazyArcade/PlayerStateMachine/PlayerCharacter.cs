@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-using CrazyArcade.Demo1;
+using CrazyArcade.Final;
 using CrazyArcade.Singletons;
 using CrazyArcade.Content;
 using Microsoft.Xna.Framework;
