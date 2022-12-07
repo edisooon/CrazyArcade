@@ -20,60 +20,36 @@ namespace CrazyArcade.Blocks
         {
             
         }
-		public DefaultBlock(Vector2 position, Rectangle rectangle) : base(position, rectangle, TextureSingleton.GetDesertBlocks())
-		{
-
-		}
 		private static Rectangle getSource(CreateLevel.LevelItem type)
         {
             switch(type)
             {
-                case CreateLevel.LevelItem.LightTreePosition:
-                    return new Rectangle(10, 127, 63, 80);
-                case CreateLevel.LevelItem.DarkTreePosition:
-                    return new Rectangle(83, 127, 63, 80);
                 //Default is Rock
                 default:
                     return new Rectangle(110, 10, 40, 47);
             }
         }
     }
-
-    public class LightSandBlock : BreakableBlock
+    public class Tree : Block
     {
-        private static Rectangle source = new Rectangle(10, 10, 40, 44);
-        public LightSandBlock(Vector2 position) : base(position, source)
+        public Tree(Vector2 position, CreateLevel.LevelItem type) : base(position, getSource(type), TextureSingleton.GetDesertBlocks())
         {
         }
-    }
-    public class SandBlock : BreakableBlock
-    {
-        private static Rectangle source = new Rectangle(60, 10, 40, 44);
-        public SandBlock(Vector2 position) : base(position, source)
+        private static Rectangle getSource(CreateLevel.LevelItem type)
         {
+            switch (type)
+            {
+                case CreateLevel.LevelItem.DarkTreePosition:
+                    return new Rectangle(83, 127, 63, 80);
+                //Default is Light tree
+                default:
+                    return new Rectangle(10, 127, 63, 80);
+            }
+        }
+        public override void Load()
+        {
+            base.Load();
+            base.spriteAnimation.Position.Y -= 18;
         }
     }
-    public class Rock : DefaultBlock
-    {
-        private static Rectangle source = new Rectangle(110, 10, 40, 47);
-        public Rock(Vector2 position) : base(position, source)
-        {
-        }
-    }
-    public class Tree : DefaultBlock
-    {
-        private static Rectangle source = new Rectangle(10, 127, 63, 80);
-        public Tree(Vector2 position) : base(position, source)
-        {
-        }
-    }
-    public class DarkTree : DefaultBlock
-    {
-        private static Rectangle source = new Rectangle(83, 127, 63, 80);
-        public DarkTree(Vector2 position) : base(position, source)
-        {
-        }
-    }
-
-
 }

@@ -104,7 +104,7 @@ namespace CrazyArcade.Levels
             foreach (Vector2 vector in itemLocations)
             {
 
-                Entity = new LightSandBlock(vector);
+                Entity = new BreakableBlock(vector, LevelItem.LightSandPosition);
                 Entity.SpriteAnim.Scale = scale;
                 EntityList.Add(Entity);
             }
@@ -114,7 +114,7 @@ namespace CrazyArcade.Levels
             foreach (Vector2 vector in itemLocations)
             {
                 
-                Entity = new SandBlock(vector);
+                Entity = new BreakableBlock(vector, LevelItem.DarkSandPosition);
                 Entity.SpriteAnim.Scale = scale;
                 EntityList.Add(Entity);
             }
@@ -133,7 +133,7 @@ namespace CrazyArcade.Levels
             foreach (Vector2 vector in itemLocations)
             {
                 
-                Entity = new DefaultBlock(vector, LevelItem.LightSandPosition);
+                Entity = new Tree(vector, LevelItem.LightSandPosition);
                 Entity.SpriteAnim.Scale = scale;
                 EntityList.Add(Entity);
             }
@@ -143,7 +143,7 @@ namespace CrazyArcade.Levels
             foreach (Vector2 vector in itemLocations)
             {
                 
-                Entity = new DefaultBlock(vector, LevelItem.DarkTreePosition);
+                Entity = new Tree(vector, LevelItem.DarkTreePosition);
                 Entity.SpriteAnim.Scale = .9f;
                 EntityList.Add(Entity);
             }
