@@ -14,7 +14,12 @@ namespace CrazyArcade.CAFrameWork.GameStates
     public abstract class MenuScene : CAScene
     {
         protected Button[] buttons;
-        protected abstract Dictionary<int,Action> getCommands();
+        protected virtual Dictionary<int, Action> getCommands()
+        {
+            Dictionary<int, Action> res = new();
+            res[(int)MouseStatus.LeftClick] = () => leftClick = true;
+            return res;
+        }
         public override void LoadSprites()
         {
             this.AddSprite(new KeyBoardInput());

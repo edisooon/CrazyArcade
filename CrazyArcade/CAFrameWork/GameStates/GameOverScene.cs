@@ -40,13 +40,5 @@ namespace CrazyArcade.CAFrameWork.GameStates
                 UI_Singleton.AddPreDesignedComposite(buttons[i]);
             }
         }
-        protected override Dictionary<int, Action> getCommands()
-        {
-            Dictionary<int, Action> res = new();
-            res[KeyBoardInput.KeyDown(Keys.R)] = gameRef.NewGame;
-			res[KeyBoardInput.KeyDown(Keys.Escape)] = gameRef.Quit;
-            res[(int)MouseStatus.LeftClick] = () => leftClick = true;
-            return res;
-		}
     }
 }

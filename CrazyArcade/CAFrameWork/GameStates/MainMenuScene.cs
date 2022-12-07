@@ -36,11 +36,5 @@ namespace CrazyArcade.CAFrameWork.GameStates
                 UI_Singleton.AddPreDesignedComposite(buttons[i]);
             }
         }
-		protected override Dictionary<int, Action> getCommands()
-		{
-			Dictionary<int, Action> res = new();
-			res[(int)MouseStatus.LeftClick] = () => leftClick = true;
-			return res;
-		}
     }
 }

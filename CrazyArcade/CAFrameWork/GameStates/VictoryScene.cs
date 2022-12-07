@@ -45,13 +45,5 @@ namespace CrazyArcade.CAFrameWork.GameStates
             }
             base.LoadSprites();
         }
-        protected override Dictionary<int, Action> getCommands()
-        {
-            var commands = new Dictionary<int, Action>();
-            commands[KeyBoardInput.KeyDown(Keys.R)] = gameRef.NewGame;
-            commands[KeyBoardInput.KeyDown(Keys.Escape)] = gameRef.Quit;
-            commands[(int)MouseStatus.LeftClick] = () => leftClick = true;
-            return commands;
-        }
     }
 }

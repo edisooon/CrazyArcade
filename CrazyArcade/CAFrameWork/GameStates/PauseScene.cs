@@ -34,7 +34,7 @@ namespace CrazyArcade.CAFrameWork.GameStates
         }
         private void InitButtons()
         {
-            buttons[0] = new Button("Pause resume", "Resume", Button.GetBasePosition(6f/2), this.TogglePause);
+            buttons[0] = new Button("Pause resume", "Resume", Button.GetBasePosition(6f/2), TogglePause);
             buttons[1] = new Button("Pause restart", "Restart", Button.GetBasePosition(6f/3), gameRef.StartGame);
             buttons[2] = new Button("Pause quit", "Main Menu", Button.GetBasePosition(6f / 4), gameRef.NewGame);
         }
@@ -59,16 +59,10 @@ namespace CrazyArcade.CAFrameWork.GameStates
                 UI_Singleton.RemoveComposition(buttons[i].Name);
             }
         }
-        protected override Dictionary<int, Action> getCommands()
-        {
-            Dictionary<int, Action> commands = new Dictionary<int, Action>();
-            commands[KeyBoardInput.KeyDown(Keys.P)] = TogglePause;
-            commands[(int)MouseStatus.LeftClick] = () => leftClick = true;
-            return commands;
-        }
         public override void TogglePause()
         {
             RemoveGUI();
+            leftClick = false;
             gameRef.Scene = restoreScene;
         }
     }
