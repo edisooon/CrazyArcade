@@ -53,7 +53,7 @@ namespace CrazyArcade.Blocks
         public override void Load()
         {
             base.Load();
-            base.spriteAnimation.Position.Y -= 20;
+            base.spriteAnimation.Position.Y -= 18;
         }
     }
 }
