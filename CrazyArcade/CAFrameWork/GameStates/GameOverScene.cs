@@ -17,10 +17,13 @@ using static System.Formats.Asn1.AsnWriter;
 
 namespace CrazyArcade.CAFrameWork.GameStates
 {
-    public class GameOverScene : CAScene
+    public class GameOverScene : MenuScene
     {
         public GameOverScene(IGameDelegate gameRef)
         {
+            buttons = new Button[2];
+            buttons[0] = new Button("Game Over Main Menu", "Main Menu", Button.GetBasePosition(2f), gameRef.NewGame);
+            buttons[1] = new Button("Game Over Restart", "Restart", Button.GetBasePosition(3f), gameRef.StartGame);
             this.gameRef = gameRef;
             this.Load();
         }
@@ -32,23 +35,10 @@ namespace CrazyArcade.CAFrameWork.GameStates
             base.Load();
             UI_Singleton.ClearGUI();
             UI_Singleton.AddPreDesignedComposite(new TitleText("Game over title","Game Over"));
+            for (int i = 0; i < buttons.Length; i++)
+            {
+                UI_Singleton.AddPreDesignedComposite(buttons[i]);
+            }
         }
-        public override void LoadSprites()
-        {
-            this.AddSprite(new KeyBoardInput());
-			this.AddSprite(new InputManager(getCommands()));
-        }
-        private Dictionary<int, Action> getCommands()
-        {
-            Dictionary<int, Action> res = new Dictionary<int, Action>();
-            res[KeyBoardInput.KeyDown(Keys.R)] = gameRef.NewGame;
-			res[KeyBoardInput.KeyDown(Keys.Escape)] = gameRef.Quit;
-            return res;
-		}
-		public override void LoadSystems()
-        {
-            this.systems.Add(new InputSystems());
-			this.systems.Add(new CAGameLogicSystem());
-		}
     }
 }
