@@ -46,9 +46,9 @@ namespace CrazyArcade.Boss
         public float xDifference;
         public float yDifference;
         public Dir direction;
-        protected Rectangle internalRectangle = new Rectangle(0, 0, 110, 145); 
+        protected Rectangle internalRectangle = new Rectangle(12, 18, 75, 105); 
         protected Vector2[] SpeedVector;
-        public float speed = 0.15f;
+        public float speed = 0.10f;
         private int squareSize = 4;
         private int xoffset = 4;
         private int yoffset = 4;
@@ -222,7 +222,7 @@ namespace CrazyArcade.Boss
             //if(collisionPartner is WaterExplosionCenter || collisionPartner is WaterExplosionEdge){
             if (!justInjured && !(collisionPartner is Character))
             {
-                health -= 10;
+                health -= 20;
                 justInjured = true;
                 state = new OctopusWounded(this);
             }
