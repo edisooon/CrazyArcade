@@ -14,12 +14,14 @@ using Microsoft.Xna.Framework.Input;
 
 namespace CrazyArcade.CAFrameWork.GameStates
 {
-    public class VictoryScene : CAScene
+    public class VictoryScene : MenuScene
     {
         List<CoinBag> victoryCoinBags;
         readonly int listSize = 10;
         public VictoryScene(IGameDelegate gameRef)
         {
+            buttons = new Button[1];
+            buttons[0] = new Button("Victory main menu", "Main Menu", Button.GetBasePosition(2f), gameRef.NewGame);
             this.gameRef = gameRef;
             this.victoryCoinBags = new List<CoinBag>();
             this.Load();
@@ -29,7 +31,7 @@ namespace CrazyArcade.CAFrameWork.GameStates
             base.Load();
             UI_Singleton.ClearGUI();
             UI_Singleton.AddPreDesignedComposite(new TitleText("Victory text", "You Win!"));
-            this.LoadSprites();
+            UI_Singleton.AddPreDesignedComposite(buttons[0]);
         }
 
         public override List<Vector2> PlayerPositions => throw new NotImplementedException();
@@ -41,21 +43,7 @@ namespace CrazyArcade.CAFrameWork.GameStates
                 victoryCoinBags.Add(new CoinBag(new Vector2(100*i,0)));
                 this.AddSprite(victoryCoinBags[i]);
             }
-            this.AddSprite(new InputManager(getCommands()));
-            this.AddSprite(new KeyBoardInput());
-        }
-
-        public override void LoadSystems()
-        {
-            systems.Add(new InputSystems());
-            systems.Add(new CAGameLogicSystem());
-        }
-        private Dictionary<int, Action> getCommands()
-        {
-            var commands = new Dictionary<int, Action>();
-            commands[KeyBoardInput.KeyDown(Keys.R)] = gameRef.NewGame;
-            commands[KeyBoardInput.KeyDown(Keys.Escape)] = gameRef.Quit;
-            return commands;
+            base.LoadSprites();
         }
     }
 }
