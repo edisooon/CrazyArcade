@@ -20,7 +20,7 @@ namespace CrazyArcade.PlayerStateMachine
         private Character character;
         private PlayerRide ride;
         private int initial;
-        private int high = CAGameGridSystems.BlockLength+20;
+        private int high = CAGameGridSystems.BlockLength+25;
         private int dest = CAGameGridSystems.BlockLength;
         private float dist = 0; // the distance that character has moved
         bool isPirate;
