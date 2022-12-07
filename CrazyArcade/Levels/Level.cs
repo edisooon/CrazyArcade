@@ -273,7 +273,7 @@ namespace CrazyArcade.Levels
 
 			foreach (Vector2 vector in itemLocations)
 			{
-				EntityList.Add(new PirateCharacter());
+				EntityList.Add(new PirateCharacter(vector));
 			}
             LoadFlags();
 		}
