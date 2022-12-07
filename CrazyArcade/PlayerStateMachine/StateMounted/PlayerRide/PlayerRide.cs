@@ -1,5 +1,6 @@
 ﻿using CrazyArcade.CAFramework;
 using CrazyArcade.Content;
+using CrazyArcade.GameGridSystems;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
@@ -23,14 +24,15 @@ namespace CrazyArcade.PlayerStateMachine
             this.character = character;
             DrawOrder = character.ActualDrawOrder - 2;
 
-            yOffset = 35;
-            initialX = character.X;
-            initialY = character.Y;
-            X = character.X+xOffset;
-            Y = character.Y+yOffset;
+            yOffset = CAGameGridSystems.BlockLength;
             direction = character.direction;
+            UpdateOffset();
+            X = character.X + xOffset;
+            Y = character.Y - character.bboxOffset.Y + yOffset;
 
         }
+
+        public abstract void UpdateOffset();
 
         public void Delete_Self()
         {

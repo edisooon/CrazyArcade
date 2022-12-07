@@ -84,7 +84,7 @@ namespace CrazyArcade.PlayerStateMachine
         {
             // could, more code in the future
             //this.character.playerState = new CharacterStateMounted(this.character, type, isPirate);
-            character.GameCoord = character.Trans.RevTrans(pos);
+            character.GameCoord = pos;
             this.character.playerState = new CharacterStateF2M(this.character, type, isPirate);
             //character.ModifiedSpeed = character.FreeModifiedSpeed;
         }

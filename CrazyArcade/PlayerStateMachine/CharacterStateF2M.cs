@@ -76,21 +76,22 @@ namespace CrazyArcade.PlayerStateMachine
             character.animationHandleInt = (int)character.direction;
             if(dist < high - initial)
             {
-                character.bboxOffset.Y += 1;
+                character.bboxOffset.Y += 2;
             }
             else
             {
                 if (character.bboxOffset.Y <= dest)
                 {
-                    if(dest == initial) character.playerState = new CharacterStateFree(character, isPirate);
+                    character.bboxOffset.Y = dest;
+                    if (dest == initial) character.playerState = new CharacterStateFree(character, isPirate);
                     else character.playerState = new CharacterStateMounted(this.character, ride, isPirate);
                 }
                 else
                 {
-                    character.bboxOffset.Y -= 1;
+                    character.bboxOffset.Y -= 2;
                 }
             }
-            dist += 1;
+            dist += 2;
         }
 
         public SpriteAnimation[] SetSprites()

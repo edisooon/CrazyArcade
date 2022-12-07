@@ -28,9 +28,8 @@ namespace CrazyArcade.PlayerStateMachine
             //}
             character.ModifiedSpeed = 7;
         }
-        public override void Update(GameTime time)
+        public override void UpdateOffset()
         {
-            if (character.playerState is CharacterStateF2M) return;
             if (direction == Dir.Up || direction == Dir.Down)
             {
                 xOffset = 6;
@@ -43,6 +42,11 @@ namespace CrazyArcade.PlayerStateMachine
             {
                 xOffset = 0;
             }
+        }
+        public override void Update(GameTime time)
+        {
+            if (character.playerState is CharacterStateF2M) return;
+            UpdateOffset();
             X = character.X + xOffset;
             Y = character.Y + yOffset;
             direction = character.direction;
