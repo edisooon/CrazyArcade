@@ -1,0 +1,22 @@
+Sprint 5 Reflection - Crazy Arcade Team
+
+	Overall on Sprint 5, the team performed better than it had on any previous sprint. One of
+the main changes that was made following sprint 4 was the more even workload that the team
+gave itself. Instead of crunching hard during the last week, the team worked much more evenly
+throughout all three of the weeks.
+	The first priority that the team gave itself was to clean up all of the bugs left from
+Sprint 4 that could not be completed in time. This was done during the planning stages of the
+first week. In the first week, the team also started to think of features that could reasonably
+be added in the time of sprint 5. As soon as the proposed features were given the O.K. the second
+and third weeks of the sprint were spent working towards completing the features. Another change
+that was made from Sprint 4 was an increase of frequency of meetings that were had. Instead of one 
+in person meeting every week, 2-3 smaller meetings were held online. In these meetings pull requests
+were reviewed and merged, so there were no dates in which a large number of pull requests were reviewed
+en mass.
+	Another key change that was made to the way the group functioned was the decidedly smaller pull
+requests that were made. This allowed for smaller scale issues to be tackled and code reviewed easier
+without needing to commit as much time to read a massive suite of changes.
+	Looking at a burndown chart representation of the project, the dates in which the issues were closed
+seem like they heavily clump up on a couple different key days, however this was due to the issues being
+closed in the project and the issue itself. Despite this, it is clear that despite issues being marked as
+completed all at once, work was still steadily being done.
