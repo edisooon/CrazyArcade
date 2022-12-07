@@ -38,17 +38,18 @@
 		"DarkTree": [
 			[ 3, 9 ]
 		],
+
 		"LightTree": [
 			[ 3, 9 ]
 		],
-		"GreenCrate": [
-			[0,1]
+		"BlueVending": [
+			[ 0, 1 ]
 		],
-		"BlueCrate": [
-			[0,2]
+		"RedVending": [
+			[ 0, 2 ]
 		],
-		"TealCrate": [
-			[0,3]
+		"OrangeVending": [
+			[ 0, 3 ]
 		]
 
 	},

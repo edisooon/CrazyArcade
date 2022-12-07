@@ -158,30 +158,30 @@ namespace CrazyArcade.Levels
                 Entity.SpriteAnim.Scale = .9f;
                 EntityList.Add(Entity);
             }
-            itemLocations = currentLevel.GetItemLocation(CreateLevel.LevelItem.BlueCratePosition);
+            itemLocations = currentLevel.GetItemLocation(CreateLevel.LevelItem.BlueVendingPosition);
 
             foreach (Vector2 vector in itemLocations)
             {
 
-                Entity = new DefaultBlock(vector, LevelItem.BlueCratePosition);
+                Entity = new DefaultBlock(vector, LevelItem.BlueVendingPosition);
                 Entity.SpriteAnim.Scale = .9f;
                 EntityList.Add(Entity);
             }
-            itemLocations = currentLevel.GetItemLocation(CreateLevel.LevelItem.GreenCratePosition);
+            itemLocations = currentLevel.GetItemLocation(CreateLevel.LevelItem.RedVendingPosition);
 
             foreach (Vector2 vector in itemLocations)
             {
 
-                Entity = new DefaultBlock(vector, LevelItem.GreenCratePosition);
+                Entity = new DefaultBlock(vector, LevelItem.RedVendingPosition);
                 Entity.SpriteAnim.Scale = .9f;
                 EntityList.Add(Entity);
             }
-            itemLocations = currentLevel.GetItemLocation(CreateLevel.LevelItem.TealCratePosition);
+            itemLocations = currentLevel.GetItemLocation(CreateLevel.LevelItem.OrangeVendingPosition);
 
             foreach (Vector2 vector in itemLocations)
             {
 
-                Entity = new DefaultBlock(vector, LevelItem.TealCratePosition);
+                Entity = new DefaultBlock(vector, LevelItem.OrangeVendingPosition);
                 Entity.SpriteAnim.Scale = .9f;
                 EntityList.Add(Entity);
             }

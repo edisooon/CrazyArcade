@@ -54,33 +54,15 @@
     ],
     "LightTree": [
     ],
-    "GreenCrate": [
+    "BlueVending": [
 
     ],
-    "BlueCrate": [
+    "RedVending": [
 
     ],
-    "TealCrate": [
+    "OrangeVending": [
 
     ]
-  },
-    "Items": {
-        "CoinBag": [
-        ],
-        "Balloon": [
-        ],
-        "Sneaker": [
-        ],
-        "Turtle": [
-        ],
-        "Potion": [
-        ],
-        "Coin": [
-        ],
-        "Kick": []
-    },
-    "Player": [ 0, 0 ],
-    "Pirate": []
 
   },
   "Items": {
