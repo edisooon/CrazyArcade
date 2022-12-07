@@ -58,8 +58,7 @@ namespace CrazyArcade.PlayerStateMachine
         public void ProcessAttaction()
         {
             // when player takes attaction by the explosion, it switches to its free state
-            character.playerState = new CharacterStateFree(character, isPirate);
-            character.bboxOffset.Y = 20;
+            character.playerState = new CharacterStateM2F(character, isPirate);
             endState();
         }
 
