@@ -74,24 +74,27 @@
     },
     "Player": [ 0, 0 ],
     "Pirate": [],
-  "Enemies": {
-    "Bomb": [
-    ],
-    "Squid": [
-    ],
-    "Bat": [
-    ],
-    "Robot": [
-    ],
-    "Mimic": [
+    "Enemies": {
+        "Bomb": [
+        ],
+        "Squid": [
+        ],
+        "Bat": [
+        ],
+        "Robot": [
+        ],
+        "Mimic": [
 
-    ]
-  },
+        ]
+    },
     "Boss": {
         "Sun": [
         ],
         "Octo": [
             [ 6, 5 ]
         ]
+    },
+    "Flags": {
+        "PuzzleFlag": [ 0, 0, 0 ]
     }
 }
