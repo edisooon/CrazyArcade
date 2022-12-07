@@ -89,6 +89,7 @@ public class LevelBlocks
     public int[][] RedVending { get; set; }
     public int[][] OrangeVending { get; set; }
 
+	public int[][] Cyan { get; set; }
 
 
 }

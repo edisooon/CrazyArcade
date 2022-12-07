@@ -1,4 +1,6 @@
 ﻿using System;
+using CrazyArcade.CAFrameWork.SoundEffectSystem;
+using CrazyArcade.PlayerStateMachine;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
@@ -20,7 +22,8 @@ namespace CrazyArcade.CAFrameWork.Transition
             this.sceneShiftPixelSpeed = sceneShiftPixel/((float)(totalTime.TotalMilliseconds));
             this.oldState = oldState;
             this.newState = newState;
-		}
+
+        }
         private ITransitionCompleteHandler handler;
 
         public ITransitionCompleteHandler Handler { get => handler; set => handler = value; }

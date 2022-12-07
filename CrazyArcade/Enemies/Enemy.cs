@@ -153,7 +153,7 @@ namespace CrazyArcade.Enemies
             blockDetector.Height = height;  
         }
 
-        public void UpdateAnimation()
+        public virtual void UpdateAnimation()
         {
             this.spriteAnims[(int)direction].Position = new Vector2(X, Y);
         }

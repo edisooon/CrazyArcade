@@ -2,6 +2,7 @@
 using CrazyArcade.Blocks;
 using CrazyArcade.CAFramework;
 using CrazyArcade.CAFrameWork.GridBoxSystem;
+using CrazyArcade.CAFrameWork.SoundEffectSystem;
 using CrazyArcade.GameGridSystems;
 using CrazyArcade.PlayerStateMachine;
 using Microsoft.Xna.Framework;
@@ -76,6 +77,7 @@ namespace CrazyArcade.CAFrameWork.Transition
             Console.WriteLine("Door transit to: " + stage);
             if (isOpen)
             {
+                SceneDelegate.ToAddEntity(new CASoundEffect("SoundEffects/EnemyDies"));
                 SceneDelegate.Transition(stage, dir);
             }
         }

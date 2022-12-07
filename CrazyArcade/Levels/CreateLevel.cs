@@ -54,10 +54,11 @@ namespace CrazyArcade.Levels
 			KickPosition,
 			PiratePosition,
 			MimicPosition,
-            BlueVendingPosition,
-            RedVendingPosition,
-            OrangeVendingPosition
-        }
+            		BlueVendingPosition,
+            		RedVendingPosition,
+            		OrangeVendingPosition,
+			CyanPosition
+		}
 		public enum FlagEnum
 		{
 			PuzzleFlag
@@ -95,93 +96,97 @@ namespace CrazyArcade.Levels
 		public Vector2[] GetItemLocation(LevelItem property)
 		{
 			Vector2[] array = new Vector2[1];
-			int item = (int)property;
+			LevelItem item = property;
 			switch (item)
 			{
-				case (int)LevelItem.PlayerPosition:
+				case LevelItem.PlayerPosition:
 					array[0] = GetStartPosition(levelObject.Player);
 					break;
 					
-				case (int)LevelItem.DoorPosition:
+				case LevelItem.DoorPosition:
 					array = GetStartPositionArray(levelObject.Blocks.Door);
 					break;
 
-                case (int)LevelItem.LightSandPosition:
+                case LevelItem.LightSandPosition:
                     array = GetStartPositionArray(levelObject.Blocks.LightSand);
                     break;
-                case (int)LevelItem.DarkSandPosition:
+                case LevelItem.DarkSandPosition:
 					array = GetStartPositionArray(levelObject.Blocks.DarkSand);
 					break;
 					
-				case (int)LevelItem.StonePosition:
+				case LevelItem.StonePosition:
 					array = GetStartPositionArray(levelObject.Blocks.Stone);
 
 					break;
-                case (int)LevelItem.CactusPosition:
+                case LevelItem.CactusPosition:
                     array = GetStartPositionArray(levelObject.Blocks.Cactus);
                     break;
 
-                case (int)LevelItem.DarkTreePosition:
+                case LevelItem.DarkTreePosition:
                     array = GetStartPositionArray(levelObject.Blocks.DarkTree);
                     break;
 
-                case (int)LevelItem.LightTreePosition:
+                case LevelItem.LightTreePosition:
                     array = GetStartPositionArray(levelObject.Blocks.LightTree);
                     break;
-                case (int)LevelItem.SunBossPosition:
+				case LevelItem.CyanPosition:
+					array = GetStartPositionArray(levelObject.Blocks.Cyan);
+					break;
+
+				case LevelItem.SunBossPosition:
 					array = GetStartPositionArray(levelObject.Boss.Sun);
 					break;
 					
-				case (int)LevelItem.OctoBossPosition:
+				case LevelItem.OctoBossPosition:
 					array = GetStartPositionArray(levelObject.Boss.Octo);
 					break;
 			
-				case (int)LevelItem.BombPosition:
+				case LevelItem.BombPosition:
 					array = GetStartPositionArray(levelObject.Enemies.Bomb);
 					break;
 			
-				case (int)LevelItem.SquidPosition:
+				case LevelItem.SquidPosition:
 					array = GetStartPositionArray(levelObject.Enemies.Squid);
 					break;
 					
-				case (int)LevelItem.BatPosition:
+				case LevelItem.BatPosition:
 					array = GetStartPositionArray(levelObject.Enemies.Bat);
 					break;
 					
-				case (int)LevelItem.RobotPosition:
+				case LevelItem.RobotPosition:
 					array = GetStartPositionArray(levelObject.Enemies.Robot);
 					break;
 					
-				case (int)LevelItem.CoinBagPosition:
+				case LevelItem.CoinBagPosition:
 					array = GetStartPositionArray(levelObject.Items.CoinBag);
 					break;
 					
-				case (int)LevelItem.BalloonPosition:
+				case LevelItem.BalloonPosition:
 					array = GetStartPositionArray(levelObject.Items.Balloon);
 					break;
 				
-				case (int)LevelItem.SneakerPosition:
+				case LevelItem.SneakerPosition:
 					array = GetStartPositionArray(levelObject.Items.Sneaker);
 					break;
 				
-				case (int)LevelItem.TurtlePosition:
+				case LevelItem.TurtlePosition:
 					array = GetStartPositionArray(levelObject.Items.Turtle);
 					break;
 					
-				case (int)LevelItem.PotionPosition:
+				case LevelItem.PotionPosition:
 					array = GetStartPositionArray(levelObject.Items.Potion);
 					break;
 				
-				case (int)LevelItem.CoinPosition:
+				case LevelItem.CoinPosition:
 					array = GetStartPositionArray(levelObject.Items.Coin);
 					break;
-                case (int)LevelItem.KickPosition:
+                case LevelItem.KickPosition:
                     array = GetStartPositionArray(levelObject.Items.Kick);
                     break;
-				case (int)LevelItem.PiratePosition:
+				case LevelItem.PiratePosition:
 					array = GetStartPositionArray(levelObject.Pirate);
 					break;
-                case (int)LevelItem.MimicPosition:
+                case LevelItem.MimicPosition:
                     array = GetStartPositionArray(levelObject.Enemies.Mimic);
                     break;
 				case (int)LevelItem.BlueVendingPosition:
