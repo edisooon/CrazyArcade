@@ -189,13 +189,13 @@ namespace CrazyArcade.Levels
                 case LevelItem.MimicPosition:
                     array = GetStartPositionArray(levelObject.Enemies.Mimic);
                     break;
-				case (int)LevelItem.BlueVendingPosition:
+				case LevelItem.BlueVendingPosition:
                     array = GetStartPositionArray(levelObject.Blocks.BlueVending);
                     break;
-                case (int)LevelItem.RedVendingPosition:
+                case LevelItem.RedVendingPosition:
                     array = GetStartPositionArray(levelObject.Blocks.RedVending);
                     break;
-                case (int)LevelItem.OrangeVendingPosition:
+                case LevelItem.OrangeVendingPosition:
                     array = GetStartPositionArray(levelObject.Blocks.OrangeVending);
                     break;
                 default:
