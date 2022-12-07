@@ -68,5 +68,34 @@ namespace CrazyArcade.Blocks
 			}
 		}
 	}
+    public class BlueCrate : MoveableBlock
+    {
+        private static Rectangle source = new Rectangle(10, 306, 40, 63);
+        public BlueCrate(Vector2 position) : base(position, source)
+        {
+
+        }
+    }
+    public class GreenCrate : MoveableBlock
+    {
+        private static Rectangle source = new Rectangle(60, 306, 40, 63);
+        public GreenCrate(Vector2 position) : base(position, source)
+        {
+
+        }
+    }
+    public class CyanCrate : MoveableBlock
+    {
+        private static Rectangle source = new Rectangle(110, 306, 40, 63);
+        public CyanCrate(Vector2 position) : base(position, source)
+        {
+
+        }
+        public override void Load()
+        {
+            base.Load();
+            base.spriteAnimation.Position.Y -= 13;
+        }
+    }
 }
 
