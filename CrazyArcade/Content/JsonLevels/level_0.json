@@ -40,8 +40,10 @@
 		],
 		"LightTree": [
 			[ 3, 9 ]
+		],
+		"Cyan": [
+			[7, 7]
 		]
-
 	},
 	"Items": {
 		"CoinBag": [
@@ -62,7 +64,7 @@
 	},
 	"Player": [ 0, 0 ],
 	"Pirate": [
-		
+		[6, 6]
 	],
 	"Enemies": {
 		"Bomb": [

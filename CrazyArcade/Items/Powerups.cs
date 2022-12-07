@@ -7,6 +7,8 @@ using System.Text;
 using System.Threading.Tasks;
 using CrazyArcade.Blocks;
 using CrazyArcade.CAFramework;
+using CrazyArcade.CAFrameWork.SoundEffectSystem;
+using CrazyArcade.Enemies;
 using CrazyArcade.PlayerStateMachine;
 using CrazyArcade.PlayerStateMachine.PlayerItemInteractions;
 using Microsoft.Xna.Framework;
@@ -28,6 +30,7 @@ namespace CrazyArcade.Items
             {
                 collisionPartner.ObtainItem(new BombCountModifier());
                 this.DeleteSelf();
+                this.SceneDelegate.ToAddEntity(new CASoundEffect("SoundEffects/PowerUpSound"));
             }
         }
     }
@@ -45,6 +48,7 @@ namespace CrazyArcade.Items
             {
                 collisionPartner.IncreaseScore(50);
                 this.DeleteSelf();
+                this.SceneDelegate.ToAddEntity(new CASoundEffect("SoundEffects/CoinSound"));
             }
         }
     }
@@ -60,6 +64,7 @@ namespace CrazyArcade.Items
             {
                 collisionPartner.ObtainItem(new SpeedModifier());
                 this.DeleteSelf();
+                this.SceneDelegate.ToAddEntity(new CASoundEffect("SoundEffects/PowerUpSound"));
             }
         }
     }
@@ -78,7 +83,7 @@ namespace CrazyArcade.Items
                 // 30% pirate Turtle, 70% turtle
                 RideType type = n <= 2 ? RideType.PirateTurtle : RideType.Turtle;
                 collisionPartner.State.ProcessRide(type);
-                this.DeleteSelf();
+                this.DeleteSelf(); this.SceneDelegate.ToAddEntity(new CASoundEffect("SoundEffects/PowerUpSound"));
             }
         }
 
@@ -96,7 +101,7 @@ namespace CrazyArcade.Items
             {
                 RideType type = RideType.Owl;
                 collisionPartner.State.ProcessRide(type);
-                this.DeleteSelf();
+                this.DeleteSelf(); this.SceneDelegate.ToAddEntity(new CASoundEffect("SoundEffects/PowerUpSound"));
             }
         }
 
@@ -113,7 +118,8 @@ namespace CrazyArcade.Items
             if (collisionPartner.State.CouldGetItem)
             {
                 collisionPartner.ObtainItem(new BlastLengthModifier());
-                this.DeleteSelf();
+                this.DeleteSelf(); 
+                this.SceneDelegate.ToAddEntity(new CASoundEffect("SoundEffects/PowerUpSound"));
             }
         }
 
@@ -125,24 +131,25 @@ namespace CrazyArcade.Items
     }
     public class Coin : Item
     {
-        public static Rectangle source = new Rectangle(0, 0, 60, 60);
+        private static Rectangle source = new Rectangle(0, 0, 60, 60);
         public Coin(Vector2 position) : base(position, source, Content.TextureSingleton.GetCoin(), 10, 10)
         {
             canExplode = false;
-            Debug.WriteLine("Coin Made at " + GameCoord);
         }
         public override void CollisionLogic(Rectangle overlap, IPlayerCollisionBehavior collisionPartner)
         {
             if (collisionPartner.State.CouldGetItem)
             {
                 collisionPartner.IncreaseScore(10);
-                this.DeleteSelf();
+                this.DeleteSelf(); 
+                this.SceneDelegate.ToAddEntity(new CASoundEffect("SoundEffects/CoinSound"));
+
             }
         }
     }
     public class KickBoot : Item
     {
-        public static Rectangle source = new Rectangle(0, 0, 42, 46);
+        private static Rectangle source = new Rectangle(0, 0, 42, 46);
         public KickBoot(Vector2 position) : base(position, source, Content.TextureSingleton.GetKick(), 3, 10)
         {
 
@@ -152,7 +159,8 @@ namespace CrazyArcade.Items
             if (collisionPartner.State.CouldGetItem)
             {
                 collisionPartner.ObtainItem(new KickModifier());
-                this.DeleteSelf();
+                this.DeleteSelf(); 
+                this.SceneDelegate.ToAddEntity(new CASoundEffect("SoundEffects/PowerUpSound"));
             }
         }
     }

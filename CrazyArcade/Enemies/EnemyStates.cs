@@ -1,4 +1,5 @@
 ﻿using CrazyArcade.CAFramework;
+using CrazyArcade.CAFrameWork.SoundEffectSystem;
 using CrazyArcade.CAFrameWork.GridBoxSystem;
 using Microsoft.Xna.Framework;
 using System;
@@ -182,6 +183,7 @@ namespace CrazyArcade.Enemies
             enemy.direction=0;
             opacity = 1f;
             fadeTime = 100f;
+            enemy.SceneDelegate.ToAddEntity(new CASoundEffect("SoundEffects/DoorSound"));
 
         }
 

@@ -135,6 +135,7 @@ public class CAGame : Game, IGameDelegate, ITransitionCompleteHandler
             {
                 
                 stageNum++;
+                stageNum = stageNum;
                 transitionNum = stageNum;
                 makeTransition(gameTime, transitionDisplacement);
 
