@@ -12,13 +12,6 @@ using CrazyArcade.PlayerStateMachine;
 
 namespace CrazyArcade.Boss
 {
-    //TODO:{
-    //  Organize code CHK
-    //  Add attack methods
-    //  Make States
-    //  Add wounded animations
-    //  Define movement pattern
-    //}
     public class OctopusEnemy : EnemyEntity, IGridable, IPlayerCollidable, IBombCollectable, IBossCollideBehaviour
     {
         //Animation
@@ -29,6 +22,8 @@ namespace CrazyArcade.Boss
         private Rectangle[] InputFramesLeft;
         private Rectangle[] InputFramesUp;
         private Rectangle[] InputFramesDown;
+        public Color tint;
+        private Dir[] dirList;
         public override SpriteAnimation SpriteAnim => spriteAnims[(int)direction];
 
         //Life cycle stuff
@@ -53,12 +48,6 @@ namespace CrazyArcade.Boss
         private int xoffset = 4;
         private int yoffset = 4;
 
-        //Out of Use
-        //public Rectangle outputFrame1;
-        private Color tint;//dead
-        private Dir[] dirList;//dead
-        //protected SpriteEffects effect;
-        //public Rectangle inputFrame;
 
         //I Gridable-------------------
         private Vector2 gamePos;
@@ -120,7 +109,7 @@ namespace CrazyArcade.Boss
             //Animation
             texture = TextureSingleton.GetOctoBoss();
             spriteAnims = new SpriteAnimation[4];
-            //Debug.WriteLine("Octo Constructor");
+            tint = Color.White;
         }
 
 
@@ -129,7 +118,6 @@ namespace CrazyArcade.Boss
             base.Load();
             //Load Sprites
             texture = TextureSingleton.GetOctoBoss();
-            spriteAnim = spriteAnims[(int)direction];
             InputFramesRight = new Rectangle[1];
             InputFramesUp = new Rectangle[1];
             InputFramesLeft = new Rectangle[1];
@@ -144,9 +132,13 @@ namespace CrazyArcade.Boss
             direction = Dir.Down;
             dirList = new Dir[4];
             this.spriteAnims[(int)Dir.Up] = new SpriteAnimation(texture, InputFramesUp, fps);
+            this.spriteAnims[(int)Dir.Up].SetColor(tint);
             this.spriteAnims[(int)Dir.Down] = new SpriteAnimation(texture, InputFramesDown, fps);
+            this.spriteAnims[(int)Dir.Down].SetColor(tint);
             this.spriteAnims[(int)Dir.Left] = new SpriteAnimation(texture, InputFramesLeft, fps);
+            this.spriteAnims[(int)Dir.Left].SetColor(tint);
             this.spriteAnims[(int)Dir.Right] = new SpriteAnimation(texture, InputFramesRight, fps);
+            this.spriteAnims[(int)Dir.Right].SetColor(tint);
 
             //Make animation uniform
             foreach (SpriteAnimation anim in this.spriteAnims)
@@ -156,37 +148,28 @@ namespace CrazyArcade.Boss
             }
 
             //State Specific Animation
-            tint = Color.White; // UNUSED
-
             // public SpriteAnimation(Texture2D texture, int startX, int startY, int width, int height, int frames, int offset, int fps) 
             deathAnimation = new SpriteAnimation(texture, 1941, 43, 108, 104, 1, 0, 1);
             deathAnimation.setWidthHeight(108, 104);
             deathAnimation.Position = new Vector2(X, Y);
 
-            //Debug.WriteLine("Octo Load");
         }
 
         public override void Update(GameTime time)
         {
             state.Update(time);
 
-            //Debug.WriteLine("Octo Update (main)");
         }
 
         public void defaultUpdate(GameTime time)
         {
-            // handled animation updated (position and frame) in abstract level
-
+            // movement in normal state only
             SpriteAnim.Position = new Vector2(X, Y);
             xDifference = GameCoord.X - Start.X;
             yDifference = GameCoord.Y - Start.Y;
-            if (state != null)
-            {
-                //this.defaultUpdate(time);
-            }
             if (timer > 1f / 6)
             {
-                if (state is not EnemyDeathState)// or attack state
+                if (state is not EnemyDeathState)
                 {
                     move(direction);
                 }
@@ -198,15 +181,12 @@ namespace CrazyArcade.Boss
             }
             internalRectangle.X = X;
             internalRectangle.Y = Y;
-            //Debug.WriteLine("Oct XY: ("+this.X+","+this.Y+")" );
 
-            //Debug.WriteLine("Octo Default Update");
         }
 
         public void UpdateAnimation(Dir dir)
         {
             this.spriteAnims[(int)direction].Position = new Vector2(X, Y);
-            //Debug.WriteLine("Octo Update Animation");
         }
 
         //IPlayerCollidable Stuff
@@ -218,15 +198,12 @@ namespace CrazyArcade.Boss
         {
             collisionPartner.CollisionDestroyLogic();
             //To show the state only, this line of code needs to be moved once bomb -> enemy collision is implemented to CollisionDestroyLogic 
-
-            //if(collisionPartner is WaterExplosionCenter || collisionPartner is WaterExplosionEdge){
-            if (!justInjured && !(collisionPartner is Character))
+             if (!justInjured && !(collisionPartner is Character))
             {
                 health -= 20;
                 justInjured = true;
                 state = new OctopusWounded(this);
             }
-            //}
         }
 
         protected bool ChangeDir(Dir dir)
@@ -267,7 +244,6 @@ namespace CrazyArcade.Boss
                 else if (dir == Dir.Down && xDifference < squareSize + xoffset && yDifference > (squareSize / 2) + yoffset - 1 && !justAttacked)
                 {
                     justAttacked = true;
-                    //state = new OctopusAttack(this,1);
                     this.squareBlast(); 
                     direction = Dir.Up;
                     UpdateAnimation(dir);
@@ -276,11 +252,9 @@ namespace CrazyArcade.Boss
             }
             GameCoord += SpeedVector[(int)dir];
             justInjured = false;
-            //Debug.WriteLine("Octo Move");
         }
 
         public void shoot() {
-            //change to attacking state aka make still
             //Launch balloons
             Vector2 destination;
             int distance = 2;
@@ -376,66 +350,17 @@ namespace CrazyArcade.Boss
 
         public void HurtBoss()
         {
-            //Debug.WriteLine("Health: " + health);
             if (!justInjured)
             {
-                //Debug.WriteLine("IN IF Health: " + health);
                 health -= 20;
                 justInjured = true;
+                this.spriteAnims[(int)direction].SetColor(Color.Red);
                 state = new OctopusWounded(this);
-                //Debug.WriteLine("health: " + health);
+                this.spriteAnims[(int)direction].SetColor(Color.White);
             }
-
-            //Debug.WriteLine("Octo Hurt Boss");
         }
     }
     //Octopus Specific States
-    public class OctopusAttack : IEnemyState
-    {
-        private OctopusEnemy enemy;
-        private float timer;
-        private float startTimeStamp;
-        private float timeLength = 300.0f;
-        private int attack;
-
-        public OctopusAttack(OctopusEnemy enemy, int attack)
-        {
-            this.enemy = enemy;
-            timer = timeLength; //in milliseconds
-            this.attack = attack;
-        }
-        public void ChangeDirection()
-        {
-
-        }
-
-        public void Update(GameTime time)
-        {
-            float tollerance = 0.0f;
-            if (timer >= timeLength - tollerance && timer <= timeLength + tollerance)
-            {
-                if (attack == 1)
-                {
-                    enemy.squareBlast();
-                }
-                else
-                {
-                    enemy.shoot();
-                }
-                startTimeStamp = (float)time.ElapsedGameTime.Milliseconds;
-                timer -= 1.0f;
-            }
-            else
-            {
-                timer -= 1.0f;
-                if (timer < 1)
-                {
-                    enemy.state = new OctopusNormal(enemy);
-                }
-            }
-            //Debug.WriteLine("Octo Attack Update");
-        }
-    }
     public class OctopusNormal : IEnemyState
     {
         private OctopusEnemy enemy;
@@ -452,7 +377,6 @@ namespace CrazyArcade.Boss
         public void Update(GameTime time)
         {
             enemy.defaultUpdate(time);
-            //Debug.WriteLine("Octo normal update");
         }
     }
     public class OctopusWounded : IEnemyState
@@ -465,7 +389,6 @@ namespace CrazyArcade.Boss
         public OctopusWounded(OctopusEnemy enemy)
         {
             this.enemy = enemy;
-            //enemy.toggleHurtSprites(true);
             timer = timeLength; //in milliseconds
             if (enemy.health <= 0)
             {
@@ -485,16 +408,11 @@ namespace CrazyArcade.Boss
                 timer -= 1.0f;
             }
             else{
-                //timer -= (float)time.ElapsedGameTime.Milliseconds-startTimeStamp;
                 timer -= 1.0f;
                 if (timer < 1.0f){
-                    //enemy.toggleHurtSprites(false);
                     enemy.state = new OctopusNormal(enemy);
-
                 }
             }
-            //Debug.WriteLine("Timer: " + timer);
-            //Debug.WriteLine("Octo wounded update");
         }
     }
     public class OctopusDead : IEnemyState
@@ -535,8 +453,6 @@ namespace CrazyArcade.Boss
                 enemy.spriteAnims[0].Color = Color.White * opacity;
                 timer += 1.0f;
             }
-
-            //Debug.WriteLine("Octo Dead update");
         }
     }
 }
