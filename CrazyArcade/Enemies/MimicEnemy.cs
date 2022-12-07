@@ -72,8 +72,12 @@ namespace CrazyArcade.Enemies
 
         }
 
+		public override void UpdateAnimation()
+		{
+			this.spriteAnims[0].Position = new Vector2(X, Y);
 
-    }
+		}
+	}
 }
 
 
