@@ -2,6 +2,8 @@
 
 using CrazyArcade.Levels;
 using CrazyArcade.GameGridSystems;
+using System.Collections.Generic;
+using System;
 
 namespace CrazyArcade.Levels
 {
@@ -53,6 +55,10 @@ namespace CrazyArcade.Levels
 			PiratePosition,
 			MimicPosition,
 			CyanPosition
+		}
+		public enum FlagEnum
+		{
+			PuzzleFlag
 		}
 
 		public Vector2 GetStartPosition(int[] coord)
@@ -200,5 +206,15 @@ namespace CrazyArcade.Levels
             }
 			return array;
         }
+		public int[] GetFlag(FlagEnum flag)
+		{
+			int[] returnValue = System.Array.Empty<int>();
+			if (flag == FlagEnum.PuzzleFlag)
+			{
+				//perhaps this could be a conditional expression, though it is lost on me
+				returnValue = levelObject.Flags.PuzzleFlag;
+			}
+			return returnValue;
+		}
     }
 }

@@ -18,6 +18,7 @@ namespace CrazyArcade.CAFramework
 		bool IsDoorOpen();
 		void IncreaseEnemyCount();
 		void DecreaseEnemyCount();
+		int GetEnemyCount();
     }
 }
 

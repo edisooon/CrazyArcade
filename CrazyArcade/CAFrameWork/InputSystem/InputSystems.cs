@@ -45,20 +45,28 @@ namespace CrazyArcade.CAFrameWork.InputSystem
         }
 
         public void Update(GameTime time)
-        {
-            inputKeys = new HashSet<int>();
+		{
+			inputKeys = new HashSet<int>();
             foreach(IInput input in inputs)
             {
                 inputKeys.UnionWith(input.GetInputs());
             }
             foreach(IInputController controller in controllers)
             {
-                Dictionary<int, Action> commands = controller.getCommands();
-                foreach(int key in inputKeys)
+                Dictionary<int, Action> commands = controller.GetCommands();
+                Dictionary<CodeRange, Action<int>> rangeCommands = controller.GetRangeCommands();
+				foreach (int key in inputKeys)
                 {
                     if (commands.ContainsKey(key) && commands[key] != null)
                     {
                         commands[key]();
+                    }
+                    foreach(CodeRange range in rangeCommands.Keys)
+                    {
+                        if (range.Contains(key))
+                        {
+                            rangeCommands[range](key);
+						}
                     }
                 }
             }

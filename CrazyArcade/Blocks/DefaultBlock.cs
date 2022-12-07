@@ -10,13 +10,28 @@ using Microsoft.Xna.Framework.Graphics;
 using CrazyArcade.Content;
 using CrazyArcade.Items;
 using CrazyArcade.BombFeature;
+using CrazyArcade.Levels;
 
 namespace CrazyArcade.Blocks
 {
-    public abstract class DefaultBlock : Block
+    public class DefaultBlock : Block
     {
-        public DefaultBlock(Vector2 position, Rectangle sourceRectangle) : base(position, sourceRectangle, Content.TextureSingleton.GetDesertBlocks())
+        public DefaultBlock(Vector2 position, CreateLevel.LevelItem type) : base(position, getSource(type), TextureSingleton.GetDesertBlocks())
         {
+            
+        }
+        private static Rectangle getSource(CreateLevel.LevelItem type)
+        {
+            switch(type)
+            {
+                case CreateLevel.LevelItem.LightTreePosition:
+                    return new Rectangle(10, 127, 63, 80);
+                case CreateLevel.LevelItem.DarkTreePosition:
+                    return new Rectangle(83, 127, 63, 80);
+                //Default is Rock
+                default:
+                    return new Rectangle(110, 10, 40, 47);
+            }
         }
     }
 

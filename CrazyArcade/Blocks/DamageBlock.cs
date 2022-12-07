@@ -1,4 +1,5 @@
 ﻿using CrazyArcade.Items;
+using CrazyArcade.Levels;
 using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
@@ -8,34 +9,21 @@ using System.Threading.Tasks;
 
 namespace CrazyArcade.Blocks
 {
-    public abstract class DamageBlock : Block
+    public class DamageBlock : Block
     {
-        public DamageBlock(Vector2 position, Rectangle sourceRectangle) : base(position, sourceRectangle, Content.TextureSingleton.GetDesertBlocks())
-        {
-
-        }
-    }
-    public class Cactus : DamageBlock
-    {
-        private static Rectangle source = new Rectangle(11, 230, 38, 56);
-        public Cactus(Vector2 position) : base(position, source)
-        {
-            
-        }
-    }
-    public class FlowerCactus : DamageBlock
-    {
-        private static Rectangle source = new Rectangle(61, 227, 38, 59);
-        public FlowerCactus(Vector2 position) : base(position, source)
+        public DamageBlock(Vector2 position, CreateLevel.LevelItem type) : base(position, getSource(type), Content.TextureSingleton.GetDesertBlocks())
         {
         }
-    }
-    public class LightFlowerCactus : DamageBlock
-    {
-        private static Rectangle source = new Rectangle(111, 227, 38, 59);
-        public LightFlowerCactus(Vector2 position) : base(position, source)
+        private static Rectangle getSource(CreateLevel.LevelItem type)
         {
-
+            //Flower Cactus = new Rectangle(61, 227, 38, 59);
+            //Light Flower Cactus = new Rectangle(111, 227, 38, 59);
+            switch (type)
+            {
+                //Default is Cactus
+                default:
+                    return new Rectangle(11, 230, 38, 56);
+            }
         }
     }
 }

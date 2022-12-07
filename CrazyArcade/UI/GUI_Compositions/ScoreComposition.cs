@@ -17,7 +17,7 @@ namespace CrazyArcade.UI.GUI_Compositions
             AddComponent(box);
             name = "score";
             AddComponent(new GUIText("scoreText", "Score: 0"));
-            SetPosition(new Vector2(700, 0));
+            SetPosition(new Vector2(CAGame.ScreenSize.X - 100, 0));
 
         }
     }

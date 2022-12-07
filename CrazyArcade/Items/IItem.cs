@@ -10,6 +10,7 @@ using Microsoft.Xna.Framework;
 using CrazyArcade.GameGridSystems;
 using CrazyArcade.BombFeature;
 using CrazyArcade.CAFrameWork.GridBoxSystem;
+using System.Diagnostics;
 
 namespace CrazyArcade.Items
 {
@@ -23,6 +24,7 @@ namespace CrazyArcade.Items
         //----------IGridable Start------------
         private Vector2 gamePos;
         private Vector2 pos;
+       
         public override Vector2 ScreenCoord
         {
             get => pos;
@@ -62,6 +64,7 @@ namespace CrazyArcade.Items
         //----------IGridable End------------
         protected Rectangle hitbox;
         protected SpriteAnimation spriteAnimation;
+        public bool canExplode = true;
         //protected ISceneDelegate parentScene;
         public Item(Vector2 position, Rectangle source, Texture2D texture, int frames, int fps)
             : base(new GridBoxPosition((int)position.X, (int)position.Y, (int)GridObjectDepth.Item))
@@ -93,6 +96,7 @@ namespace CrazyArcade.Items
 
         public bool Collide(IExplosion bomb)
         {
+            if (!canExplode) return true;
             DeleteSelf();
             return true;
         }
