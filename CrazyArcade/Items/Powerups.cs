@@ -131,11 +131,10 @@ namespace CrazyArcade.Items
     }
     public class Coin : Item
     {
-        public static Rectangle source = new Rectangle(0, 0, 60, 60);
+        private static Rectangle source = new Rectangle(0, 0, 60, 60);
         public Coin(Vector2 position) : base(position, source, Content.TextureSingleton.GetCoin(), 10, 10)
         {
             canExplode = false;
-            Debug.WriteLine("Coin Made at " + GameCoord);
         }
         public override void CollisionLogic(Rectangle overlap, IPlayerCollisionBehavior collisionPartner)
         {
@@ -150,7 +149,7 @@ namespace CrazyArcade.Items
     }
     public class KickBoot : Item
     {
-        public static Rectangle source = new Rectangle(0, 0, 42, 46);
+        private static Rectangle source = new Rectangle(0, 0, 42, 46);
         public KickBoot(Vector2 position) : base(position, source, Content.TextureSingleton.GetKick(), 3, 10)
         {
 
