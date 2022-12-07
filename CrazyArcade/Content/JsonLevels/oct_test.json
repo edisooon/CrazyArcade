@@ -1,55 +1,62 @@
 {
-    "Background": [ 102, 0, 153 ],
-    "Border": [ 13, 13 ],
-    "Blocks": {
-        "Door": [
-            [ 11, 11 ],
-            [ 8, 3 ]
-        ],
-        "LightSand": [
-        ],
-        "DarkSand": [
-        ],
-        "Stone": [
-        ],
-        "Cactus": [
-        ],
-        "DarkTree": [
-        ],
-        "LightTree": [
-        ]
-    },
-    "Items": {
-        "CoinBag": [
-        ],
-        "Balloon": [
-        ],
-        "Sneaker": [
-        ],
-        "Turtle": [
-        ],
-        "Potion": [
-        ],
-        "Coin": [
-        ]
+  "Background": [ 102, 0, 153 ],
+  "Border": [ 13, 13 ],
+  "Blocks": {
+    "Door": [
+      [ 11, 11 ],
+      [ 8, 3 ]
+    ],
+    "LightSand": [
+    ],
+    "DarkSand": [
+    ],
+    "Stone": [
+    ],
+    "Cactus": [
+    ],
+    "DarkTree": [
+    ],
+    "LightTree": [
+    ]
+  },
+  "Items": {
+    "CoinBag": [
+    ],
+    "Balloon": [
+    ],
+    "Sneaker": [
+    ],
+    "Turtle": [
+    ],
+    "Potion": [
+    ],
+    "Coin": [
+    ]
 
-    },
-    "Player": [ 0, 0 ],
-    "Enemies": {
-        "Bomb": [
-        ],
-        "Squid": [
-        ],
-        "Bat": [
-        ],
-        "Robot": [
-        ]
-    },
-    "Boss": {
-      "Sun": [
-        [ 4, 7 ]
-      ],
-        "Octo": [
-        ]
-    }
+  },
+  "Player": [ 0, 0 ],
+  "Pirate": [],
+  "Enemies": {
+    "Bomb": [
+    ],
+    "Squid": [
+    ],
+    "Bat": [
+    ],
+    "Robot": [
+    ],
+    "Mimic": [
+
+    ]
+  },
+  "Boss": {
+    "Sun": [
+      [ 4, 7 ]
+    ],
+    "Octo": [
+    ]
+  },
+  "Flags": {
+    "PuzzleFlag": [ 0, 0, 0 ]
+  }
 }

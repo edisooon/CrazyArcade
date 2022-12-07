@@ -19,27 +19,39 @@ namespace CrazyArcade.PlayerStateMachine
         private PlayerBubble bubble;
         private float elapsedTime = 0f;
         private float popTime = 3000f;
-        public CharacterStateBubble(Character character)
+        private bool isPirate;
+        public CharacterStateBubble(Character character, bool isPirate)
         {
+            this.isPirate = isPirate;
             this.character = character;
             character.animationHandleInt = 0;
             bubble = new PlayerBubble(character, character.parentScene);
+            character.spriteAnims = SetSprites();
+            character.ModifiedSpeed = 2;
             character.SceneDelegate.ToAddEntity(bubble);
-        }
-        public bool ProcessAttaction()
-        {
-            //can't
-            return false;
+
         }
 
-        public void ProcessItem()
+        public bool CouldGetItem { get => false; }
+
+        public bool CouldPutBomb { get => false; }
+
+        public void ProcessAttaction()
         {
-            //nope
+            //player wouldn't take attaction any more when in bubble state
         }
 
-        public void ProcessRide()
+        public void ProcessItem(string itemName)
         {
-            //Nope
+            if (itemName == "needle")
+            {
+                NeedleItem();
+            }
+        }
+
+        public void ProcessRide(RideType type)
+        {
+            //player cannot get a ride when in bubble state
         }
 
         public void ProcessState(GameTime time)
@@ -48,31 +60,31 @@ namespace CrazyArcade.PlayerStateMachine
             character.UpdatePosition();
             if (elapsedTime > popTime)
             {
-                character.playerState = new CharacterStateFree(character);
-                character.spriteAnims = character.playerState.SetSprites();
+                character.playerState = new CharacterStateFree(character, isPirate);
                 bubble.bubbleInt = 2;
-                character.playerState.SetSpeed();
                 character.lives--;
-                UI_Singleton.ChangeComponentText("lifeCounter", "count", "Lives: " + character.lives);
+                if (!isPirate) UI_Singleton.ChangeComponentText("lifeCounter", "count", "Lives: " + character.lives);
                 if (character.lives == 0)
                 {
-                    character.SceneDelegate.EndGame();
+                    character.playerState = new CharacterStateDie(this.character, isPirate);
                 }
             }
             elapsedTime += (float)time.ElapsedGameTime.TotalMilliseconds;
         }
 
-        public int SetSpeed()
-        {
-            character.ModifiedSpeed = 2;
-            return 1;
-        }
-
         public SpriteAnimation[] SetSprites()
         {
             SpriteAnimation[] newSprites = new SpriteAnimation[1];
-            newSprites[0] = new SpriteAnimation(TextureSingleton.GetPlayer1(), 12, 389, 44, 56, 2, 4, 10);
+            newSprites[0] = new SpriteAnimation(TextureSingleton.GetPlayer(isPirate), 12, 389, 44, 56, 2, 4, 10);
             return newSprites;
+        }
+        private void NeedleItem()
+        {
+            if (character.needles <= 0) return;
+            character.needles--;
+            UI_Singleton.ChangeComponentText("needle", "itemCount", "X" + character.needles);
+            character.playerState = new CharacterStateFree(character, isPirate);
+            bubble.bubbleInt = 2;
         }
     }
 }

@@ -19,7 +19,7 @@ namespace CrazyArcade.Boss
     //  Add wounded animations
     //  Define movement pattern
     //}
-    public class OctopusEnemy : CAEntity, IGridable, IPlayerCollidable, IBombCollectable, IBossCollideBehaviour
+    public class OctopusEnemy : EnemyEntity, IGridable, IPlayerCollidable, IBombCollectable, IBossCollideBehaviour
     {
         //Animation
         private Texture2D texture;
@@ -126,6 +126,7 @@ namespace CrazyArcade.Boss
 
         public override void Load()
         {
+            base.Load();
             //Load Sprites
             texture = TextureSingleton.GetOctoBoss();
             spriteAnim = spriteAnims[(int)direction];

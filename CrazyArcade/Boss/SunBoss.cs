@@ -5,10 +5,11 @@ using Microsoft.Xna.Framework;
 using CrazyArcade.GameGridSystems;
 using CrazyArcade.BombFeature;
 using CrazyArcade.Blocks;
+using CrazyArcade.Enemies;
 
 namespace CrazyArcade.Boss
 {
-	public class SunBoss: CAEntity, ISunBossDelegate, IGridable, IBossCollideBehaviour, IPlayerCollidable
+	public class SunBoss: EnemyEntity, ISunBossDelegate, IGridable, IBossCollideBehaviour, IPlayerCollidable
     {
         //----------------Test purpose-------------------
         ITimer timer;
@@ -67,6 +68,7 @@ namespace CrazyArcade.Boss
 
         public override void Load()
         {
+            base.Load();
             states = new SunBossStartStates(this, new GameTime());
         }
 

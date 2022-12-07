@@ -27,8 +27,8 @@ namespace CrazyArcade.Enemies
         }
         public override void Load()
         {
+            base.Load();
             texture = TextureSingleton.GetBombEnemy();
-            direction = Dir.Down;
 
 
             InputFramesRight = new Rectangle[3];
@@ -83,10 +83,6 @@ namespace CrazyArcade.Enemies
         };
 
 
-        void updateCoord()
-        {
-
-        }
 
 
 

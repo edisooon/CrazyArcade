@@ -1,6 +1,5 @@
 ﻿using System;
 
-using CrazyArcade.CAFramework.Controller;
 using CrazyArcade.Singletons;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -16,24 +15,39 @@ using CrazyArcade.PlayerStateMachine;
 
 namespace CrazyArcade.Demo1
 {
-    public abstract class CharacterBase : CAEntity, IGridable, IPlayer
+    public abstract class CharacterBase : CAEntity, IGridable, IPlayer, IBombCollectable
     {
-        public float DefaultSpeed = 5;
+        public float DefaultSpeed = 3;
+        public bool isPirate;
         public float ModifiedSpeed;
         public Vector2 CurrentSpeed = new(0, 0);
-        public ItemContainer playerItems = new();
+        public int CurrentBlastLength { get => playerItems.BlastModifier; set { playerItems.BlastModifier = value; } }
+        public int BombCapacity { get => playerItems.BombModifier; set { playerItems.BombModifier = value; } }
+        //public int FreeModifiedSpeed { get => playerItems.SpeedModifier; }
+        protected int bombOut = 0;
+        public int BombsOut => bombOut;
+
+        public ItemContainer playerItems;
         public bool CouldKick { get => playerItems.CanKick; }
         public int defaultBlastLength = 1;
         public Vector2 moveInputs = new(0, 0);
         private int blockLength = CAGameGridSystems.BlockLength;
         protected Rectangle blockBoundingBox = new Rectangle(0, 0, CAGameGridSystems.BlockLength, CAGameGridSystems.BlockLength);
-        protected Point bboxOffset = new Point(3, 20);
+        public Point bboxOffset = new Point(3, 20);
         protected bool blockBboxOn = true;
         public Dir direction = Dir.Down;
         public Dir Direction => direction;
         public IGridBoxManager manager;
         public IGridBoxManager Manager { get => manager; set => manager = value; }
 
+        //public float xOffset = 0;
+        //public float yOffset = 0;
+
+        public CharacterBase(bool isPirate)
+        {
+            this.isPirate = isPirate;
+            playerItems = new(isPirate);
+        }
 
         //----------IGridable Start------------
         private Vector2 gamePos;
@@ -68,6 +82,20 @@ namespace CrazyArcade.Demo1
         public Rectangle blockCollisionBoundingBox => blockBoundingBox;
 
         public bool Active { get => blockBboxOn; set { blockBboxOn = value; } }
+
+        //@Implement IBombCollectable
+        public void RecollectBomb()
+        {
+            bombOut = bombOut-- >= 0 ? bombOut-- : 0;
+            Console.WriteLine("Recollect: " + BombsOut);
+        }
+
+        public void SpendBomb()
+        {
+            bombOut++;
+            Console.WriteLine("Spend: " + BombsOut);
+        }
+
 
         public override void Update(GameTime time)
         {
@@ -194,6 +222,13 @@ namespace CrazyArcade.Demo1
         public void CalculateMovement()
         {
             CurrentSpeed = moveInputs * ModifiedSpeed;
+        }
+
+        protected bool putBomb()
+        {
+            if (this.BombsOut >= this.BombCapacity) return false;
+            this.SceneDelegate.ToAddEntity(new WaterBomb(this.GameCoord, this.CurrentBlastLength, this));
+            return true;
         }
     }
 }

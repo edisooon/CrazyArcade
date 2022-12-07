@@ -30,6 +30,7 @@ public class CAGame : Game, IGameDelegate, ITransitionCompleteHandler
     public ReadJSON map;
     public String[] LevelSongTitles;
     public Song song;
+    private static Point ScreenSizeVals = new(900, 600);
     //Random for test purposes and counter
     //load
     Random rnd = new Random();
@@ -55,7 +56,12 @@ public class CAGame : Game, IGameDelegate, ITransitionCompleteHandler
         get { return scene; }
         set { scene = value; }
     }
-    public void NewInstance()
+    public void StartGame()
+    {
+        scene = new DemoScene(this, "Level_0.json", StageOffset);
+        base.Initialize();
+    }
+    public void NewGame()
     {
         this.Initialize();
     }
@@ -63,12 +69,14 @@ public class CAGame : Game, IGameDelegate, ITransitionCompleteHandler
     {
         base.Exit();
     }
+    public static Point ScreenSize { get { return ScreenSizeVals; } }
     protected override void Initialize()
     {
         gameGUI = new GUI();
         UI_Singleton.internalGUI = gameGUI;
-        scene = new DemoScene(this, "Level_0.json", StageOffset);
+        //scene = new DemoScene(this, "Level_0.json", StageOffset);
         TextureSingleton.LoadAllTextures(Content);
+        scene = new MainMenuScene(this);
         //TestLoad guiLoad = new TestLoad();
         //guiLoad.LoadGUI();
         song = Content.Load<Song>("playground");
@@ -79,8 +87,8 @@ public class CAGame : Game, IGameDelegate, ITransitionCompleteHandler
         transitionNum = 0;
         stageNum = 0;
         //_graphics.IsFullScreen = true;
-        _graphics.PreferredBackBufferWidth = 900;
-        _graphics.PreferredBackBufferHeight = 600;
+        _graphics.PreferredBackBufferWidth = ScreenSize.X;
+        _graphics.PreferredBackBufferHeight = ScreenSize.Y;
         _graphics.ApplyChanges();
         base.Initialize();
         
@@ -88,8 +96,6 @@ public class CAGame : Game, IGameDelegate, ITransitionCompleteHandler
 
     protected override void LoadContent()
     {
-        
-        //Load it here
         _spriteBatch = new SpriteBatch(GraphicsDevice);
 
         LevelSongTitles = new string[] { "playground", "comical", "bridge", "dream", "kodama", "worldbeat", "funtimes", "funtimes", "comical" };
@@ -98,7 +104,7 @@ public class CAGame : Game, IGameDelegate, ITransitionCompleteHandler
         CurrentLevel = test.levelObject;
         map = new ReadJSON("Map.json", ReadJSON.fileType.MapFile);
         levelFileNames = map.mapObject.Levels;
-        new TestLoad().LoadGUI();
+        new DefaultLoad().LoadGUI();
         UI_Singleton.ChangeComponentText("levelCounter", "text", "Level " + stageNum);
         scene.Load();
     }
@@ -120,20 +126,13 @@ public class CAGame : Game, IGameDelegate, ITransitionCompleteHandler
             makeTransition(gameTime, transitionDisplacement);
         } else
         {
-            if (Mouse.GetState().LeftButton == ButtonState.Pressed && stageNum > 0)
+            if (Keyboard.GetState().IsKeyDown(Keys.OemMinus) && stageNum > 0)
             {
                 stageNum--;
                 transitionNum = stageNum;
                 makeTransition(gameTime, -transitionDisplacement);
-
-                //MediaPlayer.Stop();
-                //song = Content.Load<Song>(LevelSongTitles[stageNum]);
-                //MediaPlayer.Play(song);
-
-                //new TestLoad().LoadGUI();
-                //UI_Singleton.ChangeComponentText("levelCounter", "text", "Level " + stageNum);
             }
-            else if (Mouse.GetState().RightButton == ButtonState.Pressed && stageNum < levelFileNames.Length-1)
+            else if (Keyboard.GetState().IsKeyDown(Keys.OemPlus) && stageNum < levelFileNames.Length-1)
             {
                 
                 stageNum++;
@@ -150,13 +149,13 @@ public class CAGame : Game, IGameDelegate, ITransitionCompleteHandler
     {
 
         //Begin save
-        LevelPersnstance saveData = scene.GetData(); 
+        LevelPersistence saveData = scene.GetData(); 
 
         MediaPlayer.Stop();
         song = Content.Load<Song>(LevelSongTitles[stageNum]);
         MediaPlayer.Play(song);
 
-        new TestLoad().LoadGUI();
+        new DefaultLoad().LoadGUI();
         UI_Singleton.ChangeComponentText("levelCounter", "text", "Level " + stageNum);
         ISceneState newState = new DemoScene(this, levelFileNames[stageNum], StageOffset);
         newState.Load();

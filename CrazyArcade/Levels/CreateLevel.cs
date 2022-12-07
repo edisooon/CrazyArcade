@@ -1,11 +1,9 @@
-﻿using System;
-using System.Text.Json;
-using System.IO;
-using System.Diagnostics;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 
 using CrazyArcade.Levels;
 using CrazyArcade.GameGridSystems;
+using System.Collections.Generic;
+using System;
 
 namespace CrazyArcade.Levels
 {
@@ -53,7 +51,13 @@ namespace CrazyArcade.Levels
 			TurtlePosition,
 			PotionPosition,
 			CoinPosition,
-			KickPosition
+			KickPosition,
+			PiratePosition,
+			MimicPosition
+		}
+		public enum FlagEnum
+		{
+			PuzzleFlag
 		}
 
 		public Vector2 GetStartPosition(int[] coord)
@@ -171,7 +175,12 @@ namespace CrazyArcade.Levels
                 case (int)LevelItem.KickPosition:
                     array = GetStartPositionArray(levelObject.Items.Kick);
                     break;
-
+				case (int)LevelItem.PiratePosition:
+					array = GetStartPositionArray(levelObject.Pirate);
+					break;
+                case (int)LevelItem.MimicPosition:
+                    array = GetStartPositionArray(levelObject.Enemies.Mimic);
+                    break;
                 default:
 
 					break;
@@ -192,5 +201,15 @@ namespace CrazyArcade.Levels
             }
 			return array;
         }
+		public int[] GetFlag(FlagEnum flag)
+		{
+			int[] returnValue = System.Array.Empty<int>();
+			if (flag == FlagEnum.PuzzleFlag)
+			{
+				//perhaps this could be a conditional expression, though it is lost on me
+				returnValue = levelObject.Flags.PuzzleFlag;
+			}
+			return returnValue;
+		}
     }
 }

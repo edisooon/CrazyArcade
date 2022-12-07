@@ -66,9 +66,12 @@ public class LevelSchema
 
     public int[] Player { get; set; }
 
-    public LevelEnemies Enemies { get; set; }
+	public int[][] Pirate { get; set; }
+
+	public LevelEnemies Enemies { get; set; }
 
     public LevelBoss Boss { get; set; }
+    public LevelFlags Flags { get; set; }
 }
 
 public class LevelBlocks
@@ -102,6 +105,8 @@ public class LevelEnemies
     public int[][] Bat { get; set; }
 
     public int[][] Robot { get; set; }
+
+    public int[][] Mimic { get; set; }
 }
 
 public class LevelItems
@@ -120,4 +125,8 @@ public class LevelItems
     public int[][] Coin { get; set; }
 
     public int[][] Kick { get; set; }
+}
+public class LevelFlags
+{
+    public int[] PuzzleFlag { get; set; }
 }
