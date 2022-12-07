@@ -20,6 +20,7 @@ namespace CrazyArcade.BombFeature
         int Direction;
         bool head;
         int living;
+        IBombCollectable owner;
         private SpriteAnimation[] spriteAnims;
         public override SpriteAnimation SpriteAnim => spriteAnims[living];
 
@@ -27,13 +28,14 @@ namespace CrazyArcade.BombFeature
 
         public Rectangle internalRectangle;
 
-        public WaterExplosionEdge(int direction, bool head, int X = 0, int Y = 0)
+        public WaterExplosionEdge(int direction, bool head, IBombCollectable owner , int X = 0, int Y = 0)
         {
             spriteAnims = new SpriteAnimation[2];
             this.X = X;
             this.Y = Y;
             Lifespan = 100;
             AliveTime = 0;
+            this.owner = owner;
             living = 0;
             Direction = direction;
             this.head = head;
@@ -108,7 +110,10 @@ namespace CrazyArcade.BombFeature
 
         public void Collide(IBossCollideBehaviour boss)
         {
-            boss.HurtBoss();
+            if (!(this.owner is OctopusEnemy  && boss is OctopusEnemy))
+            {
+                boss.HurtBoss();
+            }
         }
 
         //public void CollisionLogic(Rectangle overlap, IPlayerCollisionBehavior collisionPartner)

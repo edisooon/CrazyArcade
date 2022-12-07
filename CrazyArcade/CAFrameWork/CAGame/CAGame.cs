@@ -32,8 +32,9 @@ public class CAGame : Game, IGameDelegate, ITransitionCompleteHandler
     public Song song;
     private static Point ScreenSizeVals = new(900, 600);
     //Random for test purposes and counter
+    //load
     Random rnd = new Random();
-    int newElements = 0;
+    int newElements = 0+0;
     //
     private ITransition transition = null;
     string[] levelFileNames;
