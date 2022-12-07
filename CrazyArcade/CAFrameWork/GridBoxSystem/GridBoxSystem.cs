@@ -61,11 +61,16 @@ namespace CrazyArcade.CAFrameWork.GridBoxSystem
         }
         public void RemoveAll()
         {
+            boxOccupies = new List<IBoxOccupy>();
             map = new Dictionary<GridBoxPosition, IGridBox>();
         }
 
         public void RemoveSprite(IEntity sprite)
         {
+            if (sprite is IBoxOccupy)
+            {
+                boxOccupies.Remove(sprite as IBoxOccupy);
+            }
             if (sprite is IGridBox)
             {
                 IGridBox gridBox = (sprite as IGridBox);

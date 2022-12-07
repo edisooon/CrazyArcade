@@ -20,7 +20,11 @@ namespace CrazyArcade.Blocks
         {
             
         }
-        private static Rectangle getSource(CreateLevel.LevelItem type)
+		public DefaultBlock(Vector2 position, Rectangle rectangle) : base(position, rectangle, TextureSingleton.GetDesertBlocks())
+		{
+
+		}
+		private static Rectangle getSource(CreateLevel.LevelItem type)
         {
             switch(type)
             {

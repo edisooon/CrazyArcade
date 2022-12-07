@@ -157,11 +157,7 @@ namespace CrazyArcade.Levels
                 Entity = new DamageBlock(vector, LevelItem.CactusPosition);
                 Entity.SpriteAnim.Scale = .9f;
                 EntityList.Add(Entity);
-            }
-
-				Entity = new Cactus(vector);
-				Entity.SpriteAnim.Scale = scale;
-				EntityList.Add(Entity);
+            
 			}
 			itemLocations = currentLevel.GetItemLocation(CreateLevel.LevelItem.CyanPosition);
 
