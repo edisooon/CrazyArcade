@@ -30,6 +30,10 @@ namespace CrazyArcade.BombFeature
         private Vector2[] move;
         private bool isMoving = false;
         IBombCollectable owner;
+
+        //Bomb color timer
+        private int[] colorArr = new int[3] { 255, 255, 255 };
+        //End bomb color timer
         public override SpriteAnimation SpriteAnim => spriteAnims;
         public HashSet<IPlayerCollisionBehavior> hasNotLeft;
 
@@ -88,7 +92,8 @@ namespace CrazyArcade.BombFeature
             this.owner = character;
             AnimationFrames = GetAnimationFrames();
             DetonateTime = 0;
-            DetonateTimer = 3000;
+            //DetonateTimer = 1450;
+            DetonateTimer = 1812;
             this.spriteAnims = new SpriteAnimation(TextureSingleton.GetBallons(), AnimationFrames, 8);
             this.spriteAnims.SetScale(CAGameGridSystems.BlockLength*1.08f / 42f);
             this.spriteAnims.Position = new Vector2(0, 4);
@@ -161,6 +166,9 @@ namespace CrazyArcade.BombFeature
             else
             {
                 DetonateTime += (float)time.ElapsedGameTime.TotalMilliseconds;
+                this.SpriteAnim.SetColor(new Color(colorArr[0], colorArr[1], colorArr[2]));
+                colorArr[1] -= 1;
+                colorArr[2] -= 1;
             }
         }
 

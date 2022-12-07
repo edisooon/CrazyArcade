@@ -104,7 +104,7 @@ namespace CrazyArcade.Levels
             foreach (Vector2 vector in itemLocations)
             {
 
-                Entity = new BreakableBlock(Scene, vector, LevelItem.LightSandPosition);
+                Entity = new BreakableBlock(vector, LevelItem.LightSandPosition);
                 Entity.SpriteAnim.Scale = scale;
                 EntityList.Add(Entity);
             }
@@ -114,7 +114,7 @@ namespace CrazyArcade.Levels
             foreach (Vector2 vector in itemLocations)
             {
                 
-                Entity = new BreakableBlock(Scene, vector, LevelItem.DarkSandPosition);
+                Entity = new BreakableBlock(vector, LevelItem.DarkSandPosition);
                 Entity.SpriteAnim.Scale = scale;
                 EntityList.Add(Entity);
             }
@@ -133,7 +133,7 @@ namespace CrazyArcade.Levels
             foreach (Vector2 vector in itemLocations)
             {
                 
-                Entity = new DefaultBlock(vector, LevelItem.LightSandPosition);
+                Entity = new Tree(vector, LevelItem.LightSandPosition);
                 Entity.SpriteAnim.Scale = scale;
                 EntityList.Add(Entity);
             }
@@ -143,7 +143,7 @@ namespace CrazyArcade.Levels
             foreach (Vector2 vector in itemLocations)
             {
                 
-                Entity = new DefaultBlock(vector, LevelItem.DarkTreePosition);
+                Entity = new Tree(vector, LevelItem.DarkTreePosition);
                 Entity.SpriteAnim.Scale = .9f;
                 EntityList.Add(Entity);
             }
@@ -158,8 +158,43 @@ namespace CrazyArcade.Levels
                 Entity.SpriteAnim.Scale = .9f;
                 EntityList.Add(Entity);
             }
+            itemLocations = currentLevel.GetItemLocation(CreateLevel.LevelItem.BlueVendingPosition);
 
-            itemLocations = currentLevel.GetItemLocation(CreateLevel.LevelItem.CoinBagPosition);
+            foreach (Vector2 vector in itemLocations)
+            {
+
+                Entity = new DefaultBlock(vector, LevelItem.BlueVendingPosition);
+                Entity.SpriteAnim.Scale = .9f;
+                EntityList.Add(Entity);
+            }
+            itemLocations = currentLevel.GetItemLocation(CreateLevel.LevelItem.RedVendingPosition);
+
+            foreach (Vector2 vector in itemLocations)
+            {
+
+                Entity = new DefaultBlock(vector, LevelItem.RedVendingPosition);
+                Entity.SpriteAnim.Scale = .9f;
+                EntityList.Add(Entity);
+            }
+            itemLocations = currentLevel.GetItemLocation(CreateLevel.LevelItem.OrangeVendingPosition);
+
+            foreach (Vector2 vector in itemLocations)
+            {
+
+                Entity = new DefaultBlock(vector, LevelItem.OrangeVendingPosition);
+                Entity.SpriteAnim.Scale = .9f;
+                EntityList.Add(Entity);
+            }
+            
+			itemLocations = currentLevel.GetItemLocation(CreateLevel.LevelItem.CyanPosition);
+
+			foreach (Vector2 vector in itemLocations)
+			{
+				Entity = new CyanCrate(vector);
+				Entity.SpriteAnim.Scale = .9f;
+				EntityList.Add(Entity);
+			}
+			itemLocations = currentLevel.GetItemLocation(CreateLevel.LevelItem.CoinBagPosition);
 
             foreach (Vector2 vector in itemLocations)
             {

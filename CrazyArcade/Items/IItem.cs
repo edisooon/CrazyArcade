@@ -124,7 +124,7 @@ namespace CrazyArcade.Items
             }
         }
 
-        public static Item Random(Vector2 pos)
+        public static Func<Vector2, IItem> Random()
         {
             List<int> keys = RandList.Keys.ToList();
             keys.Sort();
@@ -134,7 +134,7 @@ namespace CrazyArcade.Items
             foreach (int key in keys)
             {
                 if (key > number)
-                    return randList[key](pos);
+                    return (Vector2 pos) => randList[key](pos);
             }
             return null;
         }
