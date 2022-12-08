@@ -111,9 +111,9 @@ namespace CrazyArcade.Items
                 {
                     randList = new Dictionary<int, Func<Vector2, Item>>();
                     randList[5] = (pos) => new CoinBag(pos);   //0-5  (5%)
-                    randList[20] = (pos) => new Balloon(pos);   //5-20 (15%)
-                    randList[25] = (pos) => new KickBoot(pos);
-                    randList[30] = (pos) => new Sneaker(pos);
+                    randList[30] = (pos) => new Balloon(pos);   //5-20 (15%)
+                    randList[35] = (pos) => new KickBoot(pos);
+                    randList[40] = (pos) => new Sneaker(pos);
                     randList[60] = (pos) => new Potion(pos);
                     randList[70] = (pos) => new Coin(pos);
 					randList[80] = (pos) => new Turtle(pos);

@@ -69,6 +69,7 @@ namespace CrazyArcade.Boss
         public override void Load()
         {
             base.Load();
+            DrawOrder = 100f;
             states = new SunBossStartStates(this, new GameTime());
         }
 
