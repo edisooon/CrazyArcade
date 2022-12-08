@@ -79,6 +79,17 @@
         "DarkTree": [
         ],
         "LightTree": [
+        ],
+        "Cyan": [
+        ],
+        "BlueVending": [
+
+        ],
+        "RedVending": [
+
+        ],
+        "OrangeVending": [
+
         ]
     },
   "Items": {
@@ -112,9 +123,9 @@
         [ 0, 9 ]
     ]
 
-  },
-  "Player": [ 0, 0 ],
-  "Pirate": [],
+    },
+    "Player": [ 0, 0 ],
+    "Pirate": [],
   "Enemies": {
     "Bomb": [
     ],
@@ -133,13 +144,10 @@
     "Mimic": [
     ]
   },
-  "Boss": {
-    "Sun": [
-    ],
-    "Octo": [
-    ]
-  },
-  "Flags": {
-    "PuzzleFlag": [ 0, 3, 3 ]
-  }
+    "Boss": {
+        "Sun": [
+        ],
+        "Octo": [
+        ]
+    }
 }

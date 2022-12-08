@@ -1,4 +1,4 @@
-﻿using CrazyArcade.Demo1;
+﻿using CrazyArcade.Final;
 using CrazyArcade.Items;
 using CrazyArcade.CAFramework;
 using Microsoft.Xna.Framework;
@@ -110,7 +110,7 @@ namespace CrazyArcade.Blocks
     //        }
     //        if (current.IsKeyDown(Keys.R))
     //        {
-    //            scene.gameRef.scene = new DemoScene(scene.gameRef, "Level_0.json");
+    //            scene.gameRef.scene = new FinalScene(scene.gameRef, "Level_0.json");
     //            scene.gameRef.scene.Load();
     //        }
     //    }

@@ -1,7 +1,7 @@
 ﻿using System;
 using CrazyArcade.BombFeature;
 using CrazyArcade.CAFramework;
-using CrazyArcade.Demo1;
+using CrazyArcade.Final;
 using CrazyArcade.GameGridSystems;
 using Microsoft.Xna.Framework;
 using CrazyArcade.Items;
@@ -13,6 +13,7 @@ using CrazyArcade.UI;
 using CrazyArcade.UI.GUI_Compositions;
 using CrazyArcade.CAFrameWork.Transition;
 using CrazyArcade.UI.GUI_Components;
+using CrazyArcade.CAFrameWork.SoundEffectSystem;
 
 namespace CrazyArcade.PlayerStateMachine
 {

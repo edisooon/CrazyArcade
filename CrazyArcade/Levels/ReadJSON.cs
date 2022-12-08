@@ -85,7 +85,12 @@ public class LevelBlocks
     public int[][] Cactus { get; set; }
     public int[][] DarkTree { get; set; }
     public int[][] LightTree { get; set; }
-    
+    public int[][] BlueVending { get; set; }
+    public int[][] RedVending { get; set; }
+    public int[][] OrangeVending { get; set; }
+
+	public int[][] Cyan { get; set; }
+
 
 }
 

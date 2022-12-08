@@ -21,13 +21,12 @@ using CrazyArcade.CAFrameWork.GameStates;
 using CrazyArcade.CAFrameWork.InputSystem;
 using CrazyArcade.UI;
 using CrazyArcade.CAFrameWork.SoundEffectSystem;
-using CrazyArcade.Pirates;
 using CrazyArcade.CAFrameWork.DoorUtils;
 using Microsoft.Xna.Framework.Input;
 
-namespace CrazyArcade.Demo1
+namespace CrazyArcade.Final
 {
-    public class DemoScene : CAScene
+    public class FinalScene : CAScene
     {
         Level level;
         string fileName;
@@ -47,7 +46,7 @@ namespace CrazyArcade.Demo1
             }
         }
         
-        public DemoScene(IGameDelegate game, string fileName, Vector2 stageOffset)
+        public FinalScene(IGameDelegate game, string fileName, Vector2 stageOffset)
         {
             base.StageOffset = stageOffset;
             this.fileName = fileName;
@@ -91,12 +90,13 @@ namespace CrazyArcade.Demo1
             //this.AddSprite(new PirateCharacter());
             this.AddSprite(new InputManager(getCommands()));
         }
+        private bool EscapePressed = false;
         private Dictionary<int, Action> getCommands()
         {
             Dictionary<int, Action> commands = new Dictionary<int, Action>();
             commands[KeyBoardInput.KeyDown(Keys.Escape)] = TogglePause;
-            commands[KeyBoardInput.KeyDown(Keys.V)] = Victory;
-            commands[KeyBoardInput.KeyDown(Keys.O)] = EndGame;
+            /*commands[KeyBoardInput.KeyDown(Keys.V)] = Victory;
+            commands[KeyBoardInput.KeyDown(Keys.O)] = EndGame;*/
             return commands;
         }
         public override void EndGame()
@@ -105,11 +105,17 @@ namespace CrazyArcade.Demo1
         }
         public override void TogglePause()
         {
-            gameRef.Scene = new PauseScene(gameRef, this);
+            if (EscapePressed == true)
+            {
+                gameRef.Scene = new PauseScene(gameRef, this);
+                EscapePressed = false;
+            }
+            else EscapePressed = true;
         }
         public override void Victory()
         {
             gameRef.Scene = new VictoryScene(gameRef);
         }
+
     }
 }

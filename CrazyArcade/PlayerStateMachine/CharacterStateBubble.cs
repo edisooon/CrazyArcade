@@ -1,5 +1,7 @@
 ﻿using CrazyArcade.CAFramework;
+using CrazyArcade.CAFrameWork.SoundEffectSystem;
 using CrazyArcade.Content;
+using CrazyArcade.Enemies;
 using CrazyArcade.Items;
 using CrazyArcade.Levels;
 using CrazyArcade.UI;
@@ -49,7 +51,7 @@ namespace CrazyArcade.PlayerStateMachine
             }
         }
 
-        public void ProcessRide(RideType type)
+        public void ProcessRide(RideType type, Vector2 pos)
         {
             //player cannot get a ride when in bubble state
         }

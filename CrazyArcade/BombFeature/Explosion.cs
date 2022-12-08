@@ -14,6 +14,7 @@ namespace CrazyArcade.BombFeature
 
         private Vector2 gamePos;
         private Vector2 pos;
+        IBombCollectable owner;
         public Vector2 ScreenCoord
         {
             get => pos;
@@ -38,13 +39,14 @@ namespace CrazyArcade.BombFeature
             }
         }
 
-        public Explosion(Point center, int blastLength, ISceneDelegate sceneDelegate, IGridTransform trans)
+        public Explosion(Point center, int blastLength, ISceneDelegate sceneDelegate, IGridTransform trans, IBombCollectable owner)
 		{
             this.trans = trans;
             this.GameCoord = new Vector2(center.X, center.Y);
             this.SceneDelegate = sceneDelegate;
 			this.center = center;
             this.distance = blastLength;
+            this.owner = owner;
         }
 
 
@@ -72,7 +74,7 @@ namespace CrazyArcade.BombFeature
                 }
                 for (int j = 1; j <= distance[i]; j++)
                 {
-                    SceneDelegate.ToAddEntity(new WaterExplosionEdge(i, j == distance[i], (int)(X + (j * side.X * explosionTile)), (int)(Y + (j * side.Y * explosionTile))));
+                    SceneDelegate.ToAddEntity(new WaterExplosionEdge(i, j == distance[i], owner, (int)(X + (j * side.X * explosionTile)), (int)(Y + (j * side.Y * explosionTile))));
                 }
             }
         }

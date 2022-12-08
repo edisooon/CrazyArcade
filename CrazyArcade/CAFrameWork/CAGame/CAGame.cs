@@ -3,7 +3,7 @@ using CrazyArcade.Content;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-using CrazyArcade.Demo1;
+using CrazyArcade.Final;
 using CrazyArcade.Singletons;
 using System;
 using CrazyArcade.Levels;
@@ -32,8 +32,9 @@ public class CAGame : Game, IGameDelegate, ITransitionCompleteHandler
     public Song song;
     private static Point ScreenSizeVals = new(900, 600);
     //Random for test purposes and counter
+    //load
     Random rnd = new Random();
-    int newElements = 0;
+    int newElements = 0+0;
     //
     private ITransition transition = null;
     string[] levelFileNames;
@@ -55,9 +56,14 @@ public class CAGame : Game, IGameDelegate, ITransitionCompleteHandler
         get { return scene; }
         set { scene = value; }
     }
+    public void Restart()
+    {
+        NewGame();
+        StartGame();
+    }
     public void StartGame()
     {
-        scene = new DemoScene(this, "Level_0.json", StageOffset);
+        scene = new FinalScene(this, "Level_0.json", StageOffset);
         base.Initialize();
     }
     public void NewGame()
@@ -73,7 +79,7 @@ public class CAGame : Game, IGameDelegate, ITransitionCompleteHandler
     {
         gameGUI = new GUI();
         UI_Singleton.internalGUI = gameGUI;
-        //scene = new DemoScene(this, "Level_0.json", StageOffset);
+        //scene = new FinalScene(this, "Level_0.json", StageOffset);
         TextureSingleton.LoadAllTextures(Content);
         scene = new MainMenuScene(this);
         //TestLoad guiLoad = new TestLoad();
@@ -111,7 +117,7 @@ public class CAGame : Game, IGameDelegate, ITransitionCompleteHandler
     protected override void Update(GameTime gameTime)
     {
         time = gameTime;
-        if(scene is not DemoScene)
+        if(scene is not FinalScene)
         {
             scene.Update(gameTime);
             return;
@@ -135,6 +141,7 @@ public class CAGame : Game, IGameDelegate, ITransitionCompleteHandler
             {
                 
                 stageNum++;
+                stageNum = stageNum;
                 transitionNum = stageNum;
                 makeTransition(gameTime, transitionDisplacement);
 
@@ -156,7 +163,7 @@ public class CAGame : Game, IGameDelegate, ITransitionCompleteHandler
 
         new DefaultLoad().LoadGUI();
         UI_Singleton.ChangeComponentText("levelCounter", "text", "Level " + stageNum);
-        ISceneState newState = new DemoScene(this, levelFileNames[stageNum], StageOffset);
+        ISceneState newState = new FinalScene(this, levelFileNames[stageNum], StageOffset);
         newState.Load();
         //Load saved data
         newState.LoadData(saveData);

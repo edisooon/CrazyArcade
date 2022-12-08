@@ -1,6 +1,6 @@
 ﻿using CrazyArcade.CAFramework;
 using CrazyArcade.Content;
-using CrazyArcade.Demo1;
+using CrazyArcade.Final;
 using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;

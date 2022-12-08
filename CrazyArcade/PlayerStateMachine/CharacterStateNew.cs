@@ -31,7 +31,7 @@ namespace CrazyArcade.PlayerStateMachine
             //player cannot process/use item when in new state
         }
 
-        public void ProcessRide(RideType type)
+        public void ProcessRide(RideType type, Vector2 pos)
         {
             //player cannot get a ride when in new state
         }
