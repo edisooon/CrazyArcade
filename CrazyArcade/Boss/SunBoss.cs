@@ -56,7 +56,7 @@ namespace CrazyArcade.Boss
         private IGridTransform trans = new NullTransform();
         public IGridTransform Trans { get => trans; set => trans = value; }
 
-        private int health = 2;
+        private int health = 5;
         public bool IsDead => Health <= 0;
         public int Health => health;
 
