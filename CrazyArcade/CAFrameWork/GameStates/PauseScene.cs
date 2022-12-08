@@ -35,7 +35,7 @@ namespace CrazyArcade.CAFrameWork.GameStates
         private void InitButtons()
         {
             buttons[0] = new Button("Pause resume", "Resume", Button.GetBasePosition(6f/2), TogglePause);
-            buttons[1] = new Button("Pause restart", "Restart", Button.GetBasePosition(6f/3), gameRef.StartGame);
+            buttons[1] = new Button("Pause restart", "Restart", Button.GetBasePosition(6f/3), gameRef.Restart);
             buttons[2] = new Button("Pause quit", "Main Menu", Button.GetBasePosition(6f / 4), gameRef.NewGame);
         }
         public override void Load()

@@ -9,6 +9,7 @@ namespace CrazyArcade.CAFrameWork.CAGame
 		public static Point ScreenSize { get; }
 		public void NewGame();
 		public void StartGame();
+		public void Restart();
 		public ISceneState Scene { get; set; }
 		public void Quit();
         void StageTransitTo(int stageNum, int dir);
