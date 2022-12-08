@@ -82,7 +82,7 @@ namespace CrazyArcade.Items
                 int n = rand.Next(10);
                 // 30% pirate Turtle, 70% turtle
                 RideType type = n <= 2 ? RideType.PirateTurtle : RideType.Turtle;
-                collisionPartner.State.ProcessRide(type);
+                collisionPartner.State.ProcessRide(type, this.GameCoord);
                 this.DeleteSelf(); this.SceneDelegate.ToAddEntity(new CASoundEffect("SoundEffects/PowerUpSound"));
             }
         }
@@ -100,7 +100,7 @@ namespace CrazyArcade.Items
             if (collisionPartner.State.CouldGetItem)
             {
                 RideType type = RideType.Owl;
-                collisionPartner.State.ProcessRide(type);
+                collisionPartner.State.ProcessRide(type, this.GameCoord);
                 this.DeleteSelf(); this.SceneDelegate.ToAddEntity(new CASoundEffect("SoundEffects/PowerUpSound"));
             }
         }

@@ -1,5 +1,6 @@
 ﻿using CrazyArcade.CAFramework;
 using CrazyArcade.Content;
+using CrazyArcade.GameGridSystems;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
@@ -14,6 +15,8 @@ namespace CrazyArcade.PlayerStateMachine
         protected static Texture2D ridesTexture;
         protected int xOffset;
         protected int yOffset;
+        protected int initialX;
+        protected int initialY;
 
         public PlayerRide(Character character)
         {
@@ -21,10 +24,15 @@ namespace CrazyArcade.PlayerStateMachine
             this.character = character;
             DrawOrder = character.ActualDrawOrder - 2;
 
-            yOffset = 35;
+            yOffset = CAGameGridSystems.BlockLength;
             direction = character.direction;
+            UpdateOffset();
+            X = character.X + xOffset;
+            Y = character.Y - character.bboxOffset.Y + yOffset;
 
         }
+
+        public abstract void UpdateOffset();
 
         public void Delete_Self()
         {

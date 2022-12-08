@@ -51,7 +51,7 @@ namespace CrazyArcade.PlayerStateMachine
             }
         }
 
-        public void ProcessRide(RideType type)
+        public void ProcessRide(RideType type, Vector2 pos)
         {
             //player cannot get a ride when in bubble state
         }
