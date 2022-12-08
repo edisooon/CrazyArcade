@@ -163,7 +163,7 @@ namespace CrazyArcade.Levels
             foreach (Vector2 vector in itemLocations)
             {
 
-                Entity = new DefaultBlock(vector, LevelItem.BlueVendingPosition);
+                Entity = new VendingBlock(vector, LevelItem.BlueVendingPosition);
                 Entity.SpriteAnim.Scale = .9f;
                 EntityList.Add(Entity);
             }
@@ -172,7 +172,7 @@ namespace CrazyArcade.Levels
             foreach (Vector2 vector in itemLocations)
             {
 
-                Entity = new DefaultBlock(vector, LevelItem.RedVendingPosition);
+                Entity = new VendingBlock(vector, LevelItem.RedVendingPosition);
                 Entity.SpriteAnim.Scale = .9f;
                 EntityList.Add(Entity);
             }
@@ -181,7 +181,7 @@ namespace CrazyArcade.Levels
             foreach (Vector2 vector in itemLocations)
             {
 
-                Entity = new DefaultBlock(vector, LevelItem.OrangeVendingPosition);
+                Entity = new VendingBlock(vector, LevelItem.OrangeVendingPosition);
                 Entity.SpriteAnim.Scale = .9f;
                 EntityList.Add(Entity);
             }
