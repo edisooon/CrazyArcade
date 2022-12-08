@@ -61,7 +61,7 @@ namespace CrazyArcade.CAFrameWork.Transition
 
 		public override void Load()
 		{
-
+			DrawOrder = -10f;
 		}
 		public override void Update(GameTime time)
         {
