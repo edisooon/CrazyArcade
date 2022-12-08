@@ -19,7 +19,7 @@ namespace CrazyArcade.Pirates
         public int BlastLength => this.CurrentBlastLength;
 
 		Dictionary<int, Action> commands = new Dictionary<int, Action>();
-		public PirateCharacter() : base(true)
+		public PirateCharacter(Vector2 pos) : base(true)
 		{
 			this.lives = 1;
 			this.input = new PirateController();
@@ -35,6 +35,7 @@ namespace CrazyArcade.Pirates
 			{
 				commands[keySet[i]] = actions[i];
 			}
+			GameCoord = pos;
 		}
 
 		private bool isMoving()
