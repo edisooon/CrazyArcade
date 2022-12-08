@@ -46,7 +46,6 @@ What each item does
 
 Known Bugs:
 	-Bomb explosions will persist in between level transitions. 
-	-Entities will clip through the door sprite instead of being in front of or behind it
 	-The pirate sprite clips out of its entity, leaving harsh edges
 
 Tools Used:
