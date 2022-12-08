@@ -77,8 +77,8 @@
     ],
     "Kick": []
   },
-  "Player": [ 2, 0 ],
-    "Pirate": [ [ 12, 12 ] ],
+  "Player": [ 3, 0 ],
+    "Pirate": [ [ 9, 0 ] ],
   "Enemies": {
     "Bomb": [
     ],
