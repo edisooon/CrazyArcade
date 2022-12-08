@@ -1,5 +1,5 @@
 {
-	"Background": [ 0 , 0, 0 ],
+	"Background": [ 70 , 70, 70 ],
 	"Border": [ 13, 13 ],
 	"Blocks": {
 		"Door": [
