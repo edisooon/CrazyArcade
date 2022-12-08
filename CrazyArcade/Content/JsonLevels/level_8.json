@@ -1,6 +1,6 @@
 {
     "Background": [ 214, 176, 94 ],
-  "Border": [ 13, 13 ],
+    "Border": [ 13, 13 ],
     "Blocks": {
         "Door": [
             [ 11, 11 ],
@@ -73,40 +73,43 @@
 
         ]
     },
-  "Items": {
-    "CoinBag": [
-    ],
-    "Balloon": [
-    ],
-    "Sneaker": [
-    ],
-    "Turtle": [
-    ],
-    "Potion": [
-    ],
-    "Coin": [
-    ],
-    "Kick": []
-  },
-  "Player": [ 3, 0 ],
+    "Items": {
+        "CoinBag": [
+        ],
+        "Balloon": [
+        ],
+        "Sneaker": [
+        ],
+        "Turtle": [
+        ],
+        "Potion": [
+        ],
+        "Coin": [
+        ],
+        "Kick": []
+    },
+    "Player": [ 3, 0 ],
     "Pirate": [ [ 9, 0 ] ],
-  "Enemies": {
-    "Bomb": [
-    ],
-    "Squid": [
-    ],
-    "Bat": [
-    ],
-    "Robot": [
-    ],
-    "Mimic": [
+    "Enemies": {
+        "Bomb": [
+        ],
+        "Squid": [
+        ],
+        "Bat": [
+        ],
+        "Robot": [
+        ],
+        "Mimic": [
 
-    ]
-  },
+        ]
+    },
     "Boss": {
         "Sun": [
         ],
         "Octo": [
         ]
+    },
+    "Flags": {
+        "PuzzleFlag": [ 0, 3, 3 ]
     }
 }

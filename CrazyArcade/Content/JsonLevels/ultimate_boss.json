@@ -54,41 +54,44 @@
 
         ]
     },
-  "Items": {
-    "CoinBag": [
-    ],
-    "Balloon": [
-    ],
-    "Sneaker": [
-    ],
-    "Turtle": [
-    ],
-    "Potion": [
-    ],
-    "Coin": [
-    ],
-    "Kick": [
-    ]
-  },
-  "Player": [ 0, 0 ],
-  "Pirate": [],
-  "Enemies": {
-    "Bomb": [
-    ],
-    "Squid": [
-    ],
-    "Bat": [
-    ],
-    "Robot": [
-    ],
-    "Mimic": [
-    ]
-  },
+    "Items": {
+        "CoinBag": [
+        ],
+        "Balloon": [
+        ],
+        "Sneaker": [
+        ],
+        "Turtle": [
+        ],
+        "Potion": [
+        ],
+        "Coin": [
+        ],
+        "Kick": [
+        ]
+    },
+    "Player": [ 0, 0 ],
+    "Pirate": [],
+    "Enemies": {
+        "Bomb": [
+        ],
+        "Squid": [
+        ],
+        "Bat": [
+        ],
+        "Robot": [
+        ],
+        "Mimic": [
+        ]
+    },
     "Boss": {
         "Sun": [
             [ 6, 5 ]
         ],
         "Octo": [
         ]
+    },
+    "Flags": {
+        "PuzzleFlag": [ 0, 3, 3 ]
     }
 }

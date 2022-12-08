@@ -64,16 +64,12 @@
 			[ 3, 9 ]
 		],
 		"BlueVending": [
-			[ 0, 1 ]
 		],
 		"RedVending": [
-			[ 0, 2 ]
 		],
 		"OrangeVending": [
-			[ 0, 3 ]
 		],
 		"Cyan": [
-			[7, 7]
 		]
 	},
 	"Items": {
@@ -103,7 +99,6 @@
 	},
 	"Player": [ 0, 0 ],
 	"Pirate": [
-		[6, 6]
 	],
 	"Enemies": {
 		"Bomb": [
