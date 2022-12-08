@@ -56,6 +56,11 @@ public class CAGame : Game, IGameDelegate, ITransitionCompleteHandler
         get { return scene; }
         set { scene = value; }
     }
+    public void Restart()
+    {
+        NewGame();
+        StartGame();
+    }
     public void StartGame()
     {
         scene = new FinalScene(this, "Level_0.json", StageOffset);
