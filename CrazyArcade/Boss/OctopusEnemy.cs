@@ -41,7 +41,7 @@ namespace CrazyArcade.Boss
         public float xDifference;
         public float yDifference;
         public Dir direction;
-        protected Rectangle internalRectangle = new Rectangle(0, 0, 110, 145);
+        protected Rectangle internalRectangle = new Rectangle(12, 18, 75, 105);
         protected Vector2[] SpeedVector;
         public float speed = 0.15f;
         private int squareSize = 4;
@@ -212,7 +212,7 @@ namespace CrazyArcade.Boss
             {
                 case Dir.Right:
                     justAttacked = false;
-                    useSquare = !useSquare;
+                    //useSquare = !useSquare;
                     return xDifference >= squareSize + xoffset;
                 case Dir.Up:
                     return yDifference <= yoffset - 1;
@@ -231,8 +231,8 @@ namespace CrazyArcade.Boss
 
             if (ChangeDir(dir))
             {
-                if (!useSquare) this.shoot();
-                direction = (Dir)((((int)dir) + 1) % 4);
+                this.shoot();
+                direction = (Dir)((((int)dir) + 1) % 4); 
                 UpdateAnimation(dir);
             }
             if (useSquare)
@@ -260,26 +260,25 @@ namespace CrazyArcade.Boss
         {
             //Launch balloons
             Vector2 destination;
-            int distance = 2;
+            int distance = 3;
             if (this.direction == Dir.Right)
             {
-                destination = new Vector2(xDifference + distance, yDifference);
+                destination = new Vector2(12-distance+1, 12-distance+1);
             }
             else if (this.direction == Dir.Left)
             {
-                destination = new Vector2(xDifference - distance, yDifference);
+                destination = new Vector2(distance+1, distance+1);
             }
             else if (this.direction == Dir.Up)
             {
-                destination = new Vector2(xDifference, yDifference - distance);
+                destination = new Vector2(12-distance+1, distance+1);
             }
             else
             {
-                destination = new Vector2(xDifference, yDifference + distance);
+                destination = new Vector2(distance + 1, 12-distance+1);
             }
-            WaterBomb projectile = new WaterBomb((destination), 1, this);
+            WaterBomb projectile = new WaterBomb(destination, distance-1, this);
             this.SceneDelegate.ToAddEntity(projectile);
-            Debug.WriteLine("Octo Shoot");
         }
 
         public void squareBlast()
