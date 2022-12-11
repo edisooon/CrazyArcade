@@ -51,7 +51,6 @@ namespace CrazyArcade.CAFrameWork.InputSystem
 			};
 		}
 		private HashSet<int> keys = new HashSet<int>();
-		public HashSet<int> GetInputs() => keys;
         class Node
         {
             private Point pos;
@@ -235,6 +234,11 @@ namespace CrazyArcade.CAFrameWork.InputSystem
 			}
 
 		}
+
+		/* keys = updateKey() in the update method of this class
+		 * Hashcode 1000 - 2000 is pirate keys, e.g. first pirate use 1000-1004
+		 * the second uses 1005-1009 etc. prefix holds the beginning key's hash value */
+		public HashSet<int> GetInputs() => keys;
 		private HashSet<int> updateKey()
 		{
 			if (manager == null || pirate == null) return new HashSet<int>();
@@ -256,16 +260,9 @@ namespace CrazyArcade.CAFrameWork.InputSystem
 			{
 				res.Add(prefix + (int)node.Direction);
 			}
-			//else if ((node = findBreakable()) != null)
-			//{
-			//	res.Add(prefix + (int)node.Direction);
-			//}
-			//else if ((node = findSafe()) != null)
-			//{
-			//	res.Add(prefix + (int)node.Direction);
-			//}
 			return res;
 		}
+
         public override void Update(GameTime time)
         {
             base.Update(time);
