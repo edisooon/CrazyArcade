@@ -226,7 +226,12 @@ namespace CrazyArcade.Final
 
         protected bool putBomb()
         {
-            if (this.BombsOut >= this.BombCapacity) return false;
+            if (this.BombsOut >= this.BombCapacity)
+			{
+                Console.WriteLine("bombs out: " + bombOut + " capactity: " + BombCapacity);
+
+				return false;
+            }
             this.SceneDelegate.ToAddEntity(new WaterBomb(this.GameCoord, this.CurrentBlastLength, this));
             return true;
         }

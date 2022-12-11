@@ -36,10 +36,12 @@ namespace CrazyArcade.PlayerStateMachine.PlayerItemInteractions
         {
             if (ItemBox.ContainsKey(item.Name))
             {
-                if (item.CurrentCount < item.MaxCount)
+                ItemModifier currentItem = ItemBox[item.Name];
+
+				if (currentItem.CurrentCount < currentItem.MaxCount)
                 {
-                    item.CurrentCount++;
-                    UpdateGuiItemCount(item);
+					currentItem.CurrentCount++;
+                    UpdateGuiItemCount(currentItem);
                 }
             }
             else

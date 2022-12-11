@@ -14,6 +14,7 @@ namespace CrazyArcade.CAFrameWork.InputSystem
 	}
 	public class MouseInput: CAEntity, IInput
 	{
+
 		/* Indexed from 10000 - 19999 for mouse position X
 		 * i.e. 10000 means position at 0, 10999 means position at 999
 		 * Indexed from 20000 - 29999 for mouse position Y
@@ -22,9 +23,7 @@ namespace CrazyArcade.CAFrameWork.InputSystem
 		 * 30001 means left Click
 		 * 30002 means right Down
 		 * 30003 means right Click
-		 * 
 		 */
-		
 		private const int mouseXStartIndex = 10000;
 		private const int mouseYStartIndex = 20000;
 		public MouseInput()
