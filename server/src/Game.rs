@@ -2,10 +2,10 @@ use std::vec;
 use std::rc::Rc;
 use std::cell::RefCell;
 
-pub mod Entity;
-pub mod GameSystem;
-use crate::Game::Entity::IEntity;
-use crate::Game::GameSystem::IGameSystem;
+pub mod entity;
+pub mod game_system;
+use crate::game::entity::IEntity;
+use crate::game::game_system::IGameSystem;
 
 pub trait IGame {    
     fn setup(&mut self, entities: Vec<Rc<RefCell<dyn IEntity>>>);
@@ -13,19 +13,36 @@ pub trait IGame {
 }
 
 pub struct CAGame {
-    pub mSystems: Vec<Rc<RefCell<dyn IGameSystem>>>,
+    pub m_systems: Vec<Rc<RefCell<dyn IGameSystem>>>,
+    time_count: u64,
+}
+
+impl CAGame {
+    pub fn new(systems: Vec<Rc<RefCell<dyn IGameSystem>>>) -> CAGame {
+        return CAGame {
+            m_systems: systems,
+            time_count: 0,
+        }
+    }
 }
 
 impl IGame for CAGame {
 
     fn setup(&mut self,
         entities: Vec<Rc<RefCell<dyn IEntity>>>) {
-        println!("setup")
-        
+        println!("setup");
+        for entity in entities {
+            for sys in &self.m_systems {
+                sys.borrow_mut().add(entity.clone());
+            }
+        }
     }
     fn update(&mut self) {
-        println!("update")
-        
+        self.time_count += 1;
+        println!("update {}", self.time_count);
+        for sys in &self.m_systems {
+            sys.borrow_mut().update();
+        }
     }
 }
 
