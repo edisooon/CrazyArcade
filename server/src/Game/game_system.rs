@@ -7,6 +7,6 @@ use crate::game::entity::IEntity;
 
 pub trait IGameSystem {
     fn setup(&self);
-    fn update(&self);
+    fn update(&mut self);
     fn add(&self, entity: Rc<RefCell<dyn IEntity>>);
 }

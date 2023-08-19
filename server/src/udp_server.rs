@@ -1,13 +1,11 @@
 use std::sync::mpsc::{Receiver, channel};
-use std::sync::{mpsc, Mutex};
 use std::thread;
-use std::{sync::mpsc::Sender, rc::Rc, io};
+use std::{sync::mpsc::Sender, io};
 use std::net::{UdpSocket, SocketAddr};
-use crate::game::game_system::output_system::serializable::Serializable;
 use std::collections::HashMap;
 
 
-struct CAUdpServer {
+pub struct CAUdpServer {
     m_sock: UdpSocket,
 }
 
@@ -27,24 +25,24 @@ impl CAUdpServer {
             //preparation state
             let mut count: u8 = 0;
             let mut players: HashMap<SocketAddr, u8> = HashMap::new();
-            while (count < 2) {
-                let mut buf: [u8; 1] = [0;1];
-                let (number_of_bytes, src_addr) = sock.recv_from(&mut buf)
+            while count < 2 {
+                let mut buf: [u8; 50] = [0;50];
+                let (_, src_addr) = sock.recv_from(&mut buf)
     .expect("Didn't receive data");
-                
+                println!("Received {}", buf[0]);
                 if let Some(id) = players.get(&src_addr) {
-                    socket_out.send(vec![*id]);
+                    socket_out.send(vec![*id]).unwrap();
                 } else {
                     players.insert(src_addr, count);
-                    socket_out.send(vec![count]);
-                    prep_sender.send(src_addr);
+                    socket_out.send(vec![count]).unwrap();
+                    prep_sender.send(src_addr).unwrap();
                     count += 1;
                 }
             }
             //game starts here
             loop {
                 let mut buf: [u8; 1] = [0;1];
-                let (number_of_bytes, src_addr) = sock.recv_from(&mut buf)
+                let (_, _) = sock.recv_from(&mut buf)
     .expect("Didn't receive data");
                 out.send(buf[0]).unwrap();
             }
@@ -70,11 +68,11 @@ impl CAUdpServer {
                         playerlist.push(addr);
                     }
                     let idx: usize = data[0].into();
-                    sock.send_to(&data[..], playerlist[idx]);
-                } else {
-                    // game state
-
+                    if let Err(err) = sock.send_to(&data[..], playerlist[idx]) {
+                        println!("Sock send error: {}", err);
+                    }
                 }
+                // Game state
             }
         });
         return sender;

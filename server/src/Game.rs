@@ -39,7 +39,6 @@ impl IGame for CAGame {
     }
     fn update(&mut self) {
         self.time_count += 1;
-        println!("update {}", self.time_count);
         for sys in &self.m_systems {
             sys.borrow_mut().update();
         }
